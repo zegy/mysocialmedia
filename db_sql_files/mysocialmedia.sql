@@ -6,8 +6,7 @@
 #
 # Structure for table "tbusuario"
 #
--- DATABASE NAME = mysocialmedia (create it before run thta script) 
---- Developed by / desenvolvido por Rodrigo Guimarães (github: rgstech)
+
 
 DROP TABLE IF EXISTS `tbusuario`;
 CREATE TABLE `tbusuario` (

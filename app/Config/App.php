@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-      public $baseURL = 'http://192.168.0.8:80/ci4-apps/mysocialmedia2/';
+      public $baseURL = 'http://localhost/mysocialmedia';
 
     /**
      * --------------------------------------------------------------------------

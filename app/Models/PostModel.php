@@ -9,12 +9,12 @@ class PostModel extends Model
 {
     
     protected $table         = 't_post';
-    protected $primaryKey    = 'pst_pk_id';
+    protected $primaryKey    = 'post_pk';
     protected $returnType    = 'array';
 
-    protected $allowedFields = [ 'pst_fk_usu',
-                                 'pst_text',
-                                 'pst_dt_pst' ];
+    protected $allowedFields = [ 'post_fk_user',
+                                 'post_text',
+                                 'post_date_time' ];
 
 
    
@@ -37,8 +37,8 @@ class PostModel extends Model
 
         $builder->select('*');
       
-        $builder->where("pst_pk_id", $id);
-        $res = $builder->get()->getResult()[0]->pst_text; 
+        $builder->where("post_pk", $id);
+        $res = $builder->get()->getResult()[0]->post_text; 
 
        return $res;
 
@@ -48,12 +48,12 @@ class PostModel extends Model
     public function checkOwnership($pid, $uid) // 'checar' dono do post / verify post owner
     {
     
-            $vpost = $this->where('pst_pk_id', $pid)
+            $vpost = $this->where('post_pk', $pid)
                           ->first();
                          
         if($vpost) {
                  
-          return ($vpost['pst_fk_usu'] == $uid);
+          return ($vpost['post_fk_user'] == $uid);
           
         } else {
             
@@ -70,8 +70,8 @@ class PostModel extends Model
         $builder = $this->builder('t_like l');
 
         $queryPostLikes =  $builder->select('count(*) as qtdlike')
-                                   ->join('t_post p ', 'l.lik_fk_post = p.pst_pk_id')
-                                   ->where("p.pst_pk_id", $pid)
+                                   ->join('t_post p ', 'l.like_fk_post = p.post_pk')
+                                   ->where("p.post_pk", $pid)
                                    ->get(); 
 
         return $queryPostLikes->getResult()[0]->qtdlike; 
@@ -86,9 +86,9 @@ class PostModel extends Model
         $builder = $this->builder('t_like l');
            
         $queryPostUserLikes =  $builder->select('count(*) as qtdlike')
-                                       ->join('t_post p '   , 'l.lik_fk_post = p.pst_pk_id')
-                                       ->join('t_user u ', 'l.lik_fk_usu = u.usu_pk_id')
-                                       ->where("u.usu_pk_id = $uid and p.pst_pk_id = $pid")
+                                       ->join('t_post p '   , 'l.like_fk_post = p.post_pk')
+                                       ->join('t_user u ', 'l.like_fk_user = u.user_pk')
+                                       ->where("u.user_pk = $uid and p.post_pk = $pid")
                                        ->get(); 
       
         
@@ -114,8 +114,8 @@ class PostModel extends Model
 
             $builder = $this->builder('t_like');
             
-            $data = [ 'lik_fk_post' => $pid,
-                      'lik_fk_usu'  => $uid ];
+            $data = [ 'like_fk_post' => $pid,
+                      'like_fk_user'  => $uid ];
             
             $builder->insert($data); //erro aqui
     

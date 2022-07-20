@@ -40,20 +40,20 @@ class Login extends BaseController
         if (count($dadosUsuario) > 0) 
         {
            
-            $hashUsuario = $dadosUsuario['usu_senha'];
+            $hashUsuario = $dadosUsuario['user_password'];
            
             if(password_verify($password, $hashUsuario)) 
             {
                 
                 session()->set('isLoggedIn', true); 
-                session()->set('id',     $dadosUsuario['usu_pk_id']);
-                session()->set('login',  $dadosUsuario['usu_login']);
-                session()->set('nome',   $dadosUsuario['usu_nome']);
-                session()->set('email',  $dadosUsuario['usu_email']);
-                session()->set('tel',    $dadosUsuario['usu_tel']);
-                session()->set('img',    $dadosUsuario['usu_img']);
-                session()->set('dt_cad', $dadosUsuario['usu_dt_cad']);
-                session()->set('sexo',   $dadosUsuario['usu_sexo']);
+                session()->set('id',     $dadosUsuario['user_pk']);
+                session()->set('login',  $dadosUsuario['user_name']);
+                session()->set('nome',   $dadosUsuario['user_full_name']);
+                session()->set('email',  $dadosUsuario['user_email']);
+                session()->set('tel',    $dadosUsuario['user_tel']);
+                session()->set('img',    $dadosUsuario['user_profile_picture']);
+                session()->set('dt_cad', $dadosUsuario['user_regis_date_time']);
+                session()->set('sexo',   $dadosUsuario['user_sex']);
              
                 return redirect()->to(base_url("/"));
                

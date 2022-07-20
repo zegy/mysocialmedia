@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class CommentModel extends Model
 {
     protected $table      = 't_comment';
-    protected $primaryKey = 'com_pk_id';
+    protected $primaryKey = 'comment_pk';
    // protected $returnType   = 'object';
 
     protected $allowedFields = [ //segurança: define quais campos podem ser alterados  
-        'com_fk_usu',
-        'com_fk_pst',
-        'com_text',
-	      'com_dt_com'    
+        'comment_fk_user',
+        'comment_fk_post',
+        'comment_text',
+	      'comment_date_time'    
     ];
 
 
@@ -22,12 +22,12 @@ class CommentModel extends Model
     { 
             
    
-            $vcomment = $this->where('com_pk_id', $cid)
+            $vcomment = $this->where('comment_pk', $cid)
                              ->first();
             
           if($vcomment) {
                    
-            return ($vcomment['com_fk_usu'] == $uid);
+            return ($vcomment['comment_fk_user'] == $uid);
             
           } else {
               
@@ -45,8 +45,8 @@ class CommentModel extends Model
                 $builder = $this->builder('t_like l');
 
                 $queryComLikes =  $builder->select('count(*) as qtdlike')
-                                          ->join('t_comment c', 'l.lik_fk_com = c.com_pk_id')
-                                          ->where("c.com_pk_id = $cid")
+                                          ->join('t_comment c', 'l.like_fk_comment = c.comment_pk')
+                                          ->where("c.comment_pk = $cid")
                                           ->get(); 
 
                 return $queryComLikes->getResult()[0]->qtdlike; 
@@ -64,9 +64,9 @@ class CommentModel extends Model
           $builder = $this->builder('t_like l');
                 
           $queryComUserLikes =  $builder->select('count(*) as qtdlike')
-                                        ->join('t_comment c', 'l.lik_fk_com = c.com_pk_id')
-                                        ->join('t_user u ', 'l.lik_fk_usu = u.usu_pk_id')
-                                        ->where("u.usu_pk_id = $uid and c.com_pk_id = $cid")
+                                        ->join('t_comment c', 'l.like_fk_comment = c.comment_pk')
+                                        ->join('t_user u ', 'l.like_fk_user = u.user_pk')
+                                        ->where("u.user_pk = $uid and c.comment_pk = $cid")
                                         ->get(); 
                   
          $qtdlikeUserCom = $queryComUserLikes->getResult()[0]->qtdlike;
@@ -83,8 +83,8 @@ class CommentModel extends Model
                           //inserir registro condicionalmente
                         
                             $builder = $this->builder('t_like');
-                            $data = [ 'lik_fk_com' => $cid,
-                                      'lik_fk_usu' => $uid ];
+                            $data = [ 'like_fk_comment' => $cid,
+                                      'like_fk_user' => $uid ];
 
                             $builder->insert($data);  
                         
@@ -104,21 +104,21 @@ class CommentModel extends Model
 
           $builder = $this->db->table('t_comment c');
             
-          $builder->select('c.com_pk_id  as cid,   
-                            c.com_text   as texto,
-                            c.com_dt_com as data,
-                            u.usu_pk_id  as uid,
-                            u.usu_nome   as nome,
-                            u.usu_img    as image,
-                            p.pst_pk_id  as pid,
+          $builder->select('c.comment_pk  as cid,   
+                            c.comment_text   as texto,
+                            c.comment_date_time as data,
+                            u.user_pk  as uid,
+                            u.user_full_name   as nome,
+                            u.user_profile_picture    as image,
+                            p.post_pk  as pid,
                            ( select count(*) from t_like l2
-                            where l2.lik_fk_com = c.com_pk_id ) as qtdlike');
+                            where l2.like_fk_comment = c.comment_pk ) as qtdlike');
 
-          $builder->join('t_post p', 'p.pst_pk_id = c.com_fk_pst');
+          $builder->join('t_post p', 'p.post_pk = c.comment_fk_post');
           
-          $builder->join('t_user u', 'c.com_fk_usu = u.usu_pk_id');
+          $builder->join('t_user u', 'c.comment_fk_user = u.user_pk');
           
-          $builder->like("c.com_text", $keyword);
+          $builder->like("c.comment_text", $keyword);
           
           $res = $builder->get()
                          ->getResult();

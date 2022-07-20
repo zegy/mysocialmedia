@@ -125,15 +125,15 @@ class Account extends BaseController
 
 			
 			$dataToSave = [
-				'usu_login'  => (string)$data['username'],
-				'usu_senha'  => password_hash((string)$data['password'], PASSWORD_DEFAULT),
-				'usu_nome'   => $data['nome'],
-				'usu_email'  => $data['email'],
-				'usu_tel'    => ($data['phone'] ? $data['phone'] : null),
-				'usu_img'    => (string)$filePath,
-				'usu_dt_cad' => ((array)$myTime)['date'],
-				'usu_sexo'   => $gender,
-				'usu_bio'    => $data['bio']
+				'user_name'  => (string)$data['username'],
+				'user_password'  => password_hash((string)$data['password'], PASSWORD_DEFAULT),
+				'user_full_name'   => $data['nome'],
+				'user_email'  => $data['email'],
+				'user_tel'    => ($data['phone'] ? $data['phone'] : null),
+				'user_profile_picture'    => (string)$filePath,
+				'user_regis_date_time' => ((array)$myTime)['date'],
+				'user_sex'   => $gender,
+				'user_bio'    => $data['bio']
 			];
 
 

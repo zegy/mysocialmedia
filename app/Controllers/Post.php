@@ -68,7 +68,7 @@ class Post extends BaseController
     public function save() 
     {
     
-       // regra so pode editar se o post pertencer ao usuario usar session->get('id') com pst_fk_usu
+       // regra so pode editar se o post pertencer ao usuario usar session->get('id') com post_fk_user
        // se for atualização, pegar o id do post e nao salvar a data(manter data de criação antiga)
          $data   = $this->request->getPost();
          
@@ -89,14 +89,14 @@ class Post extends BaseController
     
         if (isset($data["post_id"]) && isset($data["text"])) { //update post
             //a data do post nao se altera para edição/atualização
-            $dataToSave = [ "pst_pk_id"  => $data["post_id"],
-                            "pst_text"   => $data["text"]  ]; 
+            $dataToSave = [ "post_pk"  => $data["post_id"],
+                            "post_text"   => $data["text"]  ]; 
             
         } else if ( isset( $data["user_id"]) &&  $data["text"] ){  //new post
             
-            $dataToSave = [ "pst_fk_usu" => $data["user_id"], 
-                            "pst_text"   => $data["text"],
-                            "pst_dt_pst" => ((array)$myTime)['date'] ]; 
+            $dataToSave = [ "post_fk_user" => $data["user_id"], 
+                            "post_text"   => $data["text"],
+                            "post_date_time" => ((array)$myTime)['date'] ]; 
         } else {
 
               return redirect()->to('/');
@@ -156,10 +156,10 @@ class Post extends BaseController
                
            }
           
-            $post = $this->postModel->where('pst_pk_id', (int)$pid)
+            $post = $this->postModel->where('post_pk', (int)$pid)
                                     ->first();
              
-            if(session()->get('id') == $post['pst_fk_usu']) {
+            if(session()->get('id') == $post['post_fk_user']) {
                  
                  echo view('/common/edit', [ 'post' => $post ] );
                  

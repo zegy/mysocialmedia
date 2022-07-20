@@ -35,14 +35,14 @@ class Comment extends BaseController
            }
             $builder = $this->db->table('t_post p');
             
-            $builder->select('p.pst_pk_id as pid, p.pst_text as texto, 
-                              p.pst_dt_pst as data, u.usu_pk_id  as uid, 
-                              u.usu_nome   as nome, 
-                              u.usu_img    as image');
+            $builder->select('p.post_pk as pid, p.post_text as texto, 
+                              p.post_date_time as data, u.user_pk  as uid, 
+                              u.user_full_name   as nome, 
+                              u.user_profile_picture    as image');
             
-            $builder->join('t_user u ', 'p.pst_fk_usu = u.usu_pk_id');
+            $builder->join('t_user u ', 'p.post_fk_user = u.user_pk');
             
-            $builder->where("p.pst_pk_id = $pid");
+            $builder->where("p.post_pk = $pid");
             
             $queryPost = $builder->get(); 
 
@@ -50,20 +50,20 @@ class Comment extends BaseController
      
             $builder = $this->db->table('t_comment c');
             
-            $builder->select('c.com_pk_id  as cid,   
-                              c.com_text   as texto,
-                              c.com_dt_com as data,
-                              u.usu_pk_id  as uid,
-                              u.usu_nome   as nome,
-                              u.usu_img    as image, 
+            $builder->select('c.comment_pk  as cid,   
+                              c.comment_text   as texto,
+                              c.comment_date_time as data,
+                              u.user_pk  as uid,
+                              u.user_full_name   as nome,
+                              u.user_profile_picture    as image, 
                             ( select count(*) from t_like l2
-                              where l2.lik_fk_com = c.com_pk_id ) as qtdlike');
+                              where l2.like_fk_comment = c.comment_pk ) as qtdlike');
 
-            $builder->join('t_post p', 'p.pst_pk_id = c.com_fk_pst');
+            $builder->join('t_post p', 'p.post_pk = c.comment_fk_post');
             
-            $builder->join('t_user u', 'c.com_fk_usu = u.usu_pk_id');
+            $builder->join('t_user u', 'c.comment_fk_user = u.user_pk');
             
-            $builder->where("p.pst_pk_id = $pid");
+            $builder->where("p.post_pk = $pid");
             
             $queryComments = $builder->get();
           //*********************************************************************************************************
@@ -81,7 +81,7 @@ class Comment extends BaseController
 
     public function save() //save or edit comment / salva ou edita um comentário
     {
-        //regra so pode editar se o comment pertencer ao usuario, usar session->get('id') com com_fk_usu
+        //regra so pode editar se o comment pertencer ao usuario, usar session->get('id') com comment_fk_user
         
          $data   = $this->request->getPost();
          
@@ -96,15 +96,15 @@ class Comment extends BaseController
      
         if (isset($data["com_id"]) && isset($data["text"])) { // update comment
             //a data(tempo) do comentário nao se altera para edição/atualização
-              $dataToSave = [ "com_pk_id"  => $data["com_id"],
-                              "com_text"   => $data["text"] ]; 
+              $dataToSave = [ "comment_pk"  => $data["com_id"],
+                              "comment_text"   => $data["text"] ]; 
             
         } else if ( isset($data["user_id"]) && isset($data["post_id"]) && isset($data["text"]) ) {  // new comment
             
-              $dataToSave = [ "com_fk_usu" => $data["user_id"],
-                              "com_fk_pst" => $data["post_id"],
-                              "com_text"   => $data["text"],
-                              "com_dt_com" =>  ((array)$myTime)['date'] ]; 
+              $dataToSave = [ "comment_fk_user" => $data["user_id"],
+                              "comment_fk_post" => $data["post_id"],
+                              "comment_text"   => $data["text"],
+                              "comment_date_time" =>  ((array)$myTime)['date'] ]; 
         } else {
             
              throw new \CodeIgniter\Exceptions\PageNotFoundException("Dados de formulario inconsistentes");
@@ -165,10 +165,10 @@ class Comment extends BaseController
                
              }
            
-             $comment = $this->commentModel->where('com_pk_id', (int)$cid)
+             $comment = $this->commentModel->where('comment_pk', (int)$cid)
                                            ->first();
              
-             if(session()->get('id') == $comment['com_fk_usu']) {
+             if(session()->get('id') == $comment['comment_fk_user']) {
                  
                  echo view('/common/edit', [ 'comment' => $comment ] );
                  

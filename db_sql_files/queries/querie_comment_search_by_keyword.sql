@@ -1,19 +1,19 @@
 use mysocialmedia;
 -- example of query used in main page's search bar
 --exemplo da querie usada na search bar da pagina home
-select  c.com_pk_id  as cid,   
-        c.com_text   as texto,
-        c.com_dt_com as data,
-        u.usu_pk_id  as uid,
-		u.usu_nome   as nome,
-        u.usu_img    as image,
-        p.pst_pk_id  as pid,
+select  c.comment_pk  as cid,   
+        c.comment_text   as texto,
+        c.comment_date_time as data,
+        u.user_pk  as uid,
+		u.user_full_name   as nome,
+        u.user_profile_picture    as image,
+        p.post_pk  as pid,
         ( select count(*) from t_like l2
-          where l2.lik_fk_com = c.com_pk_id ) as qtdlike        
+          where l2.like_fk_comment = c.comment_pk ) as qtdlike        
 from t_comment c 
-        join t_post p on p.pst_pk_id = c.com_fk_pst
-        join t_user u on c.com_fk_usu = u.usu_pk_id
-where c.com_text like  "%Oi!%"  
+        join t_post p on p.post_pk = c.comment_fk_post
+        join t_user u on c.comment_fk_user = u.user_pk
+where c.comment_text like  "%Oi!%"  
                                  
                             
                             

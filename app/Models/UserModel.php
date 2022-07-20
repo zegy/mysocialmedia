@@ -8,17 +8,17 @@ class UserModel extends Model
 {
 
     protected $table      = 't_user';
-    protected $primaryKey = 'usu_pk_id';
+    protected $primaryKey = 'user_pk';
 
-    protected $allowedFields = [ 'usu_login',
-                                 'usu_senha',
-                                 'usu_nome',
-                                 'usu_email',
-                                 'usu_tel',
-                                 'usu_img',
-                                 'usu_dt_cad',
-                                 'usu_sexo',
-                                 'usu_bio' ];
+    protected $allowedFields = [ 'user_name',
+                                 'user_password',
+                                 'user_full_name',
+                                 'user_email',
+                                 'user_tel',
+                                 'user_profile_picture',
+                                 'user_regis_date_time',
+                                 'user_sex',
+                                 'user_bio' ];
 
                                  
     protected $db;                       
@@ -27,7 +27,7 @@ class UserModel extends Model
     public function getByEmail(string $email): array
     {
 
-        $rq = $this->where('usu_email', $email)->first();
+        $rq = $this->where('user_email', $email)->first();
 
         return !is_null($rq) ? $rq : [];
     }
@@ -36,7 +36,7 @@ class UserModel extends Model
     public function getById(int $uid): array
     {
 
-        $rq = $this->where('usu_pk_id', $uid)->first();
+        $rq = $this->where('user_pk', $uid)->first();
 
         return !is_null($rq) ? $rq : [];
     }
@@ -45,7 +45,7 @@ class UserModel extends Model
     public function getByNome(string $nome): array
     {
 
-        $rq = $this->where('usu_email', $nome)->findAll();  //muda
+        $rq = $this->where('user_email', $nome)->findAll();  //muda
 
         return !is_null($rq) ? $rq : [];
     }
@@ -58,9 +58,9 @@ class UserModel extends Model
 
         $builder = $this->builder('t_post p');
 
-        $res =  $builder->select('p.*, u.usu_nome')
-                        ->join('t_user u', 'u.usu_pk_id = p.pst_fk_usu') // a tabela com a qual vai cruzar vem como argumento do join
-                        ->where("p.pst_fk_usu", $uid)
+        $res =  $builder->select('p.*, u.user_full_name')
+                        ->join('t_user u', 'u.user_pk = p.post_fk_user') // a tabela com a qual vai cruzar vem como argumento do join
+                        ->where("p.post_fk_user", $uid)
                         ->get()
                         ->getResult();
 
@@ -75,10 +75,10 @@ class UserModel extends Model
 
         $builder = $this->builder('t_user');
 
-        $res     =  $builder->select('usu_pk_id as uid,usu_nome as nome, usu_email as email, 
-                                      usu_tel as tel, usu_img as img, 
-                                      usu_dt_cad as cad, usu_sexo as sexo, usu_bio as bio  ')
-                            ->like('usu_nome', $keyword)
+        $res     =  $builder->select('user_pk as uid,user_full_name as nome, user_email as email, 
+                                      user_tel as tel, user_profile_picture as img, 
+                                      user_regis_date_time as cad, user_sex as sexo, user_bio as bio  ')
+                            ->like('user_full_name', $keyword)
                             ->get()
                             ->getResult();
 

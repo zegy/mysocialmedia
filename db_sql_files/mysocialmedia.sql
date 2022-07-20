@@ -10,17 +10,17 @@
 
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
-  `usu_pk_id` int(11) NOT NULL AUTO_INCREMENT,
-  `usu_login` varchar(25) NOT NULL,
-  `usu_senha` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `usu_nome` varchar(150) NOT NULL,
-  `usu_email` varchar(45) DEFAULT NULL,
-  `usu_tel` varchar(25) DEFAULT NULL,
-  `usu_img` varchar(45) DEFAULT NULL,
-  `usu_dt_cad` datetime DEFAULT NULL,
-  `usu_sexo` char(1) DEFAULT NULL,
-  `usu_bio` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`usu_pk_id`)
+  `user_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(25) NOT NULL,
+  `user_password` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `user_full_name` varchar(150) NOT NULL,
+  `user_email` varchar(45) DEFAULT NULL,
+  `user_tel` varchar(25) DEFAULT NULL,
+  `user_profile_picture` varchar(45) DEFAULT NULL,
+  `user_regis_date_time` datetime DEFAULT NULL,
+  `user_sex` char(1) DEFAULT NULL,
+  `user_bio` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`user_pk`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 #
@@ -35,13 +35,13 @@ INSERT INTO `t_user` VALUES (1,'rodrigo','$2y$10$/Hxttd42D5cIgfqk2liPb.u5xCE1KOq
 
 DROP TABLE IF EXISTS `t_post`;
 CREATE TABLE `t_post` (
-  `pst_pk_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pst_fk_usu` int(11) DEFAULT NULL,
-  `pst_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
-  `pst_dt_pst` datetime DEFAULT NULL,
-  PRIMARY KEY (`pst_pk_id`),
-  KEY `pst_fk_usu_idx` (`pst_fk_usu`),
-  CONSTRAINT `pst_fk_usu` FOREIGN KEY (`pst_fk_usu`) REFERENCES `t_user` (`usu_pk_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `post_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `post_fk_user` int(11) DEFAULT NULL,
+  `post_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
+  `post_date_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`post_pk`),
+  KEY `pst_fk_usu_idx` (`post_fk_user`),
+  CONSTRAINT `post_fk_user` FOREIGN KEY (`post_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 #
@@ -56,16 +56,16 @@ INSERT INTO `t_post` VALUES (5,3,'Bom dia queridossss =)) S2 S2','2022-03-02 14:
 
 DROP TABLE IF EXISTS `t_comment`;
 CREATE TABLE `t_comment` (
-  `com_pk_id` int(11) NOT NULL AUTO_INCREMENT,
-  `com_fk_usu` int(11) DEFAULT NULL,
-  `com_fk_pst` int(11) DEFAULT NULL,
-  `com_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
-  `com_dt_com` datetime DEFAULT NULL,
-  PRIMARY KEY (`com_pk_id`),
-  KEY `com_fk_usu_idx` (`com_fk_usu`),
-  KEY `com_fk_pst_idx` (`com_fk_pst`),
-  CONSTRAINT `com_fk_pst` FOREIGN KEY (`com_fk_pst`) REFERENCES `t_post` (`pst_pk_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `com_fk_usu` FOREIGN KEY (`com_fk_usu`) REFERENCES `t_user` (`usu_pk_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `comment_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `comment_fk_user` int(11) DEFAULT NULL,
+  `comment_fk_post` int(11) DEFAULT NULL,
+  `comment_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
+  `comment_date_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`comment_pk`),
+  KEY `com_fk_usu_idx` (`comment_fk_user`),
+  KEY `com_fk_pst_idx` (`comment_fk_post`),
+  CONSTRAINT `comment_fk_post` FOREIGN KEY (`comment_fk_post`) REFERENCES `t_post` (`post_pk`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_fk_user` FOREIGN KEY (`comment_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 #
@@ -80,17 +80,17 @@ INSERT INTO `t_comment` VALUES (38,1,11,'Otimo! =)','2022-03-02 13:13:39'),(39,1
 
 DROP TABLE IF EXISTS `t_like`;
 CREATE TABLE `t_like` (
-  `lik_pk_id` int(11) NOT NULL AUTO_INCREMENT,
-  `lik_fk_post` int(11) DEFAULT NULL,
-  `lik_fk_usu` int(11) DEFAULT NULL,
-  `lik_fk_com` int(11) DEFAULT NULL,
-  PRIMARY KEY (`lik_pk_id`),
-  KEY `lik_fk_post_idx` (`lik_fk_post`),
-  KEY `lik_fk_usu_idx` (`lik_fk_usu`),
-  KEY `lik_fk_com_idx` (`lik_fk_com`),
-  CONSTRAINT `lik_fk_com` FOREIGN KEY (`lik_fk_com`) REFERENCES `t_comment` (`com_pk_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `lik_fk_post` FOREIGN KEY (`lik_fk_post`) REFERENCES `t_post` (`pst_pk_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `lik_fk_usu` FOREIGN KEY (`lik_fk_usu`) REFERENCES `t_user` (`usu_pk_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `like_pk` int(11) NOT NULL AUTO_INCREMENT,
+  `like_fk_post` int(11) DEFAULT NULL,
+  `like_fk_user` int(11) DEFAULT NULL,
+  `like_fk_comment` int(11) DEFAULT NULL,
+  PRIMARY KEY (`like_pk`),
+  KEY `lik_fk_post_idx` (`like_fk_post`),
+  KEY `lik_fk_usu_idx` (`like_fk_user`),
+  KEY `lik_fk_com_idx` (`like_fk_comment`),
+  CONSTRAINT `like_fk_comment` FOREIGN KEY (`like_fk_comment`) REFERENCES `t_comment` (`comment_pk`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `like_fk_post` FOREIGN KEY (`like_fk_post`) REFERENCES `t_post` (`post_pk`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `like_fk_user` FOREIGN KEY (`like_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 #
@@ -109,15 +109,15 @@ CREATE
   VIEW `home_view`
   AS
   SELECT
-    `p`.`pst_pk_id` AS 'pid',
-    `p`.`pst_text` AS 'texto',
-    `p`.`pst_dt_pst` AS 'data',
-    (SELECT COUNT(0) FROM `t_like` l2 WHERE `l2`.`lik_fk_post` = `p`.`pst_pk_id`) AS 'qtdlike',
-    (SELECT COUNT(0) FROM `t_comment` c2 WHERE `c2`.`com_fk_pst` = `p`.`pst_pk_id`) AS 'qtdcom',
-    `u`.`usu_pk_id` AS 'uid',
-    `u`.`usu_nome` AS 'nome',
-    `u`.`usu_img` AS 'image'
+    `p`.`post_pk` AS 'pid',
+    `p`.`post_text` AS 'texto',
+    `p`.`post_date_time` AS 'data',
+    (SELECT COUNT(0) FROM `t_like` l2 WHERE `l2`.`like_fk_post` = `p`.`post_pk`) AS 'qtdlike',
+    (SELECT COUNT(0) FROM `t_comment` c2 WHERE `c2`.`comment_fk_post` = `p`.`post_pk`) AS 'qtdcom',
+    `u`.`user_pk` AS 'uid',
+    `u`.`user_full_name` AS 'nome',
+    `u`.`user_profile_picture` AS 'image'
   FROM
     (`t_post` p
-      LEFT JOIN `t_user` u ON (`p`.`pst_fk_usu` = `u`.`usu_pk_id`))
-  ORDER BY `p`.`pst_dt_pst` DESC;
+      LEFT JOIN `t_user` u ON (`p`.`post_fk_user` = `u`.`user_pk`))
+  ORDER BY `p`.`post_date_time` DESC;

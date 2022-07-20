@@ -30,7 +30,7 @@ class AuthJwt extends ResourceController //  controller para autenticação via 
         if (count($dadosUsuario) > 0) 
         {
             
-            $hashUsuario = $dadosUsuario['usu_senha'];
+            $hashUsuario = $dadosUsuario['user_password'];
            
             if(password_verify($password, $hashUsuario))
             {

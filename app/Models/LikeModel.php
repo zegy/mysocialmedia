@@ -16,7 +16,7 @@ class LikeModel extends Model
    public function getCountLikes(){
 
  
-	 return $this->builder->selectCount('lik_fk_usu'); 
+	 return $this->builder->selectCount('like_fk_user'); 
 
    }
 

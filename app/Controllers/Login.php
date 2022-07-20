@@ -9,7 +9,7 @@ class Login extends BaseController
 {	 
     function __construct() 
     { 
-           helper('form');
+        helper('form');
     }
     
     public function index() 
@@ -39,7 +39,6 @@ class Login extends BaseController
            
             if(password_verify($password, $hashUsuario)) 
             {
-                
                 session()->set('isLoggedIn', true); 
                 session()->set('id',     $dadosUsuario['user_pk']);
                 session()->set('login',  $dadosUsuario['user_name']);

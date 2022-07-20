@@ -16,7 +16,6 @@ class AuthJwt extends ResourceController // Autenticate using JWT
         $json = $this->request->getJSON(); 
         $email    = $json->email;
 	    $password = $json->password; 
-         
         $dadosUsuario = $this->model->getByEmail($email); 
         
         if (count($dadosUsuario) > 0) 

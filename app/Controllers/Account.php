@@ -19,6 +19,7 @@ class Account extends BaseController
 		if (session()->isLoggedIn == true) {
 			return redirect()->to('/');
 		}
+		
 		return view('account/signup');
 	}
 
@@ -48,12 +49,9 @@ class Account extends BaseController
 			return redirect()->to('/');
 		}
 
-		$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; //verficar se o arquivo valido/ verify if file is valid
-		
+		$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; // verify if file is valid
 		$filePath = '';
-
 		$myTime = new Time('now', 'America/Recife', 'pt_BR');
-
 		$gender = null;
 
 		switch ((string)($data['gender'])) {

@@ -15,7 +15,6 @@ class Home extends BaseController
     function __construct()
     {
         helper('form');
-
         $this->usuariosModel = new UserModel();
         $this->homeModel     = new HomeModel();
         $this->postModel     = new PostModel();

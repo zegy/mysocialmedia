@@ -27,7 +27,6 @@ class Post extends BaseController
                
         }
          
-           
         if($uid != session()->get('id')) { 
                
             $qtdlikePost = $this->postModel->getLikesPost($pid);
@@ -41,8 +40,7 @@ class Post extends BaseController
             $qtdlikePost = $this->postModel->like($pid, $uid);
 
                echo $qtdlikePost;
-            } 
-                 
+        } 
     }
 
     public function save() 
@@ -64,7 +62,7 @@ class Post extends BaseController
         }
           
         if (isset($data["post_id"]) && isset($data["text"])) { //update post
-            //a data do post nao se altera para edição/atualização
+            
             $dataToSave = [ "post_pk"  => $data["post_id"],
                             "post_text"   => $data["text"]  ]; 
             
@@ -86,80 +84,71 @@ class Post extends BaseController
                return redirect()->to('/');
  
         } else {
+        
             echo view('erro');
-        } 
+        
+        }
     }
 
     public function delete(int $pid)// post id / pid
     {
     
-         if (!$pid) {
+        if (!$pid) {
                
-               throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
              
-           }
+        }
         
-         if ( $this->postModel->checkOwnership( $pid, session()->get('id') ) ){
-             if ($this->postModel->delete($pid)) {
+        if ( $this->postModel->checkOwnership( $pid, session()->get('id') ) ){
+            if ($this->postModel->delete($pid)) {
 
-                 return redirect()->to('/');
+                return redirect()->to('/');
           
-             } else {
+            } else {
             
-                 return redirect()->to('/'); 
+                return redirect()->to('/'); 
             
-             }
-          } else {
+            }
+        
+        } else {
 
-                 return redirect()->to('/');
+            return redirect()->to('/');
 
-           }
+        }
      }
 
-
-
-     public function edit($pid)  // problema com tipo de retorno aqui!
-     {
+    public function edit($pid)  // problema com tipo de retorno aqui!
+    {
             
-            if (!$pid) { 
+        if (!$pid) { 
                
-               throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
                
-           }
+        }
           
-            $post = $this->postModel->where('post_pk', (int)$pid)
-                                    ->first();
+        $post = $this->postModel->where('post_pk', (int)$pid)->first();
              
-            if(session()->get('id') == $post['post_fk_user']) {
+        if(session()->get('id') == $post['post_fk_user']) {
                  
-                 echo view('/common/edit', [ 'post' => $post ] );
+            echo view('/common/edit', [ 'post' => $post ] );
                  
-            } else {
+        } else {
                  
-                 return redirect()->to('/');
+            return redirect()->to('/');
                  
-            }
-                
+        }        
       }
 
+    public function userPosts($uid) //listar todos os posts de um usuario especifico / list all post from specific user
+    { 
+        if($uid != session()->get('id')) { 
 
+            return redirect()->to('/');
 
-      public function userPosts($uid) //listar todos os posts de um usuario especifico / list all post from specific user
-      { 
-            
-              if($uid != session()->get('id')) { 
-
-                  return redirect()->to('/');
-
-              }
-          
+        }  
              
-            /*  $posts = $this->homeModel->where('uid', $uid) // trocar por home_view?
-                                    ->findAll(); */
-              
-              echo view("profile/myposts",  [  "posts"  =>  $this->homeModel->where('uid', $uid)->paginate(5), //paginate com where
-                                               "pager"  =>  $this->homeModel->pager ]);
+        echo view("profile/myposts",  [  "posts"  =>  $this->homeModel->where('uid', $uid)->paginate(5), //paginate com where
+                                         "pager"  =>  $this->homeModel->pager ]);
                  
-        }
-
     }
+}

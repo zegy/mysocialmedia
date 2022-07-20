@@ -8,31 +8,22 @@ use CodeIgniter\I18n\Time;
 
 class Account extends BaseController
 {
-
-
 	function __construct()
 	{
 		helper('form');
-
 		$this->usuariosModel = new UserModel();
 	}
 
-
 	public function signup()
 	{
-
-		if (session()->isLoggedIn == true) { //se ja tive logado vai para home / if user is already logged got to home page
-
+		if (session()->isLoggedIn == true) {
 			return redirect()->to('/');
 		}
-
 		return view('account/signup');
 	}
 
 	public function createAccount()
 	{
-
-
 		$validationRule = [
 			'userfile'  => [
 				'label' => 'Image File',
@@ -51,79 +42,52 @@ class Account extends BaseController
 			'gender'   => 'required'
 		];
 
+		$data = $this->request->getPost();
 
-
-		$data = $this->request->getPost(); //pega todos os campos
-
-		if (count($data) == 0) { // array vazio significa que o usuario chamou o metodo fora do form ou com dados vazios 
-			// entao volta para a home 
-			// empty array means the user call method outside form or with empty data so it return to home 
-
+		if (count($data) == 0) {
 			return redirect()->to('/');
 		}
 
 		$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; //verficar se o arquivo valido/ verify if file is valid
+		
 		$filePath = '';
-
 
 		$myTime = new Time('now', 'America/Recife', 'pt_BR');
 
 		$gender = null;
 
 		switch ((string)($data['gender'])) {
-
 			case 'm':
-
 				$gender = 'm';
 				break;
 
 			case 'f':
-
 				$gender = 'f';
 				break;
 
 			default:
-
 				$gender = null;
 				break;
 		}
 
-
-		if (!$this->validate($validationRule)) { // inicio if validação 
-
+		if (!$this->validate($validationRule)) {
 			$data = ['errors' => $this->validator->getErrors()];
 			return view('account/signup', $data);
 
 		} else {
 
-
 			$dados = [
 				'infoArquivo' => []
 			];
 
-
 			if ($arquivo && !$arquivo->isValid()) {
-
-				// $dados = [
-				// 	'status' => false,
-				// 	'erro'   => $arquivo->getErrorString()
-				// ];
-
-
 				return view('account/signup');
-
-				
-
+			
 			} elseif ($arquivo && $arquivo->isValid() && !$arquivo->hasMoved()) {
-
 				$arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
-
 				$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
-
 			}
 
-
-			
 			$dataToSave = [
 				'user_name'  => (string)$data['username'],
 				'user_password'  => password_hash((string)$data['password'], PASSWORD_DEFAULT),
@@ -136,13 +100,8 @@ class Account extends BaseController
 				'user_bio'    => $data['bio']
 			];
 
-
 			$result = $this->usuariosModel->save($dataToSave);
-
-
 			return view('account/sucessful_created');
-		} // end  else validation 
-
-	} //end createAccount
-
-} //end class
+		}
+	}
+}

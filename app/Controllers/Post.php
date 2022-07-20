@@ -9,84 +9,60 @@ use App\Models\HomeModel;
 
 class Post extends BaseController
 {
-    
-    
-
     function __construct() 
-    {
-              
-            helper('form');
-            
-            $this->db = \Config\Database::connect();
-    
-            $this->session = session();
-            
-            $this->postModel = new PostModel();
-            $this->homeModel = new HomeModel();
+    {             
+        helper('form');
+        $this->db = \Config\Database::connect();
+        $this->session = session();    
+        $this->postModel = new PostModel();
+        $this->homeModel = new HomeModel();
            
     }
     
-    
-
     public function like($pid, $uid) 
-    {
-            //fetch('http://localhost/ci4-apps/mysocialmedia2/post/like/34/1').then(function(response) { console.log(response) }); //testar pelo browser  
-            // verificar quantidade total de like para esse post 
-            // verificar quantidade total de like do usuario para esse post
-            // se usuario tem 1 ou mais likes para esse post entao retorna a quantidade total de likes do post
-            //senao insere um like desse usuario nesse post e enviar quantidade de likes atualizada como resposta 
-                
-            // quantidade de likes do usuario no post 
-          if ( !$pid && !$uid ) {
+    { 
+        if ( !$pid && !$uid ) {
                
-               throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
                
-           }
+        }
          
            
-          if($uid != session()->get('id')) { 
+        if($uid != session()->get('id')) { 
                
-               $qtdlikePost = $this->postModel->getLikesPost($pid);
+            $qtdlikePost = $this->postModel->getLikesPost($pid);
 
-               echo $qtdlikePost;
+            echo $qtdlikePost;
                  
-               return;
+            return;
                  
-          } else {
+        } else {
 
             $qtdlikePost = $this->postModel->like($pid, $uid);
 
                echo $qtdlikePost;
-        
-
             } 
                  
     }
 
-
-
     public function save() 
     {
+        $data   = $this->request->getPost();
     
-       // regra so pode editar se o post pertencer ao usuario usar session->get('id') com post_fk_user
-       // se for atualização, pegar o id do post e nao salvar a data(manter data de criação antiga)
-         $data   = $this->request->getPost();
-         
-              if ( !isset($data) || empty($data) ) {
+        if ( !isset($data) || empty($data) ) {
                
                throw new \CodeIgniter\Exceptions\PageNotFoundException("Erro, dados de formulario vazio");
                
-           } 
-           
-               
-         $myTime = new Time('now', 'America/Recife', 'pt_BR');
+        } 
+                  
+        $myTime = new Time('now', 'America/Recife', 'pt_BR');
         
-          if ( isset($data["user_id"]) && session()->get('id') != $data["user_id"] ) {
+        if ( isset($data["user_id"]) && session()->get('id') != $data["user_id"] ) {
               
-              return redirect()->to('/');
-          }
+            return redirect()->to('/');
+        
+        }
           
-    
         if (isset($data["post_id"]) && isset($data["text"])) { //update post
             //a data do post nao se altera para edição/atualização
             $dataToSave = [ "post_pk"  => $data["post_id"],
@@ -103,7 +79,6 @@ class Post extends BaseController
 
         }
        
-
         $request = $this->postModel->save($dataToSave);
         
           if ($request) {
@@ -111,17 +86,13 @@ class Post extends BaseController
                return redirect()->to('/');
  
         } else {
-
             echo view('erro');
         } 
-
     }
-
-
 
     public function delete(int $pid)// post id / pid
     {
-        
+    
          if (!$pid) {
                
                throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");

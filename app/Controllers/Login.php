@@ -6,8 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\UserModel;
 
 class Login extends BaseController
-{
-	 
+{	 
     function __construct() 
     { 
            helper('form');
@@ -15,7 +14,7 @@ class Login extends BaseController
     
     public function index() 
     {
-        if (session()->isLoggedIn == true) { //se ja tive logado vai para home / if user is already logged go to home page
+        if (session()->isLoggedIn == true) { // if user is already logged go to home page
 
 			return redirect()->to('/');
             
@@ -23,12 +22,10 @@ class Login extends BaseController
 
             return view("login");
         }
-        
     }
     
-    public function signIn() //metodo singin para logar no sistema por sessão
+    public function signIn()
     {
-     
         $email    = $this->request->getPost('inputEmail');
         $password = $this->request->getPost('inputPassword');
         
@@ -36,10 +33,8 @@ class Login extends BaseController
      
         $dadosUsuario = $usuarioModel->getByEmail($email);
         
-     
         if (count($dadosUsuario) > 0) 
-        {
-           
+        {   
             $hashUsuario = $dadosUsuario['user_password'];
            
             if(password_verify($password, $hashUsuario)) 
@@ -61,7 +56,7 @@ class Login extends BaseController
                
                session()->setFlashData('msg','Usuario ou senha incorretos!' );
                return redirect()->to('/login');
-          
+ 
            } 
             
         } else {
@@ -69,19 +64,12 @@ class Login extends BaseController
             session()->setFlashData('msg','Usuario ou senha incorretos!' );
       
             return redirect()->to('/login');
-        } 
-        
+        }         
     } 
     
     public function signOut() 
     {
-        
         session()->destroy();
-        return redirect()->to(base_url("usuario"));
-        
-    }
-    
-     
-    
-    
+        return redirect()->to(base_url("usuario"));   
+    }   
 }

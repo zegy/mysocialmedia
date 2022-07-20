@@ -16,7 +16,6 @@ class HomeApi extends ResourceController
 	 */
 	public function index()
 	{
-
 		$resp = $this->respond($this->model->findAll());
 
 		if (!$resp) {

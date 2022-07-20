@@ -9,29 +9,18 @@ use CodeIgniter\I18n\Time;
 
 class Comment extends BaseController
 {
-
-
-
     function __construct() 
     {
            helper('form');
            $this->db = \Config\Database::connect();
-           $this->session = session();
-           
-           $this->commentModel =  new CommentModel();
-           
+           $this->session = session();       
+           $this->commentModel =  new CommentModel();          
     }
-    
-    
     
     public function show($pid = null) 
     {
-     
-        
-           if (!$pid) {
-               
+           if (!$pid) {          
                throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
-               
            }
             $builder = $this->db->table('t_post p');
             
@@ -66,40 +55,31 @@ class Comment extends BaseController
             $builder->where("p.post_pk = $pid");
             
             $queryComments = $builder->get();
+
           //*********************************************************************************************************
               
             $post     = $queryPost->getResult();
             $comments = $queryComments->getResult();
              
-     
         return view('comments/comments' ,  [ 'post'     => $post[0],
                                              'comments' => $comments]);
-        
     }
 
-
-
-    public function save() //save or edit comment / salva ou edita um comentário
+    public function save() //save or edit comment
     {
-        //regra so pode editar se o comment pertencer ao usuario, usar session->get('id') com comment_fk_user
-        
-         $data   = $this->request->getPost();
+        $data   = $this->request->getPost();
          
-         $myTime = new Time('now', 'America/Recife', 'pt_BR');
+        $myTime = new Time('now', 'America/Recife', 'pt_BR');
         
-
-        if ( isset($data["user_id"]) && session()->get('id') != $data["user_id"] ) { 
-              
+        if ( isset($data["user_id"]) && session()->get('id') != $data["user_id"] ) {       
               return redirect()->to('/');
         }
           
-     
         if (isset($data["com_id"]) && isset($data["text"])) { // update comment
-            //a data(tempo) do comentário nao se altera para edição/atualização
               $dataToSave = [ "comment_pk"  => $data["com_id"],
                               "comment_text"   => $data["text"] ]; 
             
-        } else if ( isset($data["user_id"]) && isset($data["post_id"]) && isset($data["text"]) ) {  // new comment
+        } else if ( isset($data["user_id"]) && isset($data["post_id"]) && isset($data["text"]) ) { // new comment
             
               $dataToSave = [ "comment_fk_user" => $data["user_id"],
                               "comment_fk_post" => $data["post_id"],
@@ -108,7 +88,7 @@ class Comment extends BaseController
         } else {
             
              throw new \CodeIgniter\Exceptions\PageNotFoundException("Dados de formulario inconsistentes");
-            
+
         }
 
         $request = $this->commentModel->save($dataToSave);
@@ -124,106 +104,78 @@ class Comment extends BaseController
 
     } 
 
-
-
-   public function delete(int $cid = null, int $pid = null) // verificar dono do comentario antes de deletar e argumentos invalidos na rota
-   {
-       // localhost/ci4-apps/mysocialmedia2/comment/delete/58/21  (exemplo link delete)
-       //                                              || /  /    
-           if (!$cid && !$pid) {
-               
-               throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
-               
-           }
-           
-           
-      if ( $this->commentModel->checkOwnership( $cid, session()->get('id') ) ){
-       
-          if ($this->commentModel->delete($cid)) {
-
-              return redirect()->to('/comment/show/' . $pid );
+    public function delete(int $cid = null, int $pid = null)
+    {
+        if (!$cid && !$pid) {
+               throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");       
+        }
+                      
+        if ( $this->commentModel->checkOwnership( $cid, session()->get('id') ) ){
+            if ($this->commentModel->delete($cid)) {
+                
+                return redirect()->to('/comment/show/' . $pid );
           
-          } else {
+            } else {
             
-               return redirect()->to('/');
+                return redirect()->to('/');
             
-          } 
-      }  else {
-             return redirect()->to('/comment/show/' . $pid );
-      }
-        
+            } 
+          
+        }  else {
+      
+            return redirect()->to('/comment/show/' . $pid );
+      
+        }
     }
 
-
-
-  public function edit($cid = null) 
-  {
-            
-             if (!$cid) {
+    public function edit($cid = null) 
+    {
+        if (!$cid) {
+        
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
                
-               throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
-               
-             }
+        }
            
-             $comment = $this->commentModel->where('comment_pk', (int)$cid)
-                                           ->first();
-             
-             if(session()->get('id') == $comment['comment_fk_user']) {
+        $comment = $this->commentModel->where('comment_pk', (int)$cid)->first();
+            if(session()->get('id') == $comment['comment_fk_user']) {
                  
                  echo view('/common/edit', [ 'comment' => $comment ] );
                  
-             } else {
+            } else {
                  
                  return redirect()->to('/');
                  
-             }
-             
-          
-            
-        }
-    
-    
+            }
+    }
     
     public function like($cid, $uid) 
     {
         
-       // verificar quantidade total de like para esse comentario 
-       // verificar quantidade total de like do usuario para esse comentario
-       // se usuario tem 1 ou mais likes para esse comentario entao retorna a quantidade total de likes do comentario
-       //senao insere um like desse usuario nesse comentario e envia quantidade de likes atualizada como resposta 
-                
-       // quantidade de likes do usuario no comentario 
-          if (!$cid && !$uid) {
+        // check total amount of like for this comment
+        // check total amount of user like for this comment
+        // if user has 1 or more likes for this comment then returns the total amount of likes for the comment
+        // otherwise insert a like from this user in this comment and send the updated amount of likes as a response
+        // amount of user likes in the comment
+        if (!$cid && !$uid) {
                
                throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
                
-           }
+        }
            
-
-       if($uid != session()->get('id')) { 
+        if($uid != session()->get('id')) { 
                
-                 $qtdlikeCom = $this->commentModel->getLikesCom($cid);
+            $qtdlikeCom = $this->commentModel->getLikesCom($cid);
 
-                 echo $qtdlikeCom;
+            echo $qtdlikeCom;
 
-                 return;
+            return;
                  
         } else {
 
-                $qtdlikeCom = $this->commentModel->like($cid, $uid);
+            $qtdlikeCom = $this->commentModel->like($cid, $uid);
 
-                  echo $qtdlikeCom; 
-           
-                
-               
-           } 
-           
-           
-        }
-
-      
-        
-    
-        
-           
+            echo $qtdlikeCom; 
+              
+        }       
+    }      
 }  

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
 
-    protected $table      = 'tbusuario';
+    protected $table      = 't_user';
     protected $primaryKey = 'usu_pk_id';
 
     protected $allowedFields = [ 'usu_login',
@@ -56,10 +56,10 @@ class UserModel extends Model
 
       // $user = $this->getById($uid);
 
-        $builder = $this->builder('tbpost p');
+        $builder = $this->builder('t_post p');
 
         $res =  $builder->select('p.*, u.usu_nome')
-                        ->join('tbusuario u', 'u.usu_pk_id = p.pst_fk_usu') // a tabela com a qual vai cruzar vem como argumento do join
+                        ->join('t_user u', 'u.usu_pk_id = p.pst_fk_usu') // a tabela com a qual vai cruzar vem como argumento do join
                         ->where("p.pst_fk_usu", $uid)
                         ->get()
                         ->getResult();
@@ -73,7 +73,7 @@ class UserModel extends Model
     public function getAllByKeyword(string $keyword) : array
     {
 
-        $builder = $this->builder('tbusuario');
+        $builder = $this->builder('t_user');
 
         $res     =  $builder->select('usu_pk_id as uid,usu_nome as nome, usu_email as email, 
                                       usu_tel as tel, usu_img as img, 

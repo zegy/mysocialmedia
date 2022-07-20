@@ -33,14 +33,14 @@ class Comment extends BaseController
                throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
                
            }
-            $builder = $this->db->table('tbpost p');
+            $builder = $this->db->table('t_post p');
             
             $builder->select('p.pst_pk_id as pid, p.pst_text as texto, 
                               p.pst_dt_pst as data, u.usu_pk_id  as uid, 
                               u.usu_nome   as nome, 
                               u.usu_img    as image');
             
-            $builder->join('tbusuario u ', 'p.pst_fk_usu = u.usu_pk_id');
+            $builder->join('t_user u ', 'p.pst_fk_usu = u.usu_pk_id');
             
             $builder->where("p.pst_pk_id = $pid");
             
@@ -48,7 +48,7 @@ class Comment extends BaseController
 
            //*******************************************************************************************************         
      
-            $builder = $this->db->table('tbcomment c');
+            $builder = $this->db->table('t_comment c');
             
             $builder->select('c.com_pk_id  as cid,   
                               c.com_text   as texto,
@@ -56,12 +56,12 @@ class Comment extends BaseController
                               u.usu_pk_id  as uid,
                               u.usu_nome   as nome,
                               u.usu_img    as image, 
-                            ( select count(*) from tblike l2
+                            ( select count(*) from t_like l2
                               where l2.lik_fk_com = c.com_pk_id ) as qtdlike');
 
-            $builder->join('tbpost p', 'p.pst_pk_id = c.com_fk_pst');
+            $builder->join('t_post p', 'p.pst_pk_id = c.com_fk_pst');
             
-            $builder->join('tbusuario u', 'c.com_fk_usu = u.usu_pk_id');
+            $builder->join('t_user u', 'c.com_fk_usu = u.usu_pk_id');
             
             $builder->where("p.pst_pk_id = $pid");
             

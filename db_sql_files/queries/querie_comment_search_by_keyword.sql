@@ -8,11 +8,11 @@ select  c.com_pk_id  as cid,
 		u.usu_nome   as nome,
         u.usu_img    as image,
         p.pst_pk_id  as pid,
-        ( select count(*) from tblike l2
+        ( select count(*) from t_like l2
           where l2.lik_fk_com = c.com_pk_id ) as qtdlike        
-from tbcomment c 
-        join tbpost p on p.pst_pk_id = c.com_fk_pst
-        join tbusuario u on c.com_fk_usu = u.usu_pk_id
+from t_comment c 
+        join t_post p on p.pst_pk_id = c.com_fk_pst
+        join t_user u on c.com_fk_usu = u.usu_pk_id
 where c.com_text like  "%Oi!%"  
                                  
                             

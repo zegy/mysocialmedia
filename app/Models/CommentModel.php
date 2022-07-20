@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class CommentModel extends Model
 {
-    protected $table      = 'tbcomment';
+    protected $table      = 't_comment';
     protected $primaryKey = 'com_pk_id';
    // protected $returnType   = 'object';
 
@@ -42,10 +42,10 @@ class CommentModel extends Model
     { //aqui pode mudar para obter a quantidade de like pelo view do db
             
               
-                $builder = $this->builder('tblike l');
+                $builder = $this->builder('t_like l');
 
                 $queryComLikes =  $builder->select('count(*) as qtdlike')
-                                          ->join('tbcomment c', 'l.lik_fk_com = c.com_pk_id')
+                                          ->join('t_comment c', 'l.lik_fk_com = c.com_pk_id')
                                           ->where("c.com_pk_id = $cid")
                                           ->get(); 
 
@@ -61,11 +61,11 @@ class CommentModel extends Model
 
         
         
-          $builder = $this->builder('tblike l');
+          $builder = $this->builder('t_like l');
                 
           $queryComUserLikes =  $builder->select('count(*) as qtdlike')
-                                        ->join('tbcomment c', 'l.lik_fk_com = c.com_pk_id')
-                                        ->join('tbusuario u ', 'l.lik_fk_usu = u.usu_pk_id')
+                                        ->join('t_comment c', 'l.lik_fk_com = c.com_pk_id')
+                                        ->join('t_user u ', 'l.lik_fk_usu = u.usu_pk_id')
                                         ->where("u.usu_pk_id = $uid and c.com_pk_id = $cid")
                                         ->get(); 
                   
@@ -82,7 +82,7 @@ class CommentModel extends Model
                           //inserir like novo e fazer uma nova consulta pegando os dados atualizados
                           //inserir registro condicionalmente
                         
-                            $builder = $this->builder('tblike');
+                            $builder = $this->builder('t_like');
                             $data = [ 'lik_fk_com' => $cid,
                                       'lik_fk_usu' => $uid ];
 
@@ -102,7 +102,7 @@ class CommentModel extends Model
      { 
 
 
-          $builder = $this->db->table('tbcomment c');
+          $builder = $this->db->table('t_comment c');
             
           $builder->select('c.com_pk_id  as cid,   
                             c.com_text   as texto,
@@ -111,12 +111,12 @@ class CommentModel extends Model
                             u.usu_nome   as nome,
                             u.usu_img    as image,
                             p.pst_pk_id  as pid,
-                           ( select count(*) from tblike l2
+                           ( select count(*) from t_like l2
                             where l2.lik_fk_com = c.com_pk_id ) as qtdlike');
 
-          $builder->join('tbpost p', 'p.pst_pk_id = c.com_fk_pst');
+          $builder->join('t_post p', 'p.pst_pk_id = c.com_fk_pst');
           
-          $builder->join('tbusuario u', 'c.com_fk_usu = u.usu_pk_id');
+          $builder->join('t_user u', 'c.com_fk_usu = u.usu_pk_id');
           
           $builder->like("c.com_text", $keyword);
           

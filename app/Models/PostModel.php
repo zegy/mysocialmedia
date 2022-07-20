@@ -8,7 +8,7 @@ use App\Models\HomeModel;
 class PostModel extends Model
 {
     
-    protected $table         = 'tbpost';
+    protected $table         = 't_post';
     protected $primaryKey    = 'pst_pk_id';
     protected $returnType    = 'array';
 
@@ -67,10 +67,10 @@ class PostModel extends Model
             
         //quantidade total de likes no post 
               
-        $builder = $this->builder('tblike l');
+        $builder = $this->builder('t_like l');
 
         $queryPostLikes =  $builder->select('count(*) as qtdlike')
-                                   ->join('tbpost p ', 'l.lik_fk_post = p.pst_pk_id')
+                                   ->join('t_post p ', 'l.lik_fk_post = p.pst_pk_id')
                                    ->where("p.pst_pk_id", $pid)
                                    ->get(); 
 
@@ -83,11 +83,11 @@ class PostModel extends Model
     {
             
                
-        $builder = $this->builder('tblike l');
+        $builder = $this->builder('t_like l');
            
         $queryPostUserLikes =  $builder->select('count(*) as qtdlike')
-                                       ->join('tbpost p '   , 'l.lik_fk_post = p.pst_pk_id')
-                                       ->join('tbusuario u ', 'l.lik_fk_usu = u.usu_pk_id')
+                                       ->join('t_post p '   , 'l.lik_fk_post = p.pst_pk_id')
+                                       ->join('t_user u ', 'l.lik_fk_usu = u.usu_pk_id')
                                        ->where("u.usu_pk_id = $uid and p.pst_pk_id = $pid")
                                        ->get(); 
       
@@ -112,7 +112,7 @@ class PostModel extends Model
 
        } else {
 
-            $builder = $this->builder('tblike');
+            $builder = $this->builder('t_like');
             
             $data = [ 'lik_fk_post' => $pid,
                       'lik_fk_usu'  => $uid ];

@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-      public $baseURL = 'http://localhost/mysocialmedia';
+      public $baseURL = 'http://sites.local/mysocialmedia/';
 
     /**
      * --------------------------------------------------------------------------
@@ -136,7 +136,7 @@ class App extends BaseConfig
      *
      * @var bool
      */
-    public $forceGlobalSecureRequests = false;
+    public $forceGlobalSecureRequests = true;
 
     /**
      * --------------------------------------------------------------------------

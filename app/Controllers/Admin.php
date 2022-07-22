@@ -16,13 +16,14 @@ class Admin extends BaseController
     
     $username = ('newuserone');
     $token = $this->request->getVar('token');
+    
+    $coba = $adminModel->where(array('user_name' => $username))->first();
 
-    $data = $adminModel->where(array('user_name' => $username))->first();
+    $adminModel->update($coba['user_pk'], array('user_token' => $token));
+
     
-    $adminModel->update($data['user_pk'], array('user_token' => $token));
-    $res['message'] = 'Success';
-    
-    return json_encode($res);
+    //$res['message'] = $session;
+    return json_encode($coba);
 
   }
 

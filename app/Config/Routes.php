@@ -57,6 +57,11 @@ $routes->setAutoRoute(true);
 
  $routes->post('/search', 'Home::search');
 
+ $routes->group('admin', function($routes){
+    $routes->add('login', 'Admin::login');
+    $routes->add('doLogin', 'Admin::doLogin');
+ });
+
  /* $routes->get('closure', function(){ //teste com Clouse
 	  
 	    $cteste = new TesteClosure();

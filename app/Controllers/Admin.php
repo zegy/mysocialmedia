@@ -14,12 +14,12 @@ class Admin extends BaseController
   {
     $adminModel = new AdminModel();
     
-    $email = ('admin@gmail.com');
+    $username = ('newuserone');
     $token = $this->request->getVar('token');
 
-    $data = $adminModel->where(array('email' => $email))->first();
+    $data = $adminModel->where(array('user_name' => $username))->first();
     
-    $adminModel->update($data['id'], array('token' => $token));
+    $adminModel->update($data['user_pk'], array('user_token' => $token));
     $res['message'] = 'Success';
     
     return json_encode($res);

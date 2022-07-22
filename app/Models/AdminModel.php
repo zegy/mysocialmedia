@@ -4,10 +4,10 @@ use CodeIgniter\Model;
 
 class AdminModel extends Model
 {
-    protected $table = 'admins';
+    protected $table = 't_user';
 
     protected $allowedFields = [
-        'name','email','password', 'token'
+        'user_name','user_token'
     ];
 
 }

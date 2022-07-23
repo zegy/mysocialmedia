@@ -92,7 +92,7 @@ class Comment extends BaseController
         $request = $this->commentModel->save($dataToSave);
         
           if ($request) {
-
+                //FCM START
                 $post = new PostModel();
                 $poster = $post->where(array('post_pk' => $data["post_id"]))->first();
                 $poster_id = $poster["post_fk_user"];
@@ -100,10 +100,7 @@ class Comment extends BaseController
                
                 $sendFCM = new NotificationModel();
                 $user = $sendFCM->where(array('user_pk' => $poster_id))->first();
-                //$user_token = $user["user_token"];
-                
-                //return json_encode($user_token);
-                
+                                
                 $headers = [
                     'Authorization: key=AAAA6TW0j0o:APA91bFErAe4EPZ5qLRRlksCSJxqsz6P6c-TxJRghGWGgOZxSOsNelKVhKrJvsYTRX0TzaioS1OH7jiFuIgNIlhx_auLCbNsozL6HUqxMt8fFdfIGeeE-2KEl0lFhUNAdTSyZhNOeb1w',
                     'Content-Type: application/json'
@@ -133,13 +130,9 @@ class Comment extends BaseController
                 $res = curl_exec($ch);
 
                 curl_close($ch);
+                //FCM END
                 
-                //return json_encode($res);
-                return '1';
-                
-
-         
-               //return redirect()->to('/comment/show/'. $data["post_id"]);
+                return redirect()->to('/comment/show/'. $data["post_id"]);
  
         } else {
 

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CommentModel;
 use App\Models\PostModel;
+use App\Models\NotificationModel;
 use CodeIgniter\I18n\Time;
 
 
@@ -97,20 +98,23 @@ class Comment extends BaseController
                 $poster_id = $poster["post_fk_user"];
 
 
-                //return json_encode($poster_id);
 
-
-
-
-
-
-                /*
-                $adminModel = new AdminModel();
-                $admin = $adminModel->find(1);
+                
+                $sendFCM = new NotificationModel();
+                $user = $sendFCM->where(array('user_pk' => $poster_id))->first();
+                $user_token = $user["user_token"];
+                
+                //return json_encode($user_token);
+                
                 $headers = [
                     'Authorization: key=AAAA6TW0j0o:APA91bFErAe4EPZ5qLRRlksCSJxqsz6P6c-TxJRghGWGgOZxSOsNelKVhKrJvsYTRX0TzaioS1OH7jiFuIgNIlhx_auLCbNsozL6HUqxMt8fFdfIGeeE-2KEl0lFhUNAdTSyZhNOeb1w',
                     'Content-Type: application/json'
                 ];
+                
+                $title = 'Judul';
+                $body = 'Isi';
+                
+                
                 $notification = [
                     'title' => $title,
                     'body' => $body,
@@ -118,7 +122,7 @@ class Comment extends BaseController
                 ];
                 $request = [
                     'data' => $notification,
-                    'registration_ids' => array($admin['token'])
+                    'registration_ids' => $user_token
                 ];
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
@@ -132,7 +136,7 @@ class Comment extends BaseController
 
                 curl_close($ch);
                 return '1';
-                */
+                
 
          
                //return redirect()->to('/comment/show/'. $data["post_id"]);

@@ -97,12 +97,10 @@ class Comment extends BaseController
                 $poster = $post->where(array('post_pk' => $data["post_id"]))->first();
                 $poster_id = $poster["post_fk_user"];
 
-
-
-                
+               
                 $sendFCM = new NotificationModel();
                 $user = $sendFCM->where(array('user_pk' => $poster_id))->first();
-                $user_token = $user["user_token"];
+                //$user_token = $user["user_token"];
                 
                 //return json_encode($user_token);
                 
@@ -122,7 +120,7 @@ class Comment extends BaseController
                 ];
                 $request = [
                     'data' => $notification,
-                    'registration_ids' => $user_token
+                    'registration_ids' => array($user["user_token"])
                 ];
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
@@ -135,6 +133,8 @@ class Comment extends BaseController
                 $res = curl_exec($ch);
 
                 curl_close($ch);
+                
+                //return json_encode($res);
                 return '1';
                 
 

@@ -72,6 +72,9 @@ function refreshLikesPost(pid, uid, elemento)
          
          </div>  
  
-       
+<a id="btnOnFCM" href="#" class="btn btn-primary btn-user btn-block">
+    onFCM
+</a>
+
 <!-- *********************** end add post ********************************* -->
 <?= $this->endSection() ?>  

@@ -43,6 +43,16 @@
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url('login/signout') ?>">Sair</a>
             </li>
+            <?php 
+            $userData = session('id');
+            
+            if($userData==12){?>
+              <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url('login/signout') ?>">xxxxxxxxxxxxSair</a>
+            </li>
+            <?php
+            }
+            ?>
             <!-- <li class="nav-item">
             <a class="nav-link disabled" href="#">Disabled</a>
           </li> -->

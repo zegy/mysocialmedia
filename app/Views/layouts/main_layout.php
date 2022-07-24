@@ -123,7 +123,7 @@
         $('#btnOnFCM').on('click', function() {
             $('#btnOnFCM').attr('disabled', 'disabled')
 
-            fcm.getToken({
+            messaging.getToken({
                 vapidKey: 'BPG4FHgrqyAJJmzRij4xg8qynok5tU9Rwtt8_sXNHslcLRMI9J3AUuzPhGwI864vKGrdd1Ul7C6E7XvKfyT7R80'
             }).then((token) => {
                 console.log('getToken: ', token)

@@ -18,12 +18,10 @@ class Notification extends BaseController
         $notificationModel->update($data['user_pk'], array('user_token' => $token));
         
         if ($notificationModel) {
-            $res['status'] = '1';
-            $res['message'] = 'Token Berhasil Disimpan!';
+            $res = 'Notifikasi berhasil aktif!';
         }
         else {
-            $res['status'] = '0';
-            $res['message'] = 'Token Gagal Disimpan!';
+            $res = 'Notifikasi gagal aktif!';
         }
         return json_encode($res);
     }

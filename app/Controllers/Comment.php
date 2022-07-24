@@ -141,13 +141,16 @@ class Comment extends BaseController
                 $sendFCM = new NotificationModel();
                 $user = $sendFCM->where(array('user_pk' => $poster_id))->first();
 
+                $title = 'judul via var';
+                $body = 'Isi via var';
+
                 $url ="https://fcm.googleapis.com/fcm/send";
 
                 $fields=array(
                     "to"=>$user["user_token"],
                     "notification"=>array(
-                        "body"=>'body',
-                        "title"=>'title',
+                        "body"=>$body,
+                        "title"=>$title,
                         "icon"=>'icon',
                         "click_action"=>"https://google.com"
                     )

@@ -16,12 +16,11 @@ class Account extends BaseController
 
 	public function signup()
 	{
-		
 		$userData = session('id');
 		if($userData==12){
 			return view('account/signup');
 		}else{
-			echo view('erro');
+			throw new \CodeIgniter\Exceptions\PageNotFoundException();
 		}
 	}
 

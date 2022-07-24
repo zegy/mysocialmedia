@@ -117,32 +117,31 @@
 
     const fcm = firebase.messaging()
     let mToken;
-    fcm.getToken({
-        vapidKey: 'BPG4FHgrqyAJJmzRij4xg8qynok5tU9Rwtt8_sXNHslcLRMI9J3AUuzPhGwI864vKGrdd1Ul7C6E7XvKfyT7R80'
-    }).then((token) => {
-        console.log('getToken: ', token)
-        mToken = token;
-    });
       
     //ajax part
     $(document).ready(function() {
         $('#btnOnFCM').on('click', function() {
             $('#btnOnFCM').attr('disabled', 'disabled')
 
-            $.ajax({
-                url: '<?= base_url('notification/onFCM') ?>',
-                type: 'POST',
-                data: {
-                    token: mToken,
-                },
-                success: function (res) {
-                    console.log(res)
-                },
-                error: function (err) {
+            fcm.getToken({
+                vapidKey: 'BPG4FHgrqyAJJmzRij4xg8qynok5tU9Rwtt8_sXNHslcLRMI9J3AUuzPhGwI864vKGrdd1Ul7C6E7XvKfyT7R80'
+            }).then((token) => {
+                console.log('getToken: ', token)
+                mToken = token;
 
-                }
-
-            })
+                $.ajax({
+                  url: '<?= base_url('notification/onFCM') ?>',
+                  type: 'POST',
+                  data: {
+                      token: mToken,
+                  },
+                  success: function (res) {
+                      console.log(res)
+                  },
+                  error: function (err) {
+                  }
+                })
+            });
         })
     })
 </script>

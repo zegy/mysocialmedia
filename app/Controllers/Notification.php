@@ -16,6 +16,16 @@ class Notification extends BaseController
         $data = $notificationModel->where(array('user_pk' => $session))->first();
 
         $notificationModel->update($data['user_pk'], array('user_token' => $token));
+        
+        if ($notificationModel) {
+            $res['status'] = '1';
+            $res['message'] = 'Token Berhasil Disimpan!';
+        }
+        else {
+            $res['status'] = '0';
+            $res['message'] = 'Token Gagal Disimpan!';
+        }
+        return json_encode($res);
     }
 
     public function sendFCM($data)

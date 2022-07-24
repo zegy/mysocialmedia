@@ -23,15 +23,10 @@ class Home extends BaseController
 
     public function index()
     {
-        $userData = session('id');
-        //dd($userData);
-       
-            return view('home',  [
-                "posts"  =>  $this->homeModel->paginate(5),
-                "pager"  =>  $this->homeModel->pager,
-            ]);
-           
-
+        return view('home',  [
+            "posts"  =>  $this->homeModel->paginate(5),
+            "pager"  =>  $this->homeModel->pager
+        ]);
     }
 
     public function search()

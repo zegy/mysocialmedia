@@ -16,11 +16,13 @@ class Account extends BaseController
 
 	public function signup()
 	{
-		if (session()->isLoggedIn == true) {
-			return redirect()->to('/');
-		}
 		
-		return view('account/signup');
+		$userData = session('id');
+		if($userData==12){
+			return view('account/signup');
+		}else{
+			echo view('erro');
+		}
 	}
 
 	public function createAccount()

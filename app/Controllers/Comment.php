@@ -144,6 +144,10 @@ class Comment extends BaseController
                 $title = 'judul via var';
                 $body = 'Isi via var';
 
+                $link_base = base_url("comment/show").'/'.$data["post_id"];
+                
+                //d($link_base);
+                
                 $url ="https://fcm.googleapis.com/fcm/send";
 
                 $fields=array(
@@ -152,7 +156,7 @@ class Comment extends BaseController
                         "body"=>$body,
                         "title"=>$title,
                         "icon"=>'icon',
-                        "click_action"=>"https://google.com"
+                        "click_action"=>$link_base,
                     )
                 );
 

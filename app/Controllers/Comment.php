@@ -140,14 +140,13 @@ class Comment extends BaseController
                
                 $sendFCM = new NotificationModel();
                 $user = $sendFCM->where(array('user_pk' => $poster_id))->first();
+                $commenter = $sendFCM->where(array('user_pk' => $data["user_id"]))->first();
 
-                $title = 'judul via var';
-                $body = 'Isi via var';
+                $title = 'DIPSI';
+                $body = $commenter["user_full_name"].' '.'Mengomentari Postingan Anda!';
 
                 $link_base = base_url("comment/show").'/'.$data["post_id"];
-                
-                //d($link_base);
-                
+                              
                 $url ="https://fcm.googleapis.com/fcm/send";
 
                 $fields=array(

@@ -44,8 +44,7 @@
               <a class="nav-link" href="<?php echo base_url('login/signout') ?>">Sair</a>
             </li>
             <?php 
-            $userData = session('id');
-            if($userData==1){?>
+            if(session('id')==1){?>
               <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url('account/signup') ?>">Daftar</a>
             </li>

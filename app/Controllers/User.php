@@ -17,7 +17,7 @@ class User extends BaseController
     {
         if (!$uid) {
                
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
        
         }
            

@@ -22,7 +22,7 @@ class Comment extends BaseController
     public function show($pid = null) 
     {
         if (!$pid) {          
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
         
         $builder = $this->db->table('t_post p'); 
@@ -85,7 +85,7 @@ class Comment extends BaseController
 
         } else {
             
-             throw new \CodeIgniter\Exceptions\PageNotFoundException("Dados de formulario inconsistentes");
+             throw new \CodeIgniter\Exceptions\PageNotFoundException();
 
         }
 
@@ -111,7 +111,7 @@ class Comment extends BaseController
     public function delete(int $cid = null, int $pid = null)
     {
         if (!$cid && !$pid) {
-               throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");       
+               throw new \CodeIgniter\Exceptions\PageNotFoundException();       
         }
                       
         if ($this->commentModel->checkOwnership( $cid, session()->get('id') )){
@@ -136,7 +136,7 @@ class Comment extends BaseController
     {
         if (!$cid) {
         
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
                
         }
            
@@ -162,7 +162,7 @@ class Comment extends BaseController
         // amount of user likes in the comment
         if (!$cid && !$uid) {
                
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
                
         }
            

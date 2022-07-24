@@ -23,7 +23,7 @@ class Post extends BaseController
     { 
         if ( !$pid && !$uid ) {
                
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
                
         }
          
@@ -49,7 +49,7 @@ class Post extends BaseController
     
         if ( !isset($data) || empty($data) ) {
                
-               throw new \CodeIgniter\Exceptions\PageNotFoundException("Erro, dados de formulario vazio");
+               throw new \CodeIgniter\Exceptions\PageNotFoundException();
                
         } 
                   
@@ -95,7 +95,7 @@ class Post extends BaseController
     
         if (!$pid) {
                
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
              
         }
         
@@ -122,7 +122,7 @@ class Post extends BaseController
             
         if (!$pid) { 
                
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Link inexistente");
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
                
         }
           

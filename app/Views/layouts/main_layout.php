@@ -89,8 +89,8 @@
 
 
 <!-- Page level custom scripts -->
-<script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
 
 <script>
     // Your web app's Firebase configuration
@@ -115,24 +115,7 @@
         console.log('getToken: ', token)
         mToken = token;
     });
-
-    fcm.onMessage((data) => {
-        console.log('onMessage: ', data)
-
-        let title = data['data']['title'];
-        let body = data['data']['body'];
-
-        Notification.requestPermission((status) => {
-            console.log('requestPermission', status)
-            if (status === 'granted') {
-
-                new Notification(title, {
-                    body: body
-                })
-            }
-        })
-    })
-
+      
     //ajax part
     $(document).ready(function() {
         $('#btnOnFCM').on('click', function() {

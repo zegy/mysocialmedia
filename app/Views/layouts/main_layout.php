@@ -45,7 +45,7 @@
             </li>
             <?php 
             $userData = session('id');
-            if($userData==12){?>
+            if($userData==1){?>
               <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url('account/signup') ?>">Daftar</a>
             </li>

@@ -17,7 +17,7 @@ class Account extends BaseController
 	public function signup()
 	{
 		$userData = session('id');
-		if($userData==12){
+		if($userData==1){
 			return view('account/signup');
 		}else{
 			throw new \CodeIgniter\Exceptions\PageNotFoundException();

@@ -1,22 +1,14 @@
 <!DOCTYPE html>
-<!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="pt-br" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
-    <title> MySocialMedia Cadastre-se  </title>
+    <title>DIPSI</title>
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-      crossorigin="anonymous" /> -->
-
-
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -37,9 +29,7 @@
             background: no-repeat linear-gradient(135deg, #71b7e6, #9b59b6);
         }
 
-        .container {
-            /* border: 1px dotted blue; */
-            
+        .container {            
             max-width: 700px;
             width: 100%;
             min-height: 50%;
@@ -47,8 +37,6 @@
             padding: 5px 20px;
             border-radius: 5px;
             box-shadow: 5px 5px 10px #333;
-            
-           
         }
 
         .container .title {
@@ -165,7 +153,6 @@
         }
 
         form .button input:hover {
-            /* transform: scale(0.99); */
             background: linear-gradient(-135deg, #71b7e6, #9b59b6);
         }
 
@@ -219,61 +206,59 @@
         }
     </style>
 
-
 </head>
 
 <body>
     <div class="container">
- 
     
-        <div class="title">Cadastre-se</div>
+        <div class="title">Pendaftaran Pengguna Baru</div>
         <div class="content">
-                    <?php  if (isset($errors)) { ?>
 
+            <?php  if (isset($errors)) { ?>
             <div class="alert">
-                    <ul>
+                <ul>
                     <?php foreach ($errors as $error): ?>
-                        <li><?= esc($error) ?></li>
+                    <li><?= esc($error) ?></li>
                     <?php endforeach ?>
-                    </ul>
+                </ul>
             </div>
             <?php } ?>
+            
             <form action="<?php echo site_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
-
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">Nome completo:</span>
-                        <input type="text" name="nome" placeholder="Digite seu nome completo" required>
+                        <span class="details">Nama Lengkap :</span>
+                        <input type="text" name="nome" placeholder="" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Nome de usuario:</span>
-                        <input type="text" name="username" placeholder="Digite seu nome de usuario" required>
+                        <span class="details">Username :</span>
+                        <input type="text" name="username" placeholder="" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">E-mail:</span>
-                        <input type="text" name="email" placeholder="Digite seu e-mail" required>
+                        <span class="details">E-mail :</span>
+                        <input type="text" name="email" placeholder="" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Numero telefone (opcional):</span>
-                        <input type="text" name="phone" placeholder="Digite seu numero de telefone" >
+                        <span class="details">Nomor telepon (Optional) :</span>
+                        <input type="text" name="phone" placeholder="" >
                     </div>
                     <div class="input-box">
-                        <span class="details">Senha:</span>
-                        <input type="password" name="password" placeholder="Digite sua senha" required>
+                        <span class="details">Password :</span>
+                        <input type="password" name="password" placeholder="" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Confirmar senha:</span>
-                        <input type="password"  name="passconf" placeholder="Digite sua senha para confirmar" required>
+                        <span class="details">Konfirmasi Password :</span>
+                        <input type="password"  name="passconf" placeholder="" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Foto do perfil:</span>
+                        <span class="details">Foto Profil:</span>
                         <input name="arquivo" id="arquivo" type="file" accept=".jpg, .jpeg" required>
                         <span id="file-msg" style="color:red"></span>
                        
                     </div>
 
                     <div class="input-box">
-                    <span class="details">Minha Bio:</span>
+                    <span class="details">Bio :</span>
                         <textarea name="bio" id="bio" cols="85" rows="5"></textarea>
                     </div>
 
@@ -282,24 +267,24 @@
                     <input type="radio" name="gender" value="m" id="dot-1">
                     <input type="radio" name="gender" value="f" id="dot-2">
                     <input type="radio" name="gender" value="null" id="dot-3">
-                    <span class="gender-title">Sexo:</span>
+                    <span class="gender-title">Jenis Kelamin:</span>
                     <div class="category">
                         <label for="dot-1">
                             <span class="dot one"></span>
-                            <span class="gender">Homem</span>
+                            <span class="gender">Laki-laki</span>
                         </label>
                         <label for="dot-2">
                             <span class="dot two"></span>
-                            <span class="gender">Mulher</span>
+                            <span class="gender">Perempuan</span>
                         </label>
                         <label for="dot-3">
                             <span class="dot three"></span>
-                            <span class="gender">Prefiro não informar</span>
+                            <span class="gender">xxxxxx</span>
                         </label>
                     </div>
                 </div>
                 <div class="button">
-                    <input type="submit" value="Confirmar">
+                    <input type="submit" value="Daftar">
                 </div>
             </form>
         </div>
@@ -309,8 +294,6 @@
     <script>
         // Autor: Rodrigo Guimaraes
         // Script to validate imagem upload
-
-
         function validateForm(ev) {
   
             let input = document.querySelector('#arquivo');
@@ -336,15 +319,11 @@
                     span.innerText = 'Arquivo maior que 25kb';
                     return;
                 }
-
-            }
-                  
+            } 
             span.innerText = '';
-            
         }
-
+        
         let form = document.querySelector('form');
-
         form.addEventListener('submit', function(ev) {
 
             validateForm(ev);
@@ -352,12 +331,6 @@
         });
     </script>
 
-        
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-        crossorigin="anonymous"></script> -->
 </body>
 
 </html>

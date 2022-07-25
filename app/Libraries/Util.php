@@ -10,7 +10,7 @@
  * Description of Util
  *
  * @author Rodrigo Guimarães
- * Classe com alguns metodos uteis
+ * Class with some useful methods
  */
 namespace App\Libraries;
 

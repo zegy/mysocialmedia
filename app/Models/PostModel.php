@@ -24,7 +24,7 @@ class PostModel extends Model
 
     public function __construct() 
     {
-        parent::__construct(); // não esquecer de chamar construtor pai
+        parent::__construct(); // don't forget to call parent constructor
         $this->db = \Config\Database::connect();
         $this->homeModel = new HomeModel();
     }
@@ -45,7 +45,7 @@ class PostModel extends Model
            
     }
 
-    public function checkOwnership($pid, $uid) // 'checar' dono do post / verify post owner
+    public function checkOwnership($pid, $uid) // verify post owner
     {
     
             $vpost = $this->where('post_pk', $pid)
@@ -65,7 +65,7 @@ class PostModel extends Model
     public function getLikesPost($pid)
     {
             
-        //quantidade total de likes no post 
+        //total number of likes on the post
               
         $builder = $this->builder('t_like l');
 
@@ -79,7 +79,7 @@ class PostModel extends Model
                                                     
      }
 
-     public function getUserLikesPost($pid, $uid) // pega quantidade de likes de um usuario em um post especifico
+     public function getUserLikesPost($pid, $uid) // get the number of likes from a user on a specific post
     {
             
                
@@ -99,10 +99,10 @@ class PostModel extends Model
 
  
 
-     public function like($pid, $uid)  // metodo adicionar like no post especifico 
+     public function like($pid, $uid)  // method add like to specific post
      {
         
-        //to-do: so adicionar like caso o usuario nao tenha dado like ainda (like == 0 )
+        //to-do: just add like if the user hasn't liked it yet (like == 0 )
       
         if ($this->getUserLikesPost($pid, $uid) >= 1) {
                 
@@ -117,7 +117,7 @@ class PostModel extends Model
             $data = [ 'like_fk_post' => $pid,
                       'like_fk_user'  => $uid ];
             
-            $builder->insert($data); //erro aqui
+            $builder->insert($data); //error here
     
     
             $qtdlikePost = $this->getLikesPost($pid);
@@ -129,7 +129,7 @@ class PostModel extends Model
 
      }
 
-     public function getAllByKeyword(string $keyword) : array // pesquisa por palavra chave na busca 
+     public function getAllByKeyword(string $keyword) : array // keyword search in search
      {
  
         $res = $this->homeModel->like('texto', $keyword)

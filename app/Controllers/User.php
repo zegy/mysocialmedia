@@ -13,7 +13,7 @@ class User extends BaseController
         $this->usuariosModel = new UserModel();       
     }
            
-    public function showProfile($uid) // load profile information and show on view / carrega informações do usuario e mostra na view 
+    public function showProfile($uid) // load profile information and show on view 
     {
         if (!$uid) {
                

@@ -12,8 +12,8 @@ use Exception;
 
 class AuthJwtFilter implements FilterInterface
 {
-    //Filtro para toda requisição a api para exigir um token previo para liberar a utilização a api
-    //token obtido no login do controller AuthJwt
+	//Filter for every api request to require a previous token to allow the use of the api
+    //token obtained on login from AuthJwt controller
   	use ResponseTrait;
 
 	public function before(RequestInterface $request, $arguments = NULL)
@@ -32,8 +32,8 @@ class AuthJwtFilter implements FilterInterface
 	        $token = $arr[1];
             
             try {
-		       JWT::decode($token, $key, ['HS256']); //Verifica validade do token
-                    //TO-DO: checar data de expiração aqui e invalidar se expirado
+		       JWT::decode($token, $key, ['HS256']); // Check token validity
+                    //TO-DO: check expiration date here and invalidate if expired
 		} catch (\Exception $e) {
                     
 		    return Services::response()->setJSON(['error' => 'no token provided or invalid token'])

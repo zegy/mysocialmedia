@@ -10,7 +10,7 @@ class CommentModel extends Model
     protected $primaryKey = 'comment_pk';
    // protected $returnType   = 'object';
 
-    protected $allowedFields = [ //segurança: define quais campos podem ser alterados  
+    protected $allowedFields = [ // security: defines which fields can be changed
         'comment_fk_user',
         'comment_fk_post',
         'comment_text',
@@ -18,7 +18,7 @@ class CommentModel extends Model
     ];
 
 
-    public function checkOwnership(int $cid, int $uid) // 'checar' dono do comentario / verify comment owner
+    public function checkOwnership(int $cid, int $uid) // verify comment owner
     { 
             
    
@@ -38,8 +38,8 @@ class CommentModel extends Model
     }
 
 
-    public function getLikesCom($cid)    //quantidade total de likes no comentario / get total comment likes 
-    { //aqui pode mudar para obter a quantidade de like pelo view do db
+    public function getLikesCom($cid)    // get total comment likes 
+    { //here you can change to get the amount of like by the db view
             
               
                 $builder = $this->builder('t_like l');
@@ -55,8 +55,8 @@ class CommentModel extends Model
 
 
 
-    public function like($cid, $uid) // like a comment / dar like em um comentario 
-    {                                // $cid = id do comentario/comment id , $uid = id do usuario que deu like/ user id who like the comment
+    public function like($cid, $uid) // like a comment
+    {                                // $cid = comment id , $uid = user id who like the comment
                                          
 
         
@@ -79,9 +79,8 @@ class CommentModel extends Model
                       echo $qtdlikeCom;
 
                   } else {
-                          //inserir like novo e fazer uma nova consulta pegando os dados atualizados
-                          //inserir registro condicionalmente
-                        
+                          //insert like new and make a new query getting the updated data
+                          //insert record conditionally                        
                             $builder = $this->builder('t_like');
                             $data = [ 'like_fk_comment' => $cid,
                                       'like_fk_user' => $uid ];
@@ -97,8 +96,7 @@ class CommentModel extends Model
         
      }
 
-     public function getAllByKeyword(string $keyword) : array // retorna todos os comentarios com base em uma palavra chave pesquisada 
-                                                             // get all comment by a specific keyword
+     public function getAllByKeyword(string $keyword) : array // returns all comments based on a searched keyword
      { 
 
 

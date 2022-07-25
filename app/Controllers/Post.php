@@ -117,7 +117,7 @@ class Post extends BaseController
         }
      }
 
-    public function edit($pid)  // problema com tipo de retorno aqui!
+    public function edit($pid)  // problem with return type here!
     {
             
         if (!$pid) { 
@@ -139,7 +139,7 @@ class Post extends BaseController
         }        
       }
 
-    public function userPosts($uid) //listar todos os posts de um usuario especifico / list all post from specific user
+    public function userPosts($uid) // list all post from specific user
     { 
         if($uid != session()->get('id')) { 
 

@@ -10,17 +10,18 @@ class Account extends BaseController
 {
 	function __construct()
 	{
+		//Check is admin (with user_pk = 1)
+		if(session('id') != 1){
+			throw new \CodeIgniter\Exceptions\PageNotFoundException();
+		}
+
 		helper('form');
 		$this->usuariosModel = new UserModel();
 	}
 
 	public function signup()
 	{
-		if(session('id')==1){
-			return view('account/signup');
-		}else{
-			throw new \CodeIgniter\Exceptions\PageNotFoundException();
-		}
+		return view('account/signup');
 	}
 
 	public function createAccount()

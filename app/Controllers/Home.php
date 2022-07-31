@@ -23,32 +23,33 @@ class Home extends BaseController
 
     public function index()
     {
-        return view('home',  [
-            "posts"  =>  $this->homeModel->paginate(5),
-            "pager"  =>  $this->homeModel->pager
+        return view('home',
+        [
+            "posts" => $this->homeModel->paginate(5),
+            "pager" => $this->homeModel->pager
         ]);
     }
 
     public function search()
     {
-         $data   = $this->request->getPost();
+        $data       = $this->request->getPost();
+        $keyword    = $data['qsearch'];
+        $s_users    = '';
+        $s_posts    = '';
+        $s_comments = '';
 
-         $keyword = $data['qsearch'];
-         
-         $s_users    = '';
-         $s_posts    = '';
-         $s_comments = '';
-
-         if($keyword) {
-
-             $s_users    =  $this->usuariosModel->getAllByKeyword($keyword);
-             $s_posts    =  $this->postModel->getAllByKeyword($keyword);
-             $s_comments =  $this->commentModel->getAllByKeyword($keyword);
-
+        if($keyword)
+        {
+            $s_users    = $this->usuariosModel->getAllByKeyword($keyword);
+            $s_posts    = $this->postModel->getAllByKeyword($keyword);
+            $s_comments = $this->commentModel->getAllByKeyword($keyword);
         } 
          
-         return view('search/search', ['users'    =>  $s_users,
-                                       'posts'    =>  $s_posts,
-                                       'comments' => $s_comments]);
+        return view('search/search',
+        [
+            'users'    => $s_users,
+            'posts'    => $s_posts,
+            'comments' => $s_comments
+        ]);
     }
 }

@@ -14,23 +14,21 @@ class Login extends BaseController
     
     public function index() 
     {
-        if (session()->isLoggedIn == true) { // if user is already logged go to home page
-
-			return redirect()->to('/');
-            
-		} else {
-
+        if (session()->isLoggedIn == true) // if user is already logged go to home page
+        {
+			return redirect()->to('/');   
+		}
+        else
+        {
             return view("login");
         }
     }
     
     public function signIn()
     {
-        $email    = $this->request->getPost('inputEmail');
-        $password = $this->request->getPost('inputPassword');
-        
+        $email        = $this->request->getPost('inputEmail');
+        $password     = $this->request->getPost('inputPassword');
         $usuarioModel = new UserModel();
-     
         $dadosUsuario = $usuarioModel->getByEmail($email);
         
         if (count($dadosUsuario) > 0) 
@@ -48,20 +46,17 @@ class Login extends BaseController
                 session()->set('img',    $dadosUsuario['user_profile_picture']);
                 session()->set('dt_cad', $dadosUsuario['user_regis_date_time']);
                 session()->set('sexo',   $dadosUsuario['user_sex']);
-             
                 return redirect()->to(base_url("/"));
-               
-           } else {
-               
+           }
+           else
+           {
                session()->setFlashData('msg','Usuario ou senha incorretos!' );
                return redirect()->to('/login');
- 
            } 
-            
-        } else {
-           
+        }
+        else
+        {
             session()->setFlashData('msg','Usuario ou senha incorretos!' );
-      
             return redirect()->to('/login');
         }         
     } 

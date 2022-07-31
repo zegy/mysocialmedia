@@ -6,7 +6,6 @@ use CodeIgniter\RESTful\ResourceController;
 
 class HomeApi extends ResourceController
 {
-
 	protected $modelName = 'App\Models\HomeModel';
 	protected $format    = 'json';
 	/**
@@ -17,11 +16,13 @@ class HomeApi extends ResourceController
 	public function index()
 	{
 		$resp = $this->respond($this->model->findAll());
-
-		if (!$resp) {
+		if (!$resp)
+		{
 			return $this->failNotFound('Dados não encontrados! / Not found ');
-		} else {
-			return  $resp;
+		}
+		else
+		{
+			return $resp;
 		}
 	}
 

@@ -10,8 +10,8 @@ class Account extends BaseController
 {
 	function __construct()
 	{
-		//Check is admin (with user_pk = 1)
-		if(session('id') != 1){
+		if(session('id') != 1) // Check is admin (user_pk = 1)
+		{
 			throw new \CodeIgniter\Exceptions\PageNotFoundException();
 		}
 
@@ -26,14 +26,16 @@ class Account extends BaseController
 
 	public function createAccount()
 	{
-		$validationRule = [
-			'userfile'  => [
+		$validationRule =
+		[
+			'userfile' =>
+			[
 				'label' => 'Image File',
 				'rules' => 'uploaded[arquivo]'
-					. '|is_image[arquivo]'
-					. '|mime_in[arquivo,image/jpg,image/jpeg]'
-					. '|max_size[arquivo,30]'
-					. '|max_dims[arquivo,200,200]',
+							. '|is_image[arquivo]'
+							. '|mime_in[arquivo,image/jpg,image/jpeg]'
+							. '|max_size[arquivo,30]'
+							. '|max_dims[arquivo,200,200]',
 			],
 			'nome'     => 'required|min_length[3]',
 			'username' => 'required|min_length[5]',
@@ -46,57 +48,59 @@ class Account extends BaseController
 
 		$data = $this->request->getPost();
 
-		if (count($data) == 0) {
+		if (count($data) == 0)
+		{
 			return redirect()->to('/');
 		}
 
 		$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; // verify if file is valid
 		$filePath = '';
-		$myTime = new Time('now', 'America/Recife', 'pt_BR');
-		$gender = null;
+		$myTime   = new Time('now', 'America/Recife', 'pt_BR');
+		$gender   = null;
 
-		switch ((string)($data['gender'])) {
+		switch ((string)($data['gender']))
+		{
 			case 'm':
-				$gender = 'm';
-				break;
-
+				$gender = 'm'; break;
 			case 'f':
-				$gender = 'f';
-				break;
-
+				$gender = 'f'; break;
 			default:
-				$gender = null;
-				break;
+				$gender = null; break;
 		}
 
-		if (!$this->validate($validationRule)) {
+		if (!$this->validate($validationRule))
+		{
 			$data = ['errors' => $this->validator->getErrors()];
 			return view('account/signup', $data);
-
-		} else {
-
-			$dados = [
+		}
+		else
+		{
+			$dados =
+			[
 				'infoArquivo' => []
 			];
 
-			if ($arquivo && !$arquivo->isValid()) {
+			if ($arquivo && !$arquivo->isValid())
+			{
 				return view('account/signup');
-			
-			} elseif ($arquivo && $arquivo->isValid() && !$arquivo->hasMoved()) {
+			}
+			elseif ($arquivo && $arquivo->isValid() && !$arquivo->hasMoved())
+			{
 				$arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
 				$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
 			}
 
-			$dataToSave = [
-				'user_name'  => (string)$data['username'],
-				'user_password'  => password_hash((string)$data['password'], PASSWORD_DEFAULT),
-				'user_full_name'   => $data['nome'],
-				'user_email'  => $data['email'],
-				'user_tel'    => ($data['phone'] ? $data['phone'] : null),
-				'user_profile_picture'    => (string)$filePath,
+			$dataToSave =
+			[
+				'user_name'  		   => (string)$data['username'],
+				'user_password'  	   => password_hash((string)$data['password'], PASSWORD_DEFAULT),
+				'user_full_name'   	   => $data['nome'],
+				'user_email'  		   => $data['email'],
+				'user_tel'    		   => ($data['phone'] ? $data['phone'] : null),
+				'user_profile_picture' => (string)$filePath,
 				'user_regis_date_time' => ((array)$myTime)['date'],
-				'user_sex'   => $gender,
-				'user_bio'    => $data['bio']
+				'user_sex'			   => $gender,
+				'user_bio'    		   => $data['bio']
 			];
 
 			$result = $this->usuariosModel->save($dataToSave);

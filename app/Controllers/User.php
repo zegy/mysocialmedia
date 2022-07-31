@@ -15,23 +15,20 @@ class User extends BaseController
            
     public function showProfile($uid) // load profile information and show on view 
     {
-        if (!$uid) {
-               
+        if (!$uid)
+        {       
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
-       
         }
            
         $userData = $this->usuariosModel->getById($uid);
         
-     
-        if ($userData) {
-        
+        if ($userData)
+        {
             echo view('profile/profile', ["userData" => $userData]); 
-       
-        } else {
-           
+        }
+        else
+        {   
             return redirect()->to('/');
-        
         }
     }
 }

@@ -111,8 +111,7 @@ form .category label .dot {
 
 #dot-1:checked~.category label .one,
 #dot-2:checked~.category label .two,
-#dot-3:checked~.category label .three {
-    
+#dot-3:checked~.category label .three {   
     background: #9b59b6;
     border-color: #d9d9d9;
 }
@@ -127,7 +126,6 @@ form .button {
 }
 
 form .button input {
-
     height: 100%;
     width: 100%;
     border-radius: 5px;
@@ -139,7 +137,6 @@ form .button input {
     cursor: pointer;
     transition: all 0.3s ease;
     background: linear-gradient(135deg, #71b7e6, #9b59b6);
-
 }
 
 form .button input:hover {
@@ -152,18 +149,15 @@ form .button input:hover {
     background-color: rgba(255, 51, 51,0.8);
     border-radius: 5px;
     padding: 10px;
-
 }
 
 .alert ul {
     list-style: none;
 }
 
- #bio {
-    width: 100%;
-  
-    
-} 
+#bio {
+    width: 100%;    
+}
 
 @media(max-width: 584px) {
     .container {

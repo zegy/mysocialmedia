@@ -2,10 +2,11 @@
 <html lang="pt-br" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
     <title>DIPSI</title>
-    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="<?= base_url('public/css/signup.css') ?>" />
 </head>
 
@@ -14,7 +15,6 @@
     
         <div class="title">Pendaftaran Pengguna Baru</div>
         <div class="content">
-
             <?php  if (isset($errors)) { ?>
             <div class="alert">
                 <ul>
@@ -24,7 +24,6 @@
                 </ul>
             </div>
             <?php } ?>
-            
             <form action="<?php echo site_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
@@ -57,12 +56,10 @@
                         <span id="file-msg" style="color:red"></span>
                        
                     </div>
-
                     <div class="input-box">
                     <span class="details">Bio :</span>
                         <textarea name="bio" id="bio" cols="85" rows="5"></textarea>
                     </div>
-
                 </div>
                 <div class="gender-details">
                     <input type="radio" name="gender" value="m" id="dot-1">
@@ -91,12 +88,11 @@
         </div>
     </div>
 
-
     <script>
         // Autor: Rodrigo Guimaraes
         // Script to validate imagem upload
-        function validateForm(ev) {
-  
+        function validateForm(ev)
+        {
             let input = document.querySelector('#arquivo');
             let span  = document.querySelector('#file-msg');
       
@@ -104,17 +100,16 @@
             let filePath          = input.value;
             let allowedExtensions = /(\.jpg|\.jpeg)$/i;
 
-            if (!allowedExtensions.exec(filePath)) {
-
+            if (!allowedExtensions.exec(filePath))
+            {
                 span.innerText = 'Por favor selecione arquivos de imagem .jpeg ou .jpg.';
                 ev.preventDefault()
                 input.value = '';
                 return false;
-
             }
 
-            if (files.length > 0) {
-                
+            if (files.length > 0)
+            {                
                 if (files[0].size > 25 * 1024) {
                     ev.preventDefault()
                     span.innerText = 'Arquivo maior que 25kb';
@@ -125,10 +120,9 @@
         }
         
         let form = document.querySelector('form');
-        form.addEventListener('submit', function(ev) {
-
+        form.addEventListener('submit', function(ev)
+        {
             validateForm(ev);
-
         });
     </script>
 

@@ -20,4 +20,6 @@
 	</div>
 </div>
 
+<a class="nav-link" href="<?= base_url('post/userPosts/' . $userData['user_pk']) ?>">Post</a>
+
 <?= $this->endSection() ?>  

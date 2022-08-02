@@ -58,7 +58,8 @@ $routes->setAutoRoute(true);
  $routes->post('/search', 'Home::search');
 
  $routes->add('notification/onFCM', 'Notification::onFCM');
-
+ 
+ $routes->get('post/userPosts', 'Post::userPosts');
 
  /* $routes->get('closure', function(){ //teste com Clouse
 	  

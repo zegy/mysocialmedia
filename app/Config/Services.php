@@ -29,16 +29,4 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
-	 
-	 	public static function getSecretKey()
-	{ // Retorna a chave secreta para codificar o JWT, constante definida em .env 
-		return getenv('JWT_SECRET_KEY');
-	}
-
-	public static function getJwtExpTime()
-	{ // Retorna o tempo de validade do JWT, constante definida em .env 
-
-		//return (new DateTime("now"))->getTimestamp();
-		return getenv('JWT_TIME_TO_LIVE');
-	}
 }

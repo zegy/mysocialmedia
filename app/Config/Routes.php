@@ -39,7 +39,7 @@ $routes->setAutoRoute(true);
   
  $routes->post('/search', 'Home::search', ['filter' => 'auth']);
 
- $routes->get('user/showprofile/(:num)', 'User::showProfile', ['filter' => 'auth']);
+ $routes->get('user/showprofile/(:num)', 'User::showProfile/$1', ['filter' => 'auth']);
 
  $routes->add('notification/onFCM', 'Notification::onFCM');
  

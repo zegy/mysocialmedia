@@ -28,9 +28,12 @@ class Home extends BaseController
 			return redirect()->to('login');   
 		}
 
+        $uid = '1';
         return view('home',
         [
-            "posts" => $this->homeModel->paginate(5),
+            
+            "posts" => $this->homeModel->where('pid', $uid)->paginate(5),
+            // "posts" => $this->homeModel->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }

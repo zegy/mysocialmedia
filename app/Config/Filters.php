@@ -18,14 +18,12 @@ class Filters extends BaseConfig
      * @var array
      */
     public $aliases = [
-     // 'csrf'          => CSRF::class,
+        'csrf'          => CSRF::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
-    //  'invalidchars'  => InvalidChars::class,
-    //  'secureheaders' => SecureHeaders::class,
-		'cors'     => \App\Filters\Cors::class,
-		'auth'     => \App\Filters\Auth::class,
-		'authjwt'  => \App\Filters\AuthJwtFilter::class
+        'invalidchars'  => InvalidChars::class,
+        'secureheaders' => SecureHeaders::class,
+        'auth'          => \App\Filters\Auth::class,
     ];
 
     /**
@@ -34,38 +32,29 @@ class Filters extends BaseConfig
      *
      * @var array
      */
- 	public $globals = [
-		'before' => [
-                     'cors',
-                     'auth' => [ 'except' => [  'login/*', 
-                                                'login/',
-                                                 'account/signup',
-                                                 'account/signup/*',
-                                                 'account/createaccount',
-                                                 'account/createaccount/*',  //exceção para pagina de login, pois e necessario logar pra autenticar
-					                             'account/testsucess/*',
-                                                 'account/testsucess/',
-                                                 'api/', 
-                                                 'api/*', 
-                                                 '/webservice/login/*', 
-                                                 '/webservice/login',
-												 'closure/',
-												 'closure/*' ] 
-                                ],   //exceção para api, pois sera autenticada com jwt
-	              'honeypot',
-		       //   'csrf', 
-		],
-		'after'  => [
-			'toolbar',
-		        'honeypot',
-		],
-	];
+    public $globals = [
+        'before' => [
+            // 'honeypot',
+            // 'csrf',
+            // 'invalidchars',
+        ],
+        'after' => [
+            'toolbar',
+            // 'honeypot',
+            // 'secureheaders',
+        ],
+    ];
+
     /**
      * List of filter aliases that works on a
      * particular HTTP method (GET, POST, etc.).
      *
      * Example:
-     * 'post' => ['csrf', 'throttle']
+     * 'post' => ['foo', 'bar']
+     *
+     * If you use this, you should disable auto-routing because auto-routing
+     * permits any HTTP method to access a controller. Accessing the controller
+     * with a method you don’t expect could bypass the filter.
      *
      * @var array
      */
@@ -80,12 +69,5 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    	public $filters = [
-		'authjwt'  => [
-		'before' => [
-			  'api/*',
-			  'api/'
-		],
-	  ]
-	];
+    public $filters = [];
 }

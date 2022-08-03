@@ -23,6 +23,11 @@ class Home extends BaseController
 
     public function index()
     {
+        if (session()->isLoggedIn == false) // if user is already logged go to home page
+        {
+			return redirect()->to('login');   
+		}
+
         return view('home',
         [
             "posts" => $this->homeModel->paginate(5),

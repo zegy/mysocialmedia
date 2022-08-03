@@ -35,27 +35,11 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 
 
-// class TesteClosure {
+ $routes->get('/', 'Home::index', ['filter' => 'auth']);
   
-// 	 public function showMSg($msg){
+ $routes->post('/search', 'Home::search', ['filter' => 'auth']);
 
-// 		return "<h2> $msg </h2>";
-
-// 	 }
-
-// };
-
- $routes->get('/', 'Home::index');
-
- $routes->get('/teste', 'Home::teste' , ['filter' => 'auth'] );
-
- $routes->get('api/home', 'HomeApi::index', ['filter' => 'cors'] );
- 
- $routes->post('webservice/login', 'AuthJwt::login');
- 
- $routes->add('post/list', 'Home::listPosts', ['as' => 'listar_posts']); 
-
- $routes->post('/search', 'Home::search');
+ $routes->get('user/showprofile/(:num)', 'User::showProfile', ['filter' => 'auth']);
 
  $routes->add('notification/onFCM', 'Notification::onFCM');
  

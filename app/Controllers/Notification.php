@@ -2,7 +2,7 @@
 
 use App\Models\NotificationModel;
 use App\Models\CommentModel;
-use App\Models\PostModel;
+use App\Models\PostModel; 
 
 class Notification extends BaseController
 { 

@@ -39,13 +39,14 @@ class Login extends BaseController
             {
                 session()->set('isLoggedIn', true); 
                 session()->set('id',     $dadosUsuario['user_pk']);
-                session()->set('login',  $dadosUsuario['user_name']);
-                session()->set('nome',   $dadosUsuario['user_full_name']);
-                session()->set('email',  $dadosUsuario['user_email']);
-                session()->set('tel',    $dadosUsuario['user_tel']);
-                session()->set('img',    $dadosUsuario['user_profile_picture']);
-                session()->set('dt_cad', $dadosUsuario['user_regis_date_time']);
-                session()->set('sexo',   $dadosUsuario['user_sex']);
+                // session()->set('login',  $dadosUsuario['user_name']);
+                // session()->set('nome',   $dadosUsuario['user_full_name']);
+                // session()->set('email',  $dadosUsuario['user_email']);
+                // session()->set('tel',    $dadosUsuario['user_tel']);
+                // session()->set('img',    $dadosUsuario['user_profile_picture']);
+                // session()->set('dt_cad', $dadosUsuario['user_regis_date_time']);
+                // session()->set('sexo',   $dadosUsuario['user_sex']);
+                session()->set('role',     $dadosUsuario['user_role']);
                 return redirect()->to(base_url("/"));
            }
            else

@@ -28,12 +28,9 @@ class Home extends BaseController
 			return redirect()->to('login');   
 		}
 
-        $role = 'mahasiswa';
         return view('home',
         [
-            
-            "posts" => $this->homeModel->where('role', $role)->paginate(5),
-            // "posts" => $this->homeModel->paginate(5),
+            "posts" => $this->homeModel->where('role', session('role'))->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }

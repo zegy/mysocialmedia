@@ -24,7 +24,7 @@
                 </ul>
             </div>
             <?php } ?>
-            <form action="<?php echo site_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Nama Lengkap :</span>

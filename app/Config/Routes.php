@@ -34,26 +34,30 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+// ZEGY OTC CLEAN ROUTES (NEED TO FILTER!)
+$routes->add('/', 'Home::index', ['filter' => 'auth']);
+$routes->add('search', 'Home::search'); 
 
- $routes->add('/', 'Home::index', ['filter' => 'auth']);
-  
- // ZEGY OTC CLEAN ROUTES
- $routes->add('account/createaccount', 'Account::createAccount');
- $routes->add('login', 'Login::index');
- $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
- $routes->add('post/save', 'Post::save');
- $routes->add('post/edit/(:num)', 'Post::edit/$1');
- $routes->add('post/delete/(:num)', 'Post::delete/$1');
- $routes->add('comment/edit/(:num)', 'Comment::edit/$1');
- $routes->add('comment/delete/(:num)/(:num)', 'Comment::delete/$1/$2');
- $routes->add('comment/save', 'Comment::save');
- $routes->add('login/signout', 'Login::signOut');
- $routes->add('account/signup', 'Account::signUp');
- $routes->add('search', 'Home::search');
- $routes->add('notification/onfcm', 'Notification::onFCM');
- $routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
- $routes->add('comment/show/(:num)', 'Comment::show/$1');
- $routes->add('login/signin', 'Login::signIn');
+$routes->add('account/signup', 'Account::signUp');
+$routes->add('account/createaccount', 'Account::createAccount');
+
+$routes->add('login', 'Login::index');
+$routes->add('login/signin', 'Login::signIn');
+$routes->add('login/signout', 'Login::signOut');
+
+$routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
+
+$routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
+$routes->add('post/save', 'Post::save');
+$routes->add('post/edit/(:num)', 'Post::edit/$1');
+$routes->add('post/delete/(:num)', 'Post::delete/$1');
+
+$routes->add('comment/save', 'Comment::save');
+$routes->add('comment/show/(:num)', 'Comment::show/$1');
+$routes->add('comment/edit/(:num)', 'Comment::edit/$1');
+$routes->add('comment/delete/(:num)/(:num)', 'Comment::delete/$1/$2');
+
+$routes->add('notification/onfcm', 'Notification::onFCM');
  
 /*
  * --------------------------------------------------------------------

@@ -22,7 +22,7 @@
 
 <body class="text-center">
     <main class="form-signin">
-        <form class="form-cad" action="<?php echo base_url('login/signIn') ?>" method="post">
+        <form class="form-cad" action="<?php echo base_url('login/signin') ?>" method="post">
             <img class="mb-4" src="<?php echo base_url('public/images/logoEdited3.png') ?>" alt="" width="72" height="72">
             <h1 class="h3 mb-3 fw-normal">Por favor, logue-se</h1>
             <label for="inputEmail" class="visually-hidden">Email address</label>

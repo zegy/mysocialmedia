@@ -23,7 +23,7 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+$routes->setAutoRoute(false);
 
 /*
  * --------------------------------------------------------------------
@@ -35,25 +35,26 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 
 
- $routes->get('/', 'Home::index', ['filter' => 'auth']);
+ $routes->add('/', 'Home::index', ['filter' => 'auth']);
   
- $routes->post('/search', 'Home::search', ['filter' => 'auth']);
-
- $routes->get('user/showprofile/(:num)', 'User::showProfile/$1', ['filter' => 'auth']);
-
- $routes->add('notification/onFCM', 'Notification::onFCM');
+ // ZEGY OTC CLEAN ROUTES
+ $routes->add('account/createaccount', 'Account::createAccount');
+ $routes->add('login', 'Login::index');
+ $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
+ $routes->add('post/save', 'Post::save');
+ $routes->add('post/edit/(:num)', 'Post::edit/$1');
+ $routes->add('post/delete/(:num)', 'Post::delete/$1');
+ $routes->add('comment/edit/(:num)', 'Comment::edit/$1');
+ $routes->add('comment/delete/(:num)/(:num)', 'Comment::delete/$1/$2');
+ $routes->add('comment/save', 'Comment::save');
+ $routes->add('login/signout', 'Login::signOut');
+ $routes->add('account/signup', 'Account::signUp');
+ $routes->add('search', 'Home::search');
+ $routes->add('notification/onfcm', 'Notification::onFCM');
+ $routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
+ $routes->add('comment/show/(:num)', 'Comment::show/$1');
+ $routes->add('login/signin', 'Login::signIn');
  
- $routes->get('post/userPosts', 'Post::userPosts');
-
- /* $routes->get('closure', function(){ //teste com Clouse
-	  
-	    $cteste = new TesteClosure();
-
-		return $cteste->showMSg("Rodrigo");
- }); */
- 
-
-
 /*
  * --------------------------------------------------------------------
  * Additional Routing

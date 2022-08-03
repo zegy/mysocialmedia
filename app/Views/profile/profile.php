@@ -20,6 +20,6 @@
 	</div>
 </div>
 
-<a class="nav-link" href="<?= base_url('post/userPosts/' . $userData['user_pk']) ?>">Post</a>
+<a class="nav-link" href="<?= base_url('post/userposts/' . $userData['user_pk']) ?>">Post</a> <!--ZEGY OTC-->
 
 <?= $this->endSection() ?>  

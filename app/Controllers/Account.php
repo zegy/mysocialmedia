@@ -19,7 +19,7 @@ class Account extends BaseController
 		$this->usuariosModel = new UserModel();
 	}
 
-	public function signup()
+	public function signUp()
 	{
 		return view('account/signup');
 	}

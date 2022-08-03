@@ -27,7 +27,7 @@
   	</div>
 	<div class="form-group">      
      	<button type="submit" class="btn btn-success">Salvar</button>
-    	<a href="<?= base_url('/') ?>" class="btn btn-danger">Voltar</a>
+    	<a class="btn btn-danger" onclick="history.back()">Voltar</a>
     </div>
  	<?php echo form_close() ?>
 

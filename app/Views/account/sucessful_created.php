@@ -22,7 +22,7 @@
             <p class="lead"><strong>Sua conta foi criada</strong> Agora você acaba de fazer parte de nossa rede social.</p>
             <hr>
             <p class="lead">
-                <a class="btn btn-primary btn-sm" href="<?php echo base_url('/login') ?>" role="button">Fazer o login</a>
+                <a class="btn btn-primary btn-sm" href="<?php echo base_url('login') ?>" role="button">Fazer o login</a>
             </p>
         </div>
     </div>

@@ -41,7 +41,7 @@
                         </li>
                         <?php } ?>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0" method="post" action="<?= base_url('/search') ?>">
+                    <form class="form-inline my-2 my-lg-0" method="post" action="<?= base_url('search') ?>">
                         <input class="form-control mr-sm-2" type="search" name="qsearch" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                     </form>
@@ -107,7 +107,7 @@
                 mToken = token;
                 $.ajax(
                 {
-                    url: '<?= base_url('notification/onFCM') ?>',
+                    url: '<?= base_url('notification/onfcm') ?>',
                     type: 'POST',
                     data:
                     {

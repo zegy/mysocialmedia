@@ -47,57 +47,7 @@ class PostModel extends Model
             return false;
         }
     }
-
-    public function getLikesPost($pid) // total number of likes on the post
-    {             
-        $builder = $this->builder('t_like l');
-        $queryPostLikes = $builder->select('count(*) as qtdlike')
-                                  ->join('t_post p ',
-                                         'l.like_fk_post = p.post_pk')
-                                  ->where("p.post_pk", $pid)
-                                  ->get(); 
-        return $queryPostLikes->getResult()[0]->qtdlike;
-    }
-
-    public function getUserLikesPost($pid, $uid) // get the number of likes from a user on a specific post
-    {
-        $builder = $this->builder('t_like l');   
-        $queryPostUserLikes = $builder->select('count(*) as qtdlike')
-                                      ->join('t_post p ',
-                                             'l.like_fk_post = p.post_pk')
-                                      ->join('t_user u ',
-                                             'l.like_fk_user = u.user_pk')
-                                      ->where("
-                                                u.user_pk = $uid
-                                                and
-                                                p.post_pk = $pid
-                                            ")
-                                      ->get(); 
-        return $queryPostUserLikes->getResult()[0]->qtdlike;
-    }
-
-    public function like($pid, $uid) // method add like to specific post
-    {
-        //to-do: just add like if the user hasn't liked it yet (like == 0 ) 
-        if ($this->getUserLikesPost($pid, $uid) >= 1)
-        {
-            $qtdlikePost = $this->getLikesPost($pid);
-            return $qtdlikePost;
-        }
-        else
-        {
-            $builder = $this->builder('t_like');   
-            $data = 
-            [
-                'like_fk_post' => $pid,
-                'like_fk_user' => $uid
-            ];
-            $builder->insert($data); // error here
-            $qtdlikePost = $this->getLikesPost($pid);
-            echo $qtdlikePost;
-        }
-    }
-
+    
     public function getAllByKeyword(string $keyword) : array // keyword search in search
     {
         $res = $this->homeModel->like('texto', $keyword)

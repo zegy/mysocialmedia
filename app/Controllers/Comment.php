@@ -53,9 +53,6 @@ class Comment extends BaseController
                             u.user_pk               as uid,
                             u.user_full_name        as nome,
                             u.user_profile_picture  as image, 
-                            (select count(*)        from t_like l2
-                                                    where l2.like_fk_comment = c.comment_pk)
-                                                    as qtdlike
                         ');
 
         $builder->join('t_post p',
@@ -168,30 +165,5 @@ class Comment extends BaseController
         {
             return redirect()->to('/');     
         }
-    }
-    
-    public function like($cid, $uid) 
-    {
-        // check total amount of like for this comment
-        // check total amount of user like for this comment
-        // if user has 1 or more likes for this comment then returns the total amount of likes for the comment
-        // otherwise insert a like from this user in this comment and send the updated amount of likes as a response
-        // amount of user likes in the comment
-        if (!$cid && !$uid)
-        {       
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();      
-        }
-           
-        if($uid != session()->get('id'))
-        {    
-            $qtdlikeCom = $this->commentModel->getLikesCom($cid);
-            echo $qtdlikeCom;
-            return;
-        }
-        else
-        {
-            $qtdlikeCom = $this->commentModel->like($cid, $uid);
-            echo $qtdlikeCom; 
-        }       
-    }      
+    }     
 }  

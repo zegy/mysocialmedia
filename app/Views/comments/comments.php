@@ -2,21 +2,6 @@
 
 <?= $this->section('content') ?>
 
-<script>   
-	function refreshLikesCom(cid, uid, elemento)
-	{
-		$.ajax(
-		{
-			url: '<?= base_url("comment/like/" ) ?>' + '/' + cid + "/" + uid,
-			cache: false,
-			success: function(data)
-			{
-				elemento.innerHTML = " " + data;
-			} 
-		}); 
-	}
-</script>
-
 <div class="media border p-3 box-component">
 	<a  href="<?= base_url('user/showprofile/'. $post->uid) ?>" ><img src="<?php echo base_url('public/'.$post->image)?>" alt="<?= $post->nome ?>" class="mr-3 mt-3 rounded-circle" style="width:60px;"></a>
 	<div class="text-message media-body">
@@ -36,7 +21,6 @@
 				<h4><?= $comment->nome ?> <small><i>Postado em <?= formatDate($comment->data)?></i></small></h4>
 				<p><?= htmlspecialchars($comment->texto) ?></p>
 				<div class="form-group">
-					<button class="btn btn-primary"> <i class="fa fa-heart" aria-hidden="true"></i> <span  onclick="refreshLikesCom(<?= $comment->cid ?>, <?= session()->get('id')  ?> ,this)"><?= $comment->qtdlike ?></span></button>
 					<?php  if (session()->get('id') == $comment->uid) { ?>
 					<a href="<?= base_url('comment/edit/' . $comment->cid) ?>" class="btn btn-warning"><i class="fa fa-address-book" aria-hidden="true"></i> editar</a>
 					<a href="<?= base_url('comment/delete/'.$comment->cid . '/' . $post->pid) ?>" class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>

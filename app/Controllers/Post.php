@@ -18,26 +18,6 @@ class Post extends BaseController
         $this->homeModel = new HomeModel();
     }
     
-    public function like($pid, $uid) 
-    { 
-        if ( !$pid && !$uid )
-        {       
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();      
-        }
-         
-        if($uid != session()->get('id'))
-        {        
-            $qtdlikePost = $this->postModel->getLikesPost($pid);
-            echo $qtdlikePost;
-            return;
-        }
-        else
-        {
-            $qtdlikePost = $this->postModel->like($pid, $uid);
-            echo $qtdlikePost;
-        }
-    }
-
     public function save() 
     {
         $data   = $this->request->getPost();

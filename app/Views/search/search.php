@@ -96,7 +96,6 @@
 						<h4><?= $post->nome ?> <small><i>Postado em <?= formatDate($post->data)?></i></small></h4>
 						<p><?= htmlspecialchars($post->texto) ?></p>
 						<div class="form-group">
-							<button class="btn btn-primary"> <i class="fa fa-heart" aria-hidden="true"></i> <span  onclick="refreshLikesPost(<?= $post->pid ?>, <?= session()->get('id')  ?> ,this)"><?= $post->qtdlike ?></span></button>
 							<a href="<?= base_url('comment/show/'.$post->pid) ?>" class="btn btn-success"><i class="fa fa-comment" aria-hidden="true"></i> <?= $post->qtdcom ?> </a>
 							<?php  if (session()->get('id') == $post->uid) { ?>
 							<a href="<?= base_url('post/edit/' . $post->pid) ?>" class="btn btn-warning"> <i class="fa fa-address-book" aria-hidden="true"></i> editar</a>
@@ -122,7 +121,6 @@
 						<h4><?= $comment->nome ?> <small><i>Postado em <?= formatDate($comment->data)?></i></small></h4>
 						<p><?= htmlspecialchars($comment->texto) ?></p>
 						<div class="form-group">
-							<button class="btn btn-primary"> <i class="fa fa-heart" aria-hidden="true"></i> <span  onclick="refreshLikesCom(<?= $comment->cid ?>, <?= session()->get('id')  ?> ,this)"><?= $comment->qtdlike ?></span></button>
 							<?php if (session()->get('id') == $comment->uid) { ?>
 							<a href="<?= base_url('comment/edit/' . $comment->cid) ?>" class="btn btn-warning"><i class="fa fa-address-book" aria-hidden="true"></i> editar</a>
 							<a href="<?= base_url('comment/delete/'.$comment->cid . '/' . $comment->pid) ?>" class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>

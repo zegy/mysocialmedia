@@ -2,21 +2,6 @@
 <?= $this->extend('/layouts/main_layout') ?>
 
 <?= $this->section('content') ?>
-
-<script>
-    function refreshLikesPost(pid, uid, elemento)
-    {
-        $.ajax(
-        {
-            url: '<?= base_url("post/like/" ) ?>' + '/' + pid + "/" + uid,
-            cache: false,
-            success: function(data)
-            {
-                elemento.innerHTML = " " + data; 
-            } 
-        }); 
-    }
-</script>
  
     <?php if($posts) { foreach ($posts as $post) { ?>
     <div class="media border p-3 mt-3 box-component">
@@ -25,7 +10,6 @@
             <h4><?= htmlspecialchars($post->nome) ?> <small><i>Postado em <?= formatDate($post->data)?></i></small></h4>
             <p><?= htmlspecialchars($post->texto) ?></p>
             <div class="form-group">
-                <button class="btn btn-primary"> <i class="fa fa-heart" aria-hidden="true"></i> <span  onclick="refreshLikesPost(<?= $post->pid ?>, <?= session()->get('id')  ?> ,this)"><?= $post->qtdlike ?></span></button>
                 <a href="<?= base_url('comment/show/'.$post->pid) ?>" class="btn btn-success"><i class="fa fa-comment" aria-hidden="true"></i> <?= $post->qtdcom ?> </a>
                 <?php if (session()->get('id') == $post->uid) { ?>
                 <a href="<?= base_url('post/edit/' . $post->pid) ?>" class="btn btn-warning"> <i class="fa fa-address-book" aria-hidden="true"></i> editar</a>

@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Controllers\Notification; //ZEGY OTC
 use App\Models\CommentModel; 
 use App\Models\PostModel; //ZEGY OTC
+use App\Models\UserModel; //ZEGY OTC
 use CodeIgniter\I18n\Time;
 
 
@@ -19,12 +20,24 @@ class Comment extends BaseController
         $this->commentModel =  new CommentModel();          
     }
     
-    public function show($pid = null) 
+    public function show($pid = null, $uid) 
     {
         if (!$pid)
         {
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
+
+        if(session('role') == 'mahasiswa') // AVOID MAHASISWA TO OPEN DOSEN'S POST
+		{
+            $userModel   = new UserModel();
+            $poster      = $userModel->where(array('user_pk' => $uid))->first();
+            $poster_role = $poster["user_role"];
+
+            if ($poster_role == 'dosen')
+            {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException();
+            }
+		}
         
         $builder = $this->db->table('t_post p'); 
         $builder->select('
@@ -39,19 +52,8 @@ class Comment extends BaseController
 
         $builder->join('t_user u ',
                        'p.post_fk_user = u.user_pk');  
-        
-        if(session('role') == 'mahasiswa') // Check if mahasiswa (can't show dosen's post)
-        {
-            $builder->where("
-                            p.post_pk = $pid
-                            and
-                            u.user_role != 'dosen'
-                        ");    
-        }
-        else
-        {
-            $builder->where("p.post_pk = $pid");
-        }  
+         
+        $builder->where("p.post_pk = $pid");  
         
         $queryPost = $builder->get(); 
 

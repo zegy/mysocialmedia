@@ -21,16 +21,30 @@ class Home extends BaseController
         $this->commentModel  = new CommentModel();
     }
 
-    public function index()
+    public function homeUmum()
     {
-        if (session()->isLoggedIn == false) // if user is already logged go to home page
-        {
-			return redirect()->to('login');   
-		}
+        // if (session()->isLoggedIn == false) // if user is already logged go to home page
+        // {
+		// 	return redirect()->to('login');   
+		// }
 
-        return view('home',
+        return view('home_umum',
         [
-            "posts" => $this->homeModel->where('role', session('role'))->paginate(5),
+            "posts" => $this->homeModel->where('role', 'mahasiswa')->paginate(5),
+            "pager" => $this->homeModel->pager
+        ]);
+    }
+
+    public function homeKhusus()
+    {
+        // if (session()->isLoggedIn == false) // if user is already logged go to home page
+        // {
+		// 	return redirect()->to('login');   
+		// }
+
+        return view('home_khusus',
+        [
+            "posts" => $this->homeModel->where('role', 'dosen')->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }

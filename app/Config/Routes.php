@@ -20,7 +20,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  */
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
-$routes->setDefaultMethod('index');
+$routes->setDefaultMethod('homeUmum');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
@@ -35,7 +35,11 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 
 // ZEGY OTC CLEAN ROUTES (NEED TO FILTER!)
-$routes->add('/', 'Home::index', ['filter' => 'auth']);
+// $routes->add('home/home_umum', 'Home::homeUmum', ['filter' => 'auth']);
+
+$routes->add('/', 'Home::homeUmum');
+$routes->add('home/home_khusus', 'Home::homeKhusus'); // filter dosen
+
 $routes->add('search', 'Home::search'); 
 
 $routes->add('account/signup', 'Account::signUp');

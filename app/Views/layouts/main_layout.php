@@ -38,9 +38,14 @@
                         <li class="nav-item">
                             <a class="nav-link" id="btnOnFCM" href="#">onFCM</a>
                         </li>
-                        <?php if(session('id')==1){ ?>
+                        <?php if(session('role') == 'admin'){ ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url('account/signup') ?>">Daftar</a>
+                        </li>
+                        <?php } ?>
+                        <?php if(session('role') == 'dosen'){ ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url('home/home_khusus') ?>">Diskusi Khusus</a>
                         </li>
                         <?php } ?>
                     </ul>

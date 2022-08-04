@@ -40,16 +40,22 @@ class Comment extends BaseController
         $builder->join('t_user u ',
                        'p.post_fk_user = u.user_pk');  
         
-        $builder->where("
+        if(session('role') == 'mahasiswa') // Check if mahasiswa (can't show dosen's post)
+        {
+            $builder->where("
                             p.post_pk = $pid
                             and
-                            u.user_role != 'admin'
-                        ");
-          
+                            u.user_role != 'dosen'
+                        ");    
+        }
+        else
+        {
+            $builder->where("p.post_pk = $pid");
+        }  
         
         $queryPost = $builder->get(); 
 
-        //*************S******************************************************************************************         
+        //********************************************************************************************************         
      
         $builder = $this->db->table('t_comment c');
         $builder->select('

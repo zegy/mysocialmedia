@@ -33,13 +33,19 @@ class Comment extends BaseController
                             p.post_date_time as data,
                             u.user_pk as uid,
                             u.user_full_name as nome,
-                            u.user_profile_picture as image
+                            u.user_profile_picture as image,
+                            u.user_role as role
                         ');
 
         $builder->join('t_user u ',
                        'p.post_fk_user = u.user_pk');  
         
-        $builder->where("p.post_pk = $pid");  
+        $builder->where("
+                            p.post_pk = $pid
+                            and
+                            u.user_role != 'admin'
+                        ");
+          
         
         $queryPost = $builder->get(); 
 

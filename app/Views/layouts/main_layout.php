@@ -30,10 +30,13 @@
                     <a class="navbar-brand" href="<?= base_url("/") ?>"><img src="<?php echo base_url('public/images/logoEdited3.png'); ?>" alt="logo" style="width:30px; height:30px;"></a>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('user/showprofile/' . session()->get('id')) ?>">Meu perfil <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="<?php echo base_url('user/showprofile/' . session()->get('id')) ?>">Profile<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('login/signout') ?>">Sair</a>
+                            <a class="nav-link" href="<?php echo base_url('login/signout') ?>">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="btnOnFCM" href="#">onFCM</a>
                         </li>
                         <?php if(session('id')==1){ ?>
                         <li class="nav-item">
@@ -43,7 +46,7 @@
                     </ul>
                     <form class="form-inline my-2 my-lg-0" method="post" action="<?= base_url('search') ?>">
                         <input class="form-control mr-sm-2" type="search" name="qsearch" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
             </nav>

@@ -52,6 +52,4 @@
 
 <!-- *********************** end add post ********************************* -->
 
-<a id="btnOnFCM" href="#" class="btn btn-primary btn-user btn-block">onFCM</a>
-
 <?= $this->endSection() ?>

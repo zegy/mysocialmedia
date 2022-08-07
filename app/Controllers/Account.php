@@ -37,31 +37,21 @@ class Account extends BaseController
 			'password' => 'required|min_length[8]',
 			'passconf' => 'required|matches[password]',
 			'email'    => 'required|valid_email',
-			'phone'    => 'min_length[8]|numeric',
+			'phone'    => 'required|min_length[8]|numeric',
 			'gender'   => 'required'
 		];
 
 		$data = $this->request->getPost();
 
-		if (count($data) == 0)
-		{
-			return redirect()->to('/');
-		}
+		// if (count($data) == 0)
+		// {
+		// 	return redirect()->to('/');
+		// }
 
 		$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; // verify if file is valid
-		$filePath = '';
+		// $filePath = '';
 		$myTime   = new Time('now', 'America/Recife', 'pt_BR');
-		$gender   = null;
-
-		switch ((string)($data['gender']))
-		{
-			case 'm':
-				$gender = 'm'; break;
-			case 'f':
-				$gender = 'f'; break;
-			default:
-				$gender = null; break;
-		}
+		// $gender   = null;
 
 		if (!$this->validate($validationRule))
 		{
@@ -70,10 +60,10 @@ class Account extends BaseController
 		}
 		else
 		{
-			$dados =
-			[
-				'infoArquivo' => []
-			];
+			// $dados =
+			// [
+			// 	'infoArquivo' => []
+			// ];
 
 			if ($arquivo && !$arquivo->isValid())
 			{
@@ -85,13 +75,23 @@ class Account extends BaseController
 				$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
 			}
 
+            switch ((string)($data['gender']))
+            {
+                case 'm':
+                    $gender = 'm'; break;
+                case 'f':
+                    $gender = 'f'; break;
+                // default:
+                // 	$gender = null; break;
+            }
+
 			$dataToSave =
 			[
 				'user_name'  		   => (string)$data['username'],
 				'user_password'  	   => password_hash((string)$data['password'], PASSWORD_DEFAULT),
 				'user_full_name'   	   => $data['nome'],
 				'user_email'  		   => $data['email'],
-				'user_tel'    		   => ($data['phone'] ? $data['phone'] : null),
+				'user_tel'    		   => $data['phone'],
 				'user_profile_picture' => (string)$filePath,
 				'user_regis_date_time' => ((array)$myTime)['date'],
 				'user_sex'			   => $gender,

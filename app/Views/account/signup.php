@@ -39,8 +39,8 @@
                         <input type="text" name="email" placeholder="" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Nomor telepon (Optional) :</span>
-                        <input type="text" name="phone" placeholder="" >
+                        <span class="details">Nomor telepon :</span>
+                        <input type="text" name="phone" placeholder="" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Password :</span>
@@ -64,7 +64,7 @@
                 <div class="gender-details">
                     <input type="radio" name="gender" value="m" id="dot-1">
                     <input type="radio" name="gender" value="f" id="dot-2">
-                    <input type="radio" name="gender" value="null" id="dot-3">
+                    <!-- <input type="radio" name="gender" value="null" id="dot-3"> -->
                     <span class="gender-title">Jenis Kelamin:</span>
                     <div class="category">
                         <label for="dot-1">
@@ -75,10 +75,10 @@
                             <span class="dot two"></span>
                             <span class="gender">Perempuan</span>
                         </label>
-                        <label for="dot-3">
+                        <!-- <label for="dot-3">
                             <span class="dot three"></span>
                             <span class="gender">xxxxxx</span>
-                        </label>
+                        </label> -->
                     </div>
                 </div>
                 <div class="button">
@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         // Autor: Rodrigo Guimaraes
         // Script to validate imagem upload
         function validateForm(ev)
@@ -124,7 +124,7 @@
         {
             validateForm(ev);
         });
-    </script>
+    </script> -->
 
 </body>
 

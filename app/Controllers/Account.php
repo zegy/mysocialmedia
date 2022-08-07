@@ -10,7 +10,7 @@ class Account extends BaseController
 {
 	function __construct()
 	{
-		if(session('id') != 1) // Check is admin (user_pk = 1)
+		if(session('role') != 'admin') // Check is admin
 		{
 			throw new \CodeIgniter\Exceptions\PageNotFoundException();
 		}

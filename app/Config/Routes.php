@@ -42,7 +42,7 @@ $routes->add('home/home_khusus', 'Home::homeKhusus'); // filter dosen
 
 $routes->add('search', 'Home::search'); 
 
-$routes->add('account/signup', 'Account::signUp');
+$routes->add('account/signup', 'Account::signUp', ['filter' => 'admin']);
 $routes->add('account/createaccount', 'Account::createAccount');
 
 $routes->add('login', 'Login::index');

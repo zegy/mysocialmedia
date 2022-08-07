@@ -10,11 +10,6 @@ class Account extends BaseController
 {
 	function __construct()
 	{
-		if(session('role') != 'admin') // Check is admin
-		{
-			throw new \CodeIgniter\Exceptions\PageNotFoundException();
-		}
-
 		helper('form');
 		$this->usuariosModel = new UserModel();
 	}

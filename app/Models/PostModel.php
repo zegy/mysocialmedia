@@ -16,15 +16,7 @@ class PostModel extends Model
         'post_text',
         'post_date_time'
     ];
-    protected $db;
-
-    public function __construct() 
-    {
-        parent::__construct(); // don't forget to call parent constructor
-        $this->db = \Config\Database::connect();
-        $this->homeModel = new HomeModel();
-    }
-
+    
     public function getPostById(string $id)
     {
         $builder = $this->builder();

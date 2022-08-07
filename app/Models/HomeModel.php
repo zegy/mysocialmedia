@@ -10,9 +10,9 @@ class HomeModel extends Model
     protected $primaryKey = 'pid';
     protected $returnType = 'object';
         
-    public function getHomePosts() : array 
-    {
-        $rq = $this->findAll();  
-        return !is_null($rq) ? $rq : [];
-    }
+    // public function getHomePosts() : array 
+    // {
+    //     $rq = $this->findAll();  
+    //     return !is_null($rq) ? $rq : [];
+    // }
 }

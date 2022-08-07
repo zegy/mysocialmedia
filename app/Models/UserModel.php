@@ -20,7 +20,6 @@ class UserModel extends Model
         'user_sex',
         'user_bio'
     ];                 
-    protected $db;                       
 
     public function getByEmail(string $email): array
     {
@@ -34,22 +33,10 @@ class UserModel extends Model
         return !is_null($rq) ? $rq : [];
     }
 
-    public function getByNome(string $nome): array
+    public function getByNome(string $nome): array // ZEGY OTC NEED TO VERIF IF EMAIL ALREADY USED!
     {
         $rq = $this->where('user_email', $nome)->findAll(); // change
         return !is_null($rq) ? $rq : [];
-    }
-
-    public function getPosts(int $uid): array // return all posts by this user
-    {
-        $builder = $this->builder('t_post p');
-        $res = $builder->select('p.*, u.user_full_name')
-                       ->join('t_user u',
-                              'u.user_pk = p.post_fk_user') // the table with which it will cross comes as the join argument
-                       ->where("p.post_fk_user", $uid)
-                       ->get()
-                       ->getResult();
-        return $res;
     }
 
     public function getAllByKeyword(string $keyword) : array

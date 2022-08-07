@@ -23,7 +23,7 @@ class Account extends BaseController
 	{
 		$validationRule =
 		[
-			'userfile' =>
+			'userfile' => // ZEGY OTC WHAT USERFILE?
 			[
 				'label' => 'Image File',
 				'rules' => 'uploaded[arquivo]'
@@ -48,7 +48,7 @@ class Account extends BaseController
 		// 	return redirect()->to('/');
 		// }
 
-		$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; // verify if file is valid
+		//$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; // verify if file is valid
 		// $filePath = '';
 		$myTime   = new Time('now', 'America/Recife', 'pt_BR');
 		// $gender   = null;
@@ -65,15 +65,19 @@ class Account extends BaseController
 			// 	'infoArquivo' => []
 			// ];
 
-			if ($arquivo && !$arquivo->isValid())
-			{
-				return view('account/signup');
-			}
-			elseif ($arquivo && $arquivo->isValid() && !$arquivo->hasMoved())
-			{
-				$arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
-				$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
-			}
+			// if ($arquivo && !$arquivo->isValid())
+			// {
+			// 	return view('account/signup');
+			// }
+			// elseif ($arquivo && $arquivo->isValid() && !$arquivo->hasMoved())
+			// {
+			// 	$arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
+			// 	$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
+			// }
+
+            //Simple upper code without condition (unknown)
+            $arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
+			$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
 
             switch ((string)($data['gender']))
             {

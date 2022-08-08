@@ -24,11 +24,11 @@
                 </ul>
             </div>
             <?php } ?>
-            <?php  if (isset($test)) { ?>
+            <?php  if (isset($prev_input)) { ?>
             <div class="alert">
                 <ul>
                     <!-- <li>Testx!</li> -->
-                    <li><?= htmlspecialchars($test['nama_lengkap']) ?></li>
+                    <li><?= $prev_input['nama_lengkap'] ?></li>
                 </ul>
             </div>
             <?php } ?>

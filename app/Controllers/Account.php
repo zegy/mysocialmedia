@@ -47,12 +47,12 @@ class Account extends BaseController
 		
 		if (!$this->validate($validationRule))
 		{
-			$datax =
+			$datatofix =
             [
-                'errors' => $this->validator->getErrors(),
-                'test'   => $data
+                'errors'     => $this->validator->getErrors(),
+                'prev_input' => $data
             ];
-			return view('account/signup', $datax);
+			return view('account/signup', $datatofix);
 		}
 		else
 		{

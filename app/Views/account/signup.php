@@ -88,9 +88,11 @@
                     </div>
                 </div>
                 <div class="gender-details">
-                        <?php if (isset($prev_input)) { if (is_bool($prev_input['jenis_kelamin' == 'm'])) { ?>
+                        <?php if (isset($prev_input)) { if ($prev_input['jenis_kelamin'] == 'm') { ?>
                         <input type="radio" name="jenis_kelamin" value="m" id="dot-1" checked="checked">
+                        <input type="radio" name="jenis_kelamin" value="f" id="dot-2">
                         <?php } else { ?>
+                        <input type="radio" name="jenis_kelamin" value="m" id="dot-1">
                         <input type="radio" name="jenis_kelamin" value="f" id="dot-2" checked="checked">
                         <?php } } else { ?>
                         <input type="radio" name="jenis_kelamin" value="m" id="dot-1">

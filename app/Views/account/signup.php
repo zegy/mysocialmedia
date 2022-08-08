@@ -28,7 +28,11 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Nama Lengkap :</span>
-                        <input type="text" name="nama_lengkap" placeholder="" <?php if (isset($prev_input)) { ?> value="<?= $prev_input['nama_lengkap']?>" <?php } ?>>
+                        <?php if (isset($prev_input)) { ?>
+                        <input type="text" name="nama_lengkap" value="<?= $prev_input['nama_lengkap']?>">
+                        <?php } else { ?>
+                        <input type="text" name="nama_lengkap">
+                        <?php } ?>
                     </div>
                     <div class="input-box">
                         <span class="details">Username :</span>

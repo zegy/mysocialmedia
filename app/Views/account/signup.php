@@ -79,8 +79,12 @@
                         <input name="arquivo" type="file" accept=".jpg, .jpeg" >                       
                     </div>
                     <div class="input-box">
-                    <span class="details">Bio :</span>
+                        <span class="details">Bio :</span>
+                        <?php if (isset($prev_input)) { ?>
+                        <textarea name="bio" id="bio" cols="85" rows="5"><?= $prev_input['bio']?></textarea>
+                        <?php } else { ?>
                         <textarea name="bio" id="bio" cols="85" rows="5"></textarea>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="gender-details">

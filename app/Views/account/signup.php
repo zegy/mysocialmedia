@@ -24,6 +24,14 @@
                 </ul>
             </div>
             <?php } ?>
+            <?php  if (isset($test)) { ?>
+            <div class="alert">
+                <ul>
+                    <!-- <li>Testx!</li> -->
+                    <li><?= htmlspecialchars($test) ?></li>
+                </ul>
+            </div>
+            <?php } ?>
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">

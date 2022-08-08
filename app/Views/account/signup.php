@@ -36,29 +36,47 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Username :</span>
-                        <input type="text" name="username" placeholder="" >
+                        <?php if (isset($prev_input)) { ?>
+                        <input type="text" name="username" value="<?= $prev_input['username']?>">
+                        <?php } else { ?>
+                        <input type="text" name="username">
+                        <?php } ?>
                     </div>
                     <div class="input-box">
                         <span class="details">E-mail :</span>
-                        <input type="text" name="email" placeholder="" >
+                        <?php if (isset($prev_input)) { ?>
+                        <input type="text" name="email" value="<?= $prev_input['email']?>">
+                        <?php } else { ?>
+                        <input type="text" name="email">
+                        <?php } ?>
                     </div>
                     <div class="input-box">
                         <span class="details">Nomor Handphone :</span>
-                        <input type="text" name="nomor_handphone" placeholder="" >
+                        <?php if (isset($prev_input)) { ?>
+                        <input type="text" name="nomor_handphone" value="<?= $prev_input['nomor_handphone']?>">
+                        <?php } else { ?>
+                        <input type="text" name="nomor_handphone">
+                        <?php } ?>
                     </div>
                     <div class="input-box">
                         <span class="details">Password :</span>
-                        <input type="password" name="password" placeholder="" >
+                        <?php if (isset($prev_input)) { ?>
+                        <input type="text" name="password" value="<?= $prev_input['password']?>">
+                        <?php } else { ?>
+                        <input type="text" name="password">
+                        <?php } ?>
                     </div>
                     <div class="input-box">
                         <span class="details">Konfirmasi Password :</span>
-                        <input type="password" name="konfirmasi_password" placeholder="" >
+                        <?php if (isset($prev_input)) { ?>
+                        <input type="text" name="konfirmasi_password" value="<?= $prev_input['konfirmasi_password']?>">
+                        <?php } else { ?>
+                        <input type="text" name="konfirmasi_password">
+                        <?php } ?>
                     </div>
                     <div class="input-box">
                         <span class="details">Foto Profil:</span>
-                        <input name="arquivo" type="file" accept=".jpg, .jpeg" >
-                        <!-- <span id="file-msg" style="color:red"></span> -->
-                       
+                        <input name="arquivo" type="file" accept=".jpg, .jpeg" >                       
                     </div>
                     <div class="input-box">
                     <span class="details">Bio :</span>
@@ -68,7 +86,6 @@
                 <div class="gender-details">
                     <input type="radio" name="jenis_kelamin" value="m" id="dot-1">
                     <input type="radio" name="jenis_kelamin" value="f" id="dot-2">
-                    <!-- <input type="radio" name="gender" value="null" id="dot-3"> -->
                     <span class="gender-title">Jenis Kelamin:</span>
                     <div class="category">
                         <label for="dot-1">

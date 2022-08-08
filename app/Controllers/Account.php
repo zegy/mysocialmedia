@@ -50,7 +50,8 @@ class Account extends BaseController
 			$datatofix =
             [
                 'errors'     => $this->validator->getErrors(),
-                'prev_input' => $data
+                'prev_input' => $data,
+                'gender_select' => true
             ];
 			return view('account/signup', $datatofix);
 		}

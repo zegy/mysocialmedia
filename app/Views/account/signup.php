@@ -88,9 +88,8 @@
                     </div>
                 </div>
                 <div class="gender-details">
-                        <?php $checked = ('checked="checked"'); ?>
-                        <input type="radio" name="jenis_kelamin" value="m" id="dot-1" >
-                        <input type="radio" name="jenis_kelamin" value="f" id="dot-2" <?php echo $checked?>>
+                        <input type="radio" name="jenis_kelamin" value="m" id="dot-1">
+                        <input type="radio" name="jenis_kelamin" value="f" id="dot-2" <?php if (isset($prev_input)) { if (boolval($gender_select)) { ?> checked <?php } } ?>>
                         
 
                     <span class="gender-title">Jenis Kelamin:</span>

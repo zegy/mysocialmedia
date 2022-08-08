@@ -61,17 +61,17 @@
                     <div class="input-box">
                         <span class="details">Password :</span>
                         <?php if (isset($prev_input)) { ?>
-                        <input type="text" name="password" value="<?= $prev_input['password']?>">
+                        <input type="password" name="password" value="<?= $prev_input['password']?>">
                         <?php } else { ?>
-                        <input type="text" name="password">
+                        <input type="password" name="password">
                         <?php } ?>
                     </div>
                     <div class="input-box">
                         <span class="details">Konfirmasi Password :</span>
                         <?php if (isset($prev_input)) { ?>
-                        <input type="text" name="konfirmasi_password" value="<?= $prev_input['konfirmasi_password']?>">
+                        <input type="password" name="konfirmasi_password" value="<?= $prev_input['konfirmasi_password']?>">
                         <?php } else { ?>
-                        <input type="text" name="konfirmasi_password">
+                        <input type="password" name="konfirmasi_password">
                         <?php } ?>
                     </div>
                     <div class="input-box">

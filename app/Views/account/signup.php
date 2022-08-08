@@ -24,19 +24,11 @@
                 </ul>
             </div>
             <?php } ?>
-            <?php  if (isset($prev_input)) { ?>
-            <div class="alert">
-                <ul>
-                    <!-- <li>Testx!</li> -->
-                    <li><?= $prev_input['nama_lengkap'] ?></li>
-                </ul>
-            </div>
-            <?php } ?>
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Nama Lengkap :</span>
-                        <input type="text" name="nama_lengkap" placeholder="" >
+                        <input type="text" name="nama_lengkap" placeholder="" <?php if (isset($prev_input)) { ?> value="<?= $prev_input['nama_lengkap']?>" <?php } ?>>
                     </div>
                     <div class="input-box">
                         <span class="details">Username :</span>

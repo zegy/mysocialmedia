@@ -7,6 +7,7 @@
 // Validation language settings
 return [
 	// Rule Messages
+    'matches'               => '{field} tidak sama dengan {param}.',
     'max_length'            => '{field} tidak boleh berisi lebih dari {param} karakter.',
 	'min_length'            => '{field} harus berisi setidaknya {param} karakter.',
 	'numeric'               => '{field} harus hanya berupa angka.',

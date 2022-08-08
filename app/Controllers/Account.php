@@ -25,7 +25,7 @@ class Account extends BaseController
 		[
 			'userfile' => // ZEGY OTC WHAT USERFILE?
 			[
-				'label' => 'Image File',
+				'label' => 'Foto Profil',
 				'rules' => 'uploaded[arquivo]'
 							. '|is_image[arquivo]'
 							. '|mime_in[arquivo,image/jpg,image/jpeg]'

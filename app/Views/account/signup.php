@@ -48,12 +48,12 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Konfirmasi Password :</span>
-                        <input type="password"  name="passconf" placeholder="" required>
+                        <input type="password" name="passconf" placeholder="" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Foto Profil:</span>
-                        <input name="arquivo" id="arquivo" type="file" accept=".jpg, .jpeg" required>
-                        <span id="file-msg" style="color:red"></span>
+                        <input name="arquivo" type="file" accept=".jpg, .jpeg" required>
+                        <!-- <span id="file-msg" style="color:red"></span> -->
                        
                     </div>
                     <div class="input-box">

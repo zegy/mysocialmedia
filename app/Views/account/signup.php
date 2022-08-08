@@ -28,7 +28,7 @@
             <div class="alert">
                 <ul>
                     <!-- <li>Testx!</li> -->
-                    <li><?= htmlspecialchars($test) ?></li>
+                    <li><?= htmlspecialchars($test['nama_lengkap']) ?></li>
                 </ul>
             </div>
             <?php } ?>

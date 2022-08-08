@@ -47,12 +47,12 @@ class Account extends BaseController
 		
 		if (!$this->validate($validationRule))
 		{
-			$data =
+			$datax =
             [
                 'errors' => $this->validator->getErrors(),
-                'test'   => 'isi test'
+                'test'   => $data
             ];
-			return view('account/signup', $data);
+			return view('account/signup', $datax);
 		}
 		else
 		{

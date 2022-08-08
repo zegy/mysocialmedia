@@ -23,36 +23,28 @@ class Account extends BaseController
 	{
 		$validationRule =
 		[
-			'userfile' => // ZEGY OTC WHAT USERFILE?
+			'nama_lengkap'        => 'required|min_length[3]',
+			'username'            => 'required|min_length[5]',
+			'email'               => 'required|valid_email',
+            'nomor_handphone'     => 'required|min_length[8]|numeric',
+            'password'            => 'required|min_length[8]',
+			'konfirmasi_password' => 'required|matches[password]',
+            'userfile' => // ZEGY OTC WHAT USERFILE?
 			[
-				'label' => 'Foto Profil',
+			    'label' => 'foto profil',
 				'rules' => 'uploaded[arquivo]'
-							. '|is_image[arquivo]'
-							. '|mime_in[arquivo,image/jpg,image/jpeg]'
-							. '|max_size[arquivo,30]'
-							. '|max_dims[arquivo,200,200]',
+						. '|is_image[arquivo]'
+						. '|mime_in[arquivo,image/jpg,image/jpeg]'
+						. '|max_size[arquivo,30]'
+						. '|max_dims[arquivo,200,200]',
 			],
-			'nome'     => 'required|min_length[3]',
-			'username' => 'required|min_length[5]',
-			'password' => 'required|min_length[8]',
-			'passconf' => 'required|matches[password]',
-			'email'    => 'required|valid_email',
-			'phone'    => 'required|min_length[8]|numeric',
-			'gender'   => 'required'
+            'bio'                 => 'required|max_length[250]',
+			'jenis_kelamin'       => 'required'
 		];
 
 		$data = $this->request->getPost();
-
-		// if (count($data) == 0)
-		// {
-		// 	return redirect()->to('/');
-		// }
-
-		//$arquivo  = ($this->request->getFile('arquivo')) ? $this->request->getFile('arquivo') : null; // verify if file is valid
-		// $filePath = '';
-		$myTime   = new Time('now', 'America/Recife', 'pt_BR');
-		// $gender   = null;
-
+		$myTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
+		
 		if (!$this->validate($validationRule))
 		{
 			$data = ['errors' => $this->validator->getErrors()];
@@ -60,46 +52,28 @@ class Account extends BaseController
 		}
 		else
 		{
-			// $dados =
-			// [
-			// 	'infoArquivo' => []
-			// ];
-
-			// if ($arquivo && !$arquivo->isValid())
-			// {
-			// 	return view('account/signup');
-			// }
-			// elseif ($arquivo && $arquivo->isValid() && !$arquivo->hasMoved())
-			// {
-			// 	$arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
-			// 	$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
-			// }
-
-            //Simple upper code without condition (unknown)
             $arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
 			$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
 
-            switch ((string)($data['gender']))
+            switch ((string)($data['jenis_kelamin']))
             {
                 case 'm':
                     $gender = 'm'; break;
                 case 'f':
                     $gender = 'f'; break;
-                // default:
-                // 	$gender = null; break;
             }
 
 			$dataToSave =
 			[
-				'user_name'  		   => (string)$data['username'],
-				'user_password'  	   => password_hash((string)$data['password'], PASSWORD_DEFAULT),
-				'user_full_name'   	   => $data['nome'],
+				'user_full_name'   	   => $data['nama_lengkap'], 
+                'user_name'  		   => (string)$data['username'],
 				'user_email'  		   => $data['email'],
-				'user_tel'    		   => $data['phone'],
-				'user_profile_picture' => (string)$filePath,
-				'user_regis_date_time' => ((array)$myTime)['date'],
+				'user_tel'    		   => $data['nomor_handphone'],
+                'user_password'  	   => password_hash((string)$data['password'], PASSWORD_DEFAULT),
+                'user_profile_picture' => (string)$filePath,
+				'user_bio'    		   => $data['bio'],
 				'user_sex'			   => $gender,
-				'user_bio'    		   => $data['bio']
+				'user_regis_date_time' => ((array)$myTime)['date']
 			];
 
 			$result = $this->usuariosModel->save($dataToSave);

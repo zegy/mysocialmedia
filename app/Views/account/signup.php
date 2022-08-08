@@ -28,31 +28,31 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Nama Lengkap :</span>
-                        <input type="text" name="nome" placeholder="" required>
+                        <input type="text" name="nama_lengkap" placeholder="" >
                     </div>
                     <div class="input-box">
                         <span class="details">Username :</span>
-                        <input type="text" name="username" placeholder="" required>
+                        <input type="text" name="username" placeholder="" >
                     </div>
                     <div class="input-box">
                         <span class="details">E-mail :</span>
-                        <input type="text" name="email" placeholder="" required>
+                        <input type="text" name="email" placeholder="" >
                     </div>
                     <div class="input-box">
-                        <span class="details">Nomor telepon :</span>
-                        <input type="text" name="phone" placeholder="" required>
+                        <span class="details">Nomor Handphone :</span>
+                        <input type="text" name="nomor_handphone" placeholder="" >
                     </div>
                     <div class="input-box">
                         <span class="details">Password :</span>
-                        <input type="password" name="password" placeholder="" required>
+                        <input type="password" name="password" placeholder="" >
                     </div>
                     <div class="input-box">
                         <span class="details">Konfirmasi Password :</span>
-                        <input type="password" name="passconf" placeholder="" required>
+                        <input type="password" name="konfirmasi_password" placeholder="" >
                     </div>
                     <div class="input-box">
                         <span class="details">Foto Profil:</span>
-                        <input name="arquivo" type="file" accept=".jpg, .jpeg" required>
+                        <input name="arquivo" type="file" accept=".jpg, .jpeg" >
                         <!-- <span id="file-msg" style="color:red"></span> -->
                        
                     </div>
@@ -62,8 +62,8 @@
                     </div>
                 </div>
                 <div class="gender-details">
-                    <input type="radio" name="gender" value="m" id="dot-1">
-                    <input type="radio" name="gender" value="f" id="dot-2">
+                    <input type="radio" name="jenis_kelamin" value="m" id="dot-1">
+                    <input type="radio" name="jenis_kelamin" value="f" id="dot-2">
                     <!-- <input type="radio" name="gender" value="null" id="dot-3"> -->
                     <span class="gender-title">Jenis Kelamin:</span>
                     <div class="category">

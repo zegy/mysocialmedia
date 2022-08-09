@@ -88,8 +88,8 @@
                     </div>
                 </div>
                 <div class="gender-details">
-                    <input type="radio" name="jenis_kelamin" value="m" id="dot-1" <?php if (isset($prev_input)) { if ($prev_input['jenis_kelamin'] == 'm') { ?> checked <?php } } ?>>
-                    <input type="radio" name="jenis_kelamin" value="f" id="dot-2" <?php if (isset($prev_input)) { if ($prev_input['jenis_kelamin'] == 'f') { ?> checked <?php } } ?>>
+                    <input type="radio" name="jenis_kelamin" value="m" id="dot-1" <?php if (isset($prev_input['jenis_kelamin'])) { if ($prev_input['jenis_kelamin'] == 'm') { ?> checked <?php } } ?>>
+                    <input type="radio" name="jenis_kelamin" value="f" id="dot-2" <?php if (isset($prev_input['jenis_kelamin'])) { if ($prev_input['jenis_kelamin'] == 'f') { ?> checked <?php } } ?>>
                     <span class="gender-title">Jenis Kelamin :</span>
                     <div class="category">
                         <label for="dot-1">

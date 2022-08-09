@@ -25,24 +25,20 @@ class Account extends BaseController
 		$data  = $this->request->getPost();
         $email_existed = $this->userModel->isEmailExist($data['email']); // Check if email exist
 
-		if (!$this->validate($rules))   // validate first, then send to model (using basic CRUD)
-		{ // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
-            $datatofix =
-            [
-                'errors'     => $this->validator->getErrors(),
-                'prev_input' => $data,
-            ];
-			return view('account/signup', $datatofix);
-		}
-		else if ($email_existed == true)
+		if ($email_existed == true)
         {
-            $datatofix =
-            [
-                'errors'     => array("Email sudah ada!"),
-                'prev_input' => $data,
-            ];
-			return view('account/signup', $datatofix);
+            $datatofix = ['errors' => array("Email sudah ada!")];
+        
+            if (!$this->validate($rules))   // validate first, then send to model (using basic CRUD)
+            { // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
+                $datatofix = ['errors' => $this->validator->getErrors()];
+            }
+
+            $datatofix = ['prev_input' => $data];
+            return view('account/signup', $datatofix);
         }
+        
+        
         else
 		{
             $arquivo  = ($this->request->getFile('arquivo'));

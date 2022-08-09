@@ -23,28 +23,18 @@ class Home extends BaseController
 
     public function homeUmum()
     {
-        // if (session()->isLoggedIn == false) // if user is already logged go to home page
-        // {
-		// 	return redirect()->to('login');   
-		// }
-
         return view('home_umum',
         [
-            "posts" => $this->homeModel->where('role', 'mahasiswa')->paginate(5),
+            "posts" => $this->homeModel->mahasiswaPosts()->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }
 
     public function homeKhusus()
     {
-        // if (session()->isLoggedIn == false) // if user is already logged go to home page
-        // {
-		// 	return redirect()->to('login');   
-		// }
-
         return view('home_khusus',
         [
-            "posts" => $this->homeModel->where('role', 'dosen')->paginate(5),
+            "posts" => $this->homeModel->dosenPosts()->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }

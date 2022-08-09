@@ -75,7 +75,7 @@
                         <?php } ?>
                     </div>
                     <div class="input-box">
-                        <span class="details">Foto Profil:</span>
+                        <span class="details">Foto Profil :</span>
                         <input name="arquivo" type="file" accept=".jpg, .jpeg" >                       
                     </div>
                     <div class="input-box">
@@ -100,10 +100,6 @@
                             <span class="dot two"></span>
                             <span class="gender">Perempuan</span>
                         </label>
-                        <!-- <label for="dot-3">
-                            <span class="dot three"></span>
-                            <span class="gender">xxxxxx</span>
-                        </label> -->
                     </div>
                 </div>
                 <div class="button">
@@ -112,45 +108,6 @@
             </form>
         </div>
     </div>
-
-    <!-- <script>
-        // Autor: Rodrigo Guimaraes
-        // Script to validate imagem upload
-        function validateForm(ev)
-        {
-            let input = document.querySelector('#arquivo');
-            let span  = document.querySelector('#file-msg');
-      
-            let files             = input.files;
-            let filePath          = input.value;
-            let allowedExtensions = /(\.jpg|\.jpeg)$/i;
-
-            if (!allowedExtensions.exec(filePath))
-            {
-                span.innerText = 'Por favor selecione arquivos de imagem .jpeg ou .jpg.';
-                ev.preventDefault()
-                input.value = '';
-                return false;
-            }
-
-            if (files.length > 0)
-            {                
-                if (files[0].size > 25 * 1024) {
-                    ev.preventDefault()
-                    span.innerText = 'Arquivo maior que 25kb';
-                    return;
-                }
-            } 
-            span.innerText = '';
-        }
-        
-        let form = document.querySelector('form');
-        form.addEventListener('submit', function(ev)
-        {
-            validateForm(ev);
-        });
-    </script> -->
-
 </body>
 
 </html>

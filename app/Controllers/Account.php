@@ -35,6 +35,7 @@ class Account extends BaseController
 		}
 		else
 		{
+            $arquivo  = ($this->request->getFile('arquivo'));
             $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
             $arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
 			$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();

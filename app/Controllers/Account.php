@@ -23,26 +23,27 @@ class Account extends BaseController
 	{
         $rules = $this->userModel->val_rules;
 		$data  = $this->request->getPost();
-		
-		if (!$this->validate($rules))   // validate first, then send to model (using basic CRUD)
-		{                               // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
-            $new_email = $this->userModel->isEmailExist($data['email']); // Check if email exist
-            if ($new_email){
-                $email_duplicated = array("email sudah ada!");
-            }
-            else
-            {
-                $email_duplicated = array("");
-            }
+        $email_existed = $this->userModel->isEmailExist($data['email']); // Check if email exist
 
+		if (!$this->validate($rules))   // validate first, then send to model (using basic CRUD)
+		{ // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
             $datatofix =
             [
-                'errors'     => $this->validator->getErrors() + $email_duplicated,
+                'errors'     => $this->validator->getErrors(),
                 'prev_input' => $data,
             ];
 			return view('account/signup', $datatofix);
 		}
-		else
+		else if ($email_existed == true)
+        {
+            $datatofix =
+            [
+                'errors'     => array("Email sudah ada!"),
+                'prev_input' => $data,
+            ];
+			return view('account/signup', $datatofix);
+        }
+        else
 		{
             $arquivo  = ($this->request->getFile('arquivo'));
             $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia

@@ -21,11 +21,11 @@ class Account extends BaseController
 
 	public function createAccount()
 	{
-        $rules = $this->userModel->validationRules;
+        $rules = $this->userModel->val_rules;
 		$data  = $this->request->getPost();
 		
-		if (!$this->validate($rules)) // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
-		{
+		if (!$this->validate($rules))   // validate first, then send to model (using basic CRUD)
+		{                               // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
 			$datatofix =
             [
                 'errors'     => $this->validator->getErrors(),
@@ -48,7 +48,7 @@ class Account extends BaseController
                     $gender = 'f'; break;
             }
 
-			$dataToSave =
+			$dataToSave = // ZEGY OTC role? jika email sudah ada?
 			[
 				'user_full_name'   	   => $data['nama_lengkap'], 
                 'user_name'  		   => (string)$data['username'],
@@ -62,7 +62,7 @@ class Account extends BaseController
 			];
 
 			$result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"
-			// return view('account/sucessful_created');
+			return view('account/sucessful_created');
 		}
 	}
 }

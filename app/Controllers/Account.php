@@ -62,7 +62,7 @@ class Account extends BaseController
 			];
 
 			$result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"
-			return view('account/sucessful_created');
+			// return view('account/sucessful_created');
 		}
 	}
 }

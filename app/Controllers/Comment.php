@@ -15,8 +15,6 @@ class Comment extends BaseController
     function __construct() 
     {
         helper('form');
-        $this->db = \Config\Database::connect();
-        $this->session = session();       
         $this->commentModel =  new CommentModel();          
     }
     

@@ -9,9 +9,6 @@ use App\Models\CommentModel;
 
 class Home extends BaseController
 {
-    protected $usuariosModel;
-    private   $postModel;
-
     function __construct()
     {
         helper('form');

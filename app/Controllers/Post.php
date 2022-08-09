@@ -12,8 +12,6 @@ class Post extends BaseController
     function __construct() 
     {             
         helper('form');
-        $this->db = \Config\Database::connect();
-        $this->session = session();    
         $this->postModel = new PostModel();
         $this->homeModel = new HomeModel();
     }

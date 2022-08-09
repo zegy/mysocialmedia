@@ -42,6 +42,7 @@ class PostModel extends Model
     
     public function getAllByKeyword(string $keyword) : array // keyword search in search
     {
+        $this->homeModel = new HomeModel();
         $res = $this->homeModel->like('texto', $keyword)
                                ->get()
                                ->getResult();

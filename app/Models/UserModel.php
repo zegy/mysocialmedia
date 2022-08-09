@@ -19,7 +19,28 @@ class UserModel extends Model
         'user_regis_date_time',
         'user_sex',
         'user_bio'
-    ];                 
+    ];
+    
+    protected $validationRules =
+	[
+        'nama_lengkap'        => 'required|min_length[3]',
+        'username'            => 'required|min_length[5]',
+        'email'               => 'required|valid_email',
+        'nomor_handphone'     => 'required|min_length[8]|numeric',
+        'password'            => 'required|min_length[8]',
+        'konfirmasi_password' => 'required|matches[password]',
+        'userfile' => // ZEGY OTC WHAT USERFILE?
+        [
+            'label' => 'foto profil',
+            'rules' => 'uploaded[arquivo]'
+                    . '|is_image[arquivo]'
+                    . '|mime_in[arquivo,image/jpg,image/jpeg]'
+                    . '|max_size[arquivo,30]'
+                    . '|max_dims[arquivo,200,200]',
+        ],
+        'bio'                 => 'required|max_length[250]',
+        'jenis_kelamin'       => 'required'
+    ];
 
     public function getByEmail(string $email): array
     {

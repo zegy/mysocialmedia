@@ -11,7 +11,7 @@ class Account extends BaseController
 	function __construct()
 	{
 		helper('form');
-		$this->usuariosModel = new UserModel();
+		$this->userModel = new UserModel();
 	}
 
 	public function signUp()
@@ -21,31 +21,10 @@ class Account extends BaseController
 
 	public function createAccount()
 	{
-		$validationRule =
-		[
-			'nama_lengkap'        => 'required|min_length[3]',
-			'username'            => 'required|min_length[5]',
-			'email'               => 'required|valid_email',
-            'nomor_handphone'     => 'required|min_length[8]|numeric',
-            'password'            => 'required|min_length[8]',
-			'konfirmasi_password' => 'required|matches[password]',
-            'userfile' => // ZEGY OTC WHAT USERFILE?
-			[
-			    'label' => 'foto profil',
-				'rules' => 'uploaded[arquivo]'
-						. '|is_image[arquivo]'
-						. '|mime_in[arquivo,image/jpg,image/jpeg]'
-						. '|max_size[arquivo,30]'
-						. '|max_dims[arquivo,200,200]',
-			],
-            'bio'                 => 'required|max_length[250]',
-			'jenis_kelamin'       => 'required'
-		];
-
-		$data = $this->request->getPost();
-		$myTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
+        $rules = $this->userModel->validationRules;
+		$data  = $this->request->getPost();
 		
-		if (!$this->validate($validationRule))
+		if (!$this->validate($rules)) // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
 		{
 			$datatofix =
             [
@@ -56,6 +35,7 @@ class Account extends BaseController
 		}
 		else
 		{
+            $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
             $arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
 			$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
 
@@ -77,10 +57,10 @@ class Account extends BaseController
                 'user_profile_picture' => (string)$filePath,
 				'user_bio'    		   => $data['bio'],
 				'user_sex'			   => $gender,
-				'user_regis_date_time' => ((array)$myTime)['date']
+				'user_regis_date_time' => ((array)$currentTime)['date']
 			];
 
-			$result = $this->usuariosModel->save($dataToSave);
+			$result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"
 			return view('account/sucessful_created');
 		}
 	}

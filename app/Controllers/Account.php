@@ -26,11 +26,18 @@ class Account extends BaseController
 		
 		if (!$this->validate($rules))   // validate first, then send to model (using basic CRUD)
 		{                               // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
-            // HERE TO PUT EMAIL DUPLICATE COUNTERMEASURE
+            $new_email = $this->userModel->isEmailExist($data['email']); // Check if email exist
+            if ($new_email){
+                $email_duplicated = array("email sudah ada!");
+            }
+            else
+            {
+                $email_duplicated = array("");
+            }
 
             $datatofix =
             [
-                'errors'     => $this->validator->getErrors()+ array('email'),
+                'errors'     => $this->validator->getErrors() + $email_duplicated,
                 'prev_input' => $data,
             ];
 			return view('account/signup', $datatofix);

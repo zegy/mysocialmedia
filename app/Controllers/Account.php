@@ -24,12 +24,12 @@ class Account extends BaseController
         $rules = $this->userModel->val_rules;
 		$data  = $this->request->getPost();
         $email_existed = $this->userModel->isEmailExist($data['email']); // Check if email exist
-        $e_email = array(null);
-        $e_rules = array(null);
+        $e_email = null;
+        $e_rules = null;
 
 		if ($email_existed == true)
         {
-            $e_email = array("Email sudah ada!");
+            $e_email = ("Email sudah ada!");
         }
         
         if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD)
@@ -41,8 +41,10 @@ class Account extends BaseController
         {
             return view('account/signup',
             [
-                'prev_input' => $data,
-                'errors'     => $e_email + $e_rules
+                'prev_input'    => $data,
+                'errors'        => $e_rules,
+                'error_email'   => $e_email,
+                //'error_username'=> $e_rules
             ]);
         }
         else

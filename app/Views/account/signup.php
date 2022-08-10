@@ -24,6 +24,13 @@
                 </ul>
             </div>
             <?php } ?>
+            <?php  if (isset($error_email)) { ?>
+            <div class="alert">
+                <ul>
+                    <li><?php echo $error_email ?></li>
+                </ul>
+            </div>
+            <?php } ?>
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">

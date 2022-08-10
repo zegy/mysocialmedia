@@ -15,7 +15,9 @@ class Comment extends BaseController
     function __construct() 
     {
         helper('form');
-        $this->commentModel =  new CommentModel();          
+        $this->commentModel =  new CommentModel();
+        $this->postModel    =  new PostModel();
+        $this->userModel    =  new UserModel();       
     }
     
     public function show($pid = null, $uid) 
@@ -27,8 +29,7 @@ class Comment extends BaseController
 
         if(session('role') == 'mahasiswa') // AVOID MAHASISWA TO OPEN DOSEN'S POST
 		{
-            $userModel   = new UserModel();
-            $poster      = $userModel->where(array('user_pk' => $uid))->first();
+            $poster      = $this->userModel->where(array('user_pk' => $uid))->first();
             $poster_role = $poster["user_role"];
 
             if ($poster_role == 'dosen')
@@ -36,38 +37,14 @@ class Comment extends BaseController
                 throw new \CodeIgniter\Exceptions\PageNotFoundException();
             }
 		}
-        
-        // $builder = $this->db->table('t_post p'); 
-        // $builder->select('
-        //                     p.post_pk as pid,
-        //                     p.post_text as texto, 
-        //                     p.post_date_time as data,
-        //                     u.user_pk as uid,
-        //                     u.user_full_name as nome,
-        //                     u.user_profile_picture as image,
-        //                     u.user_role as role
-        //                 ');
-
-        // $builder->join('t_user u ',
-        //                'p.post_fk_user = u.user_pk');  
-         
-        // $builder->where("p.post_pk = $pid");  
-        
-        // $queryPost = $builder->get(); 
-
-        //********************************************************************************************************         
-     
-        
-
-        //*********************************************************************************************************
               
-        $post     = $queryPost->getResult();
+        $post     = $this->postModel->getSpecificPost($pid);
         $comments = $this->commentModel->getAllByPost($pid);
              
         return view('comments/comments',
         [
-                'post'     => $post[0],
-                'comments' => $comments
+            'post'     => $post[0],
+            'comments' => $comments
         ]);
     }
 

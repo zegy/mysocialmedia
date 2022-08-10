@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model; 
 use App\Models\HomeModel;
+use App\Models\UserModel;
 
 class PostModel extends Model
 {
@@ -62,5 +63,21 @@ class PostModel extends Model
                              ->getResult();
 
         return $queryPost;
+    }
+
+    public function isDosenPost($uid)
+    {
+        $userModel = new UserModel;
+        $poster    = $userModel->where(array('user_pk' => $uid))->first();
+        $role      = $poster["user_role"];
+
+        if ($role == 'dosen')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

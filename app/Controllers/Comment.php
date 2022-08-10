@@ -5,8 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Controllers\Notification; //ZEGY OTC
 use App\Models\CommentModel; 
-use App\Models\PostModel; //ZEGY OTC
-use App\Models\UserModel; //ZEGY OTC
+use App\Models\PostModel;
+use App\Models\UserModel;
 use CodeIgniter\I18n\Time;
 
 
@@ -20,22 +20,14 @@ class Comment extends BaseController
         $this->userModel    =  new UserModel();       
     }
     
-    public function show($pid = null, $uid) 
+    public function show($pid, $uid) 
     {
-        if (!$pid)
-        {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
-
         if(session('role') == 'mahasiswa') // AVOID MAHASISWA TO OPEN DOSEN'S POST
 		{
-            $poster      = $this->userModel->where(array('user_pk' => $uid))->first();
-            $poster_role = $poster["user_role"];
-
-            if ($poster_role == 'dosen')
-            {
+           if($this->postModel->isDosenPost($uid))
+           {
                 throw new \CodeIgniter\Exceptions\PageNotFoundException();
-            }
+           }
 		}
               
         $post     = $this->postModel->getSpecificPost($pid);

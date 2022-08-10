@@ -92,4 +92,18 @@ class UserModel extends Model
             return false;
         }
     }
+
+    public function isUsernameExist($username) // check if email exist
+    {
+        $existUsername = $this->where('user_name', $username)->first();
+                         
+        if($existUsername)
+        {
+            return true;
+        }
+        else
+        {    
+            return false;
+        }
+    }
 }

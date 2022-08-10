@@ -17,6 +17,7 @@
         <div class="content">
             <?php  if (isset($errors)) { ?>
             <div class="alert">
+                <h4>Form salah</h4>
                 <ul>
                     <?php foreach ($errors as $error): ?>
                     <li><?= esc($error) ?></li>
@@ -24,10 +25,16 @@
                 </ul>
             </div>
             <?php } ?>
-            <?php  if (isset($error_email)) { ?>
+            <?php  if (isset($error_email) || isset($error_username)) { ?>
             <div class="alert">
+                <h4>Data duplikat</h4>
                 <ul>
+                    <?php  if (isset($error_email)) { ?>
                     <li><?php echo $error_email ?></li>
+                    <?php } ?>
+                    <?php  if (isset($error_username)) { ?>
+                    <li><?php echo $error_username ?></li>
+                    <?php } ?>
                 </ul>
             </div>
             <?php } ?>

@@ -24,27 +24,34 @@ class Account extends BaseController
         $rules = $this->userModel->val_rules;
 		$data  = $this->request->getPost();
         $email_existed = $this->userModel->isEmailExist($data['email']); // Check if email exist
+        $username_existed = $this->userModel->isUsernameExist($data['username']); // Check if username exist
         $e_email = null;
+        $e_username = null;
         $e_rules = null;
 
 		if ($email_existed == true)
         {
-            $e_email = ("Email sudah ada!");
+            $e_email = ("email sudah digunakan!");
         }
         
+        if ($username_existed == true)
+        {
+            $e_username = ("username sudah digunakan!");
+        }
+
         if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD)
         {                             // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
             $e_rules = $this->validator->getErrors();
         }
 
-        if (isset($e_email) || isset($e_rules))
+        if (isset($e_email) || isset($e_username) || isset($e_rules))
         {
             return view('account/signup',
             [
                 'prev_input'    => $data,
-                'errors'        => $e_rules,
                 'error_email'   => $e_email,
-                //'error_username'=> $e_rules
+                'error_username'=> $e_username,
+                'errors'        => $e_rules
             ]);
         }
         else
@@ -62,7 +69,7 @@ class Account extends BaseController
                     $gender = 'f'; break;
             }
 
-            $dataToSave = // ZEGY OTC role? jika email sudah ada?
+            $dataToSave =
             [
                 'user_full_name'   	   => $data['nama_lengkap'], 
                 'user_name'  		   => (string)$data['username'],

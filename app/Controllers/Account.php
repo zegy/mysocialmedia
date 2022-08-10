@@ -29,61 +29,67 @@ class Account extends BaseController
         {
             $e_email = array("Email sudah ada!");
         }
-        else
-        {
-            $e_email = array('');
-        }
         
         if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD)
         {                             // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
             $e_rules = $this->validator->getErrors();   
         }
-        else
-        {
-            $e_rules = array('');
-        }
 
-        if (isset($e_email) || isset($e_rules)) // DANGER OTC
+        // Start Validation **************************************************
+        if (isset($e_email) && isset($e_rules))
         {
-            $all_error = $e_rules + $e_email;
             return view('account/signup',
             [
                 'prev_input' => $data,
-                'errors'     => $all_error
+                'errors'     => $e_email + $e_rules
             ]);
         }
+        
+        if (isset($e_email))
+        {
+            return view('account/signup',
+            [
+                'prev_input' => $data,
+                'errors'     => $e_email
+            ]);
+        }
+        
+        if (isset($e_rules))
+        {
+            return view('account/signup',
+            [
+                'prev_input' => $data,
+                'errors'     => $e_rules
+            ]);
+        }
+        // End Validation **************************************************
+        $arquivo  = ($this->request->getFile('arquivo'));
+        $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
+        $arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
+		$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
 
+        switch ((string)($data['jenis_kelamin']))
+        {
+            case 'm':
+                $gender = 'm'; break;
+            case 'f':
+                $gender = 'f'; break;
+        }
 
-        else
-		{
-            $arquivo  = ($this->request->getFile('arquivo'));
-            $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
-            $arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
-			$filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
+        $dataToSave = // ZEGY OTC role? jika email sudah ada?
+        [
+            'user_full_name'   	   => $data['nama_lengkap'], 
+            'user_name'  		   => (string)$data['username'],
+            'user_email'  		   => $data['email'],
+            'user_tel'    		   => $data['nomor_handphone'],
+            'user_password'  	   => password_hash((string)$data['password'], PASSWORD_DEFAULT),
+            'user_profile_picture' => (string)$filePath,
+            'user_bio'    		   => $data['bio'],
+            'user_sex'			   => $gender,
+            'user_regis_date_time' => ((array)$currentTime)['date']
+        ];
 
-            switch ((string)($data['jenis_kelamin']))
-            {
-                case 'm':
-                    $gender = 'm'; break;
-                case 'f':
-                    $gender = 'f'; break;
-            }
-
-			$dataToSave = // ZEGY OTC role? jika email sudah ada?
-			[
-				'user_full_name'   	   => $data['nama_lengkap'], 
-                'user_name'  		   => (string)$data['username'],
-				'user_email'  		   => $data['email'],
-				'user_tel'    		   => $data['nomor_handphone'],
-                'user_password'  	   => password_hash((string)$data['password'], PASSWORD_DEFAULT),
-                'user_profile_picture' => (string)$filePath,
-				'user_bio'    		   => $data['bio'],
-				'user_sex'			   => $gender,
-				'user_regis_date_time' => ((array)$currentTime)['date']
-			];
-
-			$result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"
-			return view('account/sucessful_created');
-		}
+        $result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"
+        return view('account/sucessful_created');
 	}
 }

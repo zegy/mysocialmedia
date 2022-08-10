@@ -21,20 +21,22 @@ class Account extends BaseController
 
 	public function createAccount()
 	{
+        $data  = $this->request->getPost();
         $rules = $this->userModel->val_rules;
-		$data  = $this->request->getPost();
-        $email_existed = $this->userModel->isEmailExist($data['email']); // Check if email exist
-        $username_existed = $this->userModel->isUsernameExist($data['username']); // Check if username exist
-        $e_email = null;
+        
+        $email_exist    = $this->userModel->isEmailExist($data['email']); // Check if email exist
+        $username_exist = $this->userModel->isUsernameExist($data['username']); // Check if username exist
+        
+        $e_email    = null;
         $e_username = null;
-        $e_rules = null;
+        $e_rules    = null;
 
-		if ($email_existed == true)
+		if ($email_exist == true)
         {
             $e_email = ("email sudah digunakan!");
         }
         
-        if ($username_existed == true)
+        if ($username_exist == true)
         {
             $e_username = ("username sudah digunakan!");
         }
@@ -56,10 +58,10 @@ class Account extends BaseController
         }
         else
         {
-            $arquivo  = ($this->request->getFile('arquivo'));
+            $profile_img  = ($this->request->getFile('profile_img'));
             $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
-            $arquivo->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $arquivo->getClientExtension());
-            $filePath = 'images/' . (string)$data['username'] . '.' . $arquivo->getClientExtension();
+            $profile_img->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $profile_img->getClientExtension());
+            $filePath = 'images/' . (string)$data['username'] . '.' . $profile_img->getClientExtension();
 
             switch ((string)($data['jenis_kelamin']))
             {

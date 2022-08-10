@@ -32,11 +32,11 @@ class UserModel extends Model
         'userfile' => // ZEGY OTC WHAT USERFILE?
         [
             'label' => 'foto profil',
-            'rules' => 'uploaded[arquivo]'
-                    . '|is_image[arquivo]'
-                    . '|mime_in[arquivo,image/jpg,image/jpeg]'
-                    . '|max_size[arquivo,30]'
-                    . '|max_dims[arquivo,200,200]',
+            'rules' => 'uploaded[profile_img]'
+                    . '|is_image[profile_img]'
+                    . '|mime_in[profile_img,image/jpg,image/jpeg]'
+                    . '|max_size[profile_img,30]'
+                    . '|max_dims[profile_img,200,200]',
         ],
         'bio'                 => 'required|max_length[250]',
         'jenis_kelamin'       => 'required'

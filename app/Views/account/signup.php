@@ -90,7 +90,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Foto Profil :</span>
-                        <input name="arquivo" type="file" accept=".jpg, .jpeg" >                       
+                        <input name="profile_img" type="file" accept=".jpg, .jpeg" >                       
                     </div>
                     <div class="input-box">
                         <span class="details">Bio :</span>

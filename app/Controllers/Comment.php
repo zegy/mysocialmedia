@@ -37,50 +37,32 @@ class Comment extends BaseController
             }
 		}
         
-        $builder = $this->db->table('t_post p'); 
-        $builder->select('
-                            p.post_pk as pid,
-                            p.post_text as texto, 
-                            p.post_date_time as data,
-                            u.user_pk as uid,
-                            u.user_full_name as nome,
-                            u.user_profile_picture as image,
-                            u.user_role as role
-                        ');
+        // $builder = $this->db->table('t_post p'); 
+        // $builder->select('
+        //                     p.post_pk as pid,
+        //                     p.post_text as texto, 
+        //                     p.post_date_time as data,
+        //                     u.user_pk as uid,
+        //                     u.user_full_name as nome,
+        //                     u.user_profile_picture as image,
+        //                     u.user_role as role
+        //                 ');
 
-        $builder->join('t_user u ',
-                       'p.post_fk_user = u.user_pk');  
+        // $builder->join('t_user u ',
+        //                'p.post_fk_user = u.user_pk');  
          
-        $builder->where("p.post_pk = $pid");  
+        // $builder->where("p.post_pk = $pid");  
         
-        $queryPost = $builder->get(); 
+        // $queryPost = $builder->get(); 
 
         //********************************************************************************************************         
      
-        $builder = $this->db->table('t_comment c');
-        $builder->select('
-                            c.comment_pk            as cid,   
-                            c.comment_text          as texto,
-                            c.comment_date_time     as data,
-                            u.user_pk               as uid,
-                            u.user_full_name        as nome,
-                            u.user_profile_picture  as image, 
-                        ');
-
-        $builder->join('t_post p',
-                       'p.post_pk = c.comment_fk_post');
         
-        $builder->join('t_user u',
-                       'c.comment_fk_user = u.user_pk');
-        
-        $builder->where("p.post_pk = $pid");
-
-        $queryComments = $builder->get();
 
         //*********************************************************************************************************
               
         $post     = $queryPost->getResult();
-        $comments = $queryComments->getResult();
+        $comments = $this->commentModel->getAllByPost($pid);
              
         return view('comments/comments',
         [

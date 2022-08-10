@@ -51,4 +51,30 @@ class CommentModel extends Model
                        ->getResult();
         return $res; 
     }
+
+    public function getAllByPost($pid)
+    {
+        $builder = $this->db->table('t_comment c');
+        $builder->select('
+                            c.comment_pk            as cid,   
+                            c.comment_text          as texto,
+                            c.comment_date_time     as data,
+                            u.user_pk               as uid,
+                            u.user_full_name        as nome,
+                            u.user_profile_picture  as image, 
+                        ');
+
+        $builder->join('t_post p',
+                       'p.post_pk = c.comment_fk_post');
+        
+        $builder->join('t_user u',
+                       'c.comment_fk_user = u.user_pk');
+        
+        $builder->where("p.post_pk = $pid");
+
+        $queryComments = $builder->get()
+                                 ->getResult();
+        
+        return $queryComments;
+    }
 }

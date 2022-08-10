@@ -27,21 +27,33 @@ class Account extends BaseController
 
 		if ($email_existed == true)
         {
-            $datatofix = ['errors' => array("Email sudah ada!")];
+            $e_email = array("Email sudah ada!");
+        }
+        else
+        {
+            $e_email = array('');
         }
         
-        if (!$this->validate($rules))
-        {
-            // validate first, then send to model (using basic CRUD)
-            // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
-            $datatofix = ['errors' => $this->validator->getErrors()];   
+        if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD)
+        {                             // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
+            $e_rules = $this->validator->getErrors();   
         }
-        
-        if (isset($datatofix))
+        else
         {
-            $datatofix = ['prev_input' => $data];
-            return view('account/signup', $datatofix);
-        } 
+            $e_rules = array('');
+        }
+
+        if (isset($e_email) || isset($e_rules)) // DANGER OTC
+        {
+            $all_error = $e_rules + $e_email;
+            return view('account/signup',
+            [
+                'prev_input' => $data,
+                'errors'     => $all_error
+            ]);
+        }
+
+
         else
 		{
             $arquivo  = ($this->request->getFile('arquivo'));

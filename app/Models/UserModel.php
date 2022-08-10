@@ -54,12 +54,6 @@ class UserModel extends Model
         return !is_null($rq) ? $rq : [];
     }
 
-    public function getByNome(string $nome): array // ZEGY OTC NEED TO VERIF IF EMAIL ALREADY USED!
-    {
-        $rq = $this->where('user_email', $nome)->findAll(); // change
-        return !is_null($rq) ? $rq : [];
-    }
-
     public function getAllByKeyword(string $keyword) : array
     {
         $builder = $this->builder('t_user');

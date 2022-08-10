@@ -17,15 +17,6 @@ class PostModel extends Model
         'post_date_time'
     ];
     
-    public function getPostById(string $id)
-    {
-        $builder = $this->builder();
-        $builder->select('*');
-        $builder->where("post_pk", $id);
-        $res = $builder->get()->getResult()[0]->post_text; 
-        return $res;   
-    }
-
     public function checkOwnership($pid, $uid) // verify post owner
     {
         $vpost = $this->where('post_pk', $pid)->first();

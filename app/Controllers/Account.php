@@ -27,23 +27,21 @@ class Account extends BaseController
         $email_exist    = $this->userModel->isEmailExist($data['email']); // Check if email exist
         $username_exist = $this->userModel->isUsernameExist($data['username']); // Check if username exist
         
-        $e_email    = null;
-        $e_username = null;
-        $e_rules    = null;
-
-		if ($email_exist == true)
-        {
-            $e_email = ("email sudah digunakan!");
-        }
-        
-        if ($username_exist == true)
-        {
-            $e_username = ("username sudah digunakan!");
-        }
+        $e_rules    = [];
 
         if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD)
         {                             // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
             $e_rules = $this->validator->getErrors();
+        }
+
+        if ($email_exist == true)
+        {
+            array_push($e_rules,"email sudah digunakan!");
+        }
+        
+        if ($username_exist == true)
+        {
+            array_push($e_rules,"username sudah digunakan!");
         }
 
         if (isset($e_email) || isset($e_username) || isset($e_rules))
@@ -51,8 +49,6 @@ class Account extends BaseController
             return view('account/signup',
             [
                 'prev_input'    => $data,
-                'error_email'   => $e_email,
-                'error_username'=> $e_username,
                 'errors'        => $e_rules
             ]);
         }

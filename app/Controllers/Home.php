@@ -12,10 +12,10 @@ class Home extends BaseController
     function __construct()
     {
         helper('form');
-        $this->usuariosModel = new UserModel();
-        $this->homeModel     = new HomeModel();
-        $this->postModel     = new PostModel();
-        $this->commentModel  = new CommentModel();
+        $this->homeModel    = new HomeModel();
+        $this->userModel    = new UserModel();
+        $this->postModel    = new PostModel();
+        $this->commentModel = new CommentModel();
     }
 
     public function homeUmum()
@@ -46,7 +46,7 @@ class Home extends BaseController
 
         if($keyword)
         {
-            $s_users    = $this->usuariosModel->getAllByKeyword($keyword);
+            $s_users    = $this->userModel->getAllByKeyword($keyword);
             $s_posts    = $this->postModel->getAllByKeyword($keyword);
             $s_comments = $this->commentModel->getAllByKeyword($keyword);
         } 

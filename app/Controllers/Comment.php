@@ -15,9 +15,9 @@ class Comment extends BaseController
     function __construct() 
     {
         helper('form');
-        $this->commentModel =  new CommentModel();
-        $this->postModel    =  new PostModel();
-        $this->userModel    =  new UserModel();       
+        $this->userModel    = new UserModel();       
+        $this->postModel    = new PostModel();
+        $this->commentModel = new CommentModel();
     }
     
     public function show($pid, $uid) 

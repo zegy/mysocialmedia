@@ -10,25 +10,20 @@ class User extends BaseController
     function __construct()
     {
         helper('form');
-        $this->usuariosModel = new UserModel();       
+        $this->userModel = new UserModel();       
     }
            
-    public function showProfile($uid) // load profile information and show on view 
-    {
-        if (!$uid)
-        {       
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
-           
-        $userData = $this->usuariosModel->getById($uid);
+    public function showProfile($uid) 
+    {   
+        $userData = $this->userModel->getById($uid);
         
         if ($userData)
-        {
-            echo view('profile/profile', ["userData" => $userData]); 
+        {            
+            return view('profile/profile', ['userData' => $userData]);
         }
         else
         {   
-            return redirect()->to('/');
+            return redirect()->to('/'); // user not found
         }
     }
 }

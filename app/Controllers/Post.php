@@ -4,30 +4,30 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PostModel;
-use CodeIgniter\I18n\Time;
 use App\Models\HomeModel;
+use CodeIgniter\I18n\Time;
 
 class Post extends BaseController
 {
     function __construct() 
     {             
         helper('form');
-        $this->postModel = new PostModel();
         $this->homeModel = new HomeModel();
+        $this->postModel = new PostModel();
     }
     
     public function save() 
     {
-        $data   = $this->request->getPost();
+        $data = $this->request->getPost();
 
-        if ( !isset($data) || empty($data) )
+        if (!isset($data) || empty($data))
         {       
             throw new \CodeIgniter\Exceptions\PageNotFoundException();   
         } 
                   
-        $myTime = new Time('now', 'America/Recife', 'pt_BR');
+        $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
         
-        if ( isset($data["user_id"]) && session()->get('id') != $data["user_id"] )
+        if (isset($data["user_id"]) && session()->get('id') != $data["user_id"])
         {      
             return redirect()->to('/');
         }
@@ -40,13 +40,13 @@ class Post extends BaseController
                 "post_text" => $data["text"]
             ]; 
         }
-        else if ( isset( $data["user_id"]) &&  $data["text"] ) //new post
+        else if (isset( $data["user_id"]) &&  $data["text"]) //new post
         {   
             $dataToSave =
             [
                 "post_fk_user"   => $data["user_id"], 
                 "post_text"      => $data["text"],
-                "post_date_time" => ((array)$myTime)['date']
+                "post_date_time" => ((array)$currentTime)['date']
             ]; 
         }
         else
@@ -66,14 +66,9 @@ class Post extends BaseController
         }
     }
 
-    public function delete(int $pid) // post id / pid
+    public function delete($pid)
     {
-        if (!$pid)
-        {       
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();    
-        }
-        
-        if ( $this->postModel->checkOwnership( $pid, session()->get('id') ) )
+        if ($this->postModel->checkOwnership($pid, session()->get('id')))
         {
             if ($this->postModel->delete($pid))
             {

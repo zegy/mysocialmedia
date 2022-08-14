@@ -1,29 +1,41 @@
 <?php namespace App\Controllers;
-
+ // ZEGY OTC no basecontroller? is it really needed?
 use App\Models\NotificationModel;
-use App\Models\CommentModel;
 use App\Models\PostModel; 
+use App\Models\CommentModel;
 
 class Notification extends BaseController
-{ 
+{
+    function __construct()
+    {
+        helper('form');
+        $this->notificationModel = new NotificationModel();
+    }
+
     public function onFCM()
     {
-        $notificationModel = new NotificationModel();
-        $session           = session('id');
-        $token             = $this->request->getVar('token');
-        $data              = $notificationModel->where(array('user_pk' => $session))->first();
-        $notificationModel->update($data['user_pk'], array('user_token' => $token));
+        $token   = $this->request->getVar('token');
+        $data    = $this->notificationModel->where(array('user_pk' => session('id')))->first();
+        $on      = $this->notificationModel->update($data['user_pk'], array('user_token' => $token));
         
-        if ($notificationModel)
+        if ($on)
         {
             $res = 'Notifikasi berhasil aktif!';
         }
         else
         {
-            $res = 'Notifikasi gagal aktif!';
+            $res = 'Notifikasi gagal aktif!'; // ZEGY OTC is it really working?
         }
         return json_encode($res);
     }
+
+///////////////////////////////////////// done 
+
+
+
+
+
+
 
     public function sendFCM($data)
     {

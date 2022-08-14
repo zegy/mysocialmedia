@@ -25,19 +25,6 @@
                 </ul>
             </div>
             <?php } ?>
-            <?php  if (isset($error_email) || isset($error_username)) { ?>
-            <div class="alert">
-                <h4>Data duplikat</h4>
-                <ul>
-                    <?php  if (isset($error_email)) { ?>
-                    <li><?php echo $error_email ?></li>
-                    <?php } ?>
-                    <?php  if (isset($error_username)) { ?>
-                    <li><?php echo $error_username ?></li>
-                    <?php } ?>
-                </ul>
-            </div>
-            <?php } ?>
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">

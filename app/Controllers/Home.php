@@ -22,7 +22,7 @@ class Home extends BaseController
     {
         return view('home_public',
         [
-            "posts" => $this->homeModel->mahasiswaPosts()->paginate(5),
+            "posts" => $this->homeModel->publicPosts()->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }
@@ -31,7 +31,7 @@ class Home extends BaseController
     {
         return view('home_private',
         [
-            "posts" => $this->homeModel->dosenPosts()->paginate(5),
+            "posts" => $this->homeModel->privatePosts()->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }

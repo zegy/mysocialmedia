@@ -15,7 +15,8 @@ class PostModel extends Model
     [
         'post_fk_user',
         'post_text',
-        'post_date_time'
+        'post_date_time',
+        'post_type'
     ];
     
     public function checkOwnership($pid, $uid) // verify post owner

@@ -41,12 +41,13 @@ class Post extends BaseController
             ]; 
         }
         else if (isset( $data["user_id"]) &&  $data["text"]) //new post
-        {   
+        {
             $dataToSave =
             [
                 "post_fk_user"   => $data["user_id"], 
                 "post_text"      => $data["text"],
-                "post_date_time" => ((array)$currentTime)['date']
+                "post_date_time" => ((array)$currentTime)['date'],
+                "post_type"      => $data['type'] 
             ]; 
         }
         else

@@ -36,6 +36,7 @@
             <div class = "col-sm-12 ">
                 <?php echo form_open('post/save',  ['class' => 'pull_right']) ?>
                 <input type="hidden" name="user_id" value="<?php echo session()->get('id') ?>" />
+                <input type="hidden" name="type" value="private" />
                 <h3 class="">Escrever um novo Post</h3>
                 <fieldset>       
                     <div class="form-group ">

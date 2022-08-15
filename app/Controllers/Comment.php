@@ -20,11 +20,23 @@ class Comment extends BaseController
         $this->commentModel = new CommentModel();
     }
     
-    public function show($un, $pid) 
-    {           
+    public function show($un, $pid)
+    {
+        $postData = $this->postModel->where('post_pk', $pid)->first();
+        $postType = $postData['post_type'];
+
+        if(session('role') == 'mahasiswa') // avoid mahasiswa to open private posts (OTC)
+        {
+            if($postType == 'private')
+            {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException(); // post not found! NEED TO REDIRECT!
+                // return redirect()->to('/');
+            }
+        }
+        
         $post = $this->postModel->getSpecificPost($pid);
         
-        if (empty($post))
+        if(empty($post))
         {
             throw new \CodeIgniter\Exceptions\PageNotFoundException(); // post not found!
         }

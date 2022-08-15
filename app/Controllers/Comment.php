@@ -22,25 +22,42 @@ class Comment extends BaseController
     
     public function show($un, $pid)
     {
-        $postData = $this->postModel->where('post_pk', $pid)->first();
+        // $postData = $this->postModel->where('post_pk', $pid)->first(); // SINGLE PARAMETER ($pid)
+
+        // ZEGY OTC DOUBLE PARAMETER START
+        $poster = $this->userModel->where('user_name', $un)->first();
+        
+        if(empty($poster))
+        {
+            return redirect()->to('/'); // ZEGY OTC 404
+        }
+        
+        $poster_id = $poster['user_pk'];
+        
+        $targetPost = array('post_pk' => $pid, 'post_fk_user' => $poster_id);
+
+        $postData = $this->postModel->where($targetPost)->first();
+        
+        //dd ($postData);
+        // ZEGY OTC DOUBLE PARAMETER END
+        
+        if(empty($postData))
+        {
+            return redirect()->to('/'); // ZEGY OTC 404
+        }
+
         $postType = $postData['post_type'];
 
-        if(session('role') == 'mahasiswa') // avoid mahasiswa to open private posts (OTC)
+        if(session('role') == 'mahasiswa') // avoid mahasiswa to open private posts
         {
             if($postType == 'private')
             {
-                throw new \CodeIgniter\Exceptions\PageNotFoundException(); // post not found! NEED TO REDIRECT!
-                // return redirect()->to('/');
+                return redirect()->to('/'); // ZEGY OTC 404
             }
         }
         
         $post = $this->postModel->getSpecificPost($pid);
         
-        if(empty($post))
-        {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException(); // post not found!
-        }
-
         $comments = $this->commentModel->getAllByPost($pid);
              
         return view('comments/comments',

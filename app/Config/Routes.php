@@ -37,8 +37,8 @@ $routes->setAutoRoute(false);
 // ZEGY OTC CLEAN ROUTES (NEED TO FILTER!)
 // $routes->add('home/home_umum', 'Home::homeUmum', ['filter' => 'auth']);
 
-$routes->add('/', 'Home::homeUmum');
-$routes->add('home/home_khusus', 'Home::homeKhusus'); // filter dosen
+$routes->add('/', 'Home::homePublic');
+$routes->add('home/home_private', 'Home::homePrivate'); // filter dosen
 
 $routes->add('search', 'Home::search'); 
 

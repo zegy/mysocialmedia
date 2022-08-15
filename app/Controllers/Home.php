@@ -18,18 +18,18 @@ class Home extends BaseController
         $this->commentModel = new CommentModel();
     }
 
-    public function homeUmum()
+    public function homePublic()
     {
-        return view('home',
+        return view('home_public',
         [
             "posts" => $this->homeModel->mahasiswaPosts()->paginate(5),
             "pager" => $this->homeModel->pager
         ]);
     }
 
-    public function homeKhusus()
+    public function homePrivate()
     {
-        return view('home',
+        return view('home_private',
         [
             "posts" => $this->homeModel->dosenPosts()->paginate(5),
             "pager" => $this->homeModel->pager

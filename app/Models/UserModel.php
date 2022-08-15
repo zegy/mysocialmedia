@@ -103,17 +103,17 @@ class UserModel extends Model
         }
     }
 
-    public function isDosenByUsername($username)
-    {
-        $user = $this->where('user_name', $username)->first();
+    // public function isDosenByUsername($username)
+    // {
+    //     $user = $this->where('user_name', $username)->first();
         
-        if($user['user_role'] == 'dosen')
-        {                 
-            return true;
-        }
-        else
-        {    
-            return false;
-        }
-    }    
+    //     if($user['user_role'] == 'dosen')
+    //     {                 
+    //         return true;
+    //     }
+    //     else
+    //     {    
+    //         return false;
+    //     }
+    // }    
 }

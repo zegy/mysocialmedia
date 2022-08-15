@@ -20,7 +20,7 @@ class Home extends BaseController
 
     public function homeUmum()
     {
-        return view('home_umum',
+        return view('home',
         [
             "posts" => $this->homeModel->mahasiswaPosts()->paginate(5),
             "pager" => $this->homeModel->pager
@@ -29,7 +29,7 @@ class Home extends BaseController
 
     public function homeKhusus()
     {
-        return view('home_khusus',
+        return view('home',
         [
             "posts" => $this->homeModel->dosenPosts()->paginate(5),
             "pager" => $this->homeModel->pager

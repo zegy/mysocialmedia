@@ -20,15 +20,28 @@ class Comment extends BaseController
         $this->commentModel = new CommentModel();
     }
     
-    public function show($pid, $uid) 
+    public function show($username, $pid) 
     {
-        if(session('role') == 'mahasiswa') // AVOID MAHASISWA TO OPEN DOSEN'S POST
-		{
-           if($this->postModel->isDosenPost($uid))
-           {
-                throw new \CodeIgniter\Exceptions\PageNotFoundException();
-           }
-		}
+        // if(session('role') == 'mahasiswa') // AVOID MAHASISWA TO OPEN DOSEN'S POST
+		// {
+        //    if($this->postModel->isDosenPost($uid))
+        //    {
+        //         throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        //    }
+		// }
+        
+        if(session('role') == 'mahasiswa')
+        {
+            $isdosen = $this->userModel->isDosenByUsername($username);
+            // if ($this->userModel->isDosenByUsername($username))
+            // {
+            //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+            // }
+        }
+
+
+
+        // print_r($username);
               
         $post     = $this->postModel->getSpecificPost($pid);
         $comments = $this->commentModel->getAllByPost($pid);

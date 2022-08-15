@@ -18,7 +18,9 @@ class UserModel extends Model
         'user_profile_picture',
         'user_regis_date_time',
         'user_sex',
-        'user_bio'
+        'user_bio',
+        'user_token',
+        'user_role'
     ];
     
     protected $val_rules = // don't name it "validationRules". broke CI's proper basic CRUD->check valid->error return
@@ -100,4 +102,20 @@ class UserModel extends Model
             return false;
         }
     }
+
+    public function isDosenByUsername($username)
+    {
+        dd ($username);
+        // $user = $this->where('user_name', $username)->first();
+        // $role = $user['user_role'];
+        
+        // if($role == 'dosen')
+        // {                 
+        //     return true;
+        // }
+        // else
+        // {    
+        //     return false;
+        // }
+    }    
 }

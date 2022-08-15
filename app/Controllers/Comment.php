@@ -22,15 +22,21 @@ class Comment extends BaseController
     
     public function show($un, $pid) 
     {        
-        if(session('role') == 'mahasiswa')
-        {
-            if ($this->userModel->isDosenByUsername($un))
-            {
-                throw new \CodeIgniter\Exceptions\PageNotFoundException();
-            }
-        }
+        // if(session('role') == 'mahasiswa')
+        // {
+        //     if ($this->userModel->isDosenByUsername($un))
+        //     {
+        //         throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        //     }
+        // }
               
         $post     = $this->postModel->getSpecificPost($pid);
+        
+        if (empty($post))
+        {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
+
         $comments = $this->commentModel->getAllByPost($pid);
              
         return view('comments/comments',

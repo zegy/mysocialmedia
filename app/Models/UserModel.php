@@ -106,9 +106,8 @@ class UserModel extends Model
     public function isDosenByUsername($username)
     {
         $user = $this->where('user_name', $username)->first();
-        $role = $user['user_role'];
         
-        if($role == 'dosen')
+        if($user['user_role'] == 'dosen')
         {                 
             return true;
         }

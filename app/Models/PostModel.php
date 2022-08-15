@@ -65,20 +65,4 @@ class PostModel extends Model
 
         return $queryPost;
     }
-
-    public function isDosenPost($uid)
-    {
-        $userModel = new UserModel;
-        $poster    = $userModel->where(array('user_pk' => $uid))->first();
-        $role      = $poster["user_role"];
-
-        if ($role == 'dosen')
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }

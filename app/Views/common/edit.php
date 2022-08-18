@@ -18,7 +18,7 @@
     <input type="hidden" name="post_id" value="<?php echo $post['post_pk'] ?>" />
     <input type="hidden" name="user_id" value="<?php echo $post['post_fk_user']  ?>" />
     <?php } else { ?>
-    <input type="hidden" name="post_id" value="<?php echo $comment['comment_fk_post'] ?>" />
+    <!-- <input type="hidden" name="post_id" value="<?php // echo $comment['comment_fk_post'] ?>" /> -->
     <input type="hidden" name="com_id" 	value="<?php echo $comment['comment_pk'] ?>" />
     <input type="hidden" name="com_user_id" value="<?php echo $comment['comment_fk_user']  ?>" />
     <input type="hidden" name="save_type" value="edit_com" />         

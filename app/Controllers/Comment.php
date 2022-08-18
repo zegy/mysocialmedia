@@ -143,7 +143,7 @@ class Comment extends BaseController
         
         if(session()->get('id') == $comment['comment_fk_user'])
         {
-            echo view('/common/edit', ['comment' => $comment]);     
+            echo view('/comments/edit', ['comment' => $comment]);     
         }
         else
         {

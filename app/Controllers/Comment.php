@@ -109,7 +109,7 @@ class Comment extends BaseController
         // }
         // else
         // {
-        //     echo view('erro');
+        //     // ZEGY OTC ERROR
         // }
     } 
 

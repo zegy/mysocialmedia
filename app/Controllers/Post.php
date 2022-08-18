@@ -63,7 +63,7 @@ class Post extends BaseController
         }
         else
         {
-            echo view('erro');
+            // ZEGY OTC ERROR
         }
     }
 

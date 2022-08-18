@@ -105,12 +105,12 @@ class Post extends BaseController
         }
     }
 
-    public function userPosts($uid) // list all post from specific user
-    {    
-        echo view("profile/myposts",
-        [
-            "posts" => $this->homeModel->where('uid', $uid)->paginate(5), // paginate with where
-            "pager" => $this->homeModel->pager
-        ]);                 
-    }
+    // public function userPosts($uid) // list all post from specific user
+    // {    
+    //     echo view("profile/myposts",
+    //     [
+    //         "posts" => $this->homeModel->where('uid', $uid)->paginate(5), // paginate with where
+    //         "pager" => $this->homeModel->pager
+    //     ]);                 
+    // }
 }

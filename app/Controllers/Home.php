@@ -20,19 +20,21 @@ class Home extends BaseController
 
     public function homePublic()
     {
-        return view('home_public',
+        return view('home',
         [
-            "posts" => $this->homeModel->publicPosts()->paginate(5),
-            "pager" => $this->homeModel->pager
+            "posts"    => $this->homeModel->publicPosts()->paginate(5),
+            "pager"    => $this->homeModel->pager,
+            "homeType" => "public"
         ]);
     }
 
     public function homePrivate()
     {
-        return view('home_private',
+        return view('home',
         [
-            "posts" => $this->homeModel->privatePosts()->paginate(5),
-            "pager" => $this->homeModel->pager
+            "posts"    => $this->homeModel->privatePosts()->paginate(5),
+            "pager"    => $this->homeModel->pager,
+            "homeType" => "private"
         ]);
     }
 

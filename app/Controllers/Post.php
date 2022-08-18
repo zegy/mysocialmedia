@@ -97,7 +97,7 @@ class Post extends BaseController
              
         if(session()->get('id') == $post['post_fk_user'])
         {         
-            echo view('/common/edit', [ 'post' => $post ] );        
+            echo view('posts/form_edit_post', [ 'post' => $post ] );        
         }
         else
         {         

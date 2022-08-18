@@ -13,13 +13,9 @@
 			<a href="<?= base_url('post/delete/' . $post->pid) ?>" class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>
 			<?php } ?>
 		</div>
-		
         <?= $this->include('comments/all_comments') ?>
-
 		<hr>
-
         <?= $this->include('comments/form_add_comment') ?>
-
 	</div>
 </div>
 

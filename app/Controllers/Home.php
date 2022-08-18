@@ -53,7 +53,7 @@ class Home extends BaseController
             $s_comments = $this->commentModel->getAllByKeyword($keyword);
         } 
          
-        return view('search/search',
+        return view('search',
         [
             'users'    => $s_users,
             'posts'    => $s_posts,

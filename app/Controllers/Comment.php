@@ -23,11 +23,21 @@ class Comment extends BaseController
     public function show($un, $pid)
     {
         $poster = $this->userModel->where('user_name', $un)->first();
-        if( !empty($poster) )
+        if(!empty($poster))
         {
             $post = array('post_pk' => $pid, 'post_fk_user' => $poster['user_pk']);
             $postData = $this->postModel->where($post)->first();
-            if(empty($postData))
+            if(!empty($postData))
+            {
+                if(session('role') == 'mahasiswa')
+                {
+                    if($postData['post_type'] == 'private') // avoid mahasiswa to open private posts
+                    {
+                        return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST
+                    }
+                }   
+            }
+            else
             {
                 return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
             }
@@ -36,24 +46,13 @@ class Comment extends BaseController
         {
             return redirect()->to('/'); // ZEGY OTC 404 USERNAME NOT FOUND
         }
-    
-        $postType = $postData['post_type'];
-
-        if(session('role') == 'mahasiswa') // avoid mahasiswa to open private posts
-        {
-            if($postType == 'private')
-            {
-                return redirect()->to('/'); // ZEGY OTC 404
-            }
-        }
-        
+            
         $post = $this->postModel->getSpecificPost($pid);
-        
         $comments = $this->commentModel->getAllByPost($pid);
              
         return view('comments/comments',
         [
-            'post'     => $post[0],
+            'post'     => $post[0], // ZEGY OTC WHY?
             'comments' => $comments
         ]);
     }

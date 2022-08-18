@@ -22,30 +22,21 @@ class Comment extends BaseController
     
     public function show($un, $pid)
     {
-        // $postData = $this->postModel->where('post_pk', $pid)->first(); // SINGLE PARAMETER ($pid)
-
-        // ZEGY OTC DOUBLE PARAMETER START
         $poster = $this->userModel->where('user_name', $un)->first();
-        
-        if(empty($poster))
+        if( !empty($poster) )
         {
-            return redirect()->to('/'); // ZEGY OTC 404
+            $post = array('post_pk' => $pid, 'post_fk_user' => $poster['user_pk']);
+            $postData = $this->postModel->where($post)->first();
+            if(empty($postData))
+            {
+                return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
+            }
         }
-        
-        $poster_id = $poster['user_pk'];
-        
-        $targetPost = array('post_pk' => $pid, 'post_fk_user' => $poster_id);
-
-        $postData = $this->postModel->where($targetPost)->first();
-        
-        //dd ($postData);
-        // ZEGY OTC DOUBLE PARAMETER END
-        
-        if(empty($postData))
+        else
         {
-            return redirect()->to('/'); // ZEGY OTC 404
+            return redirect()->to('/'); // ZEGY OTC 404 USERNAME NOT FOUND
         }
-
+    
         $postType = $postData['post_type'];
 
         if(session('role') == 'mahasiswa') // avoid mahasiswa to open private posts

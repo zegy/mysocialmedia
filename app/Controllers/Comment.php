@@ -50,7 +50,7 @@ class Comment extends BaseController
         $post = $this->postModel->getSpecificPost($pid);
         $comments = $this->commentModel->getAllByPost($pid);
              
-        return view('comments/comment_layout',
+        return view('comments',
         [
             'post'     => $post[0], // ZEGY OTC WHY?
             'comments' => $comments

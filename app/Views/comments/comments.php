@@ -35,11 +35,11 @@
 				<div class = "col-sm-12 ">
 					<?php echo form_open('comment/save',  ['class' => 'pull_right']) ?>
 					<input type="hidden" name="post_id" value="<?php echo $post->pid ?>" />
-					<input type="hidden" name="user_id" value="<?php echo session()->get('id') ?>" />
+					<input type="hidden" name="save_type" value="new_com" />
 					<h3>Escrever um novo comentário</h3>
 					<fieldset>       
 						<div class="form-group ">
-							<textarea class="form-control" id="texto" name="text"  cols="30" rows="10" placeholder=" ...Digite aqui um comentário" required=""></textarea>
+							<textarea class="form-control" id="texto" name="text"  cols="30" rows="10" placeholder=" ...Digite aqui um comentário" ></textarea>
 						</div>               
 					</fieldset> 		
 					<div class = "col-sm-1">

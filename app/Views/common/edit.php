@@ -20,7 +20,8 @@
     <?php } else { ?>
     <input type="hidden" name="post_id" value="<?php echo $comment['comment_fk_post'] ?>" />
     <input type="hidden" name="com_id" 	value="<?php echo $comment['comment_pk'] ?>" />
-    <input type="hidden" name="user_id" value="<?php echo $comment['comment_fk_user']  ?>" />      
+    <input type="hidden" name="com_user_id" value="<?php echo $comment['comment_fk_user']  ?>" />
+    <input type="hidden" name="save_type" value="edit_com" />         
     <?php }?>
 	<div class="form-group">
     	<textarea class="form-control" id="text" name="text" rows="5" cols="100" style="width: 100%; height: 300px;"><?= isset( $post['post_text'] ) ?  $post['post_text'] : $comment['comment_text'] ?> </textarea>

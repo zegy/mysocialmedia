@@ -57,51 +57,60 @@ class Comment extends BaseController
         ]);
     }
 
-    public function save() //save or edit comment
+    public function save() // save or edit comment
     {
-        $data   = $this->request->getPost();
-        $myTime = new Time('now', 'America/Recife', 'pt_BR');
-        
-        if (isset($data["user_id"]) && session()->get('id') != $data["user_id"])
-        {       
-            return redirect()->to('/');
-        }
-          
-        if (isset($data["com_id"]) && isset($data["text"])) // update comment
+        $data = $this->request->getPost();
+        $currentTime = new Time('now', 'America/Recife', 'pt_BR');
+
+        if ($data["save_type"] == "new_com")
         {
-            $dataToSave =
-            [
-                "comment_pk"    => $data["com_id"],
-                "comment_text"  => $data["text"]
-            ]; 
+            if (!empty($data["text"]))
+            {
+                $dataToSave =
+                [
+                    "comment_fk_user"   => session()->get('id'),
+                    "comment_fk_post"   => $data["post_id"],
+                    "comment_text"      => $data["text"],
+                    "comment_date_time" => ((array)$currentTime)['date']
+                ];
+            }
+            else
+            {
+                return redirect()->to('/'); // ZEGY OTC 404 COMMENT IS EMPTY (RELATED TO "REQUIRED" VIEW)
+            } 
         }
-        else if (isset($data["user_id"]) && isset($data["post_id"]) && isset($data["text"])) // new comment
-        { 
-            $dataToSave =
-            [
-                "comment_fk_user"   => $data["user_id"],
-                "comment_fk_post"   => $data["post_id"],
-                "comment_text"      => $data["text"],
-                "comment_date_time" => ((array)$myTime)['date']
-            ]; 
-        }
-        else
+
+        if ($data["save_type"] == "edit_com")
         {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+            if ($data["com_user_id"] == session()->get('id'))
+            {
+                if (!empty($data["text"]))
+                {
+                    $dataToSave =
+                    [
+                        "comment_pk"    => $data["com_id"], // ZEGY OTC : CI tau method "save" update otomatos berdasarkan PK?
+                        "comment_text"  => $data["text"]
+                    ];
+                }
+                else
+                {
+                    return redirect()->to('/'); // ZEGY OTC 404 COMMENT IS EMPTY (RELATED TO "REQUIRED" VIEW)
+                }
+            }
         }
 
         $request = $this->commentModel->save($dataToSave);
         
-        if ($request)
-        {
-            $fcm = new Notification();
-            $sendNotif = $fcm->sendFCM($data); //FCM
-            return redirect()->to('/comment/show/'. $data["post_id"]);
-        }
-        else
-        {
-            echo view('erro');
-        }
+        // if ($request)
+        // {
+        //     $fcm = new Notification();
+        //     $sendNotif = $fcm->sendFCM($data); //FCM
+        //     return redirect()->to('/comment/show/'. $data["post_id"]);
+        // }
+        // else
+        // {
+        //     echo view('erro');
+        // }
     } 
 
     public function delete(int $cid = null, int $pid = null)

@@ -137,22 +137,17 @@ class Comment extends BaseController
         }
     }
 
-    public function edit($cid = null) 
-    {
-        if (!$cid)
-        {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();      
-        }
-           
-        $comment = $this->commentModel->where('comment_pk', (int)$cid)->first();
+    public function edit($cid) 
+    {   
+        $comment = $this->commentModel->where('comment_pk', $cid)->first();
         
         if(session()->get('id') == $comment['comment_fk_user'])
         {
-            echo view('/common/edit', [ 'comment' => $comment ] );     
+            echo view('/common/edit', ['comment' => $comment]);     
         }
         else
         {
-            return redirect()->to('/');     
+            return redirect()->to('/');    
         }
     }     
 }  

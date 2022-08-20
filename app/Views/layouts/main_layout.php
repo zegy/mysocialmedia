@@ -9,8 +9,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link rel="stylesheet" href="<?= base_url('public/fontawesome/css/all.min.css') ?>" />
-    <link rel="stylesheet" href="<?= base_url('public/css/main.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('fontawesome/css/all.min.css') ?>" />
+    <link rel="stylesheet" href="<?= base_url('css/main.css') ?>" />
 
     <style>
         .navbar-light .nav-item.active .nav-link,
@@ -27,7 +27,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <a class="navbar-brand" href="<?= base_url("/") ?>"><img src="<?php echo base_url('public/images/logoEdited3.png'); ?>" alt="logo" style="width:30px; height:30px;"></a>
+                    <a class="navbar-brand" href="<?= base_url("/") ?>"><img src="<?php echo base_url('images/logoEdited3.png'); ?>" alt="logo" style="width:30px; height:30px;"></a>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url('user/showprofile/' . session()->get('id')) ?>">Profile<span class="sr-only">(current)</span></a>

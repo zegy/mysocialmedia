@@ -56,7 +56,7 @@ class Account extends BaseController
         {
             $profile_img  = ($this->request->getFile('profile_img'));
             $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
-            $profile_img->move(ROOTPATH . 'public/images', (string)$data['username'] . '.' . $profile_img->getClientExtension());
+            $profile_img->move(ROOTPATH . 'images', (string)$data['username'] . '.' . $profile_img->getClientExtension());
             $filePath = 'images/' . (string)$data['username'] . '.' . $profile_img->getClientExtension();
 
             switch ((string)($data['jenis_kelamin']))

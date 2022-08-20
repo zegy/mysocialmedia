@@ -64,7 +64,7 @@
 							<div class="nearby-user">
 								<div class="row">
 									<div class="col-md-2 col-sm-2">
-										<img src="<?= base_url('public/'.$user->img) ?>" alt="user" class="profile-photo-lg"> 
+										<img src="<?= base_url($user->img) ?>" alt="user" class="profile-photo-lg"> 
 									</div>
 									<div class="col-md-7 col-sm-7">
 										<h5><a href="<?= base_url('user/showprofile/'. $user->uid) ?>" class="profile-link"><?= htmlspecialchars($user->nome) ?></a></h5>
@@ -91,7 +91,7 @@
 			<div class="container"> <!-- start card container --> 
 				<?php if($posts) { foreach ($posts as $post) { ?>
 				<div class="media border p-3">
-					<a  href="<?= base_url('user/showprofile/'. $post->uid) ?>" ><img src="<?php echo base_url('public/'.$post->image)?>" alt="<?= $post->nome ?>" class="mr-3 mt-3 rounded-circle" style="width:60px;"> </a>
+					<a  href="<?= base_url('user/showprofile/'. $post->uid) ?>" ><img src="<?php echo base_url($post->image)?>" alt="<?= $post->nome ?>" class="mr-3 mt-3 rounded-circle" style="width:60px;"> </a>
 					<div class="text-message media-body">
 						<h4><?= $post->nome ?> <small><i>Postado em <?= formatDate($post->data)?></i></small></h4>
 						<p><?= htmlspecialchars($post->texto) ?></p>
@@ -116,7 +116,7 @@
 			<div class="container"> <!-- start card container -->
 				<?php if($comments) { foreach($comments as $comment) { ?>
 				<div class="media p-3">
-					<a  href="<?= base_url('user/showprofile/'. $comment->uid) ?>" ><img src="<?php echo base_url('public/'.$comment->image)?>" alt="user" class="mr-3 mt-3 rounded-circle" style="width:45px;"></a>
+					<a  href="<?= base_url('user/showprofile/'. $comment->uid) ?>" ><img src="<?php echo base_url($comment->image)?>" alt="user" class="mr-3 mt-3 rounded-circle" style="width:45px;"></a>
 					<div class="text-message media-body">
 						<h4><?= $comment->nome ?> <small><i>Postado em <?= formatDate($comment->data)?></i></small></h4>
 						<p><?= htmlspecialchars($comment->texto) ?></p>

@@ -6,7 +6,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 img">
-			<img src="<?php echo base_url('public/'.$userData['user_profile_picture'])?>" alt="profile-img" class="rounded-circle" width="190" height="190">
+			<img src="<?php echo base_url($userData['user_profile_picture'])?>" alt="profile-img" class="rounded-circle" width="190" height="190">
 		</div>
 		<div class="col-md-6 details">
 			<blockquote>

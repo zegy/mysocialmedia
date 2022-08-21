@@ -55,7 +55,7 @@ class PostModel extends Model
                             u.user_role as role
                         ');
         $builder->join('t_user u ', 'p.post_fk_user = u.user_pk');
-        $builder->where("p.post_pk = $pid");
+        $builder->where('p.post_pk', $pid);
         $queryPost = $builder->get()->getResult();
         return $queryPost;
     }

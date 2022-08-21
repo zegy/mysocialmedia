@@ -63,7 +63,7 @@ class CommentModel extends Model
                         ');
         $builder->join('t_post p', 'p.post_pk = c.comment_fk_post');
         $builder->join('t_user u', 'c.comment_fk_user = u.user_pk');
-        $builder->where('p.post_pk = $pid');
+        $builder->where('p.post_pk', $pid);
         $queryComments = $builder->get()->getResult();
         return $queryComments;
     }

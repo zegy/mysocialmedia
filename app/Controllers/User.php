@@ -14,12 +14,12 @@ class User extends BaseController
         $this->userModel = new UserModel();
         $this->homeModel = new HomeModel();
     }
-           
-    public function showProfile($uid) 
-    {   
+
+    public function showProfile($uid)
+    {
         $userData = $this->userModel->getById($uid);
         if ($userData)
-        {            
+        {
             return view('profile',
             [
                 "userData" => $userData,
@@ -28,7 +28,7 @@ class User extends BaseController
             ]);
         }
         else
-        {   
+        {
             return redirect()->to('/'); // user not found
         }
     }

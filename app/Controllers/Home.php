@@ -46,13 +46,13 @@ class Home extends BaseController
         $s_posts    = '';
         $s_comments = '';
 
-        if($keyword)
+        if ($keyword)
         {
             $s_users    = $this->userModel->getAllByKeyword($keyword);
             $s_posts    = $this->postModel->getAllByKeyword($keyword);
             $s_comments = $this->commentModel->getAllByKeyword($keyword);
-        } 
-         
+        }
+
         return view('search',
         [
             'users'    => $s_users,

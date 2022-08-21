@@ -48,16 +48,18 @@ class Account extends BaseController
         {
             return view('account/signup',
             [
-                'prev_input'    => $data,
-                'errors'        => $all_error
+                'prev_input' => $data,
+                'errors'     => $all_error
             ]);
         }
         else
         {
-            $profile_img  = ($this->request->getFile('profile_img'));
             $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
+            
+            $profile_img = ($this->request->getFile('profile_img'));
+            $filePath    = 'images/' . (string)$data['username'] . '.' . $profile_img->getClientExtension();
+
             $profile_img->move(ROOTPATH . 'images', (string)$data['username'] . '.' . $profile_img->getClientExtension());
-            $filePath = 'images/' . (string)$data['username'] . '.' . $profile_img->getClientExtension();
 
             switch ((string)($data['jenis_kelamin']))
             {
@@ -69,14 +71,14 @@ class Account extends BaseController
 
             $dataToSave =
             [
-                'user_full_name'   	   => $data['nama_lengkap'], 
-                'user_name'  		   => (string)$data['username'],
-                'user_email'  		   => $data['email'],
-                'user_tel'    		   => $data['nomor_handphone'],
-                'user_password'  	   => password_hash((string)$data['password'], PASSWORD_DEFAULT),
+                'user_full_name'       => $data['nama_lengkap'], 
+                'user_name'            => (string)$data['username'],
+                'user_email'           => $data['email'],
+                'user_tel'             => $data['nomor_handphone'],
+                'user_password'        => password_hash((string)$data['password'], PASSWORD_DEFAULT),
                 'user_profile_picture' => (string)$filePath,
-                'user_bio'    		   => $data['bio'],
-                'user_sex'			   => $gender,
+                'user_bio'             => $data['bio'],
+                'user_sex'             => $gender,
                 'user_regis_date_time' => ((array)$currentTime)['date']
             ];
 

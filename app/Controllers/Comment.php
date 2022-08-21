@@ -4,18 +4,17 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Controllers\Notification; //ZEGY OTC
-use App\Models\CommentModel; 
+use App\Models\CommentModel;
 use App\Models\PostModel;
 use App\Models\UserModel;
 use CodeIgniter\I18n\Time;
 
-
 class Comment extends BaseController
 {
-    function __construct() 
+    function __construct()
     {
         helper('form');
-        $this->userModel    = new UserModel();       
+        $this->userModel    = new UserModel();
         $this->postModel    = new PostModel();
         $this->commentModel = new CommentModel();
     }
@@ -23,19 +22,19 @@ class Comment extends BaseController
     public function show($un, $pid)
     {
         $poster = $this->userModel->where('user_name', $un)->first();
-        if(!empty($poster))
+        if (!empty($poster))
         {
             $post = array('post_pk' => $pid, 'post_fk_user' => $poster['user_pk']);
             $postData = $this->postModel->where($post)->first();
-            if(!empty($postData))
+            if (!empty($postData))
             {
-                if(session('role') == 'mahasiswa')
+                if (session('role') == 'mahasiswa')
                 {
-                    if($postData['post_type'] == 'private') // avoid mahasiswa to open private posts
+                    if ($postData['post_type'] == 'private') // avoid mahasiswa to open private posts
                     {
                         return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST
                     }
-                }   
+                }
             }
             else
             {
@@ -46,7 +45,7 @@ class Comment extends BaseController
         {
             return redirect()->to('/'); // ZEGY OTC 404 USERNAME NOT FOUND
         }
-            
+
         $post = $this->postModel->getSpecificPost($pid);
         $comments = $this->commentModel->getAllByPost($pid);
              
@@ -77,7 +76,7 @@ class Comment extends BaseController
             else
             {
                 return redirect()->to('/'); // ZEGY OTC 404 COMMENT IS EMPTY (RELATED TO "REQUIRED" VIEW)
-            } 
+            }
         }
 
         if ($data["save_type"] == "edit_com")
@@ -88,8 +87,8 @@ class Comment extends BaseController
                 {
                     $dataToSave =
                     [
-                        "comment_pk"    => $data["com_id"], // ZEGY OTC : CI tau method "save" update otomatos berdasarkan PK?
-                        "comment_text"  => $data["text"]
+                        "comment_pk"   => $data["com_id"], // ZEGY OTC : CI tau method "save" update otomatos berdasarkan PK?
+                        "comment_text" => $data["text"]
                     ];
                 }
                 else
@@ -111,25 +110,25 @@ class Comment extends BaseController
         // {
         //     // ZEGY OTC ERROR
         // }
-    } 
+    }
 
     public function delete(int $cid = null, int $pid = null)
     {
         if (!$cid && !$pid)
         {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();       
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
                       
         if ($this->commentModel->checkOwnership( $cid, session()->get('id') ))
         {
             if ($this->commentModel->delete($cid))
-            {    
+            {
                 return redirect()->to('/comment/show/' . $pid );
             }
             else
             {
                 return redirect()->to('/');
-            } 
+            }
         }
         else
         {
@@ -137,17 +136,17 @@ class Comment extends BaseController
         }
     }
 
-    public function edit($cid) 
-    {   
+    public function edit($cid)
+    {
         $comment = $this->commentModel->where('comment_pk', $cid)->first();
         
-        if(session()->get('id') == $comment['comment_fk_user'])
+        if (session()->get('id') == $comment['comment_fk_user'])
         {
-            echo view('/comments/edit', ['comment' => $comment]);     
+            echo view('/comments/edit', ['comment' => $comment]);
         }
         else
         {
-            return redirect()->to('/');    
+            return redirect()->to('/');
         }
-    }     
-}  
+    }
+}

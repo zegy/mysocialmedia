@@ -1,7 +1,7 @@
 <?php namespace App\Controllers;
  // ZEGY OTC no basecontroller? is it really needed?
 use App\Models\NotificationModel;
-use App\Models\PostModel; 
+use App\Models\PostModel;
 use App\Models\CommentModel;
 
 class Notification extends BaseController
@@ -14,10 +14,10 @@ class Notification extends BaseController
 
     public function onFCM()
     {
-        $token   = $this->request->getVar('token');
-        $data    = $this->notificationModel->where(array('user_pk' => session('id')))->first();
-        $on      = $this->notificationModel->update($data['user_pk'], array('user_token' => $token));
-        
+        $token = $this->request->getVar('token');
+        $data  = $this->notificationModel->where(array('user_pk' => session('id')))->first();
+        $on    = $this->notificationModel->update($data['user_pk'], array('user_token' => $token));
+
         if ($on)
         {
             $res = 'Notifikasi berhasil aktif!';
@@ -50,7 +50,7 @@ class Notification extends BaseController
         $title     = 'DIPSI';
         $body      = $commenter["user_full_name"].' '.'Mengomentari Postingan Anda!';
         $link_base = base_url("comment/show").'/'.$data["post_id"];
-                      
+
         $url = "https://fcm.googleapis.com/fcm/send";
 
         $fields = array(

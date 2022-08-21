@@ -21,25 +21,21 @@ class Account extends BaseController
 
 	public function createAccount()
 	{
-        $data  = $this->request->getPost();
-        $rules = $this->userModel->val_rules;
-
-        $email_exist    = $this->userModel->isEmailExist($data['email']); // Check if email exist
-        $username_exist = $this->userModel->isUsernameExist($data['username']); // Check if username exist
-
+        $data      = $this->request->getPost();
+        $rules     = $this->userModel->val_rules;
         $all_error = [];
 
-        if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD)
-        {                             // ZEGY OTC tanpa perlu pembanding? auto dengan controller sekarang?
+        if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD). ZEGY OTC Tanpa perlu pembanding? auto dengan controller sekarang?
+        {
             $all_error = $this->validator->getErrors();
         }
 
-        if ($email_exist == true)
+        if ($this->userModel->isEmailExist($data['email'])) // Check if email exist
         {
             array_push($all_error,"email sudah digunakan.");
         }
 
-        if ($username_exist == true)
+        if ($this->userModel->isUsernameExist($data['username'])) // Check if username exist
         {
             array_push($all_error,"username sudah digunakan.");
         }

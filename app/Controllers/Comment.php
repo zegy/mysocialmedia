@@ -19,34 +19,25 @@ class Comment extends BaseController
         $this->commentModel = new CommentModel();
     }
 
-    public function show($un, $pid)
+    public function show($pid)
     {
-        $poster = $this->userModel->where('user_name', $un)->first();
-        if (!empty($poster))
+        $post = $this->postModel->getSpecificPost($pid);
+        
+        if (!empty($post))
         {
-            $post = array('post_pk' => $pid, 'post_fk_user' => $poster['user_pk']);
-            $postData = $this->postModel->where($post)->first();
-            if (!empty($postData))
+            if (session('role') == 'mahasiswa')
             {
-                if (session('role') == 'mahasiswa')
+                if ($post['post_type'] == 'private') // avoid mahasiswa to open private posts
                 {
-                    if ($postData['post_type'] == 'private') // avoid mahasiswa to open private posts
-                    {
-                        return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST
-                    }
+                    return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST
                 }
-            }
-            else
-            {
-                return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
             }
         }
         else
         {
-            return redirect()->to('/'); // ZEGY OTC 404 USERNAME NOT FOUND
+            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
         }
 
-        $post = $this->postModel->getSpecificPost($pid);
         $comments = $this->commentModel->getAllByPost($pid);
 
         return view('comments',

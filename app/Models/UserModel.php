@@ -22,9 +22,9 @@ class UserModel extends Model
         'user_token',
         'user_role'
     ];
-    
+
     protected $val_rules = // don't name it "validationRules". broke CI's proper basic CRUD->check valid->error return
-	[
+    [
         'nama_lengkap'        => 'required|min_length[3]',
         'username'            => 'required|min_length[5]',
         'email'               => 'required|valid_email',
@@ -78,13 +78,13 @@ class UserModel extends Model
     public function isEmailExist($email) // check if email exist
     {
         $existEmail = $this->where('user_email', $email)->first();
-                         
+
         if($existEmail)
         {
             return true;
         }
         else
-        {    
+        {
             return false;
         }
     }
@@ -92,13 +92,13 @@ class UserModel extends Model
     public function isUsernameExist($username) // check if email exist
     {
         $existUsername = $this->where('user_name', $username)->first();
-                         
+
         if($existUsername)
         {
             return true;
         }
         else
-        {    
+        {
             return false;
         }
     }
@@ -106,14 +106,14 @@ class UserModel extends Model
     // public function isDosenByUsername($username)
     // {
     //     $user = $this->where('user_name', $username)->first();
-        
+
     //     if($user['user_role'] == 'dosen')
-    //     {                 
+    //     {
     //         return true;
     //     }
     //     else
-    //     {    
+    //     {
     //         return false;
     //     }
-    // }    
+    // }
 }

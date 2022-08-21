@@ -10,13 +10,13 @@ class HomeModel extends Model
     protected $primaryKey = 'pid';
     protected $returnType = 'object';
         
-    public function publicPosts() 
+    public function publicPosts()
     {
         $data = $this->where('type', 'public');
         return $data;
     }
 
-    public function privatePosts() 
+    public function privatePosts()
     {
         $data = $this->where('type', 'private');
         return $data;

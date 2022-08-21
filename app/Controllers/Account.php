@@ -23,10 +23,10 @@ class Account extends BaseController
 	{
         $data  = $this->request->getPost();
         $rules = $this->userModel->val_rules;
-        
+
         $email_exist    = $this->userModel->isEmailExist($data['email']); // Check if email exist
         $username_exist = $this->userModel->isUsernameExist($data['username']); // Check if username exist
-        
+
         $all_error = [];
 
         if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD)
@@ -38,7 +38,7 @@ class Account extends BaseController
         {
             array_push($all_error,"email sudah digunakan.");
         }
-        
+
         if ($username_exist == true)
         {
             array_push($all_error,"username sudah digunakan.");
@@ -55,7 +55,7 @@ class Account extends BaseController
         else
         {
             $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
-            
+
             $profile_img = ($this->request->getFile('profile_img'));
             $filePath    = 'images/' . (string)$data['username'] . '.' . $profile_img->getClientExtension();
 

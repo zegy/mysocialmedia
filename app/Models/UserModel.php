@@ -62,9 +62,9 @@ class UserModel extends Model
         $res = $builder->select('
                                     user_pk               as uid,
                                     user_full_name        as nome,
-                                    user_email            as email, 
+                                    user_email            as email,
                                     user_tel              as tel,
-                                    user_profile_picture  as img, 
+                                    user_profile_picture  as img,
                                     user_regis_date_time  as cad,
                                     user_sex              as sexo,
                                     user_bio              as bio

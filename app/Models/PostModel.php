@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model; 
+use CodeIgniter\Model;
 use App\Models\HomeModel;
 use App\Models\UserModel;
 

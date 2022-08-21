@@ -18,7 +18,7 @@ class Comment extends BaseController
         $this->postModel    = new PostModel();
         $this->commentModel = new CommentModel();
     }
-    
+
     public function show($un, $pid)
     {
         $poster = $this->userModel->where('user_name', $un)->first();
@@ -48,7 +48,7 @@ class Comment extends BaseController
 
         $post = $this->postModel->getSpecificPost($pid);
         $comments = $this->commentModel->getAllByPost($pid);
-             
+
         return view('comments',
         [
             'post'     => $post[0], // ZEGY OTC WHY?
@@ -99,7 +99,7 @@ class Comment extends BaseController
         }
 
         $request = $this->commentModel->save($dataToSave);
-        
+
         // if ($request)
         // {
         //     $fcm = new Notification();
@@ -118,7 +118,7 @@ class Comment extends BaseController
         {
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
-                      
+
         if ($this->commentModel->checkOwnership( $cid, session()->get('id') ))
         {
             if ($this->commentModel->delete($cid))
@@ -139,7 +139,7 @@ class Comment extends BaseController
     public function edit($cid)
     {
         $comment = $this->commentModel->where('comment_pk', $cid)->first();
-        
+
         if (session()->get('id') == $comment['comment_fk_user'])
         {
             echo view('/comments/edit', ['comment' => $comment]);

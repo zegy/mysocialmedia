@@ -26,7 +26,7 @@ class UserModel extends Model
     protected $val_rules = // don't name it "validationRules". broke CI's proper basic CRUD->check valid->error return
     [
         'nama_lengkap'        => 'required|min_length[3]',
-        'username'            => 'required|min_length[5]',
+        'username'            => 'required|min_length[5]|alpha_dash',
         'email'               => 'required|valid_email',
         'nomor_handphone'     => 'required|min_length[8]|numeric',
         'password'            => 'required|min_length[8]',

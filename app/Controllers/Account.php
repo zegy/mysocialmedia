@@ -57,25 +57,17 @@ class Account extends BaseController
 
             $profile_img->move(ROOTPATH . 'images', (string)$data['username'] . '.' . $profile_img->getClientExtension());
 
-            switch ((string)($data['jenis_kelamin']))
-            {
-                case 'm':
-                    $gender = 'm'; break;
-                case 'f':
-                    $gender = 'f'; break;
-            }
-
             $dataToSave =
             [
                 'user_full_name'       => $data['nama_lengkap'], 
-                'user_name'            => (string)$data['username'],
+                'user_name'            => $data['username'],
                 'user_email'           => $data['email'],
                 'user_tel'             => $data['nomor_handphone'],
-                'user_password'        => password_hash((string)$data['password'], PASSWORD_DEFAULT),
-                'user_profile_picture' => (string)$filePath,
+                'user_password'        => password_hash($data['password'], PASSWORD_DEFAULT),
+                'user_profile_picture' => $filePath,
                 'user_bio'             => $data['bio'],
-                'user_sex'             => $gender,
-                'user_regis_date_time' => ((array)$currentTime)['date']
+                'user_sex'             => $data['jenis_kelamin'],
+                'user_regis_date_time' => $currentTime
             ];
 
             $result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"

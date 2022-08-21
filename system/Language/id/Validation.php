@@ -7,10 +7,11 @@
 // Validation language settings
 return [
 	// Rule Messages
+    'alpha_dash'            => '{field} harus berupa angka, huruf, garis bawah, dan tanda hubung.',
     'matches'               => '{field} tidak sama dengan {param}.',
     'max_length'            => '{field} tidak boleh berisi lebih dari {param} karakter.',
 	'min_length'            => '{field} harus berisi setidaknya {param} karakter.',
-	'numeric'               => '{field} harus hanya berupa angka.',
+	'numeric'               => '{field} harus berupa angka.',
 	'required'              => '{field} diperlukan.',
 	'valid_email'           => 'format {field} tidak sesuai.',
 	

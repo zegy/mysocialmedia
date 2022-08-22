@@ -21,14 +21,25 @@ class Account extends BaseController
 
 	public function createAccount()
 	{
-        $data      = $this->request->getPost();
-        $rules     = $this->userModel->val_rules;
-        $all_error = [];
+        $data = $this->request->getPost();
 
-        if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD). ZEGY OTC Tanpa perlu pembanding? auto dengan controller sekarang?
-        {
-            $all_error = $this->validator->getErrors();
-        }
+        // Loading the Library (The library is loaded as a service named validation)
+        // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#loading-the-library
+        $validation = \Config\Services::validation();
+
+        // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#how-to-save-your-rules
+        $validation->run($data, 'createAccount'); // From "app\Config\Validation.php"
+
+        // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#id28
+        $errors = $validation->getErrors();
+
+        // $rules     = $this->userModel->val_rules;
+        // $all_error = [];
+
+        // if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD). ZEGY OTC Tanpa perlu pembanding? auto dengan controller sekarang?
+        // {
+        //     $all_error = $this->validator->getErrors();
+        // }
 
         // if ($this->userModel->isEmailExist($data['email'])) // Check if email exist
         // {
@@ -40,12 +51,12 @@ class Account extends BaseController
         //     array_push($all_error,"username sudah digunakan.");
         // }
 
-        if (!empty($all_error))
+        if (!empty($errors))
         {
             return view('account/signup',
             [
                 'prev_input' => $data,
-                'errors'     => $all_error
+                'errors'     => $errors
             ]);
         }
         else

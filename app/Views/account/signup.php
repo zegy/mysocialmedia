@@ -15,25 +15,24 @@
     
         <div class="title">Pendaftaran Pengguna Baru</div>
         <div class="content">
-            <?php  if (isset($errors)) { ?>
-            <div class="alert">
-                <h4>Form salah</h4>
-                <ul>
-                    <?php foreach ($errors as $error): ?>
-                    <li>* <?= esc($error) ?></li>
-                    <?php endforeach ?>
-                </ul>
+            <!-- ZEGY OTC NEW ERROR [-->
+            <?php if (!empty(session()->getFlashdata('error'))) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h4>Periksa Entrian Form</h4>
+                </hr />
+                <?php echo session()->getFlashdata('error'); ?>
             </div>
-            <?php } ?>
+            <?php endif; ?>
+            <!-- ZEGY OTC NEW ERROR ]-->
+
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Nama Lengkap :</span>
-                        <?php if (isset($prev_input)) { ?>
-                        <input type="text" name="nama_lengkap" value="<?= $prev_input['nama_lengkap']?>">
-                        <?php } else { ?>
-                        <input type="text" name="nama_lengkap">
-                        <?php } ?>
+                        
+                        <input type="text" name="nama_lengkap" value="<?= old('nama_lengkap'); ?>">
+                       
+                       
                     </div>
                     <div class="input-box">
                         <span class="details">Username :</span>

@@ -8,6 +8,7 @@
 return [
 	// Rule Messages
     'alpha_dash'            => '{field} harus berupa angka, huruf, garis bawah, dan tanda hubung.',
+    'is_unique'             => '{field} sudah digunakan.',
     'matches'               => '{field} tidak sama dengan {param}.',
     'max_length'            => '{field} tidak boleh berisi lebih dari {param} karakter.',
 	'min_length'            => '{field} harus berisi setidaknya {param} karakter.',

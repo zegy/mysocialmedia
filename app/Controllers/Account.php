@@ -30,15 +30,15 @@ class Account extends BaseController
             $all_error = $this->validator->getErrors();
         }
 
-        if ($this->userModel->isEmailExist($data['email'])) // Check if email exist
-        {
-            array_push($all_error,"email sudah digunakan.");
-        }
+        // if ($this->userModel->isEmailExist($data['email'])) // Check if email exist
+        // {
+        //     array_push($all_error,"email sudah digunakan.");
+        // }
 
-        if ($this->userModel->isUsernameExist($data['username'])) // Check if username exist
-        {
-            array_push($all_error,"username sudah digunakan.");
-        }
+        // if ($this->userModel->isUsernameExist($data['username'])) // Check if username exist
+        // {
+        //     array_push($all_error,"username sudah digunakan.");
+        // }
 
         if (!empty($all_error))
         {

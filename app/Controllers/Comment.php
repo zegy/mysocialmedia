@@ -27,7 +27,7 @@ class Comment extends BaseController
         {
             if (session('role') == 'mahasiswa')
             {
-                if ($post['post_type'] == 'private') // avoid mahasiswa to open private posts
+                if ($post[0]->type == 'private') // avoid mahasiswa to open private posts
                 {
                     return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST
                 }

@@ -49,6 +49,7 @@ class PostModel extends Model
                             p.post_pk as pid,
                             p.post_text as texto,
                             p.post_date_time as data,
+                            p.post_type as type,
                             u.user_pk as uid,
                             u.user_full_name as nome,
                             u.user_profile_picture as image,

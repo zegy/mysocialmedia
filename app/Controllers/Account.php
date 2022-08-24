@@ -23,21 +23,14 @@ class Account extends BaseController
 	{
         $data = $this->request->getPost();
 
-        // Loading the Library (The library is loaded as a service named validation)
-        // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#loading-the-library
-        $validation = \Config\Services::validation();
+        $validation = \Config\Services::validation(); // Loading the Library (The library is loaded as a service named validation). https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#loading-the-library
 
-        // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#how-to-save-your-rules
-        $validation->run($data, 'createAccount'); // From "app\Config\Validation.php"
+        $isValid = $validation->run($data, 'createAccount'); // From "app\Config\Validation.php". https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#how-to-save-your-rules
 
-        // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#id28
-        // $errors = $validation->getErrors(); // as array
-        $errors = $validation->listErrors(); // as string (has it own "view")
-
-        if (!empty($errors))
+        if (!$isValid)
         {
-            session()->setFlashdata('error', $errors);
-            return redirect()->back()->withInput();
+            session()->setFlashdata('error', $validation->listErrors()); // as string (has it own "view"). https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#id28
+            return redirect()->back()->withInput(); // "withInput" used for "old" function in view. https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html?highlight=redirect#redirect
         }
         else
         {
@@ -50,7 +43,7 @@ class Account extends BaseController
 
             $dataToSave =
             [
-                'user_full_name'       => $data['nama_lengkap'], 
+                'user_full_name'       => $data['nama_lengkap'],
                 'user_name'            => $data['username'],
                 'user_email'           => $data['email'],
                 'user_tel'             => $data['nomor_handphone'],

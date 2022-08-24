@@ -32,34 +32,10 @@ class Account extends BaseController
 
         // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#id28
         // $errors = $validation->getErrors();
-        $errors = $validation->listErrors();
-
-
-        // $rules     = $this->userModel->val_rules;
-        // $all_error = [];
-
-        // if (!$this->validate($rules)) // validate first, then send to model (using basic CRUD). ZEGY OTC Tanpa perlu pembanding? auto dengan controller sekarang?
-        // {
-        //     $all_error = $this->validator->getErrors();
-        // }
-
-        // if ($this->userModel->isEmailExist($data['email'])) // Check if email exist
-        // {
-        //     array_push($all_error,"email sudah digunakan.");
-        // }
-
-        // if ($this->userModel->isUsernameExist($data['username'])) // Check if username exist
-        // {
-        //     array_push($all_error,"username sudah digunakan.");
-        // }
+        $errors = $validation->listErrors(); // has it own "view"
 
         if (!empty($errors))
         {
-            // return view('account/signup',
-            // [
-            //     'prev_input' => $data,
-            //     'errors'     => $errors
-            // ]);
             session()->setFlashdata('error', $errors);
             return redirect()->back()->withInput();
         }

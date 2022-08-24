@@ -12,79 +12,48 @@
 
 <body>
     <div class="container">
-    
         <div class="title">Pendaftaran Pengguna Baru</div>
         <div class="content">
-            <!-- ZEGY OTC NEW ERROR [-->
-            <?php if (!empty(session()->getFlashdata('error'))) : ?>
+            <!-- Show error [-->
+            <?php if (!empty(session()->getFlashdata('error'))) { ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <h4>Periksa Entrian Form</h4>
-                </hr />
                 <?php echo session()->getFlashdata('error'); ?>
             </div>
-            <?php endif; ?>
-            <!-- ZEGY OTC NEW ERROR ]-->
-
+            <?php } ?>
+            <!-- Show error ]-->
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Nama Lengkap :</span>
-                        
-                        <input type="text" name="nama_lengkap" value="<?= old('nama_lengkap'); ?>">
-                       
-                       
+                        <input type="text" name="nama_lengkap" value="<?= old('nama_lengkap') ?>">
                     </div>
                     <div class="input-box">
                         <span class="details">Username :</span>
-                        <?php if (isset($prev_input)) { ?>
-                        <input type="text" name="username" value="<?= $prev_input['username']?>">
-                        <?php } else { ?>
-                        <input type="text" name="username">
-                        <?php } ?>
+                        <input type="text" name="username" value="<?= old('username') ?>">
                     </div>
                     <div class="input-box">
                         <span class="details">E-mail :</span>
-                        <?php if (isset($prev_input)) { ?>
-                        <input type="text" name="email" value="<?= $prev_input['email']?>">
-                        <?php } else { ?>
-                        <input type="text" name="email">
-                        <?php } ?>
+                        <input type="text" name="email" value="<?= old('email') ?>">
                     </div>
                     <div class="input-box">
                         <span class="details">Nomor Handphone :</span>
-                        <?php if (isset($prev_input)) { ?>
-                        <input type="text" name="nomor_handphone" value="<?= $prev_input['nomor_handphone']?>">
-                        <?php } else { ?>
-                        <input type="text" name="nomor_handphone">
-                        <?php } ?>
+                        <input type="text" name="nomor_handphone" value="<?= old('nomor_handphone') ?>">
                     </div>
                     <div class="input-box">
                         <span class="details">Password :</span>
-                        <?php if (isset($prev_input)) { ?>
-                        <input type="password" name="password" value="<?= $prev_input['password']?>">
-                        <?php } else { ?>
-                        <input type="password" name="password">
-                        <?php } ?>
+                        <input type="password" name="password" value="<?= old('password') ?>">
                     </div>
                     <div class="input-box">
                         <span class="details">Konfirmasi Password :</span>
-                        <?php if (isset($prev_input)) { ?>
-                        <input type="password" name="konfirmasi_password" value="<?= $prev_input['konfirmasi_password']?>">
-                        <?php } else { ?>
-                        <input type="password" name="konfirmasi_password">
-                        <?php } ?>
+                        <input type="password" name="konfirmasi_password" value="<?= old('konfirmasi_password') ?>">
                     </div>
                     <div class="input-box">
                         <span class="details">Foto Profil :</span>
-                        <input name="profile_img" type="file" accept=".jpg, .jpeg" >                       
+                        <input name="profile_img" type="file" accept=".jpg, .jpeg" >
                     </div>
                     <div class="input-box">
                         <span class="details">Bio :</span>
-                        <?php if (isset($prev_input)) { ?>
-                        <textarea name="bio" id="bio" cols="85" rows="5"><?= $prev_input['bio']?></textarea>
-                        <?php } else { ?>
-                        <textarea name="bio" id="bio" cols="85" rows="5"></textarea>
-                        <?php } ?>
+                        <textarea name="bio" id="bio" cols="85" rows="5"><?= old('bio') ?></textarea>
                     </div>
                 </div>
                 <div class="gender-details">

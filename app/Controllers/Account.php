@@ -31,8 +31,8 @@ class Account extends BaseController
         $validation->run($data, 'createAccount'); // From "app\Config\Validation.php"
 
         // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#id28
-        // $errors = $validation->getErrors();
-        $errors = $validation->listErrors(); // has it own "view"
+        // $errors = $validation->getErrors(); // as array
+        $errors = $validation->listErrors(); // as string (has it own "view")
 
         if (!empty($errors))
         {

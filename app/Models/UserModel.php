@@ -56,17 +56,32 @@ class UserModel extends Model
         return !is_null($rq) ? $rq : [];
     }
 
-    public function getAllByKeyword(string $keyword) : array
+    // public function getAllByKeyword(string $keyword) : array
+    // {
+    //     $builder = $this->builder('t_user');
+    //     $res = $builder->select('
+    //                                 user_pk               as uid,
+    //                                 user_full_name        as nome,
+    //                                 user_email            as email,
+    //                                 user_tel              as tel,
+    //                                 user_profile_picture  as img,
+    //                                 user_regis_date_time  as cad,
+    //                                 user_sex              as sexo,
+    //                                 user_bio              as bio
+    //                             ')
+    //                         ->like('user_full_name', $keyword)
+    //                         ->get()
+    //                         ->getResult();
+    //     return $res;
+    // }
+
+    public function getAllByKeyword($keyword)
     {
         $builder = $this->builder('t_user');
         $res = $builder->select('
                                     user_pk               as uid,
                                     user_full_name        as nome,
-                                    user_email            as email,
-                                    user_tel              as tel,
                                     user_profile_picture  as img,
-                                    user_regis_date_time  as cad,
-                                    user_sex              as sexo,
                                     user_bio              as bio
                                 ')
                             ->like('user_full_name', $keyword)
@@ -74,6 +89,7 @@ class UserModel extends Model
                             ->getResult();
         return $res;
     }
+
 
     public function isEmailExist($email) // check if email exist
     {

@@ -57,7 +57,9 @@ class PostModel extends Model
                         ');
         $builder->join('t_user u ', 'p.post_fk_user = u.user_pk');
         $builder->where('p.post_pk', $pid);
-        $queryPost = $builder->get()->getResult();
+        // $queryPost = $builder->get()->getResult(); // multi result, best for looping in view. Set [key] in controller!
+        $queryPost = $builder->get()->getFirstRow(); // single result
+        // dd ($queryPost);
         return $queryPost;
     }
 }

@@ -69,48 +69,44 @@ class Post extends BaseController
 
     public function delete($pid)
     {
-        if ($this->postModel->checkOwnership($pid, session()->get('id')))
+        $post = $this->postModel->where('post_pk', $pid)->first();
+
+        if (!empty($post))
         {
-            if ($this->postModel->delete($pid))
+            if (session('id') == $post['post_fk_user'])
             {
+                $this->postModel->delete($pid);
                 return redirect()->to('/');
             }
             else
             {
-                return redirect()->to('/');
+                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
             }
         }
         else
         {
-            return redirect()->to('/');
+            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
         }
     }
 
-    public function edit($pid) // problem with return type here!
+    public function edit($pid)
     {
-        if (!$pid)
-        {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
+        $post = $this->postModel->where('post_pk', $pid)->first();
 
-        $post = $this->postModel->where('post_pk', (int)$pid)->first();
-
-        if (session()->get('id') == $post['post_fk_user'])
+        if (!empty($post))
         {
-            echo view('posts/form_edit_post', [ 'post' => $post ] );
+            if (session('id') == $post['post_fk_user'])
+            {
+                echo view('forms/form_edit_post', ['post' => $post]);
+            }
+            else
+            {
+                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
+            }
         }
         else
         {
-            return redirect()->to('/');
+            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
         }
     }
-
-    // public function userPosts($uid) // list all post from specific user
-    // {
-    //     echo view("profile/myposts",
-    //     [
-    //         "posts" => $this->homeModel->where('uid', $uid)->paginate(5), // paginate with where
-    //         "pager" => $this->homeModel->pager
-    //     ]);
-    // }
 }

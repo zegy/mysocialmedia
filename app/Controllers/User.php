@@ -23,7 +23,7 @@ class User extends BaseController
             return view('profile',
             [
                 "userData" => $userData,
-                "posts"    => $this->homeModel->where('uid', $uid)->paginate(5), // paginate with where
+                "posts"    => $this->homeModel->where('uid', $uid)->paginate(5), // paginate with where // ZEGY OTC HERE IS USER'S POST. Harus kah ada di controller post?
                 "pager"    => $this->homeModel->pager
             ]);
         }

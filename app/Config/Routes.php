@@ -59,7 +59,7 @@ $routes->add('post/delete/(:num)', 'Post::delete/$1');
 $routes->add('comment/save', 'Comment::save');
 $routes->add('comment/show/(:num)', 'Comment::show/$1');
 $routes->add('comment/edit/(:num)', 'Comment::edit/$1');
-$routes->add('comment/delete/(:num)/(:num)', 'Comment::delete/$1/$2');
+$routes->add('comment/delete/(:num)', 'Comment::delete/$1');
 
 $routes->add('notification/onfcm', 'Notification::onFCM');
  

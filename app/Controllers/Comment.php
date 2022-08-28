@@ -101,29 +101,26 @@ class Comment extends BaseController
         // {
         //     // ZEGY OTC ERROR
         // }
+
+        return redirect()->to('/comment/show/'. $data["post_id"]); // ZEGY DANGER SEMENTARA!
+
     }
 
-    public function delete(int $cid = null, int $pid = null)
+    public function delete($cid)
     {
-        if (!$cid && !$pid)
+        $comment = $this->commentModel->where('comment_pk', $cid)->first();
+        
+        if (!empty($comment))
         {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
-
-        if ($this->commentModel->checkOwnership( $cid, session()->get('id') ))
-        {
-            if ($this->commentModel->delete($cid))
+            if (session('id') == $comment['comment_fk_user'])
             {
-                return redirect()->to('/comment/show/' . $pid );
+                $this->commentModel->delete($cid);
+                return redirect()->back();
             }
             else
             {
-                return redirect()->to('/');
+                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
             }
-        }
-        else
-        {
-            return redirect()->to('/comment/show/' . $pid );
         }
     }
 
@@ -131,13 +128,20 @@ class Comment extends BaseController
     {
         $comment = $this->commentModel->where('comment_pk', $cid)->first();
 
-        if (session()->get('id') == $comment['comment_fk_user'])
+        if (!empty($comment))
         {
-            echo view('/comments/edit', ['comment' => $comment]);
+            if (session('id') == $comment['comment_fk_user'])
+            {
+                echo view('forms/form_edit_comment', ['comment' => $comment]); // ZEGY OTC IT WILL USE "SAVE() COMMENT" LATER
+            }
+            else
+            {
+                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
+            }   
         }
         else
         {
-            return redirect()->to('/');
+            return redirect()->to('/'); // ZEGY OTC 404 COMMENT NOT FOUND
         }
     }
 }

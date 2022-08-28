@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <?php if (session()->get('id') == $comment->uid) { ?>
                     <a href="<?= base_url('comment/edit/' . $comment->cid) ?>" class="btn btn-warning"><i class="fa fa-address-book" aria-hidden="true"></i> editar</a>
-                    <a href="<?= base_url('comment/delete/'.$comment->cid . '/' . $post->pid) ?>" class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>
+                    <a href="<?= base_url('comment/delete/'.$comment->cid) ?>" class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>
                     <?php } ?>
                 </div>
             </div>

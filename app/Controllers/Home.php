@@ -40,24 +40,21 @@ class Home extends BaseController
 
     public function search()
     {
-        $data       = $this->request->getPost();
-        $keyword    = $data['qsearch'];
-        $s_users    = '';
-        $s_posts    = '';
-        $s_comments = '';
+        $data    = $this->request->getPost();
+        $keyword = $data['qsearch'];
 
-        if ($keyword)
+        if (!empty($keyword))
         {
-            $s_users    = $this->userModel->getAllByKeyword($keyword);
-            $s_posts    = $this->postModel->getAllByKeyword($keyword);
-            $s_comments = $this->commentModel->getAllByKeyword($keyword);
+            return view('search',
+            [
+                'users'    => $this->userModel->getAllByKeyword($keyword),
+                'posts'    => $this->postModel->getAllByKeyword($keyword),
+                'comments' => $this->commentModel->getAllByKeyword($keyword)
+            ]);
         }
-
-        return view('search',
-        [
-            'users'    => $s_users,
-            'posts'    => $s_posts,
-            'comments' => $s_comments
-        ]);
+        else
+        {
+            return redirect()->to('/'); // ZEGY OTC 404 SEARCH FORM IS EMPTY (RELATED TO "REQUIRED" VIEW)
+        }
     }
 }

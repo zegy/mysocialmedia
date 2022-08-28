@@ -25,26 +25,23 @@ class Comment extends BaseController
         
         if (!empty($post))
         {
-            if (session('role') == 'mahasiswa')
+            if (session('role') == 'mahasiswa' && $post->type == 'private') // avoid mahasiswa to open private posts
+            {                
+                return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST    
+            }
+            else
             {
-                if ($post->type == 'private') // avoid mahasiswa to open private posts
-                {
-                    return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST
-                }
+                return view('comments',
+                [
+                    'post'     => $post,
+                    'comments' => $this->commentModel->getAllByPost($pid)
+                ]);
             }
         }
         else
         {
             return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
         }
-
-        $comments = $this->commentModel->getAllByPost($pid);
-
-        return view('comments',
-        [
-            'post'     => $post,
-            'comments' => $comments
-        ]);
     }
 
     public function save() // save or edit comment

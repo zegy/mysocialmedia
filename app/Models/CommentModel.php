@@ -16,20 +16,6 @@ class CommentModel extends Model
         'comment_date_time'
     ];
 
-    public function checkOwnership(int $cid, int $uid) // verify comment owner
-    {
-        $vcomment = $this->where('comment_pk', $cid)->first();
-
-        if($vcomment)
-        {
-            return ($vcomment['comment_fk_user'] == $uid);
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public function getAllByKeyword(string $keyword) : array // returns all comments based on a searched keyword
     {
         $builder = $this->db->table('t_comment c');

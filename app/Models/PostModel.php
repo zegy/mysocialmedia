@@ -19,20 +19,6 @@ class PostModel extends Model
         'post_type'
     ];
 
-    public function checkOwnership($pid, $uid) // verify post owner
-    {
-        $vpost = $this->where('post_pk', $pid)->first();
-
-        if($vpost)
-        {
-            return ($vpost['post_fk_user'] == $uid);
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public function getAllByKeyword(string $keyword) : array // keyword search in search
     {
         $this->homeModel = new HomeModel();

@@ -55,7 +55,7 @@ class Comment extends BaseController
             {
                 $dataToSave =
                 [
-                    "comment_fk_user"   => session()->get('id'),
+                    "comment_fk_user"   => session('id'),
                     "comment_fk_post"   => $data["post_id"],
                     "comment_text"      => $data["text"],
                     "comment_date_time" => ((array)$currentTime)['date']
@@ -69,7 +69,7 @@ class Comment extends BaseController
 
         if ($data["save_type"] == "edit_com")
         {
-            if ($data["com_user_id"] == session()->get('id'))
+            if ($data["com_user_id"] == session('id'))
             {
                 if (!empty($data["text"]))
                 {

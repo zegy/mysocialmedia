@@ -27,7 +27,7 @@ class Post extends BaseController
 
         $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
 
-        if (isset($data["user_id"]) && session()->get('id') != $data["user_id"])
+        if (isset($data["user_id"]) && session('id') != $data["user_id"])
         {
             return redirect()->to('/');
         }

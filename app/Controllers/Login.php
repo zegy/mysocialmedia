@@ -14,7 +14,7 @@ class Login extends BaseController
 
     public function index()
     {
-        if (session()->isLoggedIn == true) // if user is already logged go to home page
+        if (session('isLoggedIn') == true) // if user is already logged go to home page
         {
             return redirect()->to('/');
         }

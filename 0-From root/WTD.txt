@@ -1,0 +1,45 @@
+Done (xampp) : intl ext
+
+erro.php (view) change to error.php
+"mutil"?
+check for time zone
+view on DB, translate sync with codes (global change like the tables)
+other db is not yet edited on latest OTC
+
+incase firebase-messaging-sw.js missing/not detected = open file via browser (direct access from htdocs).Just that... weird af
+
+throw new \CodeIgniter\Exceptions\PageNotFoundException
+icon
+
+to check = jika user buka postingan / komentar yang sudah dihapus == sudah di handle CI? set env?
+
+
+validation (usermodel) sync dengan database (max or min length)
+is there session time out? cuz logout after turn of pc
+
+
+SEARCH for leftover qtd!
+username tanpa spasi
+== VS ===
+<?php vs <?= on view! (fixed but why?)
+$protectd db?
+remove user role from
+a lot of useless session data not even used!
+controller panggil controller lain? apakah bisa? best pratice set function dari controller lain sebagai model?
+jika offline?
+failed to save token ke db?
+edit komentar kirim notifikasi juga? sekarang iya
+back search have to resubmit
+text sebagai link di postingan/komentar
+
+onMessage bug
+jika poster = commenter, tidak perlu kirim notif
+wtf "mypost"?
+
+
+BASE_URL VS ECHO SITE URL
+
+NEW FEATURE :
+-EDIT PROFILE
+-MY POSTS
+-DOSEN PRIVATE CODE

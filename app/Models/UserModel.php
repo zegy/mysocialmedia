@@ -37,14 +37,14 @@ class UserModel extends Model
 
     public function getAllByKeyword($keyword)
     {
-        $builder = $this->builder('t_user');
-        $builder->select('
-                            user_pk               as uid,
-                            user_full_name        as nome,
-                            user_profile_picture  as img,
-                            user_bio              as bio
-                        ')
-                ->like('user_full_name', $keyword);
+        $builder = $this->builder('t_user')
+            ->select('
+                        user_pk              as uid,
+                        user_full_name       as nome,
+                        user_profile_picture as img,
+                        user_bio             as bio
+                    ')
+            ->like('user_full_name', $keyword);
         return $builder->get()->getResult();
     }
 }

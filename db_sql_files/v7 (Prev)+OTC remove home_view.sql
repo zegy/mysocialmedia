@@ -11,22 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `mysocialmedia`
---
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `home_view`
--- (See below for the actual view)
---
+-- Stand-in structure for view `home_view` (See below for the actual view) --
 DROP VIEW IF EXISTS `home_view`;
 CREATE TABLE `home_view` (
 `pid` int(11)
@@ -41,12 +26,7 @@ CREATE TABLE `home_view` (
 ,`role` varchar(250)
 );
 
--- --------------------------------------------------------
-
---
--- Table structure for table `t_comment`
---
-
+-- Table structures --
 DROP TABLE IF EXISTS `t_comment`;
 CREATE TABLE `t_comment` (
   `comment_pk` int(11) NOT NULL,
@@ -56,12 +36,6 @@ CREATE TABLE `t_comment` (
   `comment_date_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `t_post`
---
-
 DROP TABLE IF EXISTS `t_post`;
 CREATE TABLE `t_post` (
   `post_pk` int(11) NOT NULL,
@@ -70,12 +44,6 @@ CREATE TABLE `t_post` (
   `post_date_time` datetime DEFAULT NULL,
   `post_type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `t_user`
---
 
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
@@ -93,10 +61,7 @@ CREATE TABLE `t_user` (
   `user_role` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `t_user`
---
-
+-- Dumping data for tables --
 INSERT INTO `t_user` (`user_pk`, `user_name`, `user_password`, `user_full_name`, `user_email`, `user_tel`, `user_profile_picture`, `user_regis_date_time`, `user_sex`, `user_bio`, `user_token`, `user_role`) VALUES
 (
     1,
@@ -140,13 +105,9 @@ INSERT INTO `t_user` (`user_pk`, `user_name`, `user_password`, `user_full_name`,
     '',
     'mahasiswa'
 );
--- --------------------------------------------------------
 
---
--- Structure for view `home_view`
---
+-- Structure for view `home_view` --
 DROP TABLE IF EXISTS `home_view`;
-
 DROP VIEW IF EXISTS `home_view`;
 CREATE OR REPLACE VIEW `home_view`
     AS
@@ -163,71 +124,34 @@ CREATE OR REPLACE VIEW `home_view`
     FROM (`t_post` left join `t_user` on(`post_fk_user` = `user_pk`))
     ORDER BY `post_date_time` DESC;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `t_comment`
---
+-- Indexes for tables --
 ALTER TABLE `t_comment`
   ADD PRIMARY KEY (`comment_pk`),
   ADD KEY `FK_USER` (`comment_fk_user`),
   ADD KEY `FK_POST` (`comment_fk_post`);
 
---
--- Indexes for table `t_post`
---
 ALTER TABLE `t_post`
   ADD PRIMARY KEY (`post_pk`),
   ADD KEY `FK_USER` (`post_fk_user`);
 
---
--- Indexes for table `t_user`
---
 ALTER TABLE `t_user`
   ADD PRIMARY KEY (`user_pk`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `t_comment`
---
+-- AUTO_INCREMENT for tables --
 ALTER TABLE `t_comment`
   MODIFY `comment_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
---
--- AUTO_INCREMENT for table `t_post`
---
 ALTER TABLE `t_post`
   MODIFY `post_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
---
--- AUTO_INCREMENT for table `t_user`
---
 ALTER TABLE `t_user`
   MODIFY `user_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `t_comment`
---
+-- Constraints for tables --
 ALTER TABLE `t_comment`
   ADD CONSTRAINT `comment_fk_post` FOREIGN KEY (`comment_fk_post`) REFERENCES `t_post` (`post_pk`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comment_fk_user` FOREIGN KEY (`comment_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Constraints for table `t_post`
---
 ALTER TABLE `t_post`
   ADD CONSTRAINT `post_fk_user` FOREIGN KEY (`post_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

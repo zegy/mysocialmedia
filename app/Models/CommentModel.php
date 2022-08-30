@@ -34,6 +34,13 @@ class CommentModel extends Model
         return $builder->get()->getResult();
     }
 
+    public function countComment($pid)
+    {
+        $builder = $this->db->table('t_comment')
+            ->where(["comment_fk_post" => $pid]);
+        return $builder->countAllResults();
+    }
+
     public function getAllByPost($pid)
     {
         $builder = $this->db->table('t_comment')

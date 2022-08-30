@@ -20,13 +20,13 @@ class CommentModel extends Model
     {
         $builder = $this->db->table('t_comment')
             ->select('
-                        comment_pk            as cid,
-                        comment_text          as texto,
-                        comment_date_time     as data,
-                        user_pk               as uid,
-                        user_full_name        as nome,
-                        user_profile_picture  as image,
-                        post_pk               as pid,
+                        comment_pk           as cid,
+                        comment_text         as texto,
+                        comment_date_time    as data,
+                        user_pk              as uid,
+                        user_full_name       as nome,
+                        user_profile_picture as image,
+                        post_pk              as pid
                     ')
             ->join('t_post', 'post_pk = comment_fk_post')
             ->join('t_user', 'comment_fk_user = user_pk')
@@ -38,12 +38,12 @@ class CommentModel extends Model
     {
         $builder = $this->db->table('t_comment')
             ->select('
-                        comment_pk            as cid,
-                        comment_text          as texto,
-                        comment_date_time     as data,
-                        user_pk               as uid,
-                        user_full_name        as nome,
-                        user_profile_picture  as image,
+                        comment_pk           as cid,
+                        comment_text         as texto,
+                        comment_date_time    as data,
+                        user_pk              as uid,
+                        user_full_name       as nome,
+                        user_profile_picture as image
                     ')
             ->join('t_post', 'post_pk = comment_fk_post')
             ->join('t_user', 'comment_fk_user = user_pk')

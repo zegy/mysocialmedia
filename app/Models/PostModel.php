@@ -30,22 +30,20 @@ class PostModel extends Model
 
     public function getSpecificPost($pid)
     {
-        $builder = $this->db->table('t_post');
-        $builder->select('
-                            post_pk as pid,
-                            post_text as texto,
-                            post_date_time as data,
-                            post_type as type,
-                            user_pk as uid,
-                            user_full_name as nome,
-                            user_profile_picture as image,
-                            user_role as role
-                        ');
-        $builder->join('t_user', 'post_fk_user = user_pk');
-        $builder->where('post_pk', $pid);
-        // $queryPost = $builder->get()->getResult(); // multi result, best for looping in view. Set [key] in controller!
-        $queryPost = $builder->get()->getFirstRow(); // single result
-        // dd ($queryPost);
-        return $queryPost;
+        $builder = $this->db->table('t_post')
+            ->select('
+                        post_pk              as pid,
+                        post_text            as texto,
+                        post_date_time       as data,
+                        post_type            as type,
+                        user_pk              as uid,
+                        user_full_name       as nome,
+                        user_profile_picture as image,
+                        user_role            as role
+                    ')
+            ->join('t_user', 'post_fk_user = user_pk')
+            ->where('post_pk', $pid);
+        // return $builder->get()->getResult(); // multi result, best for looping in view. Set [key] in controller!
+        return $builder->get()->getFirstRow(); // single result
     }
 }

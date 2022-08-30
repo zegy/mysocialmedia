@@ -10,7 +10,7 @@ class PostModel extends Model
 {
     protected $table         = 't_post';
     protected $primaryKey    = 'post_pk';
-    protected $returnType    = 'array';
+    // protected $returnType    = 'array';
     protected $allowedFields =
     [
         'post_fk_user',
@@ -18,6 +18,24 @@ class PostModel extends Model
         'post_date_time',
         'post_type'
     ];
+
+    public function getAllPost($post_type)
+    {
+        $builder = $this->db->table('t_post')
+            ->select('
+                        post_pk              as pid,
+                        post_text            as texto,
+                        post_date_time       as data,
+                        post_type            as type,
+                        user_pk              as uid,
+                        user_full_name       as nome,
+                        user_profile_picture as image,
+                        user_role            as role
+                    ')
+            ->join('t_user', 'post_fk_user = user_pk')
+            ->where('post_type', $post_type);
+        return $builder->get()->getResult();
+    }
 
     public function getAllByKeyword(string $keyword) : array // keyword search in search
     {

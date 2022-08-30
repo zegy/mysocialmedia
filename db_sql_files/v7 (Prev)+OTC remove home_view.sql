@@ -27,7 +27,8 @@ CREATE TABLE `t_post`
     `post_fk_user` int(11) DEFAULT NULL,
     `post_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
     `post_date_time` datetime DEFAULT NULL,
-    `post_type` varchar(10) DEFAULT NULL
+    `post_type` varchar(10) DEFAULT NULL,
+    `qtdcom` bigint(21)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 CREATE TABLE `t_user`
@@ -107,20 +108,8 @@ VALUES
 );
 
 -- Structure for view `home_view` --
-CREATE OR REPLACE VIEW `home_view`
-    AS
-    SELECT `post_pk` AS `pid`,
-        `post_text` AS `texto`,
-        `post_type` AS `type`,
-        `post_date_time` AS `data`,
-        (select count(0) from `t_comment` where `comment_fk_post` = `post_pk`) AS `qtdcom`,
-        `user_pk` AS `uid`,
-        `user_full_name` AS `nome`,
-        `user_name` AS `un`,
-        `user_role` AS `role`,
-        `user_profile_picture` AS `image` 
-    FROM (`t_post` left join `t_user` on(`post_fk_user` = `user_pk`))
-    ORDER BY `post_date_time` DESC;
+CREATE OR REPLACE TABLE `t_post`
+    SELECT count(0) from `t_comment` where `comment_fk_post` = `post_pk` AS `qtdcom`;
 
 -- Indexes for tables --
 ALTER TABLE `t_comment`

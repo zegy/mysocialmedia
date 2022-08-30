@@ -148,7 +148,20 @@ INSERT INTO `t_user` (`user_pk`, `user_name`, `user_password`, `user_full_name`,
 DROP TABLE IF EXISTS `home_view`;
 
 DROP VIEW IF EXISTS `home_view`;
-CREATE OR REPLACE VIEW `home_view`  AS SELECT `p`.`post_pk` AS `pid`, `p`.`post_text` AS `texto`, `p`.`post_type` AS `type`, `p`.`post_date_time` AS `data`, (select count(0) from `t_comment` `c2` where `c2`.`comment_fk_post` = `p`.`post_pk`) AS `qtdcom`, `u`.`user_pk` AS `uid`, `u`.`user_full_name` AS `nome`, `u`.`user_name` AS `un`, `u`.`user_role` AS `role`, `u`.`user_profile_picture` AS `image` FROM (`t_post` `p` left join `t_user` `u` on(`p`.`post_fk_user` = `u`.`user_pk`)) ORDER BY `p`.`post_date_time` DESC  ;
+CREATE OR REPLACE VIEW `home_view`
+    AS
+    SELECT `post_pk` AS `pid`,
+        `post_text` AS `texto`,
+        `post_type` AS `type`,
+        `post_date_time` AS `data`,
+        (select count(0) from `t_comment` where `comment_fk_post` = `post_pk`) AS `qtdcom`,
+        `user_pk` AS `uid`,
+        `user_full_name` AS `nome`,
+        `user_name` AS `un`,
+        `user_role` AS `role`,
+        `user_profile_picture` AS `image` 
+    FROM (`t_post` left join `t_user` on(`post_fk_user` = `user_pk`))
+    ORDER BY `post_date_time` DESC;
 
 --
 -- Indexes for dumped tables
@@ -159,15 +172,15 @@ CREATE OR REPLACE VIEW `home_view`  AS SELECT `p`.`post_pk` AS `pid`, `p`.`post_
 --
 ALTER TABLE `t_comment`
   ADD PRIMARY KEY (`comment_pk`),
-  ADD KEY `com_fk_usu_idx` (`comment_fk_user`),
-  ADD KEY `com_fk_pst_idx` (`comment_fk_post`);
+  ADD KEY `FK_USER` (`comment_fk_user`),
+  ADD KEY `FK_POST` (`comment_fk_post`);
 
 --
 -- Indexes for table `t_post`
 --
 ALTER TABLE `t_post`
   ADD PRIMARY KEY (`post_pk`),
-  ADD KEY `pst_fk_usu_idx` (`post_fk_user`);
+  ADD KEY `FK_USER` (`post_fk_user`);
 
 --
 -- Indexes for table `t_user`

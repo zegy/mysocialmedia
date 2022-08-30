@@ -11,24 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- Stand-in structure for view `home_view` (See below for the actual view) --
-DROP VIEW IF EXISTS `home_view`;
-CREATE TABLE `home_view`
-(
-    `pid` int(11),
-    `texto` varchar(250),
-    `type` varchar(10),
-    `data` datetime,
-    `qtdcom` bigint(21),
-    `uid` int(11),
-    `nome` varchar(150),
-    `un` varchar(150),
-    `image` varchar(45),
-    `role` varchar(250)
-);
-
 -- Table structures --
-DROP TABLE IF EXISTS `t_comment`;
 CREATE TABLE `t_comment`
 (
     `comment_pk` int(11) NOT NULL,
@@ -38,7 +21,6 @@ CREATE TABLE `t_comment`
     `comment_date_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
-DROP TABLE IF EXISTS `t_post`;
 CREATE TABLE `t_post`
 (
     `post_pk` int(11) NOT NULL,
@@ -48,7 +30,6 @@ CREATE TABLE `t_post`
     `post_type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
-DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`
 (
     `user_pk` int(11) NOT NULL,
@@ -126,8 +107,6 @@ VALUES
 );
 
 -- Structure for view `home_view` --
-DROP TABLE IF EXISTS `home_view`;
-DROP VIEW IF EXISTS `home_view`;
 CREATE OR REPLACE VIEW `home_view`
     AS
     SELECT `post_pk` AS `pid`,

@@ -13,56 +13,75 @@ SET time_zone = "+00:00";
 
 -- Stand-in structure for view `home_view` (See below for the actual view) --
 DROP VIEW IF EXISTS `home_view`;
-CREATE TABLE `home_view` (
-`pid` int(11)
-,`texto` varchar(250)
-,`type` varchar(10)
-,`data` datetime
-,`qtdcom` bigint(21)
-,`uid` int(11)
-,`nome` varchar(150)
-,`un` varchar(150)
-,`image` varchar(45)
-,`role` varchar(250)
+CREATE TABLE `home_view`
+(
+    `pid` int(11),
+    `texto` varchar(250),
+    `type` varchar(10),
+    `data` datetime,
+    `qtdcom` bigint(21),
+    `uid` int(11),
+    `nome` varchar(150),
+    `un` varchar(150),
+    `image` varchar(45),
+    `role` varchar(250)
 );
 
 -- Table structures --
 DROP TABLE IF EXISTS `t_comment`;
-CREATE TABLE `t_comment` (
-  `comment_pk` int(11) NOT NULL,
-  `comment_fk_user` int(11) DEFAULT NULL,
-  `comment_fk_post` int(11) DEFAULT NULL,
-  `comment_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
-  `comment_date_time` datetime DEFAULT NULL
+CREATE TABLE `t_comment`
+(
+    `comment_pk` int(11) NOT NULL,
+    `comment_fk_user` int(11) DEFAULT NULL,
+    `comment_fk_post` int(11) DEFAULT NULL,
+    `comment_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
+    `comment_date_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `t_post`;
-CREATE TABLE `t_post` (
-  `post_pk` int(11) NOT NULL,
-  `post_fk_user` int(11) DEFAULT NULL,
-  `post_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
-  `post_date_time` datetime DEFAULT NULL,
-  `post_type` varchar(10) DEFAULT NULL
+CREATE TABLE `t_post`
+(
+    `post_pk` int(11) NOT NULL,
+    `post_fk_user` int(11) DEFAULT NULL,
+    `post_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
+    `post_date_time` datetime DEFAULT NULL,
+    `post_type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 DROP TABLE IF EXISTS `t_user`;
-CREATE TABLE `t_user` (
-  `user_pk` int(11) NOT NULL,
-  `user_name` varchar(25) NOT NULL,
-  `user_password` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `user_full_name` varchar(150) NOT NULL,
-  `user_email` varchar(45) DEFAULT NULL,
-  `user_tel` varchar(25) DEFAULT NULL,
-  `user_profile_picture` varchar(45) DEFAULT NULL,
-  `user_regis_date_time` datetime DEFAULT NULL,
-  `user_sex` char(1) DEFAULT NULL,
-  `user_bio` varchar(250) DEFAULT NULL,
-  `user_token` varchar(250) NOT NULL,
-  `user_role` varchar(250) NOT NULL
+CREATE TABLE `t_user`
+(
+    `user_pk` int(11) NOT NULL,
+    `user_name` varchar(25) NOT NULL,
+    `user_password` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
+    `user_full_name` varchar(150) NOT NULL,
+    `user_email` varchar(45) DEFAULT NULL,
+    `user_tel` varchar(25) DEFAULT NULL,
+    `user_profile_picture` varchar(45) DEFAULT NULL,
+    `user_regis_date_time` datetime DEFAULT NULL,
+    `user_sex` char(1) DEFAULT NULL,
+    `user_bio` varchar(250) DEFAULT NULL,
+    `user_token` varchar(250) NOT NULL,
+    `user_role` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for tables --
-INSERT INTO `t_user` (`user_pk`, `user_name`, `user_password`, `user_full_name`, `user_email`, `user_tel`, `user_profile_picture`, `user_regis_date_time`, `user_sex`, `user_bio`, `user_token`, `user_role`) VALUES
+INSERT INTO `t_user`
+(
+    `user_pk`,
+    `user_name`,
+    `user_password`,
+    `user_full_name`,
+    `user_email`,
+    `user_tel`,
+    `user_profile_picture`,
+    `user_regis_date_time`,
+    `user_sex`,
+    `user_bio`,
+    `user_token`,
+    `user_role`
+)
+VALUES
 (
     1,
     'un_admin',

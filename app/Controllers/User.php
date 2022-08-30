@@ -17,7 +17,8 @@ class User extends BaseController
 
     public function showProfile($uid)
     {
-        $userData = $this->userModel->getById($uid);
+        $userData = $this->userModel->where('user_pk', $uid)->first();
+
         if ($userData)
         {
             return view('profile',

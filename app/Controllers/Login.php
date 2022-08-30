@@ -29,7 +29,7 @@ class Login extends BaseController
         $email        = $this->request->getPost('inputEmail');
         $password     = $this->request->getPost('inputPassword');
         $usuarioModel = new UserModel();
-        $dadosUsuario = $usuarioModel->getByEmail($email);
+        $dadosUsuario = $usuarioModel->where('user_email', $email)->first();
 
         if (count($dadosUsuario) > 0)
         {

@@ -23,18 +23,6 @@ class UserModel extends Model
         'user_role'
     ];
 
-    public function getByEmail(string $email): array
-    {
-        $rq = $this->where('user_email', $email)->first();
-        return !is_null($rq) ? $rq : [];
-    }
-
-    public function getById(int $uid): array
-    {
-        $rq = $this->where('user_pk', $uid)->first();
-        return !is_null($rq) ? $rq : [];
-    }
-
     public function getAllByKeyword($keyword)
     {
         $builder = $this->builder('t_user')

@@ -8,7 +8,7 @@ class CommentModel extends Model
 {
     protected $table         = 't_comment';
     protected $primaryKey    = 'comment_pk';
-    protected $allowedFields = // security: defines which fields can be changed
+    protected $allowedFields =
     [
         'comment_fk_user',
         'comment_fk_post',
@@ -16,41 +16,38 @@ class CommentModel extends Model
         'comment_date_time'
     ];
 
-    public function getAllByKeyword(string $keyword) : array // returns all comments based on a searched keyword
+    public function getAllByKeyword($keyword)
     {
-        $builder = $this->db->table('t_comment');
-
-        $builder->select('
-                            comment_pk            as cid,
-                            comment_text          as texto,
-                            comment_date_time     as data,
-                            user_pk               as uid,
-                            user_full_name        as nome,
-                            user_profile_picture  as image,
-                            post_pk               as pid,
-                        ');
-        $builder->join('t_post', 'post_pk = comment_fk_post');
-        $builder->join('t_user', 'comment_fk_user = user_pk');
-        $builder->like('comment_text', $keyword);
-        $res = $builder->get()->getResult();
-        return $res;
+        $builder = $this->db->table('t_comment')
+            ->select('
+                        comment_pk            as cid,
+                        comment_text          as texto,
+                        comment_date_time     as data,
+                        user_pk               as uid,
+                        user_full_name        as nome,
+                        user_profile_picture  as image,
+                        post_pk               as pid,
+                    ')
+            ->join('t_post', 'post_pk = comment_fk_post')
+            ->join('t_user', 'comment_fk_user = user_pk')
+            ->like('comment_text', $keyword);
+        return $builder->get()->getResult();
     }
 
     public function getAllByPost($pid)
     {
-        $builder = $this->db->table('t_comment');
-        $builder->select('
-                            comment_pk            as cid,
-                            comment_text          as texto,
-                            comment_date_time     as data,
-                            user_pk               as uid,
-                            user_full_name        as nome,
-                            user_profile_picture  as image,
-                        ');
-        $builder->join('t_post', 'post_pk = comment_fk_post');
-        $builder->join('t_user', 'comment_fk_user = user_pk');
-        $builder->where('post_pk', $pid);
-        $queryComments = $builder->get()->getResult();
-        return $queryComments;
+        $builder = $this->db->table('t_comment')
+            ->select('
+                        comment_pk            as cid,
+                        comment_text          as texto,
+                        comment_date_time     as data,
+                        user_pk               as uid,
+                        user_full_name        as nome,
+                        user_profile_picture  as image,
+                    ')
+            ->join('t_post', 'post_pk = comment_fk_post')
+            ->join('t_user', 'comment_fk_user = user_pk')
+            ->where('post_pk', $pid);
+        return $builder->get()->getResult();
     }
 }

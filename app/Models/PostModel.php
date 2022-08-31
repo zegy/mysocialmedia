@@ -19,7 +19,7 @@ class PostModel extends Model
         'post_type'
     ];
 
-    public function getAllPost($post_type)
+    public function getAllPost($post_type, $perPage = null, $offset = null)
     {
         $builder = $this->db->table('t_post')
             ->select('
@@ -35,7 +35,8 @@ class PostModel extends Model
                             where comment_fk_post = post_pk ) as qtdcom
                     ')
             ->join('t_user', 'post_fk_user = user_pk')
-            ->where('post_type', $post_type);
+            ->where('post_type', $post_type)
+            ->limit($perPage, $offset);
         return $builder->get()->getResult();
     }
 

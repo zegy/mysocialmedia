@@ -22,11 +22,21 @@ class Home extends BaseController
     {
         $post_type = 'public';
         // dd($this->postModel->getAllPost($post_type));
+        $myModel = new PostModel();
+        $contest_images = $myModel->getAllPost($post_type);
+
+        $pager=service('pager');
+        $page=(int)(($this->request->getVar('page')!==null)?$this->request->getVar('page'):1)-1;
+        $perPage =  12;
+        $total = count($contest_images);
+        $pagers = $pager->makeLinks($page+1, $perPage, $total);
+        $offset = $page * $perPage;
+        $data['result'] = $myModel->getAllPost($post_type, $perPage, $offset);
         
         return view('home',
         [
-            "posts"    => $this->postModel->getAllPost($post_type)->paginate(5),
-            "pager"    => $this->postModel->pager,
+            "posts"    => $data['result'],
+            "pager"    => $pagers,
             "homeType" => "public"
         ]);
 

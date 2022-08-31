@@ -23,5 +23,11 @@
 
 <?php } ?>
 <hr>
-<?php echo $pager->links() ?>
 <hr>
+
+<?php $pager = \Config\Services::pager(); ?>
+<?php if ($pager):?>
+    <?php $pagi_path = '/'; ?>
+    <?php $pager->setPath($pagi_path); ?>
+    <?= $pager->links(); ?>
+<?php endif; ?>

@@ -30,7 +30,9 @@ class PostModel extends Model
                         user_pk              as uid,
                         user_full_name       as nome,
                         user_profile_picture as image,
-                        user_role            as role
+                        user_role            as role,
+                        ( select count(*) from t_comment
+                            where comment_fk_post = post_pk ) as qtdcom
                     ')
             ->join('t_user', 'post_fk_user = user_pk')
             ->where('post_type', $post_type);

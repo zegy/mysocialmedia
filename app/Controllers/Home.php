@@ -22,12 +22,21 @@ class Home extends BaseController
     {
         $post_type = 'public';
         // dd($this->postModel->getAllPost($post_type));
+        
         return view('home',
         [
             "posts"    => $this->postModel->getAllPost($post_type)->paginate(5),
-            "pager"    => $this->homeModel->pager,
+            "pager"    => $this->postModel->pager,
             "homeType" => "public"
         ]);
+
+        // Original
+        // return view('home',
+        // [
+        //     "posts"    => $this->homeModel->where('type', 'public')->paginate(5),
+        //     "pager"    => $this->homeModel->pager,
+        //     "homeType" => "public"
+        // ]);
     }
 
     public function homePrivate()

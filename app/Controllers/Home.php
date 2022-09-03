@@ -20,25 +20,20 @@ class Home extends BaseController
 
     public function homePublic()
     {
-        $post_type = 'public';
-        $posts   = $this->postModel->getAllPost($post_type);
-        
         $pager = \Config\Services::pager();
 
-        $page    = (int)(($this->request->getVar('page')!==null)?$this->request->getVar('page'):1)-1;
+        $page = (int)(($this->request->getVar('page')!==null)?$this->request->getVar('page'):1)-1;
         
-        $perPage = 5;
-        $offset  = $page * $perPage;
+        $post_type = 'public';
+        $perPage   = 5;
+        $offset    = $page * $perPage;
         
-
-        $data['result'] = $this->postModel->getAllPost($post_type, $perPage, $offset);
-
-        $total = count($posts); // All result not paginated!
-
+        // Get all result(not paginated!)
+        $total = count($this->homeModel->where('type', 'public')->findAll());
         
         return view('home',
         [
-            "posts"    => $data['result'],
+            "posts"    => $this->postModel->getAllPost($post_type, $perPage, $offset),
             "pager"    => $pager->makeLinks($page+1, $perPage, $total),
             "homeType" => "public"
         ]);

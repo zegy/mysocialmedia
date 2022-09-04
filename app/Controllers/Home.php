@@ -51,12 +51,24 @@ class Home extends BaseController
 
     public function homePrivate()
     {
+        // [START] Experimental "pagination". Similiar to "homePublic"
+        $pager = \Config\Services::pager();
+
+        $page = $this->request->getVar('page') ?? 1 ;
+        
+        $postType = 'private';
+        $perPage  = 5 ;
+        $offset   = ($page-1) * $perPage;
+        
+        $data = $this->postModel->getAllPost($postType, $perPage, $offset);
+
         return view('home',
         [
-            "posts"    => $this->homeModel->where('type', 'private')->paginate(5), // call "<?php echo $pager->links()" on view to use this version
-            "pager"    => $this->homeModel->pager,
+            "posts"    => $data['result'],
+            "pager"    => $pager->makeLinks($page, $perPage, $data['total'], 'custom_template'), // using custom template because default (full numbering with next/prev and first/last button) is bugged (the buttons go to wrong page).
             "homeType" => "private"
         ]);
+        // [END]
     }
 
     public function search()

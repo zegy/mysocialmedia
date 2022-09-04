@@ -36,8 +36,10 @@ class PostModel extends Model
                     ')
             ->join('t_user', 'post_fk_user = user_pk')
             ->where('post_type', $post_type)
-            ->limit($perPage, $offset);
-        return $builder->get()->getResult();
+            ->limit($perPage, $offset)
+            ->orderBy('post_pk', 'DESC');
+        $data['result'] = $builder->get()->getResult();
+        return $data;
     }
 
     public function getAllByKeyword(string $keyword) : array // keyword search in search

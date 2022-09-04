@@ -30,10 +30,12 @@ class Home extends BaseController
         
         // Get all result(not paginated!)
         $total = count($this->homeModel->where('type', 'public')->findAll());
-        
+        $data = $this->postModel->getAllPost($post_type, $perPage, $offset);
+        dd ($data);
+
         return view('home',
         [
-            "posts"    => $this->postModel->getAllPost($post_type, $perPage, $offset),
+            "posts"    => $data['result'],
             "pager"    => $pager->makeLinks($page+1, $perPage, $total),
             "homeType" => "public"
         ]);

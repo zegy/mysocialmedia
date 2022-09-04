@@ -33,7 +33,7 @@ class Home extends BaseController
         return view('home',
         [
             "posts"    => $data['result'],
-            "pager"    => $pager->makeLinks($page+1, $perPage, $data['total']),
+            "pager"    => $pager->makeLinks($page+1, $perPage, $data['total'], 'custom_template'),
             "homeType" => "public"
         ]);
 

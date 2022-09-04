@@ -22,7 +22,7 @@ class Home extends BaseController
     {
         $pager = \Config\Services::pager();
 
-        $page = (int)(($this->request->getVar('page')!==null)?$this->request->getVar('page'):1)-1;
+        $page = ($this->request->getVar('page') ?? 1)-1;
         
         $post_type = 'public';
         $perPage   = 5;

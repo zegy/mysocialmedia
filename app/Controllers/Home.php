@@ -73,8 +73,7 @@ class Home extends BaseController
 
     public function search()
     {
-        $data    = $this->request->getPost();
-        $keyword = $data['qsearch'];
+        $keyword = $this->request->getPost('search');
 
         if (!empty($keyword))
         {

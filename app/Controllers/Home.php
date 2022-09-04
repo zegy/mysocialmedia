@@ -19,7 +19,8 @@ class Home extends BaseController
     }
 
     public function homePublic()
-    {
+    {        
+        // [START] Experimental "pagination"
         $pager = \Config\Services::pager();
 
         $page = $this->request->getVar('page') ?? 1 ;
@@ -36,13 +37,23 @@ class Home extends BaseController
             "pager"    => $pager->makeLinks($page, $perPage, $data['total'], 'custom_template'), // using custom template because default (full numbering with next/prev and first/last button) is bugged (the buttons go to wrong page).
             "homeType" => "public"
         ]);
+        // [END]
+
+        // [START] Original version (pagination not working if using query builder)
+        // return view('home',
+        // [
+        //     "posts"    => $this->homeModel->where('type', 'public')->paginate(5), // call "<?php echo $pager->links()" on view to use this version
+        //     "pager"    => $this->homeModel->pager,
+        //     "homeType" => "public"
+        // ]);
+        // [END]
     }
 
     public function homePrivate()
     {
         return view('home',
         [
-            "posts"    => $this->homeModel->where('type', 'private')->paginate(5),
+            "posts"    => $this->homeModel->where('type', 'private')->paginate(5), // call "<?php echo $pager->links()" on view to use this version
             "pager"    => $this->homeModel->pager,
             "homeType" => "private"
         ]);

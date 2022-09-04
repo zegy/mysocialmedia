@@ -21,15 +21,12 @@ class Home extends BaseController
     public function homePublic()
     {        
         // [START] Experimental "pagination"
-        $pager = \Config\Services::pager();
-
-        $page = $this->request->getVar('page') ?? 1 ;
-        
+        $pager    = \Config\Services::pager();
+        $page     = $this->request->getVar('page') ?? (1);
         $postType = 'public';
-        $perPage  = 5 ;
+        $perPage  = (5);
         $offset   = ($page-1) * $perPage;
-        
-        $data = $this->postModel->getAllPost($postType, $perPage, $offset);
+        $data     = $this->postModel->getAllPost($postType, $perPage, $offset);
 
         return view('home',
         [
@@ -52,15 +49,12 @@ class Home extends BaseController
     public function homePrivate()
     {
         // [START] Experimental "pagination". Similiar to "homePublic"
-        $pager = \Config\Services::pager();
-
-        $page = $this->request->getVar('page') ?? 1 ;
-        
+        $pager    = \Config\Services::pager();
+        $page     = $this->request->getVar('page') ?? (1);
         $postType = 'private';
-        $perPage  = 5 ;
+        $perPage  = (5);
         $offset   = ($page-1) * $perPage;
-        
-        $data = $this->postModel->getAllPost($postType, $perPage, $offset);
+        $data     = $this->postModel->getAllPost($postType, $perPage, $offset);
 
         return view('home',
         [

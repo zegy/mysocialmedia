@@ -40,7 +40,6 @@ class PostModel extends Model
             ->orderBy('post_pk', 'DESC');
         $data['total'] = $builder->countAllResults(false); // count all result (not limited by "limit"). This "countAllResults" method also resets any field values that you may have passed to select(). If you need to keep them, you can pass false as the first parameter. https://codeigniter.com/user_guide/database/query_builder.html?highlight=builder#builder-countallresults
         $data['result'] = $builder->get()->getResult(); // get all result (limited by "limit")
-        dd ($data);
         return $data;
     }
 

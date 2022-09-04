@@ -19,7 +19,7 @@ class PostModel extends Model
         'post_type'
     ];
 
-    public function getAllPost($post_type, $perPage = null, $offset = null)
+    public function getAllPost($postType, $perPage = null, $offset = null)
     {
         $builder = $this->db->table('t_post')
             ->select('
@@ -35,7 +35,7 @@ class PostModel extends Model
                             where comment_fk_post = post_pk ) as qtdcom
                     ')
             ->join('t_user', 'post_fk_user = user_pk')
-            ->where('post_type', $post_type)
+            ->where('post_type', $postType)
             ->limit($perPage, $offset)
             ->orderBy('post_pk', 'DESC');
         $data['total'] = $builder->countAllResults(false); // count all result (not limited by "limit"). This "countAllResults" method also resets any field values that you may have passed to select(). If you need to keep them, you can pass false as the first parameter. https://codeigniter.com/user_guide/database/query_builder.html?highlight=builder#builder-countallresults

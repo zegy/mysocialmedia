@@ -22,28 +22,20 @@ class Home extends BaseController
     {
         $pager = \Config\Services::pager();
 
-        $page = ($this->request->getVar('page') ?? 1)-1;
+        $page = $this->request->getVar('page') ?? 1 ;
         
-        $post_type = 'public';
-        $perPage   = 5;
-        $offset    = $page * $perPage;
+        $postType = 'public';
+        $perPage  = 5 ;
+        $offset   = ($page-1) * $perPage;
         
-        $data = $this->postModel->getAllPost($post_type, $perPage, $offset);
+        $data = $this->postModel->getAllPost($postType, $perPage, $offset);
 
         return view('home',
         [
             "posts"    => $data['result'],
-            "pager"    => $pager->makeLinks($page+1, $perPage, $data['total'], 'custom_template'), // using custom template because default (full numbering with next/prev and first/last button) is bugged (the buttons go to wrong page).
+            "pager"    => $pager->makeLinks($page, $perPage, $data['total'], 'custom_template'), // using custom template because default (full numbering with next/prev and first/last button) is bugged (the buttons go to wrong page).
             "homeType" => "public"
         ]);
-
-        // Original
-        // return view('home',
-        // [
-        //     "posts"    => $this->homeModel->where('type', 'public')->paginate(5),
-        //     "pager"    => $this->homeModel->pager,
-        //     "homeType" => "public"
-        // ]);
     }
 
     public function homePrivate()

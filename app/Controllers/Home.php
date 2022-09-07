@@ -31,7 +31,7 @@ class Home extends BaseController
         return view('home',
         [
             "posts"    => $data['result'],
-            "pager"    => $pager->makeLinks($page, $perPage, $data['total'], 'custom_template'), // using custom template because default (full numbering with next/prev and first/last button) is bugged (the buttons go to wrong page).
+            "pager"    => $pager->makeLinks($page, $perPage, $data['total']),
             "homeType" => "public"
         ]);
         // [END]
@@ -59,7 +59,7 @@ class Home extends BaseController
         return view('home',
         [
             "posts"    => $data['result'],
-            "pager"    => $pager->makeLinks($page, $perPage, $data['total'], 'custom_template'), // using custom template because default (full numbering with next/prev and first/last button) is bugged (the buttons go to wrong page).
+            "pager"    => $pager->makeLinks($page, $perPage, $data['total']),
             "homeType" => "private"
         ]);
         // [END]

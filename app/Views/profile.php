@@ -6,15 +6,15 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 img">
-			<img src="<?php echo base_url($userData['user_profile_picture'])?>" alt="profile-img" class="rounded-circle" width="190" height="190">
+			<img src="<?php echo base_url($userData->user_profile_picture)?>" alt="profile-img" class="rounded-circle" width="190" height="190">
 		</div>
 		<div class="col-md-6 details">
 			<blockquote>
-				<h5><?=  htmlspecialchars($userData['user_full_name']) ?></h5>
-				<small><cite title="Source Title"> <?= htmlspecialchars($userData['user_bio']) ?> <i class="icon-map-marker"></i></cite></small>
+				<h5><?=  htmlspecialchars($userData->user_full_name) ?></h5>
+				<small><cite title="Source Title"> <?= htmlspecialchars($userData->user_bio) ?> <i class="icon-map-marker"></i></cite></small>
 			</blockquote>
 			<p>
-				<?= $userData['user_email'] ?> <br>	
+				<?= $userData->user_email ?> <br>	
 			</p>
 		</div>
 	</div>

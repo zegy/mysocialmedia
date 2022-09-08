@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PostModel;
-use App\Models\HomeModel;
 use CodeIgniter\I18n\Time;
 
 class Post extends BaseController
@@ -12,7 +11,6 @@ class Post extends BaseController
     function __construct()
     {
         helper('form');
-        $this->homeModel = new HomeModel();
         $this->postModel = new PostModel();
     }
 

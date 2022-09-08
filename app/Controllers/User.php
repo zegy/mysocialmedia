@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\HomeModel;
 use App\Models\UserModel;
+use App\Models\PostModel;
 
 class User extends BaseController
 {
@@ -12,7 +12,7 @@ class User extends BaseController
     {
         helper('form');
         $this->userModel = new UserModel();
-        $this->homeModel = new HomeModel();
+        $this->postModel = new PostModel();
     }
 
     public function showProfile($uid)
@@ -21,11 +21,12 @@ class User extends BaseController
 
         if ($userData)
         {
+            $posts = $this->postModel->getAllByUser($uid); // As object, use "paginate" to get results (also object) only
             return view('profile',
             [
                 "userData" => $userData,
-                "posts"    => $this->homeModel->where('uid', $uid)->paginate(5), // paginate with where // ZEGY OTC HERE IS USER'S POST. Harus kah ada di controller post?
-                "pager"    => $this->homeModel->pager
+                "posts"    => $posts->paginate(5),
+                "pager"    => $posts->pager,
             ]);
         }
         else

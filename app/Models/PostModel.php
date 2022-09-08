@@ -36,6 +36,25 @@ class PostModel extends Model
                     ->orderBy('post_pk', 'DESC');
     }
 
+    public function getAllByUser($uid)
+    {
+        return $this->select('
+                                post_pk              as pid,
+                                post_text            as texto,
+                                post_date_time       as data,
+                                post_type            as type,
+                                user_pk              as uid,
+                                user_full_name       as nome,
+                                user_profile_picture as image,
+                                user_role            as role,
+                                (select count(*) from t_comment
+                                    where comment_fk_post = post_pk) as qtdcom
+                            ')
+                    ->join('t_user', 'post_fk_user = user_pk')
+                    ->where('post_fk_user', $uid)
+                    ->orderBy('post_pk', 'DESC');
+    }
+
     public function getAllByKeyword($keyword)
     {   
         return $this->select('

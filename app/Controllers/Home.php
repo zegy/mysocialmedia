@@ -20,49 +20,17 @@ class Home extends BaseController
 
     public function homePublic()
     {        
-        // [START] Experimental "pagination"
-        $pager    = \Config\Services::pager();
-        $page     = $this->request->getVar('page') ?? (1);
-        $postType = 'public';
-        $perPage  = (5);
-        $offset   = ($page-1) * $perPage;
-        $data     = $this->postModel->getAllPost($postType, $perPage, $offset);
-
         return view('home',
         [
-            "posts"    => $data['result'],
-            "pager"    => $pager->makeLinks($page, $perPage, $data['total']),
+            "posts"    => $this->postModel->getAllPost('public'),
+            "pager"    => $this->postModel->pager,
             "homeType" => "public"
         ]);
-        // [END]
-
-        // [START] Original version (pagination not working if using query builder)
-        // return view('home',
-        // [
-        //     "posts"    => $this->homeModel->where('type', 'public')->paginate(5), // call "<?php echo $pager->links()" on view to use this version
-        //     "pager"    => $this->homeModel->pager,
-        //     "homeType" => "public"
-        // ]);
-        // [END]
     }
 
     public function homePrivate()
     {
-        // [START] Experimental "pagination". Similiar to "homePublic"
-        $pager    = \Config\Services::pager();
-        $page     = $this->request->getVar('page') ?? (1);
-        $postType = 'private';
-        $perPage  = (5);
-        $offset   = ($page-1) * $perPage;
-        $data     = $this->postModel->getAllPost($postType, $perPage, $offset);
-
-        return view('home',
-        [
-            "posts"    => $data['result'],
-            "pager"    => $pager->makeLinks($page, $perPage, $data['total']),
-            "homeType" => "private"
-        ]);
-        // [END]
+       // OTC
     }
 
     public function search()

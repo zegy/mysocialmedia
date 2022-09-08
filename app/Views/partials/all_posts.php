@@ -23,6 +23,5 @@
 
 <?php } ?>
 <hr>
+<?php echo $pager->links() ?>
 <hr>
-
-<?php echo $pager ?>

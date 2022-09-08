@@ -19,7 +19,7 @@ class User extends BaseController
     {
         $userData = $this->userModel->where('user_pk', $uid)->first();
 
-        if ($userData)
+        if (!empty($userData))
         {
             $posts = $this->postModel->getAllByUser($uid); // As object, use "paginate" to get results (also object) only
             return view('profile',
@@ -31,7 +31,7 @@ class User extends BaseController
         }
         else
         {
-            return redirect()->to('/'); // user not found
+            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
         }
     }
 }

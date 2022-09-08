@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
-use App\Models\HomeModel;
+// use App\Models\HomeModel;
 use App\Models\PostModel;
 use App\Models\CommentModel;
 
@@ -12,7 +12,7 @@ class Home extends BaseController
     function __construct()
     {
         helper('form');
-        $this->homeModel    = new HomeModel();
+        // $this->homeModel    = new HomeModel();
         $this->userModel    = new UserModel();
         $this->postModel    = new PostModel();
         $this->commentModel = new CommentModel();

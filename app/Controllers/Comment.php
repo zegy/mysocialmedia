@@ -109,7 +109,7 @@ class Comment extends BaseController
         
         if (!empty($comment))
         {
-            if (session('id') == $comment['comment_fk_user'])
+            if (session('id') == $comment->comment_fk_user)
             {
                 $this->commentModel->delete($cid);
                 return redirect()->back();
@@ -127,7 +127,7 @@ class Comment extends BaseController
 
         if (!empty($comment))
         {
-            if (session('id') == $comment['comment_fk_user'])
+            if (session('id') == $comment->comment_fk_user)
             {
                 echo view('forms/form_edit_comment', ['comment' => $comment]); // ZEGY OTC IT WILL USE "SAVE() COMMENT" LATER
             }

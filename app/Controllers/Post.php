@@ -71,7 +71,7 @@ class Post extends BaseController
 
         if (!empty($post))
         {
-            if (session('id') == $post['post_fk_user'])
+            if (session('id') == $post->post_fk_user)
             {
                 $this->postModel->delete($pid);
                 return redirect()->to('/');
@@ -93,7 +93,7 @@ class Post extends BaseController
 
         if (!empty($post))
         {
-            if (session('id') == $post['post_fk_user'])
+            if (session('id') == $post->post_fk_user)
             {
                 echo view('forms/form_edit_post', ['post' => $post]);
             }

@@ -17,7 +17,24 @@ class PostModel extends Model
         'post_type'
     ];
 
-    public function getAllPost($postType)
+    public function getOneById($pid)
+    {
+        return $this->select('
+                                post_pk              as pid,
+                                post_text            as texto,
+                                post_date_time       as data,
+                                post_type            as type,
+                                user_pk              as uid,
+                                user_full_name       as nome,
+                                user_profile_picture as image,
+                                user_role            as role
+                            ')
+                    ->join('t_user', 'post_fk_user = user_pk')
+                    ->where('post_pk', $pid)
+                    ->first(); // ZEGY OTC : is this the right method?
+    }
+
+    public function getAllByType($postType)
     {
         return $this->select('
                                 post_pk              as pid,
@@ -72,22 +89,5 @@ class PostModel extends Model
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->like('post_text', $keyword)
                     ->findAll(); // ZEGY OTC : is this the right method?
-    }
-
-    public function getSpecificPost($pid)
-    {
-        return $this->select('
-                                post_pk              as pid,
-                                post_text            as texto,
-                                post_date_time       as data,
-                                post_type            as type,
-                                user_pk              as uid,
-                                user_full_name       as nome,
-                                user_profile_picture as image,
-                                user_role            as role
-                            ')
-                    ->join('t_user', 'post_fk_user = user_pk')
-                    ->where('post_pk', $pid)
-                    ->first(); // ZEGY OTC : is this the right method?
     }
 }

@@ -18,7 +18,7 @@ class Home extends BaseController
 
     public function homePublic()
     {        
-        $posts = $this->postModel->getAllPost('public'); // As object, use "paginate" to get results (also object) only
+        $posts = $this->postModel->getAllByType('public'); // As object, use "paginate" to get results (also object) only
         return view('home',
         [
             "posts"    => $posts->paginate(5),

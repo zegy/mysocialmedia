@@ -21,7 +21,7 @@ class Comment extends BaseController
 
     public function show($pid)
     {
-        $post = $this->postModel->getSpecificPost($pid);
+        $post = $this->postModel->getOneById($pid);
         
         if (!empty($post))
         {

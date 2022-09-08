@@ -17,6 +17,22 @@ class CommentModel extends Model
         'comment_date_time'
     ];
 
+    public function getAllByPost($pid)
+    {
+        return $this->select('
+                                comment_pk           as cid,
+                                comment_text         as texto,
+                                comment_date_time    as data,
+                                user_pk              as uid,
+                                user_full_name       as nome,
+                                user_profile_picture as image
+                            ')
+                    ->join('t_post', 'post_pk = comment_fk_post')
+                    ->join('t_user', 'comment_fk_user = user_pk')
+                    ->where('post_pk', $pid)
+                    ->findAll();
+    }
+
     public function getAllByKeyword($keyword)
     {
         return $this->select('
@@ -31,22 +47,6 @@ class CommentModel extends Model
                     ->join('t_post', 'post_pk = comment_fk_post')
                     ->join('t_user', 'comment_fk_user = user_pk')
                     ->like('comment_text', $keyword)
-                    ->findAll();
-    }
-
-    public function getAllByPost($pid)
-    {
-        return $this->select('
-                                comment_pk           as cid,
-                                comment_text         as texto,
-                                comment_date_time    as data,
-                                user_pk              as uid,
-                                user_full_name       as nome,
-                                user_profile_picture as image
-                            ')
-                    ->join('t_post', 'post_pk = comment_fk_post')
-                    ->join('t_user', 'comment_fk_user = user_pk')
-                    ->where('post_pk', $pid)
                     ->findAll();
     }
 }

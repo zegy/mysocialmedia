@@ -31,15 +31,15 @@ class Login extends BaseController
         $usuarioModel = new UserModel();
         $dadosUsuario = $usuarioModel->where('user_email', $email)->first();
 
-        if (count($dadosUsuario) > 0)
+        if (!empty($dadosUsuario))
         {
-            $hashUsuario = $dadosUsuario['user_password'];
+            $hashUsuario = $dadosUsuario->user_password;
 
             if (password_verify($password, $hashUsuario))
             {
                 session()->set('isLoggedIn', true);
-                session()->set('id', $dadosUsuario['user_pk']);
-                session()->set('role', $dadosUsuario['user_role']);
+                session()->set('id', $dadosUsuario->user_pk);
+                session()->set('role', $dadosUsuario->user_role);
                 return redirect()->to(base_url("/"));
            }
            else

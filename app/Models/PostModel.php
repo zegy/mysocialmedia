@@ -10,7 +10,7 @@ class PostModel extends Model
 {
     protected $table         = 't_post';
     protected $primaryKey    = 'post_pk';
-    protected $returnType    = 'object';
+    protected $returnType    = 'object'; // ZEGY OTC : global return here, no individual one?
     protected $allowedFields =
     [
         'post_fk_user',
@@ -35,8 +35,7 @@ class PostModel extends Model
                             ')
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
-                    ->orderBy('post_pk', 'DESC')
-                    ->paginate(5);
+                    ->orderBy('post_pk', 'DESC');
     }
 
     public function getAllByKeyword(string $keyword) : array // keyword search in search

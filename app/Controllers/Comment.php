@@ -105,7 +105,7 @@ class Comment extends BaseController
 
     public function delete($cid)
     {
-        $comment = $this->commentModel->where('comment_pk', $cid)->first();
+        $comment = $this->commentModel->find($cid);
         
         if (!empty($comment))
         {
@@ -123,7 +123,7 @@ class Comment extends BaseController
 
     public function edit($cid)
     {
-        $comment = $this->commentModel->where('comment_pk', $cid)->first();
+        $comment = $this->commentModel->find($cid);
 
         if (!empty($comment))
         {

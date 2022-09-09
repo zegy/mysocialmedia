@@ -67,7 +67,7 @@ class Post extends BaseController
 
     public function delete($pid)
     {
-        $post = $this->postModel->where('post_pk', $pid)->first();
+        $post = $this->postModel->find($pid);
 
         if (!empty($post))
         {
@@ -89,7 +89,7 @@ class Post extends BaseController
 
     public function edit($pid)
     {
-        $post = $this->postModel->where('post_pk', $pid)->first();
+        $post = $this->postModel->find($pid);
 
         if (!empty($post))
         {

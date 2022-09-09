@@ -15,7 +15,8 @@ class Notification extends BaseController
     public function onFCM()
     {
         $token = $this->request->getVar('token');
-        $data  = $this->notificationModel->where(array('user_pk' => session('id')))->first();
+        // $data  = $this->notificationModel->where(array('user_pk' => session('id')))->first();
+        $data  = $this->notificationModel->find(session('id'));
         $on    = $this->notificationModel->update($data['user_pk'], array('user_token' => $token));
 
         if ($on)
@@ -40,12 +41,16 @@ class Notification extends BaseController
     public function sendFCM($data)
     {
         $post      = new PostModel();
-        $poster    = $post->where(array('post_pk' => $data["post_id"]))->first();
+        // $poster    = $post->where(array('post_pk' => $data["post_id"]))->first();
+        $poster    = $post->find($data["post_id"]);
         $poster_id = $poster["post_fk_user"];
 
         $sendFCM   = new NotificationModel();
-        $user      = $sendFCM->where(array('user_pk' => $poster_id))->first();
-        $commenter = $sendFCM->where(array('user_pk' => $data["user_id"]))->first();
+        // $user      = $sendFCM->where(array('user_pk' => $poster_id))->first();
+        $user      = $sendFCM->find($poster_id);
+
+        // $commenter = $sendFCM->where(array('user_pk' => $data["user_id"]))->first();
+        $commenter = $sendFCM->find($data["user_id"]);
 
         $title     = 'DIPSI';
         $body      = $commenter["user_full_name"].' '.'Mengomentari Postingan Anda!';

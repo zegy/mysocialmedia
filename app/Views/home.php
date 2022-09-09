@@ -22,7 +22,7 @@
                 <h3 class="">Escrever um novo Post</h3>
                 <fieldset>
                     <div class="form-group ">
-                        <textarea class="form-control" id="texto" name="text" placeholder=" ... Digite aqui seu post" required style="width: 100%; height: 200px;"></textarea>
+                        <textarea class="form-control" id="texto" name="text" placeholder=" ... Digite aqui seu post"  style="width: 100%; height: 200px;"></textarea>
                     </div>
                 </fieldset>
                 <div class = "col-sm-1">

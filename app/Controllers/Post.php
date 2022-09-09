@@ -17,51 +17,43 @@ class Post extends BaseController
     public function save()
     {
         $data = $this->request->getPost();
-        // dd($data);
-
-        if (empty($data['text'])) // related to view : input's "required"
+        
+        if (empty($data['text'])) // Check if text is empty (related to view : input's "required")
         {
-            // $message = 'ZEGY ERROR : TEXT IS EMPTY ';
-            session()->setFlashData('msg','ZEGY ERROR : TEXT IS EMPTY');
-            echo view('custom_error');
+            session()->setFlashData('msg','ZEGY ERROR : TEXT IS EMPTY'); echo view('custom_error');
         }
-        else
+    
+        if (isset($data["post_id"])) // UPDATE POST
         {
-            if (isset($data["post_id"])) // UPDATE POST
+            if (session('id') == $data["user_id"])
             {
-                if (session('id') == $data["user_id"])
-                {
-                    $request = $this->postModel->update($data["post_id"], array("post_text" => $data["text"]));
-                }
-                else
-                {
-                    echo 'ZEGY ERROR : NOT OWNER ';
-                }
-            }
-
-
-
-            else // NEW POST
-            {
-                $dataToSave =
-                [
-                    "post_fk_user"   => session('id'),
-                    "post_text"      => $data["text"],
-                    "post_type"      => $data['type']
-                ];
-                $request = $this->postModel->save($dataToSave);
-            }
-
-            
-            if ($request)
-            {
-                return redirect()->to('/');
+                $request = $this->postModel->update($data["post_id"], array("post_text" => $data["text"]));
             }
             else
             {
-                // ZEGY OTC ERROR
+                session()->setFlashData('msg','ZEGY ERROR : NOT OWNER'); echo view('custom_error');
             }
         }
+        else // NEW POST
+        {
+            $dataToSave =
+            [
+                "post_fk_user"   => session('id'),
+                "post_text"      => $data["text"],
+                "post_type"      => $data['type']
+            ];
+            $request = $this->postModel->save($dataToSave);
+        }
+
+        if ($request)
+        {
+            return redirect()->to('/');
+        }
+        else
+        {
+            // ZEGY OTC ERROR
+        }
+        
     }
 
     public function delete($pid)

@@ -80,20 +80,16 @@ class Post extends BaseController
     {
         $post = $this->postModel->find($pid);
 
-        if (!empty($post))
+        if (empty($post))
         {
-            if (session('id') != $post->post_fk_user)
-            {
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
-            }
-            else
-            {
-                echo view('forms/form_edit_post', ['post' => $post]);
-            }
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT FOUND
         }
-        else
+
+        if (session('id') != $post->post_fk_user)
         {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Post not found
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT OWNER
         }
+        
+        echo view('forms/form_edit_post', ['post' => $post]);
     }
 }

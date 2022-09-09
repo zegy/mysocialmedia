@@ -14,14 +14,14 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
-    public function Check($pid, $getPost = false) // Check post's existence and ownership
+    public function Check($pid, $getPost = false) // Check post's existence and ownership. Return null if getPost = false
     {
         $post = $this->postModel->find($pid);
         if ((empty($post)) or (session('id') != $post->post_fk_user))
         {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Stop the script and throw error
         }
-        if ($getPost)
+        if ($getPost) // Return post's data if needed (getPost = true)
         {
             return $post;
         }
@@ -30,14 +30,12 @@ class Post extends BaseController
     public function save()
     {
         $data = $this->request->getPost();
-
         $dataToSave =
         [
             "post_fk_user" => session('id'),
             "post_text"    => $data["text"],
             "post_type"    => $data['type']
         ];
-        
         $this->postModel->save($dataToSave);
         return redirect()->to('/');
     }
@@ -50,7 +48,6 @@ class Post extends BaseController
         [
             "post_text" => $data["text"]
         ];
-
         $this->postModel->update($pid, $dataToSave);
         return redirect()->to('/');        
     }

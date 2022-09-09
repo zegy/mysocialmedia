@@ -13,9 +13,12 @@ class PostModel extends Model
     [
         'post_fk_user',
         'post_text',
-        'post_date_time',
         'post_type'
     ];
+    protected $useTimestamps = true;
+    protected $createdField  = 'post_date_time';
+    protected $updatedField  = ''; // ZEGY : it also needed even not if we not use it (by "useTimestamps")!
+
 
     public function getOneById($pid)
     {

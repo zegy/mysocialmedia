@@ -38,15 +38,13 @@ class Post extends BaseController
             }
 
 
-            
+
             else // NEW POST
             {
-                $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
                 $dataToSave =
                 [
-                    "post_fk_user"   => $data["user_id"],
+                    "post_fk_user"   => session('id'),
                     "post_text"      => $data["text"],
-                    "post_date_time" => ((array)$currentTime)['date'],
                     "post_type"      => $data['type']
                 ];
                 $request = $this->postModel->save($dataToSave);

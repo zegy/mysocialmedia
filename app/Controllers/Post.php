@@ -20,41 +20,51 @@ class Post extends BaseController
         
         if (empty($data['text'])) // Check if text is empty (related to view : input's "required")
         {
-            session()->setFlashData('message','TEXT IS EMPTY');
+            session()->setFlashData('message','TEXT IS EMPTY!');
             return view('custom_error');
-        }
-    
-        if (isset($data["post_id"])) // UPDATE POST
-        {
-            if (session('id') == $data["user_id"])
-            {
-                $request = $this->postModel->update($data["post_id"], array("post_text" => $data["text"]));
-            }
-            else
-            {
-                session()->setFlashData('msg','ZEGY ERROR : NOT OWNER'); echo view('custom_error');
-            }
-        }
-        else // NEW POST
-        {
-            $dataToSave =
-            [
-                "post_fk_user"   => session('id'),
-                "post_text"      => $data["text"],
-                "post_type"      => $data['type']
-            ];
-            $request = $this->postModel->save($dataToSave);
-        }
-
-        if ($request)
-        {
-            return redirect()->to('/');
         }
         else
         {
-            // ZEGY OTC ERROR
+            $dataToSave =
+            [
+                "post_fk_user" => session('id'),
+                "post_text"    => $data["text"],
+                "post_type"    => $data['type']
+            ];
+            $request = $this->postModel->save($dataToSave);
+            if ($request)
+            {
+                // Send FCM
+                return redirect()->to('/');
+            }
         }
+    }
+
+    public function update()
+    {
+        $data = $this->request->getPost();
         
+        if (empty($data['text'])) // Check if text is empty (related to view : input's "required")
+        {
+            session()->setFlashData('message','TEXT IS EMPTY!');
+            return view('custom_error');
+        }
+        else
+        {
+            if (session('id') != $data["user_id"])
+            {
+                session()->setFlashData('message','NOT OWNER!');
+                return view('custom_error');
+            }
+            else
+            {
+                $request = $this->postModel->update($data["post_id"], array("post_text" => $data["text"]));
+                if ($request)
+                {
+                    return redirect()->to('/');
+                }
+            }
+        }        
     }
 
     public function delete($pid)

@@ -4,7 +4,7 @@
 
 <h3>Edit Post</h3>
  
-	<?php echo form_open('post/save',  ['class' => 'pull_right']) ?>
+	<?php echo form_open('post/update',  ['class' => 'pull_right']) ?>
     <input type="hidden" name="post_id" value="<?php echo $post->post_pk ?>" />
     <input type="hidden" name="user_id" value="<?php echo $post->post_fk_user  ?>" />
 	<div class="form-group">

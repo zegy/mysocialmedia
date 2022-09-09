@@ -21,7 +21,9 @@ class Post extends BaseController
 
         if (empty($data['text'])) // related to view : input's "required"
         {
-            echo 'ZEGY ERROR : TEXT IS EMPTY ';
+            // $message = 'ZEGY ERROR : TEXT IS EMPTY ';
+            session()->setFlashData('msg','ZEGY ERROR : TEXT IS EMPTY');
+            echo view('custom_error');
         }
         else
         {

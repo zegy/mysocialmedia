@@ -62,22 +62,18 @@ class Post extends BaseController
     {
         $post = $this->postModel->find($pid);
 
-        if (!empty($post))
+        if (empty($post))
         {
-            if (session('id') == $post->post_fk_user)
-            {
-                $this->postModel->delete($pid);
-                return redirect()->to('/');
-            }
-            else
-            {
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
-            }
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT FOUND
         }
-        else
+
+        if (session('id') != $post->post_fk_user)
         {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Post not found
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT OWNER
         }
+        
+        $this->postModel->delete($pid);
+        return redirect()->to('/');
     }
 
     public function updateForm($pid)

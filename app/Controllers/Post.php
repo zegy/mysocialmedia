@@ -25,19 +25,21 @@ class Post extends BaseController
         }
         else
         {
-            if (isset($data["post_id"])) // update post
+            if (isset($data["post_id"])) // UPDATE POST
             {
-                if (session('id') != $data["user_id"])
+                if (session('id') == $data["user_id"])
                 {
-                    echo 'ZEGY ERROR : NOT OWNER ';
+                    $request = $this->postModel->update($data["post_id"], array("post_text" => $data["text"]));
                 }
                 else
                 {
-                    $dataToSave = ["post_text" => $data["text"]];
-                    $request = $this->postModel->update($data["post_id"], $dataToSave);
+                    echo 'ZEGY ERROR : NOT OWNER ';
                 }
             }
-            else // new post
+
+
+            
+            else // NEW POST
             {
                 $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
                 $dataToSave =

@@ -17,56 +17,43 @@ class Post extends BaseController
     public function save()
     {
         $data = $this->request->getPost();
+
+        $dataToSave =
+        [
+            "post_fk_user" => session('id'),
+            "post_text"    => $data["text"],
+            "post_type"    => $data['type']
+        ];
         
-        if (empty($data['text'])) // related to view : input's "required"
+        $request = $this->postModel->save($dataToSave);
+        
+        if ($request)
         {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Text is empty
+            return redirect()->to('/');
         }
-        else
-        {
-            $dataToSave =
-            [
-                "post_fk_user" => session('id'),
-                "post_text"    => $data["text"],
-                "post_type"    => $data['type']
-            ];
-            
-            $request = $this->postModel->save($dataToSave);
-            
-            if ($request)
-            {
-                return redirect()->to('/');
-            }
-        }
+        
     }
 
     public function update()
     {
         $data = $this->request->getPost();
-        
-        if (empty($data['text'])) // related to view : input's "required"
+            
+        if (session('id') != $data["user_id"])
         {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Text is empty
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
         }
         else
         {
-            if (session('id') != $data["user_id"])
-            {
-                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
-            }
-            else
-            {
-                $dataToSave =
-                [
-                    "post_text" => $data["text"]
-                ];
+            $dataToSave =
+            [
+                "post_text" => $data["text"]
+            ];
 
-                $request = $this->postModel->update($data["post_id"], $dataToSave);
-                
-                if ($request)
-                {
-                    return redirect()->to('/');
-                }
+            $request = $this->postModel->update($data["post_id"], $dataToSave);
+            
+            if ($request)
+            {
+                return redirect()->to('/');
             }
         }        
     }

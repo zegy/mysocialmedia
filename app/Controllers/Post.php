@@ -87,12 +87,14 @@ class Post extends BaseController
             }
             else
             {
-                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
+                session()->setFlashData('message','NOT OWNER!');
+                return view('custom_error');
             }
         }
         else
         {
-            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
+            session()->setFlashData('message','POST NOT FOUND!');
+            return view('custom_error');
         }
     }
 
@@ -102,18 +104,20 @@ class Post extends BaseController
 
         if (!empty($post))
         {
-            if (session('id') == $post->post_fk_user)
+            if (session('id') != $post->post_fk_user)
             {
-                echo view('forms/form_edit_post', ['post' => $post]);
+                session()->setFlashData('message','NOT OWNER!');
+                return view('custom_error');
             }
             else
             {
-                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
+                echo view('forms/form_edit_post', ['post' => $post]);
             }
         }
         else
         {
-            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
+            session()->setFlashData('message','POST NOT FOUND!');
+            return view('custom_error');
         }
     }
 }

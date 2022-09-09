@@ -18,10 +18,9 @@ class Post extends BaseController
     {
         $data = $this->request->getPost();
         
-        if (empty($data['text'])) // Check if text is empty (related to view : input's "required")
+        if (empty($data['text'])) // related to view : input's "required"
         {
-            session()->setFlashData('message','TEXT IS EMPTY!');
-            return view('custom_error');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Text is empty
         }
         else
         {
@@ -45,17 +44,15 @@ class Post extends BaseController
     {
         $data = $this->request->getPost();
         
-        if (empty($data['text'])) // Check if text is empty (related to view : input's "required")
+        if (empty($data['text'])) // related to view : input's "required"
         {
-            session()->setFlashData('message','TEXT IS EMPTY!');
-            return view('custom_error');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Text is empty
         }
         else
         {
             if (session('id') != $data["user_id"])
             {
-                session()->setFlashData('message','NOT OWNER!');
-                return view('custom_error');
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
             }
             else
             {
@@ -87,14 +84,12 @@ class Post extends BaseController
             }
             else
             {
-                session()->setFlashData('message','NOT OWNER!');
-                return view('custom_error');
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
             }
         }
         else
         {
-            session()->setFlashData('message','POST NOT FOUND!');
-            return view('custom_error');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Post not found
         }
     }
 
@@ -106,8 +101,7 @@ class Post extends BaseController
         {
             if (session('id') != $post->post_fk_user)
             {
-                session()->setFlashData('message','NOT OWNER!');
-                return view('custom_error');
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
             }
             else
             {
@@ -116,8 +110,7 @@ class Post extends BaseController
         }
         else
         {
-            session()->setFlashData('message','POST NOT FOUND!');
-            return view('custom_error');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Post not found
         }
     }
 }

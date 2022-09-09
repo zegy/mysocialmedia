@@ -53,8 +53,8 @@ $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
 
 $routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
 $routes->add('post/save', 'Post::save');
-$routes->add('post/update', 'Post::update'); // ZEGY OTC NEW! NEED TO CLEAN
-$routes->add('post/edit/(:num)', 'Post::edit/$1');
+$routes->add('post/update', 'Post::update');
+$routes->add('post/update_form/(:num)', 'Post::updateForm/$1');
 $routes->add('post/delete/(:num)', 'Post::delete/$1');
 
 $routes->add('comment/save', 'Comment::save');

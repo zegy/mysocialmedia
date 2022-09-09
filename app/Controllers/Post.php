@@ -31,10 +31,11 @@ class Post extends BaseController
                 "post_text"    => $data["text"],
                 "post_type"    => $data['type']
             ];
+            
             $request = $this->postModel->save($dataToSave);
+            
             if ($request)
             {
-                // Send FCM
                 return redirect()->to('/');
             }
         }
@@ -58,7 +59,13 @@ class Post extends BaseController
             }
             else
             {
-                $request = $this->postModel->update($data["post_id"], array("post_text" => $data["text"]));
+                $dataToSave =
+                [
+                    "post_text" => $data["text"]
+                ];
+
+                $request = $this->postModel->update($data["post_id"], $dataToSave);
+                
                 if ($request)
                 {
                     return redirect()->to('/');
@@ -89,7 +96,7 @@ class Post extends BaseController
         }
     }
 
-    public function edit($pid)
+    public function updateForm($pid)
     {
         $post = $this->postModel->find($pid);
 

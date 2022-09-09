@@ -34,28 +34,28 @@ class Post extends BaseController
         
     }
 
-    public function update()
-    {
-        $data = $this->request->getPost();
-            
-        if (session('id') != $data["user_id"])
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Not owner
-        }
-        else
-        {
-            $dataToSave =
-            [
-                "post_text" => $data["text"]
-            ];
+    public function update($pid)
+    {    
+        $post = $this->postModel->find($pid);
 
-            $request = $this->postModel->update($data["post_id"], $dataToSave);
-            
-            if ($request)
-            {
-                return redirect()->to('/');
-            }
-        }        
+        if (empty($post))
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT FOUND
+        }
+
+        if (session('id') != $post->post_fk_user)
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT OWNER
+        }
+        
+        $data = $this->request->getPost(); // Get text input
+        $dataToSave =
+        [
+            "post_text" => $data["text"]
+        ];
+
+        $this->postModel->update($pid, $dataToSave);
+        return redirect()->to('/');        
     }
 
     public function delete($pid)

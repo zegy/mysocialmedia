@@ -4,9 +4,7 @@
 
 <h3>Edit Post</h3>
  
-	<?php echo form_open('post/update',  ['class' => 'pull_right']) ?>
-    <input type="hidden" name="post_id" value="<?php echo $post->post_pk ?>" />
-    <input type="hidden" name="user_id" value="<?php echo $post->post_fk_user  ?>" />
+	<?php echo form_open('post/update/'. $post->post_pk,  ['class' => 'pull_right']) ?>
 	<div class="form-group">
     	<textarea class="form-control" id="text" name="text" rows="5" cols="100" style="width: 100%; height: 300px;" required><?= $post->post_text ?> </textarea>
   	</div>

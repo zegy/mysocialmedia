@@ -14,6 +14,19 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
+    public function Check($pid, $getPost = false) // Check post's existence and ownership
+    {
+        $post = $this->postModel->find($pid);
+        if ((empty($post)) or (session('id') != $post->post_fk_user))
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        if ($getPost)
+        {
+            return $post;
+        }
+    }
+
     public function save()
     {
         $data = $this->request->getPost();
@@ -25,30 +38,14 @@ class Post extends BaseController
             "post_type"    => $data['type']
         ];
         
-        $request = $this->postModel->save($dataToSave);
-        
-        if ($request)
-        {
-            return redirect()->to('/');
-        }
-        
+        $this->postModel->save($dataToSave);
+        return redirect()->to('/');
     }
 
     public function update($pid)
     {    
-        $post = $this->postModel->find($pid);
-
-        if (empty($post))
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT FOUND
-        }
-
-        if (session('id') != $post->post_fk_user)
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT OWNER
-        }
-        
-        $data = $this->request->getPost(); // Get text input
+        $this->check($pid);
+        $data = $this->request->getPost();
         $dataToSave =
         [
             "post_text" => $data["text"]
@@ -60,36 +57,14 @@ class Post extends BaseController
 
     public function delete($pid)
     {
-        $post = $this->postModel->find($pid);
-
-        if (empty($post))
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT FOUND
-        }
-
-        if (session('id') != $post->post_fk_user)
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT OWNER
-        }
-        
+        $this->check($pid);
         $this->postModel->delete($pid);
         return redirect()->to('/');
     }
 
     public function updateForm($pid)
     {
-        $post = $this->postModel->find($pid);
-
-        if (empty($post))
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT FOUND
-        }
-
-        if (session('id') != $post->post_fk_user)
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // NOT OWNER
-        }
-        
+        $post = $this->check($pid, $getPost = true);
         echo view('forms/form_edit_post', ['post' => $post]);
     }
 }

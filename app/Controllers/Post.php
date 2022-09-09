@@ -17,51 +17,48 @@ class Post extends BaseController
     public function save()
     {
         $data = $this->request->getPost();
+        // dd($data);
 
-        if (!isset($data) || empty($data))
+        if (empty($data['text'])) // related to view : input's "required"
         {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
-
-        $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
-
-        if (isset($data["user_id"]) && session('id') != $data["user_id"])
-        {
-            return redirect()->to('/');
-        }
-
-        if (isset($data["post_id"]) && isset($data["text"])) // update post
-        {
-            $dataToSave =
-            [
-                "post_pk"   => $data["post_id"],
-                "post_text" => $data["text"]
-            ];
-        }
-        else if (isset( $data["user_id"]) &&  $data["text"]) // new post
-        {
-            $dataToSave =
-            [
-                "post_fk_user"   => $data["user_id"],
-                "post_text"      => $data["text"],
-                "post_date_time" => ((array)$currentTime)['date'],
-                "post_type"      => $data['type']
-            ];
+            echo 'ZEGY ERROR : TEXT IS EMPTY ';
         }
         else
         {
-            return redirect()->to('/');
-        }
+            if (isset($data["post_id"])) // update post
+            {
+                if (session('id') != $data["user_id"])
+                {
+                    echo 'ZEGY ERROR : NOT OWNER ';
+                }
+                else
+                {
+                    $dataToSave = ["post_text" => $data["text"]];
+                    $request = $this->postModel->update($data["post_id"], $dataToSave);
+                }
+            }
+            else // new post
+            {
+                $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
+                $dataToSave =
+                [
+                    "post_fk_user"   => $data["user_id"],
+                    "post_text"      => $data["text"],
+                    "post_date_time" => ((array)$currentTime)['date'],
+                    "post_type"      => $data['type']
+                ];
+                $request = $this->postModel->save($dataToSave);
+            }
 
-        $request = $this->postModel->save($dataToSave);
-
-        if ($request)
-        {
-            return redirect()->to('/');
-        }
-        else
-        {
-            // ZEGY OTC ERROR
+            
+            if ($request)
+            {
+                return redirect()->to('/');
+            }
+            else
+            {
+                // ZEGY OTC ERROR
+            }
         }
     }
 

@@ -10,7 +10,6 @@
         <div class="row">
             <div class = "col-sm-12 ">
                 <?php echo form_open('post/save',  ['class' => 'pull_right']) ?>
-                <input type="hidden" name="user_id" value="<?php echo session()->get('id') ?>" />
 
                 <!-- Decide post type -->
                 <?php if ($homeType == "public") { ?>

@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PostModel;
-use CodeIgniter\I18n\Time;
 
 class Post extends BaseController
 {
@@ -12,19 +11,6 @@ class Post extends BaseController
     {
         helper('form');
         $this->postModel = new PostModel();
-    }
-
-    public function Check($pid, $getPost = false) // Check post's existence and ownership. Return null if getPost = false
-    {
-        $post = $this->postModel->find($pid);
-        if ((empty($post)) or (session('id') != $post->post_fk_user))
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // Stop the script and throw error
-        }
-        if ($getPost) // Return post's data if needed (getPost = true)
-        {
-            return $post;
-        }
     }
 
     public function save()
@@ -42,7 +28,12 @@ class Post extends BaseController
 
     public function update($pid)
     {    
-        $this->check($pid);
+        $post = $this->postModel->find($pid);
+        if ((empty($post)) or (session('id') != $post->post_fk_user))
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
         $data = $this->request->getPost();
         $dataToSave =
         [
@@ -54,14 +45,24 @@ class Post extends BaseController
 
     public function delete($pid)
     {
-        $this->check($pid);
+        $post = $this->postModel->find($pid);
+        if ((empty($post)) or (session('id') != $post->post_fk_user))
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
         $this->postModel->delete($pid);
         return redirect()->to('/');
     }
 
     public function updateForm($pid)
     {
-        $post = $this->check($pid, $getPost = true);
+        $post = $this->postModel->find($pid);
+        if ((empty($post)) or (session('id') != $post->post_fk_user))
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        
         echo view('forms/form_edit_post', ['post' => $post]);
     }
 }

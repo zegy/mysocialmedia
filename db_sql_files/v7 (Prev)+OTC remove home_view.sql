@@ -11,59 +11,73 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- Table structures --
-CREATE TABLE `t_comment`
-(
-    `comment_pk` int(11) NOT NULL,
-    `comment_fk_user` int(11) DEFAULT NULL,
-    `comment_fk_post` int(11) DEFAULT NULL,
-    `comment_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
-    `comment_date_time` datetime DEFAULT NULL
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `mysocialmedia`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_comment`
+--
+
+DROP TABLE IF EXISTS `t_comment`;
+CREATE TABLE `t_comment` (
+  `comment_pk` int(11) NOT NULL,
+  `comment_fk_user` int(11) DEFAULT NULL,
+  `comment_fk_post` int(11) DEFAULT NULL,
+  `comment_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
+  `comment_date_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
-CREATE TABLE `t_post`
-(
-    `post_pk` int(11) NOT NULL,
-    `post_fk_user` int(11) DEFAULT NULL,
-    `post_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
-    `post_date_time` datetime DEFAULT NULL,
-    `post_type` varchar(10) DEFAULT NULL,
-    `qtdcom` bigint(21)
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_post`
+--
+
+DROP TABLE IF EXISTS `t_post`;
+CREATE TABLE `t_post` (
+  `post_pk` int(11) NOT NULL,
+  `post_fk_user` int(11) DEFAULT NULL,
+  `post_text` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
+  `post_date_time` datetime DEFAULT NULL,
+  `post_type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
-CREATE TABLE `t_user`
-(
-    `user_pk` int(11) NOT NULL,
-    `user_name` varchar(25) NOT NULL,
-    `user_password` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
-    `user_full_name` varchar(150) NOT NULL,
-    `user_email` varchar(45) DEFAULT NULL,
-    `user_tel` varchar(25) DEFAULT NULL,
-    `user_profile_picture` varchar(45) DEFAULT NULL,
-    `user_regis_date_time` datetime DEFAULT NULL,
-    `user_sex` char(1) DEFAULT NULL,
-    `user_bio` varchar(250) DEFAULT NULL,
-    `user_token` varchar(250) NOT NULL,
-    `user_role` varchar(250) NOT NULL
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_user`
+--
+
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user` (
+  `user_pk` int(11) NOT NULL,
+  `user_name` varchar(25) NOT NULL,
+  `user_password` varchar(150) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `user_full_name` varchar(150) NOT NULL,
+  `user_email` varchar(45) DEFAULT NULL,
+  `user_tel` varchar(25) DEFAULT NULL,
+  `user_profile_picture` varchar(45) DEFAULT NULL,
+  `user_regis_date_time` datetime DEFAULT NULL,
+  `user_sex` char(1) DEFAULT NULL,
+  `user_bio` varchar(250) DEFAULT NULL,
+  `user_token` varchar(250) NOT NULL,
+  `user_role` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for tables --
-INSERT INTO `t_user`
-(
-    `user_pk`,
-    `user_name`,
-    `user_password`,
-    `user_full_name`,
-    `user_email`,
-    `user_tel`,
-    `user_profile_picture`,
-    `user_regis_date_time`,
-    `user_sex`,
-    `user_bio`,
-    `user_token`,
-    `user_role`
-)
-VALUES
+--
+-- Dumping data for table `t_user`
+--
+
+INSERT INTO `t_user` (`user_pk`, `user_name`, `user_password`, `user_full_name`, `user_email`, `user_tel`, `user_profile_picture`, `user_regis_date_time`, `user_sex`, `user_bio`, `user_token`, `user_role`) VALUES
 (
     1,
     'un_admin',
@@ -106,39 +120,73 @@ VALUES
     '',
     'mahasiswa'
 );
+-- --------------------------------------------------------
 
--- Structure for view `home_view` --
-CREATE OR REPLACE TABLE `t_post`
-    SELECT count(0) from `t_comment` where `comment_fk_post` = `post_pk` AS `qtdcom`;
+--
+-- Indexes for dumped tables
+--
 
--- Indexes for tables --
+--
+-- Indexes for table `t_comment`
+--
 ALTER TABLE `t_comment`
   ADD PRIMARY KEY (`comment_pk`),
-  ADD KEY `FK_USER` (`comment_fk_user`),
-  ADD KEY `FK_POST` (`comment_fk_post`);
+  ADD KEY `com_fk_usu_idx` (`comment_fk_user`),
+  ADD KEY `com_fk_pst_idx` (`comment_fk_post`);
 
+--
+-- Indexes for table `t_post`
+--
 ALTER TABLE `t_post`
   ADD PRIMARY KEY (`post_pk`),
-  ADD KEY `FK_USER` (`post_fk_user`);
+  ADD KEY `pst_fk_usu_idx` (`post_fk_user`);
 
+--
+-- Indexes for table `t_user`
+--
 ALTER TABLE `t_user`
   ADD PRIMARY KEY (`user_pk`);
 
--- AUTO_INCREMENT for tables --
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `t_comment`
+--
 ALTER TABLE `t_comment`
   MODIFY `comment_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
+--
+-- AUTO_INCREMENT for table `t_post`
+--
 ALTER TABLE `t_post`
   MODIFY `post_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
+--
+-- AUTO_INCREMENT for table `t_user`
+--
 ALTER TABLE `t_user`
   MODIFY `user_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
--- Constraints for tables --
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `t_comment`
+--
 ALTER TABLE `t_comment`
   ADD CONSTRAINT `comment_fk_post` FOREIGN KEY (`comment_fk_post`) REFERENCES `t_post` (`post_pk`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `comment_fk_user` FOREIGN KEY (`comment_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+--
+-- Constraints for table `t_post`
+--
 ALTER TABLE `t_post`
   ADD CONSTRAINT `post_fk_user` FOREIGN KEY (`post_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

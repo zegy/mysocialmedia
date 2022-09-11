@@ -53,6 +53,7 @@ class Post extends BaseController
 
         $this->postModel->delete($pid);
         // return redirect()->to('/');
+        // return redirect()->to('/home/home_private?page=4');
         return redirect()->back(); // ZEGY OTC FOCUS ON. it's working!
 
     }

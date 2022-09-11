@@ -93,4 +93,18 @@ class PostModel extends Model
                     ->like('post_text', $keyword)
                     ->findAll(); // ZEGY OTC : is this the right method?
     }
+
+    // public function selectedData()
+    // {
+    //     return $this->select('
+    //                             post_pk              as pid,
+    //                             post_text            as texto,
+    //                             post_date_time       as data,
+    //                             post_type            as type,
+    //                             user_pk              as uid,
+    //                             user_full_name       as nome,
+    //                             user_profile_picture as image,
+    //                             user_role            as role
+    //                         ');
+    // }
 }

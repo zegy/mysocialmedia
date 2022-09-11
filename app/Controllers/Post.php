@@ -65,4 +65,20 @@ class Post extends BaseController
         
         echo view('forms/form_edit_post', ['post' => $post]);
     }
+
+    // ZEGY OTC IF C CALL C (NOT DIRECT FROM UNMATCHED MODEL)
+    // public function getAllByType($type)
+    // {
+    //     return $this->postModel->getAllByType($type);
+    // }
+
+    // public function getAllByKeyword($keyword)
+    // {
+    //     return $this->postModel->getAllByKeyword($keyword);
+    // }
+
+    // public function getAllByUser($user)
+    // {
+    //     return $this->postModel->getAllByUser($user);
+    // }
 }

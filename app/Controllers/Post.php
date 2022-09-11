@@ -81,4 +81,37 @@ class Post extends BaseController
     // {
     //     return $this->postModel->getAllByUser($user);
     // }
+
+    // =================================== ZEGY DEVELOPMENT ONLY ===================================
+    public function saveBatchPublic()
+    {
+        do {
+            $no = 1;
+            $dataToSave =
+            [
+                "post_fk_user" => 3, // Mahasiswa
+                "post_text"    => $no,
+                "post_type"    => 'public',
+            ];
+            $this->postModel->insert($dataToSave);
+        }
+        while ($no <= 10);
+        return redirect()->to('/');
+    }
+
+    public function saveBatchPrivate()
+    {
+        do {
+            $no = 1;
+            $dataToSave =
+            [
+                "post_fk_user" => 2, // Dosen
+                "post_text"    => $no,
+                "post_type"    => 'private',
+            ];
+            $this->postModel->insert($dataToSave);
+        }
+        while ($no <= 10);
+        return redirect()->to('/');
+    }
 }

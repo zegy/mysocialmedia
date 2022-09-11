@@ -48,6 +48,14 @@
                             <a class="nav-link" href="<?php echo base_url('home/home_private') ?>">home_private</a>
                         </li>
                         <?php } ?>
+
+                        <!-- =================================== ZEGY DEVELOPMENT ONLY =================================== -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url('post/saveBatchPublic') ?>">InsertDataPublic</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url('post/saveBatchPrivate') ?>">InsertDataPrivate</a>
+                        </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" method="post" action="<?= base_url('search') ?>">
                         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">

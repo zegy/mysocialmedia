@@ -52,7 +52,9 @@ class Post extends BaseController
         }
 
         $this->postModel->delete($pid);
-        return redirect()->to('/');
+        // return redirect()->to('/');
+        return redirect()->back(); // ZEGY OTC FOCUS ON. it's working!
+
     }
 
     public function updateForm($pid)

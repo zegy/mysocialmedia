@@ -29,7 +29,13 @@ class Home extends BaseController
 
     public function homePrivate()
     {
-       // OTC
+        $posts = $this->postModel->getAllByType('private'); // As object, use "paginate" to get results (also object) only
+        return view('home',
+        [
+            "posts"    => $posts->paginate(5),
+            "pager"    => $posts->pager,
+            "homeType" => "private"
+        ]);
     }
 
     public function search()

@@ -22,7 +22,7 @@ class Post extends BaseController
             "post_text"    => $data["text"],
             "post_type"    => $data['type']
         ];
-        $this->postModel->save($dataToSave);
+        $this->postModel->insert($dataToSave); // In case using "save()", if it contain PK then it updates the existing record else it inserts it into the database (no need create "update" method)
         return redirect()->to('/');
     }
 

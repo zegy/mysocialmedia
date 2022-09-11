@@ -1,3 +1,7 @@
+knowledge : 
+	public vs private functions (can't use function outside class if private, eg. model class's method from controller)
+
+
 Done (xampp) : intl ext
 
 erro.php (view) change to error.php

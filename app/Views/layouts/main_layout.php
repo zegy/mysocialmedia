@@ -51,10 +51,16 @@
 
                         <!-- =================================== ZEGY DEVELOPMENT ONLY =================================== -->
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('post/saveBatchPublic') ?>">InsertDataPublic</a>
+                            <a class="nav-link btn-success" href="<?php echo base_url('post/savebatchpublic') ?>">PublicPosts( + )</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('post/saveBatchPrivate') ?>">InsertDataPrivate</a>
+                            <a class="nav-link btn-success" href="<?php echo base_url('post/savebatchprivate') ?>">PrivatePosts( + )</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-danger" href="<?php echo base_url('post/deletebatchpublic') ?>">PublicPosts( - )</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-danger" href="<?php echo base_url('post/deletebatchprivate') ?>">PrivatePosts( - )</a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" method="post" action="<?= base_url('search') ?>">

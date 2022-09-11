@@ -99,7 +99,7 @@ class Post extends BaseController
             $this->postModel->insert($dataToSave);
             $no++;
         }
-        while ($no <= 10);
+        while ($no <= 15);
         return redirect()->to('/');
     }
 
@@ -116,7 +116,25 @@ class Post extends BaseController
             $this->postModel->insert($dataToSave);
             $no++;
         }
-        while ($no <= 10);
+        while ($no <= 15);
+        return redirect()->to('/');
+    }
+
+    public function deleteBatchPublic()
+    {
+        $post = $this->postModel->where('post_type', 'public')->findAll();        
+        foreach ($post as $row) {
+            $this->postModel->delete($row->post_pk);
+        }
+        return redirect()->to('/');
+    }
+
+    public function deleteBatchPrivate()
+    {
+        $post = $this->postModel->where('post_type', 'private')->findAll();        
+        foreach ($post as $row) {
+            $this->postModel->delete($row->post_pk);
+        }
         return redirect()->to('/');
     }
 }

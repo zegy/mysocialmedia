@@ -65,8 +65,10 @@ $routes->add('comment/delete/(:num)', 'Comment::delete/$1');
 $routes->add('notification/onfcm', 'Notification::onFCM');
 
 // =================================== ZEGY DEVELOPMENT ONLY ===================================
-$routes->add('post/saveBatchPublic', 'Post::saveBatchPublic');
-$routes->add('post/saveBatchPrivate', 'Post::saveBatchPrivate');
+$routes->add('post/savebatchpublic', 'Post::saveBatchPublic');
+$routes->add('post/savebatchprivate', 'Post::saveBatchPrivate');
+$routes->add('post/deletebatchpublic', 'Post::deleteBatchPublic');
+$routes->add('post/deletebatchprivate', 'Post::deleteBatchPrivate');
 
 /*
  * --------------------------------------------------------------------

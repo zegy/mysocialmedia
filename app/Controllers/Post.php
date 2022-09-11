@@ -85,8 +85,8 @@ class Post extends BaseController
     // =================================== ZEGY DEVELOPMENT ONLY ===================================
     public function saveBatchPublic()
     {
+        $no = 1;
         do {
-            $no = 1;
             $dataToSave =
             [
                 "post_fk_user" => 3, // Mahasiswa
@@ -94,6 +94,7 @@ class Post extends BaseController
                 "post_type"    => 'public',
             ];
             $this->postModel->insert($dataToSave);
+            $no++;
         }
         while ($no <= 10);
         return redirect()->to('/');
@@ -101,8 +102,8 @@ class Post extends BaseController
 
     public function saveBatchPrivate()
     {
+        $no = 1;
         do {
-            $no = 1;
             $dataToSave =
             [
                 "post_fk_user" => 2, // Dosen
@@ -110,6 +111,7 @@ class Post extends BaseController
                 "post_type"    => 'private',
             ];
             $this->postModel->insert($dataToSave);
+            $no++;
         }
         while ($no <= 10);
         return redirect()->to('/');

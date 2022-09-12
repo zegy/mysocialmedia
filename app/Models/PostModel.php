@@ -50,7 +50,8 @@ class PostModel extends Model
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
-                    ->orderBy('post_pk', 'DESC');
+                    ->orderBy('post_pk', 'DESC')
+                    ->paginate(5);
     }
 
     public function getAllByUser($uid)

@@ -22,12 +22,11 @@ class User extends BaseController
 
         if (!empty($userData))
         {
-            $posts = $this->postModel->getAllByUser($uid); // As object, use "paginate" to get results (also object) only
             return view('profile',
             [
                 "userData" => $userData,
-                "posts"    => $posts->paginate(5),
-                "pager"    => $posts->pager,
+                "posts"    => $this->postModel->getAllByUser($uid),
+                "pager"    => $this->postModel->pager,
             ]);
         }
         else

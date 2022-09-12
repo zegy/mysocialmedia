@@ -46,7 +46,8 @@ class Home extends BaseController
             [
                 'users'    => $this->userModel->getAllByKeyword($keyword),
                 'posts'    => $this->postModel->getAllByKeyword($keyword),
-                'comments' => $this->commentModel->getAllByKeyword($keyword)
+                'comments' => $this->commentModel->getAllByKeyword($keyword),
+                "pager"    => $this->postModel->pager
             ]);
         }
         else

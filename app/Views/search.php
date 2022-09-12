@@ -109,6 +109,7 @@
 					<strong>Opa!</strong> Sua busca não retornou nenhum resultado aqui!
 				</div>
 				<?php }?>
+                <?php echo $pager->links('posts') ?>
 			</div> <!-- end card container -->
 		</div> <!-- fim aba  -->
 		

@@ -17,8 +17,14 @@ class PostModel extends Model
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'post_date_time';
-    protected $updatedField  = ''; // ZEGY : it also needed even not if we not use it (by "useTimestamps")!
+    protected $updatedField  = ''; // [Zegy OTC] It's needed by "useTimestamps" even if we not use it.
 
+    // [Zegy Note]
+    // The Model does not provide a perfect interface to the Query Builder.
+    // The Model and the Query Builder are separate classes with different purposes.
+    // Example : "select()" and "join()" is part of Query Builder, "find()" and "paginate()" is part of Model.
+    // Query Builder methods and Model’s CRUD methods can be in the same chained call.
+    // https://codeigniter.com/user_guide/models/model.html?highlight=find#working-with-query-builder
 
     public function getOneById($pid)
     {
@@ -33,8 +39,7 @@ class PostModel extends Model
                                 user_role            as role
                             ')
                     ->join('t_user', 'post_fk_user = user_pk')
-                    ->where('post_pk', $pid)
-                    ->first(); // ZEGY OTC : is this the right method?
+                    ->find($pid);
     }
 
     public function getAllByType($postType)

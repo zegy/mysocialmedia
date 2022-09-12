@@ -51,6 +51,14 @@ class Post extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
+        // helper("cookie");
+        // set_cookie("username", "online_web_tutor_blog", 3600);
+        // $x = get_cookie("username");
+        
+        session()->set('currentHomePage', 123);
+        // session()->remove('currentHomePage');
+        dd(session('currentHomePage'));
+
         $this->postModel->delete($pid);
         return redirect()->to('/');
         // return redirect()->to('/home/home_private?page=4');

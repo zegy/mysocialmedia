@@ -17,7 +17,8 @@ class PostModel extends Model
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'post_date_time';
-    protected $updatedField  = ''; // [ZEGY OTC] it's needed by "useTimestamps" even if we not use it. New feature "edited"?
+    protected $updatedField; // [ZEGY NOTE] it's needed by "useTimestamps" even if we not use it. https://codeigniter.com/user_guide/models/model.html?highlight=find#usetimestamps
+    // [ZEGY OTC] New feature "edited"?
 
     // [ZEGY NOTE]
     // The Model does not provide a perfect interface to the Query Builder.
@@ -42,7 +43,9 @@ class PostModel extends Model
     {
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
-                    ->find($pid);
+                    // ->find($pid); // [ZEGY OTC] which syntax is better?
+                    ->where('post_pk', $pid)
+                    ->first();
     }
 
     public function getAllByType($postType) // ZEGY OTC

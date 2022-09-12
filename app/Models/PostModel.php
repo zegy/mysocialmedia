@@ -51,7 +51,7 @@ class PostModel extends Model
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
                     ->orderBy('post_pk', 'DESC')
-                    ->paginate(5);
+                    ->paginate(5, 'group_1');
     }
 
     public function getAllByUser($uid)

@@ -18,6 +18,8 @@ class Home extends BaseController
 
     public function homePublic()
     {
+        $this->postModel->getAllByType('public');
+
         return view('home',
         [
             "posts"    => $this->postModel->getAllByType('public'),
@@ -28,13 +30,13 @@ class Home extends BaseController
 
     public function homePrivate()
     {
-        $posts = $this->postModel->getAllByType('private'); // As object, use "paginate" to get results (also object) only
-        return view('home',
-        [
-            "posts"    => $posts->paginate(5),
-            "pager"    => $posts->pager,
-            "homeType" => "private"
-        ]);
+        // $posts = $this->postModel->getAllByType('private'); // As object, use "paginate" to get results (also object) only
+        // return view('home',
+        // [
+        //     "posts"    => $posts->paginate(5),
+        //     "pager"    => $posts->pager,
+        //     "homeType" => "private"
+        // ]);
     }
 
     public function search()

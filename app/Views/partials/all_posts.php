@@ -23,5 +23,6 @@
 
 <?php } ?>
 <hr>
-<?php echo $pager->links() ?>
+<?php echo $pager->links('group_1') ?>
+
 <hr>

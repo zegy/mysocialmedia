@@ -22,7 +22,7 @@ class Post extends BaseController
             "post_text"    => $data["text"],
             "post_type"    => $data['type']
         ];
-        $this->postModel->insert($dataToSave); // In case using "save()", if it contain PK then it updates the existing record else it inserts it into the database (no need create "update" method)
+        $this->postModel->insert($dataToSave); // [ZEGY NOTE] In case using "save()", if it contain PK then it updates the existing record else it inserts it into the database (no need create "update" method)
         return redirect()->to('/');
     }
 
@@ -52,9 +52,9 @@ class Post extends BaseController
         }
 
         $this->postModel->delete($pid);
-        // return redirect()->to('/');
+        return redirect()->to('/');
         // return redirect()->to('/home/home_private?page=4');
-        return redirect()->back(); // ZEGY OTC FOCUS ON. it's working!
+        // return redirect()->back(); // ZEGY OTC FOCUS ON. it's working!
 
     }
 

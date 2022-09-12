@@ -8,7 +8,7 @@ class PostModel extends Model
 {
     protected $table         = 't_post';
     protected $primaryKey    = 'post_pk';
-    protected $returnType    = 'object'; // ZEGY OTC : global return here, no individual one?
+    protected $returnType    = 'object'; // [ZEGY OTC] global return here, no individual one?
     protected $allowedFields =
     [
         'post_fk_user',
@@ -17,9 +17,9 @@ class PostModel extends Model
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'post_date_time';
-    protected $updatedField  = ''; // [Zegy OTC] It's needed by "useTimestamps" even if we not use it.
+    protected $updatedField  = ''; // [ZEGY OTC] it's needed by "useTimestamps" even if we not use it. New feature "edited"?
 
-    // [Zegy Note]
+    // [ZEGY NOTE]
     // The Model does not provide a perfect interface to the Query Builder.
     // The Model and the Query Builder are separate classes with different purposes.
     // Example : "select()" and "join()" is part of Query Builder, "find()" and "paginate()" is part of Model.
@@ -38,7 +38,7 @@ class PostModel extends Model
         (select count(*) from t_comment where comment_fk_post = post_pk) as qtdcom
     ';
 
-    public function getOneById($pid)
+    public function getOneById($pid) // [ZEGY OTC] "qtdcom" not used in the view, need to add later?
     {
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
@@ -68,6 +68,6 @@ class PostModel extends Model
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->like('post_text', $keyword)
-                    ->paginate(5, 'posts');
+                    ->paginate(5, 'posts'); // [ZEGY NOTE] 2nd parameter used in view's "echo $pager->links('posts')"
     }
 }

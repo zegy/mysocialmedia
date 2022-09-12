@@ -19,7 +19,6 @@ class Home extends BaseController
     public function homePublic()
     {
         $this->postModel->getAllByType('public');
-
         return view('home',
         [
             "posts"    => $this->postModel->getAllByType('public'),

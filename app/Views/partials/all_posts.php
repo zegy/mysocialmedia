@@ -24,4 +24,6 @@
 <?php } ?>
 <hr>
 <?php echo $pager->links() ?>
+<?php session()->set('homeCurrentPage', $pager->getCurrentPage()) ?> <!-- ZEGY OTC -->
+<?php echo session('homeCurrentPage') ?> <!-- ZEGY OTC -->
 <hr>

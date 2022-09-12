@@ -26,36 +26,28 @@ class PostModel extends Model
     // Query Builder methods and Model’s CRUD methods can be in the same chained call.
     // https://codeigniter.com/user_guide/models/model.html?highlight=find#working-with-query-builder
 
+    protected $select = '
+        post_pk              as pid,
+        post_text            as texto,
+        post_date_time       as data,
+        post_type            as type,
+        user_pk              as uid,
+        user_full_name       as nome,
+        user_profile_picture as image,
+        user_role            as role,
+        (select count(*) from t_comment where comment_fk_post = post_pk) as qtdcom
+    ';
+
     public function getOneById($pid)
     {
-        return $this->select('
-                                post_pk              as pid,
-                                post_text            as texto,
-                                post_date_time       as data,
-                                post_type            as type,
-                                user_pk              as uid,
-                                user_full_name       as nome,
-                                user_profile_picture as image,
-                                user_role            as role
-                            ')
+        return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->find($pid);
     }
 
     public function getAllByType($postType)
     {
-        return $this->select('
-                                post_pk              as pid,
-                                post_text            as texto,
-                                post_date_time       as data,
-                                post_type            as type,
-                                user_pk              as uid,
-                                user_full_name       as nome,
-                                user_profile_picture as image,
-                                user_role            as role,
-                                (select count(*) from t_comment
-                                    where comment_fk_post = post_pk) as qtdcom
-                            ')
+        return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
                     ->orderBy('post_pk', 'DESC');
@@ -63,18 +55,7 @@ class PostModel extends Model
 
     public function getAllByUser($uid)
     {
-        return $this->select('
-                                post_pk              as pid,
-                                post_text            as texto,
-                                post_date_time       as data,
-                                post_type            as type,
-                                user_pk              as uid,
-                                user_full_name       as nome,
-                                user_profile_picture as image,
-                                user_role            as role,
-                                (select count(*) from t_comment
-                                    where comment_fk_post = post_pk) as qtdcom
-                            ')
+        return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_fk_user', $uid)
                     ->orderBy('post_pk', 'DESC');
@@ -82,34 +63,9 @@ class PostModel extends Model
 
     public function getAllByKeyword($keyword)
     {   
-        return $this->select('
-                                post_pk              as pid,
-                                post_text            as texto,
-                                post_date_time       as data,
-                                post_type            as type,
-                                user_pk              as uid,
-                                user_full_name       as nome,
-                                user_profile_picture as image,
-                                user_role            as role,
-                                (select count(*) from t_comment
-                                    where comment_fk_post = post_pk) as qtdcom
-                            ')
+        return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->like('post_text', $keyword)
-                    ->findAll(); // ZEGY OTC : is this the right method?
+                    ->findAll();
     }
-
-    // public function selectedData()
-    // {
-    //     return $this->select('
-    //                             post_pk              as pid,
-    //                             post_text            as texto,
-    //                             post_date_time       as data,
-    //                             post_type            as type,
-    //                             user_pk              as uid,
-    //                             user_full_name       as nome,
-    //                             user_profile_picture as image,
-    //                             user_role            as role
-    //                         ');
-    // }
 }

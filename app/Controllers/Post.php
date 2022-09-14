@@ -41,9 +41,9 @@ class Post extends BaseController
         ];
         $this->postModel->update($pid, $dataToSave);
         
-        $CP = session('currentPage');
-        session()->remove('currentPage');
-        session()->set('currentPageHome', $CP);
+        $CP = session('curPage');
+        session()->remove('curPage');
+        session()->set('curPageHome', $CP);
 
         return redirect()->to('/');        
     }

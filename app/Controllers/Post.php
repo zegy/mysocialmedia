@@ -41,8 +41,8 @@ class Post extends BaseController
         ];
         $this->postModel->update($pid, $dataToSave);
         
-        $CP = session('curPage');
-        session()->remove('curPage');
+        $CP = session()->getFlashdata('curPage');
+        // session()->remove('curPage');
         // session()->set('curPageHome', $CP);
         session()->setFlashdata('curPageHome', $CP);
 
@@ -63,6 +63,7 @@ class Post extends BaseController
 
     public function updateForm($pid)
     {
+        session()->keepFlashdata('curPage');
         $post = $this->postModel->find($pid);
         if ((empty($post)) or (session('id') != $post->post_fk_user))
         {

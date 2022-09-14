@@ -22,7 +22,7 @@ class Home extends BaseController
         // session()->remove('curPageHome');
         $posts = $this->postModel->getAllByType('public', $page);
         $pager = $this->postModel->pager; // with "default" group for view's "links()"
-        session()->set('curPage', $pager->getCurrentPage()); // used in update/delete post as "curPageHome"
+        session()->setFlashdata('curPage', $pager->getCurrentPage()); // used in update/delete post as "curPageHome"
 
         return view('home',
         [

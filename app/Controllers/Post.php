@@ -43,7 +43,8 @@ class Post extends BaseController
         
         $CP = session('curPage');
         session()->remove('curPage');
-        session()->set('curPageHome', $CP);
+        // session()->set('curPageHome', $CP);
+        session()->setFlashdata('curPageHome', $CP);
 
         return redirect()->to('/');        
     }

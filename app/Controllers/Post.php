@@ -16,6 +16,7 @@ class Post extends BaseController
     protected function checkOwnership($pid)
     {
         $post = $this->postModel->find($pid);
+        
         if ((empty($post)) or (session('id') != $post->post_fk_user))
         {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -35,21 +36,29 @@ class Post extends BaseController
             "post_text"    => $data["text"],
             "post_type"    => $data['type']
         ];
-        $this->postModel->insert($dataToSave); // [ZEGY] In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
+        $this->postModel->insert($dataToSave); // In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
         return redirect()->to('/');
     }
 
     public function update($pid)
-    {    
-        $this->checkOwnership($pid);
+    {   
         $data = $this->request->getPost();
-        $dataToSave =
-        [
-            "post_text" => $data["text"]
-        ];
-        $this->postModel->update($pid, $dataToSave);        
-        session()->setFlashdata('curPageHome', session()->getFlashdata('curPage')); // Used in home controller
-        return redirect()->to('/');        
+        $postData = $this->checkOwnership($pid);
+
+        if (empty($data)) // Show update form (single route, updateForm() is removed)
+        {
+            echo view('forms/form_edit_post', ['post' => $postData]);
+        }
+        else
+        {
+            $dataToSave =
+            [
+                "post_text" => $data["text"]
+            ];
+            $this->postModel->update($pid, $dataToSave);        
+            session()->setFlashdata('curPageHome', session()->getFlashdata('curPage')); // Used in home controller
+            return redirect()->to('/');
+        }                
     }
 
     public function delete($pid)
@@ -59,12 +68,33 @@ class Post extends BaseController
         return redirect()->to('/');
     }
 
-    public function updateForm($pid)
-    {
-        session()->keepFlashdata('curPage'); // preserve flashdata from "home" to "update" method.
-        $postData = $this->checkOwnership($pid);
-        echo view('forms/form_edit_post', ['post' => $postData]);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function updateForm($pid)
+    // {
+    //     session()->keepFlashdata('curPage'); // preserve flashdata from "home" to "update" method.
+    //     $postData = $this->checkOwnership($pid);
+    //     echo view('forms/form_edit_post', ['post' => $postData]);
+    // }
 
     // ZEGY OTC IF C CALL C (NOT DIRECT FROM UNMATCHED MODEL)
     // public function getAllByType($type)

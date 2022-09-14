@@ -13,6 +13,19 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
+    protected function checkOwnership($pid)
+    {
+        $post = $this->postModel->find($pid);
+        if ((empty($post)) or (session('id') != $post->post_fk_user))
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        else
+        {
+            return $post;
+        }
+    }
+
     public function save()
     {
         $data = $this->request->getPost();
@@ -22,55 +35,35 @@ class Post extends BaseController
             "post_text"    => $data["text"],
             "post_type"    => $data['type']
         ];
-        $this->postModel->insert($dataToSave); // [ZEGY NOTE] In case using "save()", if it contain PK then it updates the existing record else it inserts it into the database (no need create "update" method)
+        $this->postModel->insert($dataToSave); // [ZEGY] In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
         return redirect()->to('/');
     }
 
     public function update($pid)
     {    
-        $post = $this->postModel->find($pid);
-        if ((empty($post)) or (session('id') != $post->post_fk_user))
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
+        $this->checkOwnership($pid);
         $data = $this->request->getPost();
         $dataToSave =
         [
             "post_text" => $data["text"]
         ];
-        $this->postModel->update($pid, $dataToSave);
-        
-        $CP = session()->getFlashdata('curPage');
-        // session()->remove('curPage');
-        // session()->set('curPageHome', $CP);
-        session()->setFlashdata('curPageHome', $CP);
-
+        $this->postModel->update($pid, $dataToSave);        
+        session()->setFlashdata('curPageHome', session()->getFlashdata('curPage')); // Used in home controller
         return redirect()->to('/');        
     }
 
     public function delete($pid)
     {
-        $post = $this->postModel->find($pid);
-        if ((empty($post)) or (session('id') != $post->post_fk_user))
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
+        $this->checkOwnership($pid);
         $this->postModel->delete($pid);
         return redirect()->to('/');
     }
 
     public function updateForm($pid)
     {
-        session()->keepFlashdata('curPage');
-        $post = $this->postModel->find($pid);
-        if ((empty($post)) or (session('id') != $post->post_fk_user))
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-        
-        echo view('forms/form_edit_post', ['post' => $post]);
+        session()->keepFlashdata('curPage'); // preserve flashdata from "home" to "update" method.
+        $postData = $this->checkOwnership($pid);
+        echo view('forms/form_edit_post', ['post' => $postData]);
     }
 
     // ZEGY OTC IF C CALL C (NOT DIRECT FROM UNMATCHED MODEL)

@@ -18,12 +18,10 @@ class Home extends BaseController
 
     public function homePublic()
     {
-        $page = session()->getFlashdata('curPageHome') ?? null;
-        // session()->remove('curPageHome');
+        $page = session()->getFlashdata('curPageHome'); // null if empty, still accepted by model. 
         $posts = $this->postModel->getAllByType('public', $page);
-        $pager = $this->postModel->pager; // with "default" group for view's "links()"
-        session()->setFlashdata('curPage', $pager->getCurrentPage()); // used in update/delete post as "curPageHome"
-
+        $pager = $this->postModel->pager;
+        session()->setFlashdata('curPage', $pager->getCurrentPage()); // Used in update/delete post as "curPageHome". Also "preserved" in "updateForm" because flashdata only for "next request".
         return view('home',
         [
             "posts"    => $posts,

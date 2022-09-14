@@ -48,18 +48,13 @@ class PostModel extends Model
                     ->first();
     }
 
-    public function getAllByType($postType, $page = null) // ZEGY OTC
+    public function getAllByType($postType, $page = null)
     {
-        // session('homeCurrentPage');
-        // session()->has('homeCurrentPage');
-        // session()->remove('homeCurrentPage');
-
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
                     ->orderBy('post_pk', 'DESC')
-                    // ->paginate(5);
-                    ->paginate(5, 'default', $page);
+                    ->paginate(5, 'default', $page); // Will return to spesific "page", page 1 if $page is null.
     }
 
     public function getAllByUser($uid)

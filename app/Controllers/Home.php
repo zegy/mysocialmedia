@@ -18,10 +18,13 @@ class Home extends BaseController
 
     public function homePublic()
     {
+        $posts = $this->postModel->getAllByType('public');
+        $pager = $this->postModel->pager;
+
         return view('home',
         [
-            "posts"    => $this->postModel->getAllByType('public'),
-            "pager"    => $this->postModel->pager,
+            "posts"    => $posts,
+            "pager"    => $pager,
             "homeType" => "public"
         ]);
     }

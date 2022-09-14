@@ -40,6 +40,11 @@ class Post extends BaseController
             "post_text" => $data["text"]
         ];
         $this->postModel->update($pid, $dataToSave);
+        
+        $CP = session('currentPage');
+        session()->remove('currentPage');
+        session()->set('currentPageHome', $CP);
+
         return redirect()->to('/');        
     }
 

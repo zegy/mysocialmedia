@@ -18,8 +18,14 @@ class Home extends BaseController
 
     public function homePublic()
     {
-        $posts = $this->postModel->getAllByType('public');
+        $page = session('currentPageHome') ?? null;
+        session()->remove('currentPageHome');
+        
+        echo $page;
+
+        $posts = $this->postModel->getAllByType('public', $page);
         $pager = $this->postModel->pager;
+        session()->set('currentPage', $pager->getCurrentPage());
 
         return view('home',
         [

@@ -13,8 +13,7 @@ class CommentModel extends Model
     [
         'comment_fk_user',
         'comment_fk_post',
-        'comment_text',
-        'comment_date_time'
+        'comment_text'
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'comment_date_time';

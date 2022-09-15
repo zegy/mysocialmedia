@@ -2,30 +2,22 @@
 
 namespace App\Controllers;
 
-// use App\Models\UserModel;
 use App\Models\PostModel;
-// use App\Models\CommentModel;
 
 class Home extends BaseController
 {
     function __construct()
     {
         helper('form');
-        // $this->userModel    = new UserModel();
-        $this->postModel    = new PostModel();
-        // $this->commentModel = new CommentModel();
+        $this->postModel = new PostModel();
     }
 
     public function homePublic()
     {
-        $page = session()->getFlashdata('curPageHome'); // null if empty, still accepted by model. 
-        $posts = $this->postModel->getAllByType('public', $page);
-        $pager = $this->postModel->pager;
-        session()->setFlashdata('curPage', $pager->getCurrentPage()); // Used in update/delete post as "curPageHome". Also "preserved" in "updateForm" because flashdata only for "next request".
         return view('home',
         [
-            "posts"    => $posts,
-            "pager"    => $pager,
+            "posts"    => $this->postModel->getAllByType('public'),
+            "pager"    => $this->postModel->pager,
             "homeType" => "public"
         ]);
     }

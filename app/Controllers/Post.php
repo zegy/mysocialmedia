@@ -36,7 +36,7 @@ class Post extends BaseController
             "post_text"    => $data["text"],
             "post_type"    => $data['type']
         ];
-        $this->postModel->insert($dataToSave); // In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
+        $this->postModel->insert($dataToSave); //NOTE In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
         return redirect()->to('/');
     }
 
@@ -45,10 +45,9 @@ class Post extends BaseController
         $data = $this->request->getPost();
         $postData = $this->checkOwnership($pid);
 
-        if (empty($data)) // Show update form (single route, updateForm() is removed)
+        if (empty($data)) //NOTE Show update form (single route, updateForm() is removed)
         {
             echo view('forms/form_edit_post', ['post' => $postData]);
-            session()->keepFlashdata('curPage');
         }
         else
         {
@@ -57,7 +56,6 @@ class Post extends BaseController
                 "post_text" => $data["text"]
             ];
             $this->postModel->update($pid, $dataToSave);        
-            session()->setFlashdata('curPageHome', session()->getFlashdata('curPage')); // Used in home controller
             return redirect()->to('/');
         }                
     }

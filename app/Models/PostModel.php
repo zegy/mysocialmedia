@@ -8,7 +8,7 @@ class PostModel extends Model
 {
     protected $table         = 't_post';
     protected $primaryKey    = 'post_pk';
-    protected $returnType    = 'object'; // [ZEGY OTC] global return here, no individual one?
+    protected $returnType    = 'object';
     protected $allowedFields =
     [
         'post_fk_user',
@@ -17,15 +17,7 @@ class PostModel extends Model
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'post_date_time';
-    protected $updatedField; // [ZEGY NOTE] it's needed by "useTimestamps" even if we not use it. https://codeigniter.com/user_guide/models/model.html?highlight=find#usetimestamps
-    // [ZEGY OTC] New feature "edited"?
-
-    // [ZEGY NOTE]
-    // The Model does not provide a perfect interface to the Query Builder.
-    // The Model and the Query Builder are separate classes with different purposes.
-    // Example : "select()" and "join()" is part of Query Builder, "find()" and "paginate()" is part of Model.
-    // Query Builder methods and Model’s CRUD methods can be in the same chained call.
-    // https://codeigniter.com/user_guide/models/model.html?highlight=find#working-with-query-builder
+    protected $updatedField; //NOTE It's needed by "useTimestamps" even if we not use it. https://codeigniter.com/user_guide/models/model.html?highlight=find#usetimestamps
 
     protected $select = '
         post_pk              as pid,
@@ -39,12 +31,11 @@ class PostModel extends Model
         (select count(*) from t_comment where comment_fk_post = post_pk) as qtdcom
     ';
 
-    public function getOneById($pid) // [ZEGY OTC] "qtdcom" not used in the view, need to add later?
+    public function getOneById($pid) //TODO "qtdcom" not used in the view, need to add later?
     {
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
-                    // ->find($pid); // [ZEGY OTC] which syntax is better?
-                    ->where('post_pk', $pid)
+                    ->where('post_pk', $pid) //TODO Why not using "find($pid)" ?
                     ->first();
     }
 
@@ -54,7 +45,7 @@ class PostModel extends Model
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
                     ->orderBy('post_pk', 'DESC')
-                    ->paginate(5, 'default', $page); // Will return to spesific "page", page 1 if $page is null.
+                    ->paginate(5, 'default', $page); //NOTE return to spesific "page", page 1 if $page is null
     }
 
     public function getAllByUser($uid)
@@ -71,6 +62,16 @@ class PostModel extends Model
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->like('post_text', $keyword)
-                    ->paginate(5, 'posts'); // [ZEGY NOTE] 2nd parameter used in view's "echo $pager->links('posts')"
+                    ->paginate(5, 'posts'); //NOTE 2nd parameter used in view's "$pager->links('posts')"
     }
 }
+
+//TODO New feature "edited"?
+
+/*NOTE
+    The Model does not provide a perfect interface to the Query Builder.
+    The Model and the Query Builder are separate classes with different purposes.
+    Example : "select()" and "join()" is part of Query Builder, "find()" and "paginate()" is part of Model.
+    Query Builder methods and Model’s CRUD methods can be in the same chained call.
+    https://codeigniter.com/user_guide/models/model.html?highlight=find#working-with-query-builder
+*/

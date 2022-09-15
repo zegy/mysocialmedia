@@ -65,7 +65,14 @@ class Post extends BaseController
     {
         $this->checkOwnership($pid);
         $this->postModel->delete($pid);
-        return redirect()->to('/');
+        if (session()->getFlashdata('curCon') == 'search')
+        {
+            return redirect()->back();
+        }
+        else
+        {
+            return redirect()->to('/');
+        }
     }
 
 

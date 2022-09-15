@@ -46,7 +46,7 @@
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" 
-            href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Posts (<?php echo $pager->getTotal('posts'); session()->setFlashdata('curCon', 'search') ?>)</a>
+            href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Posts (<?php echo $pager->getTotal('posts') ?>)</a>
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" 

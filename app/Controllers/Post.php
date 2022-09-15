@@ -48,6 +48,7 @@ class Post extends BaseController
         if (empty($data)) // Show update form (single route, updateForm() is removed)
         {
             echo view('forms/form_edit_post', ['post' => $postData]);
+            session()->keepFlashdata('curPage');
         }
         else
         {

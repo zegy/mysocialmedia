@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Controllers\Notification; //ZEGY OTC
+// use App\Controllers\Notification; //NOTE Needed soon
 use App\Models\CommentModel;
 use App\Models\PostModel;
 use App\Models\UserModel;

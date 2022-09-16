@@ -48,8 +48,7 @@
                             <a class="nav-link" href="<?php echo base_url('home/home_private') ?>">home_private</a>
                         </li>
                         <?php } ?>
-
-                        <!-- =================================== ZEGY DEVELOPMENT ONLY =================================== -->
+                        <!-- =================================== ZEGY DEVELOPMENT ONLY [ =================================== -->
                         <li class="nav-item">
                             <a class="nav-link btn-success" href="<?php echo base_url('post/savebatchpublic') ?>">PublicPosts( + )</a>
                         </li>
@@ -62,6 +61,7 @@
                         <li class="nav-item">
                             <a class="nav-link btn-danger" href="<?php echo base_url('post/deletebatchprivate') ?>">PrivatePosts( - )</a>
                         </li>
+                        <!-- =================================== ZEGY DEVELOPMENT ONLY ] =================================== -->
                     </ul>
                     <form class="form-inline my-2 my-lg-0" method="post" action="<?= base_url('search') ?>">
                         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
@@ -73,9 +73,9 @@
 
         <hr>
         <div class="container">
-            <!---------------------------------------------- SEÇÃO PRINCIPAL -------------------------------------------------->
+            <!---------------------------------------------- Main -------------------------------------------------->
             <?= $this->renderSection('content') ?>
-            <!-------------------------------------------- FIM SEÇÃO PRINCIPAL ---------------------------------------------->
+            <!------------------------------------------------------------------------------------------------------>
             <hr>
             <div id="rodape">
                 <footer>
@@ -84,13 +84,13 @@
             </div>
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script> -->
     </div> <!-- end main fluid container-->
 </body>
 
-<!-- FIREBASE CLOUD MESSAGING -->
+<!-- FIREBASE CLOUD MESSAGING
 <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"></script>
 
@@ -129,7 +129,7 @@
                 mToken = token;
                 $.ajax(
                 {
-                    url: '<?= base_url('notification/onfcm') ?>',
+                    url: '<?//= base_url('notification/onfcm') ?>',
                     type: 'POST',
                     data:
                     {
@@ -169,6 +169,6 @@
             }
         }
     });
-</script>
+</script> -->
 
 </html>

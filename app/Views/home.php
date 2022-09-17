@@ -24,6 +24,9 @@
         <strong>Ups!</strong> Belum ada postingan
     </div>
     <?php } ?>
+    <hr>
+    <?php echo $pager->links() ?>
+    <hr>
     <!-- Show posts ] -->
 
     <!-- Form add post [ -->

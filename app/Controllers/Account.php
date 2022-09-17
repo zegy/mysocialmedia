@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
-use CodeIgniter\I18n\Time;
 
 class Account extends BaseController
 {
@@ -34,11 +33,8 @@ class Account extends BaseController
         }
         else
         {
-            $currentTime = new Time('now', 'America/Recife', 'pt_BR'); // ZEGY OTC Change to indonesia
-
             $profile_img = ($this->request->getFile('profile_img'));
-            $filePath    = 'images/' . (string)$data['username'] . '.' . $profile_img->getClientExtension();
-
+            $filePath = 'images/' . (string)$data['username'] . '.' . $profile_img->getClientExtension();
             $profile_img->move(ROOTPATH . 'images', (string)$data['username'] . '.' . $profile_img->getClientExtension());
 
             $dataToSave =
@@ -51,7 +47,6 @@ class Account extends BaseController
                 'user_profile_picture' => $filePath,
                 'user_bio'             => $data['bio'],
                 'user_sex'             => $data['jenis_kelamin'],
-                'user_regis_date_time' => $currentTime
             ];
 
             $result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"

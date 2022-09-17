@@ -14,17 +14,24 @@ class Home extends BaseController
 
     public function homePublic()
     {
-        return  view('layouts/header').
-                view('layouts/layout').
-                view('layouts/sidebar').
-                view('home',
-                [
-                    "posts"    => $this->postModel->getAllByType('public'),
-                    "pager"    => $this->postModel->pager,
-                    "homeType" => "public"
-                ]).
-                view('layouts/footer').
-                view('layouts/js');
+        return view('home',
+        [
+            "posts"    => $this->postModel->getAllByType('public'),
+            "pager"    => $this->postModel->pager,
+            "homeType" => "public"
+        ]);
+        
+        // return  view('layouts/header').
+        //         view('layouts/layout').
+        //         view('layouts/sidebar').
+        //         view('home',
+        //         [
+        //             "posts"    => $this->postModel->getAllByType('public'),
+        //             "pager"    => $this->postModel->pager,
+        //             "homeType" => "public"
+        //         ]).
+        //         view('layouts/footer').
+        //         view('layouts/js');
     }
 
     public function homePrivate()

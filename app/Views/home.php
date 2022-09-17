@@ -1,261 +1,62 @@
-      <!-- Main Content -->
-      <div class="main-content">
-        <section class="section">
-          <div class="section-header">
-            <h1>Posts</h1>
-            <div class="section-header-button">
-              <a href="<?php echo base_url(); ?>dist/features_post_create" class="btn btn-primary">Add New</a>
-            </div>
-            <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="#">Posts</a></div>
-              <div class="breadcrumb-item">All Posts</div>
-            </div>
-          </div>
-          <div class="section-body">
-            <h2 class="section-title">Posts</h2>
-            <p class="section-lead">
-              You can manage all posts, such as editing, deleting and more.
-            </p>
 
-            <div class="row">
-              <div class="col-12">
-                <div class="card mb-0">
-                  <div class="card-body">
-                    <ul class="nav nav-pills">
-                      <li class="nav-item">
-                        <a class="nav-link active" href="#">All <span class="badge badge-white">5</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Draft <span class="badge badge-primary">1</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Pending <span class="badge badge-primary">1</span></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Trash <span class="badge badge-primary">0</span></a>
-                      </li>
-                    </ul>
-                  </div>
+<?= $this->extend('layouts/main_layout') ?>
+
+<?= $this->section('content') ?>
+    
+    <!-- Show posts [ -->
+    <?php if($posts) { foreach ($posts as $post) { ?>
+    <div class="media border p-3 mt-3 box-component">
+        <a href="<?= base_url('user/showprofile/'. $post->uid) ?>" ><img src="<?php echo base_url($post->image)?>" alt="<?= $post->nome ?>" class="mr-3 mt-3 rounded-circle" style="width:60px;"> </a>
+        <div class="text-message media-body">
+            <h4><?= htmlspecialchars($post->nome) ?> <small><i>Postado em <?= formatDate($post->data)?></i></small></h4>
+            <p><?= htmlspecialchars($post->texto) ?></p>
+            <div class="form-group">
+                <a href="<?= base_url('comment/show/'.$post->pid) ?>" class="btn btn-success"><i class="fa fa-comment" aria-hidden="true"></i> <?= $post->qtdcom ?> </a>
+                <?php if (session()->get('id') == $post->uid) { ?>
+                <a href="<?= base_url('post/update/' . $post->pid) ?>" class="btn btn-warning"> <i class="fa fa-address-book" aria-hidden="true"></i> editar</a>
+                <a href="<?= base_url('post/delete/' . $post->pid) ?> " class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>
+                <?php } ?>
+            </div>
+        </div> 
+    </div>
+    <?php } } else { ?>
+    <div class="alert alert-info">
+        <strong>Ups!</strong> Belum ada postingan
+    </div>
+    <?php } ?>
+    <hr>
+    <?php echo $pager->links() ?>
+    <hr>
+    <!-- Show posts ] -->
+
+    <!-- Form add post [ -->
+    <div class = "cointainer">
+        <div class="row">
+            <div class = "col-sm-12 ">
+                <?php echo form_open('post/save',  ['class' => 'pull_right']) ?>
+
+                <!-- Decide post type [ -->
+                <?php if ($homeType == "public") { ?>
+                    <input type="hidden" name="type" value="public" />
+                <?php } ?>
+                <?php if ($homeType == "private") { ?>
+                    <input type="hidden" name="type" value="private" />
+                <?php } ?>
+                <!-- Decide post type ] -->
+                
+                <h3 class="">Escrever um novo Post</h3>
+                <fieldset>
+                    <div class="form-group ">
+                        <textarea class="form-control" id="texto" name="text" placeholder=" ... Digite aqui seu post" required style="width: 100%; height: 200px;"></textarea>
+                    </div>
+                </fieldset>
+                <div class = "col-sm-1">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i>Enviar</button>
                 </div>
-              </div>
+                <?php echo form_close() ?> 
             </div>
-            <div class="row mt-4">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>All Posts</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="float-left">
-                      <select class="form-control selectric">
-                        <option>Action For Selected</option>
-                        <option>Move to Draft</option>
-                        <option>Move to Pending</option>
-                        <option>Delete Pemanently</option>
-                      </select>
-                    </div>
-                    <div class="float-right">
-                      <form>
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Search">
-                          <div class="input-group-append">                                            
-                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
+        </div>
+    </div>
+    <!-- Form add post ] -->
 
-                    <div class="clearfix mb-3"></div>
-
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <tr>
-                          <th class="text-center pt-2">
-                            <div class="custom-checkbox custom-checkbox-table custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                              <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </th>
-                          <th>Title</th>
-                          <th>Category</th>
-                          <th>Author</th>
-                          <th>Created At</th>
-                          <th>Status</th>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-2">
-                              <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </td>
-                          <td>Laravel 5 Tutorial: Introduction
-                            <div class="table-links">
-                              <a href="#">View</a>
-                              <div class="bullet"></div>
-                              <a href="#">Edit</a>
-                              <div class="bullet"></div>
-                              <a href="#" class="text-danger">Trash</a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="#">Web Developer</a>, 
-                            <a href="#">Tutorial</a>
-                          </td>
-                          <td>
-                            <a href="#">
-                              <img alt="image" src="<?php echo base_url(); ?>/assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
-                            </a>
-                          </td>
-                          <td>2018-01-20</td>
-                          <td><div class="badge badge-primary">Published</div></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-3">
-                              <label for="checkbox-3" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </td>
-                          <td>Laravel 5 Tutorial: Installing
-                            <div class="table-links">
-                              <a href="#">View</a>
-                              <div class="bullet"></div>
-                              <a href="#">Edit</a>
-                              <div class="bullet"></div>
-                              <a href="#" class="text-danger">Trash</a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="#">Web Developer</a>, 
-                            <a href="#">Tutorial</a>
-                          </td>
-                          <td>
-                            <a href="#">
-                              <img alt="image" src="<?php echo base_url(); ?>/assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
-                            </a>
-                          </td>
-                          <td>2018-01-20</td>
-                          <td><div class="badge badge-primary">Published</div></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-4">
-                              <label for="checkbox-4" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </td>
-                          <td>Laravel 5 Tutorial: MVC
-                            <div class="table-links">
-                              <a href="#">View</a>
-                              <div class="bullet"></div>
-                              <a href="#">Edit</a>
-                              <div class="bullet"></div>
-                              <a href="#" class="text-danger">Trash</a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="#">Web Developer</a>, 
-                            <a href="#">Tutorial</a>
-                          </td>
-                          <td>
-                            <a href="#">
-                              <img alt="image" src="<?php echo base_url(); ?>/assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
-                            </a>
-                          </td>
-                          <td>2018-01-20</td>
-                          <td><div class="badge badge-primary">Published</div></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-5">
-                              <label for="checkbox-5" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </td>
-                          <td>Laravel 5 Tutorial: CRUD
-                            <div class="table-links">
-                              <a href="#">View</a>
-                              <div class="bullet"></div>
-                              <a href="#">Edit</a>
-                              <div class="bullet"></div>
-                              <a href="#" class="text-danger">Trash</a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="#">Web Developer</a>, 
-                            <a href="#">Tutorial</a>
-                          </td>
-                          <td>
-                            <a href="#">
-                              <img alt="image" src="<?php echo base_url(); ?>/assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
-                            </a>
-                          </td>
-                          <td>2018-01-20</td>
-                          <td><div class="badge badge-danger">Draft</div></td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                              <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </td>
-                          <td>Laravel 5 Tutorial: Deployment
-                            <div class="table-links">
-                              <a href="#">View</a>
-                              <div class="bullet"></div>
-                              <a href="#">Edit</a>
-                              <div class="bullet"></div>
-                              <a href="#" class="text-danger">Trash</a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="#">Web Developer</a>, 
-                            <a href="#">Tutorial</a>
-                          </td>
-                          <td>
-                            <a href="#">
-                              <img alt="image" src="<?php echo base_url(); ?>/assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
-                            </a>
-                          </td>
-                          <td>2018-01-20</td>
-                          <td><div class="badge badge-warning">Pending</div></td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div class="float-right">
-                      <nav>
-                        <ul class="pagination">
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                          </li>
-                          <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+<?= $this->endSection() ?>

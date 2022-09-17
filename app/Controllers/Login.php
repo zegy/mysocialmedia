@@ -12,9 +12,9 @@ class Login extends BaseController
         helper('form');
     }
 
-    public function index()
+    public function index() //TODO Why not in "__construct" ?
     {
-        if (session('isLoggedIn') == true) // if user is already logged go to home page
+        if (session('isLoggedIn') == true)
         {
             return redirect()->to('/');
         }

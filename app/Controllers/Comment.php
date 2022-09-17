@@ -44,10 +44,9 @@ class Comment extends BaseController
         }
     }
 
-    public function save() // save or edit comment
+    public function save() //TODO save or edit comment. Okd format, sync with post controller after using javascript
     {
         $data = $this->request->getPost();
-        $currentTime = new Time('now', 'America/Recife', 'pt_BR');
 
         if ($data["save_type"] == "new_com")
         {
@@ -58,7 +57,6 @@ class Comment extends BaseController
                     "comment_fk_user"   => session('id'),
                     "comment_fk_post"   => $data["post_id"],
                     "comment_text"      => $data["text"],
-                    "comment_date_time" => ((array)$currentTime)['date']
                 ];
             }
             else

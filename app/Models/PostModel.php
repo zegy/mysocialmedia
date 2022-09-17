@@ -62,7 +62,8 @@ class PostModel extends Model
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->like('post_text', $keyword)
-                    ->paginate(5, 'posts'); //NOTE 2nd parameter used in view's "$pager->links('posts')"
+                    ->paginate(5);
+                    // ->paginate(5, 'posts'); //NOTE 2nd parameter used in view's "$pager->links('posts')"
     }
 }
 

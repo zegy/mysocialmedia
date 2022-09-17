@@ -17,8 +17,7 @@ class User extends BaseController
 
     public function showProfile($uid)
     {
-        // $userData = $this->userModel->where('user_pk', $uid)->first();
-        $userData = $this->userModel->find($uid); // using parameter to match the model's "primaryKey" 
+        $userData = $this->userModel->find($uid);
 
         if (!empty($userData))
         {
@@ -31,7 +30,7 @@ class User extends BaseController
         }
         else
         {
-            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 }

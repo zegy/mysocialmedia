@@ -83,9 +83,9 @@
                 </footer>
             </div>
         </div>
-
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+        <!-- TODO Not using the latest version? -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script> NOTE needed?-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script> -->
     </div> <!-- end main fluid container-->
 </body>

@@ -7,7 +7,7 @@ use App\Models\PostModel;
 
 class Post extends BaseController
 {
-    function __construct()
+    function __construct() //TODO no "public/protected"?
     {
         helper('form');
         $this->postModel = new PostModel();

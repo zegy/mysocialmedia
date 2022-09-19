@@ -12,6 +12,7 @@ class PostModel extends Model
     protected $allowedFields =
     [
         'post_fk_user',
+        'post_title',
         'post_text',
         'post_type'
     ];

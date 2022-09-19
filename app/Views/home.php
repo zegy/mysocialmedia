@@ -97,7 +97,7 @@
                       <div class="table-links">
                         <a href="#">View</a>
                         <div class="bullet"></div>
-                        <a href="#">Edit</a>
+                        <a href="#" class="edit_post" data-toggle="modal" data-id="<?= $post->pid;?>" data-text="<?= $post->texto;?>">Edit</a>
                         <div class="bullet"></div>
                         <a href="#" class="text-danger">Trash</a>
                       </div>
@@ -155,5 +155,32 @@
     </div>
   </section>
 </div>
+
+<form action="post/update" method="post">
+  <div class="modal fade" tabindex="-1" role="dialog" id="editPostModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- <p>Modal body text goes here.</p> -->
+          <div class="form-group">
+              <label>Post text</label>
+              <input type="text" class="form-control post_text" name="text" placeholder="">
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <input type="hidden" class="post_id" name="pid" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 <?= $this->endSection() ?>

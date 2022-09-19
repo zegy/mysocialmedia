@@ -440,5 +440,30 @@
 
   <!-- Page Specific JS File -->
   <script src="../assets/js/page/features-posts.js"></script>
+
+  <!-- TODO Custom -->
+  <script>
+    $(document).ready(function(){
+        $('.edit_post').on('click',function(){ // get Edit Product
+            // get data from button edit
+            const id = $(this).data('id');
+            const text = $(this).data('text');
+            // Set data to Form Edit
+            $('.post_id').val(id);
+            $('.post_text').val(text);
+            // Call Modal Edit
+            $('#editPostModal').modal('show');
+        });
+
+        // $('.delete_post').on('click',function(){ // get Delete Product
+        //     // get data from button edit
+        //     const id = $(this).data('id');
+        //     // Set data to Form Edit
+        //     $('.productID').val(id);
+        //     // Call Modal Edit
+        //     $('#deleteModal').modal('show');
+        // });
+    });
+</script>
 </body>
 </html>

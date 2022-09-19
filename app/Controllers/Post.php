@@ -40,24 +40,34 @@ class Post extends BaseController
         return redirect()->to('/');
     }
 
-    public function update($pid)
+    // public function update($pid)
+    public function update()
     {   
-        $data = $this->request->getPost();
-        $postData = $this->checkOwnership($pid);
+        // $data = $this->request->getPost();
+        // $postData = $this->checkOwnership($pid);
 
-        if (empty($data)) //NOTE Show update form (single route, updateForm() is removed)
-        {
-            echo view('forms/form_edit_post', ['post' => $postData]);
-        }
-        else
-        {
-            $dataToSave =
-            [
-                "post_text" => $data["text"]
-            ];
-            $this->postModel->update($pid, $dataToSave);        
-            return redirect()->to('/');
-        }                
+        // if (empty($data)) //NOTE Show update form (single route, updateForm() is removed)
+        // {
+        //     echo view('forms/form_edit_post', ['post' => $postData]);
+        // }
+        // else
+        // {
+        //     $dataToSave =
+        //     [
+        //         "post_text" => $data["text"]
+        //     ];
+        //     $this->postModel->update($pid, $dataToSave);        
+        //     return redirect()->to('/');
+        // }
+
+        $data = $this->request->getPost();
+        $this->checkOwnership($data["pid"]);
+        $dataToSave =
+        [
+            "post_text" => $data["text"]
+        ];
+        $this->postModel->update($data["pid"], $dataToSave);        
+        return redirect()->to('/');         
     }
 
     public function delete($pid)

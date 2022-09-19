@@ -157,58 +157,58 @@
 </div>
 
 <!-- Modal Edit Post [ -->
-<form action="post/update" method="post">
-  <div class="modal fade" tabindex="-1" role="dialog" id="editPostModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">UBAH DISKUSI</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<?php echo form_open('post/update') ?>
+<div class="modal fade" tabindex="-1" role="dialog" id="editPostModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">UBAH DISKUSI</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Detail diskusi</label> <!-- TODO change to text area -->
+            <input type="text" class="form-control post_text" name="text" placeholder="">
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-              <label>Detail diskusi</label> <!-- TODO change to text area -->
-              <input type="text" class="form-control post_text" name="text" placeholder="">
-          </div>
-        </div>
-        <div class="modal-footer bg-whitesmoke br">
-          <input type="hidden" class="post_id" name="pid" >
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
+      </div>
+      <div class="modal-footer bg-whitesmoke br">
+        <input type="hidden" class="post_id" name="pid" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
-</form>
+</div>
+<?php echo form_close() ?> 
 <!-- Modal Edit Post ] -->
 
 <!-- Modal Delete Post [ -->
-<form action="post/delete" method="post">
-  <div class="modal fade" tabindex="-1" role="dialog" id="deletePostModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title">KONFIRMASI</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <h6>Apakah anda yakin akan menghapus postingan ini?</h6>
-            </div>
-         </div>
-          <div class="modal-footer bg-whitesmoke br">
-              <input type="hidden" class="post_id" name="pid" >
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button type="submit" class="btn btn-primary">Yes</button>
-          </div>
+<?php echo form_open('post/delete') ?>
+<div class="modal fade" tabindex="-1" role="dialog" id="deletePostModal">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">KONFIRMASI</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-    </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <h6>Apakah anda yakin akan menghapus postingan ini?</h6>
+          </div>
+       </div>
+        <div class="modal-footer bg-whitesmoke br">
+            <input type="hidden" class="post_id" name="pid" >
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button type="submit" class="btn btn-primary">Yes</button>
+        </div>
+      </div>
   </div>
-</form>
+</div>
+<?php echo form_close() ?> 
 <!-- Modal Delete Post ] -->
 
 <?= $this->endSection() ?>

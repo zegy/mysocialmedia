@@ -93,7 +93,7 @@
                         <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
                       </div>
                     </td> -->
-                    <td>Apakah boleh menggunakan nilai TUTEP yang lama?
+                    <td><?= $post->pttl ?> <!-- NOTE using "htmlspecialchars()" will disable "font" style! -->
                       <div class="table-links">
                         <a href="#">View</a>
                         <div class="bullet"></div>

@@ -22,6 +22,7 @@ class PostModel extends Model
 
     protected $select = '
         post_pk              as pid,
+        post_title           as pttl,
         post_text            as texto,
         post_date_time       as data,
         post_type            as type,

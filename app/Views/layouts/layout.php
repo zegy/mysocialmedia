@@ -449,8 +449,8 @@
             const id = $(this).data('id');
             const text = $(this).data('text');
             // Set data to Form Edit
-            $('.post_id').val(id);
-            $('.post_text').val(text);
+            $('#post_id').val(id);
+            $('#post_text').val(text);
             // Call Modal Edit
             $('#editPostModal').modal('show');
         });

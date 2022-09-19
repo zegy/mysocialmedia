@@ -170,11 +170,11 @@
           <!-- <p>Modal body text goes here.</p> -->
           <div class="form-group">
               <label>Post text</label>
-              <input type="text" class="form-control post_text" name="text" placeholder="">
+              <input type="text" class="form-control" id="post_text" name="text" placeholder="">
           </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
-          <input type="hidden" class="post_id" name="pid" >
+          <input type="hidden" id="post_id" name="pid" >
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
         </div>

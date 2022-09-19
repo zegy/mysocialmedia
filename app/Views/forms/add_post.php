@@ -5,13 +5,15 @@
   <section class="section">
     <div class="section-header">
       <div class="section-header-back">
-        <a href="features-posts.html" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+        <a href="/" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
       </div>
-      <h1>Create New Post</h1>
+      <h1>Buat Diskusi Baru</h1>
       <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+        <!-- <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
         <div class="breadcrumb-item"><a href="#">Posts</a></div>
-        <div class="breadcrumb-item">Create New Post</div>
+        <div class="breadcrumb-item">Create New Post</div> -->
+        <div class="breadcrumb-item active"><a href="/">Forum Diskusi</a></div>
+        <div class="breadcrumb-item">Buat Diskusi Baru</div>
       </div>
     </div>
 
@@ -30,15 +32,15 @@
             </div> -->
             <div class="card-body">
               <div class="form-group row mb-4">
-                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                 <div class="col-sm-12 col-md-7">
-                  <input type="text" class="form-control" name="title">
+                  <input type="text" class="form-control" name="post_title">
                 </div>
               </div>
               <div class="form-group row mb-4">
-                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis</label>
                 <div class="col-sm-12 col-md-7">
-                  <select class="form-control selectric" name="type">
+                  <select class="form-control selectric" name="post_type">
                     <!-- <option>Tech</option>
                     <option>News</option>
                     <option>Political</option> -->
@@ -48,27 +50,27 @@
                 </div>
               </div>
               <div class="form-group row mb-4">
-                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Deskripsi</label>
                 <div class="col-sm-12 col-md-7">
-                  <textarea class="summernote-simple" name="text"></textarea>
+                  <textarea class="summernote-simple" name="post_text"></textarea>
                 </div>
               </div>
-              <div class="form-group row mb-4">
+              <!-- <div class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
                 <div class="col-sm-12 col-md-7">
                   <div id="image-preview" class="image-preview">
                     <label for="image-upload" id="image-label">Choose File</label>
-                    <input type="file" name="image" id="image-upload" />
+                    <input type="file" name="post_image" id="image-upload" />
                   </div>
                 </div>
-              </div>
-              <div class="form-group row mb-4">
+              </div> -->
+              <!-- <div class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tags</label>
                 <div class="col-sm-12 col-md-7">
                   <input type="text" class="form-control inputtags">
                 </div>
-              </div>
-              <div class="form-group row mb-4">
+              </div> -->
+              <!-- <div class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                 <div class="col-sm-12 col-md-7">
                   <select class="form-control selectric">
@@ -77,7 +79,7 @@
                     <option>Pending</option>
                   </select>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                 <div class="col-sm-12 col-md-7">

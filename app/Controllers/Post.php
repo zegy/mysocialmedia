@@ -39,9 +39,9 @@ class Post extends BaseController
         $dataToSave =
         [
             "post_fk_user" => session('id'),
-            "post_title"   => $data['title'],
-            "post_text"    => $data["text"],
-            "post_type"    => $data['type']
+            "post_title"   => $data['post_title'],
+            "post_text"    => $data["post_text"],
+            "post_type"    => $data['post_type']
         ];
         $this->postModel->insert($dataToSave); //NOTE In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
         return redirect()->to('/');

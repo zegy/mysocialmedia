@@ -85,6 +85,7 @@
                     <th>Tanggal</th>
                     <th>Status</th>
                   </tr>
+                  <?php if($posts) { foreach ($posts as $post) { ?>
                   <tr>
                     <!-- <td>
                       <div class="custom-checkbox custom-control">
@@ -115,6 +116,9 @@
                     <!-- <td><div class="badge badge-warning">Pending</div></td> -->
                     <!-- <td><div class="badge badge-danger">Draft</div></td> -->
                   </tr>
+                  <?php } } else { ?>
+                    <!-- TODO if empty -->
+                  <?php } ?>
                 </table>
               </div>
               <div class="float-right">

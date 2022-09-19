@@ -35,6 +35,7 @@ class Post extends BaseController
     public function save()
     {
         $data = $this->request->getPost();
+        dd($data);
         $dataToSave =
         [
             "post_fk_user" => session('id'),

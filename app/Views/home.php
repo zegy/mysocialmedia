@@ -156,19 +156,20 @@
   </section>
 </div>
 
+<!-- Modal Edit Post [ -->
 <form action="post/update" method="post">
   <div class="modal fade" tabindex="-1" role="dialog" id="editPostModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">UBAH DISKUSI</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-              <label>Post text</label>
+              <label>Detail diskusi</label> <!-- TODO change to text area -->
               <input type="text" class="form-control post_text" name="text" placeholder="">
           </div>
         </div>
@@ -181,21 +182,22 @@
     </div>
   </div>
 </form>
+<!-- Modal Edit Post ] -->
 
-<!-- Modal Delete Product-->
+<!-- Modal Delete Post [ -->
 <form action="post/delete" method="post">
   <div class="modal fade" tabindex="-1" role="dialog" id="deletePostModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
+              <h5 class="modal-title">KONFIRMASI</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true">&times;</span>
               </button>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <h4>Are you sure want to delete this product?</h4>
+              <h6>Apakah anda yakin akan menghapus postingan ini?</h6>
             </div>
          </div>
           <div class="modal-footer bg-whitesmoke br">
@@ -207,6 +209,6 @@
     </div>
   </div>
 </form>
-<!-- End Modal Delete Product-->
+<!-- Modal Delete Post ] -->
 
 <?= $this->endSection() ?>

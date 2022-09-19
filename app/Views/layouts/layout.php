@@ -441,10 +441,10 @@
   <!-- Page Specific JS File -->
   <script src="../assets/js/page/features-posts.js"></script>
 
-  <!-- TODO Custom -->
+  <!-- TODO Custom (Future : move to "custom.js"-->
   <script>
     $(document).ready(function(){
-        $('.edit_post').on('click',function(){ // get Edit Product
+        $('.edit_post').on('click',function(){ // get Edit Post
             // get data from button edit
             const id = $(this).data('id');
             const text = $(this).data('text');
@@ -455,12 +455,12 @@
             $('#editPostModal').modal('show');
         });
 
-        $('.delete_post').on('click',function(){ // get Delete Product
+        $('.delete_post').on('click',function(){ // get Delete Post
             // get data from button edit
             const id = $(this).data('id');
             // Set data to Form Edit
             $('.post_id').val(id);
-            // Call Modal Edit
+            // Call Modal Delete
             $('#deletePostModal').modal('show');
         });
     });

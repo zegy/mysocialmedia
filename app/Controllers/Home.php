@@ -36,7 +36,7 @@ class Home extends BaseController
 
     public function homePrivate()
     {
-        return view('home',
+        return view('homeOld',
         [
             "posts"    => $this->postModel->getAllByType('private'),
             "pager"    => $this->postModel->pager,

@@ -107,11 +107,11 @@
                       <a href="#">Tutorial</a>
                     </td> -->
                     <td>
-                      <a href="#">
-                        <img alt="image" src="../assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
+                      <a href="<?= base_url('user/showprofile/'. $post->uid) ?>">
+                        <img alt="image" src="<?php echo base_url($post->image)?>" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1"><?= htmlspecialchars($post->nome) ?></div> <!-- TODO problem with "alt" image -->
                       </a>
                     </td>
-                    <td>2018-01-20</td>
+                    <td><?= formatDate($post->data)?></td> <!-- TODO must use "formatDate()"? -->
                     <td><div class="badge badge-primary">Terjawab</div></td>
                     <!-- <td><div class="badge badge-warning">Pending</div></td> -->
                     <!-- <td><div class="badge badge-danger">Draft</div></td> -->

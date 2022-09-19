@@ -16,17 +16,17 @@
     </div>
 
     <div class="section-body">
-      <h2 class="section-title">Create New Post</h2>
+      <!-- <h2 class="section-title">Create New Post</h2>
       <p class="section-lead">
         On this page you can create a new post and fill in all fields.
-      </p>
+      </p> -->
 
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
               <h4>Write Your Post</h4>
-            </div>
+            </div> -->
             <div class="card-body">
               <div class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>

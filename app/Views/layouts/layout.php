@@ -477,7 +477,28 @@
             // Call Modal Delete
             $('#deletePostModal').modal('show');
         });
+
+        // $('.post_bg').on('click', function(event) {
+        //     // compare the element clicked (event.target) with the
+        //     // element that has the click attached (this)
+        //     if (event.target !== this)
+        //         return;
+        //     console.log('red div was clicked')
+        // });
     });
 </script>
+
+<!-- TODO TEST ONLY! -->
+<!-- Hide if clicked : https://api.jquery.com/event.target-->
+<!-- <script>
+    function handler( event ) {
+    var target = $( event.target );
+    if ( target.is( "td" ) ) {
+        target.children().toggle();
+    }
+    }
+    $( "tr" ).click( handler ).find( "tr" ).hide();
+</script> -->
+
 </body>
 </html>

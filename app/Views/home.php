@@ -4,15 +4,15 @@
 <div class="main-content">
   <section class="section">
     <div class="section-header">
-      <h1>Posts</h1>
+      <h1>Forum Diskusi</h1>
       <div class="section-header-button">
-        <a href="features-post-create.html" class="btn btn-primary">Add New</a>
+        <a href="features-post-create.html" class="btn btn-primary">Buat Diskusi</a>
       </div>
-      <div class="section-header-breadcrumb">
+      <!-- <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
         <div class="breadcrumb-item"><a href="#">Posts</a></div>
         <div class="breadcrumb-item">All Posts</div>
-      </div>
+      </div> -->
     </div>
     <div class="section-body">
       <!-- <h2 class="section-title">Posts</h2>
@@ -26,17 +26,17 @@
             <div class="card-body">
               <ul class="nav nav-pills">
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">All <span class="badge badge-white">5</span></a>
+                  <a class="nav-link active" href="#">Forum Diskusi Publik <span class="badge badge-white">5</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Draft <span class="badge badge-primary">1</span></a>
+                  <a class="nav-link" href="#">Forum Diskusi Dosen <span class="badge badge-primary">1</span></a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link" href="#">Pending <span class="badge badge-primary">1</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">Trash <span class="badge badge-primary">0</span></a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -79,10 +79,10 @@
                         <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                       </div>
                     </th> -->
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Author</th>
-                    <th>Created At</th>
+                    <th>Judul diskusi</th>
+                    <!-- <th>Category</th> -->
+                    <th>Pembuat</th>
+                    <th>Tanggal</th>
                     <th>Status</th>
                   </tr>
                   <tr>
@@ -92,7 +92,7 @@
                         <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
                       </div>
                     </td> -->
-                    <td>Laravel 5 Tutorial: Introduction
+                    <td>Apakah boleh menggunakan nilai TUTEP yang lama?
                       <div class="table-links">
                         <a href="#">View</a>
                         <div class="bullet"></div>
@@ -101,17 +101,17 @@
                         <a href="#" class="text-danger">Trash</a>
                       </div>
                     </td>
-                    <td>
+                    <!-- <td>
                       <a href="#">Web Developer</a>,
                       <a href="#">Tutorial</a>
-                    </td>
+                    </td> -->
                     <td>
                       <a href="#">
                         <img alt="image" src="../assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
                       </a>
                     </td>
                     <td>2018-01-20</td>
-                    <td><div class="badge badge-primary">Published</div></td>
+                    <td><div class="badge badge-primary">Terjawab</div></td>
                     <!-- <td><div class="badge badge-warning">Pending</div></td> -->
                     <!-- <td><div class="badge badge-danger">Draft</div></td> -->
                   </tr>

@@ -67,13 +67,16 @@ class Post extends BaseController
             "post_text" => $data["text"]
         ];
         $this->postModel->update($data["pid"], $dataToSave);        
-        return redirect()->to('/');         
+        // return redirect()->to('/');
+        return redirect()->back();         
     }
 
-    public function delete($pid)
+    // public function delete($pid)
+    public function delete()
     {
-        $this->checkOwnership($pid);
-        $this->postModel->delete($pid);
+        $data = $this->request->getPost();
+        $this->checkOwnership($data["pid"]);
+        $this->postModel->delete($data["pid"]);
         return redirect()->back();
     }
 

@@ -449,20 +449,20 @@
             const id = $(this).data('id');
             const text = $(this).data('text');
             // Set data to Form Edit
-            $('#post_id').val(id);
-            $('#post_text').val(text);
+            $('.post_id').val(id);
+            $('.post_text').val(text);
             // Call Modal Edit
             $('#editPostModal').modal('show');
         });
 
-        // $('.delete_post').on('click',function(){ // get Delete Product
-        //     // get data from button edit
-        //     const id = $(this).data('id');
-        //     // Set data to Form Edit
-        //     $('.productID').val(id);
-        //     // Call Modal Edit
-        //     $('#deleteModal').modal('show');
-        // });
+        $('.delete_post').on('click',function(){ // get Delete Product
+            // get data from button edit
+            const id = $(this).data('id');
+            // Set data to Form Edit
+            $('.post_id').val(id);
+            // Call Modal Edit
+            $('#deletePostModal').modal('show');
+        });
     });
 </script>
 </body>

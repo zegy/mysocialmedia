@@ -99,7 +99,7 @@
                         <div class="bullet"></div>
                         <a href="#" class="edit_post" data-toggle="modal" data-id="<?= $post->pid;?>" data-text="<?= $post->texto;?>">Edit</a>
                         <div class="bullet"></div>
-                        <a href="#" class="text-danger">Trash</a>
+                        <a href="#" class="text-danger delete_post" data-toggle="modal" data-id="<?= $post->pid;?>">Trash</a>
                       </div>
                     </td>
                     <!-- <td>
@@ -167,20 +167,46 @@
           </button>
         </div>
         <div class="modal-body">
-          <!-- <p>Modal body text goes here.</p> -->
           <div class="form-group">
               <label>Post text</label>
-              <input type="text" class="form-control" id="post_text" name="text" placeholder="">
+              <input type="text" class="form-control post_text" name="text" placeholder="">
           </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
-          <input type="hidden" id="post_id" name="pid" >
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="hidden" class="post_id" name="pid" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
   </div>
 </form>
+
+<!-- Modal Delete Product-->
+<form action="post/delete" method="post">
+  <div class="modal fade" tabindex="-1" role="dialog" id="deletePostModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <h4>Are you sure want to delete this product?</h4>
+            </div>
+         </div>
+          <div class="modal-footer bg-whitesmoke br">
+              <input type="hidden" class="post_id" name="pid" >
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button type="submit" class="btn btn-primary">Yes</button>
+          </div>
+        </div>
+    </div>
+  </div>
+</form>
+<!-- End Modal Delete Product-->
 
 <?= $this->endSection() ?>

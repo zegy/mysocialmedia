@@ -27,6 +27,11 @@ class Post extends BaseController
         }
     }
 
+    public function saveForm()
+    {
+        return view('forms/add_post');
+    }
+
     public function save()
     {
         $data = $this->request->getPost();

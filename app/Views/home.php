@@ -6,7 +6,7 @@
     <div class="section-header">
       <h1>Forum Diskusi</h1>
       <div class="section-header-button">
-        <a href="features-post-create.html" class="btn btn-primary">Buat Diskusi</a>
+        <a href="post/saveForm" class="btn btn-primary">Buat Diskusi</a>
       </div>
       <!-- <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>

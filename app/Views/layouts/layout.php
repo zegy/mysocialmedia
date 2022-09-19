@@ -442,7 +442,7 @@
     <!-- features-post-create TODO need to check!-->
     <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
     <script src="../node_modules/selectric/public/jquery.selectric.min.js"></script>
-    <script src="../node_modules/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js"></script>
+    <script src="../node_modules/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js"></script> <!-- TODO danger here! -->
     <script src="../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 
   <!-- Template JS File -->

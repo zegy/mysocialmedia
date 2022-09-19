@@ -59,6 +59,7 @@ $routes->add('post/update', 'Post::update');
 // $routes->add('post/update_form/(:num)', 'Post::updateForm/$1');
 // $routes->add('post/delete/(:num)', 'Post::delete/$1');
 $routes->add('post/delete', 'Post::delete');
+$routes->add('post/saveForm', 'Post::saveForm');
 
 $routes->add('comment/save', 'Comment::save');
 $routes->add('comment/show/(:num)', 'Comment::show/$1');

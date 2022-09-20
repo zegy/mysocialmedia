@@ -15,16 +15,14 @@
         <div class="title">Pendaftaran Pengguna Baru</div>
         <div class="content">
             <!-- Show error [-->
-            <?php if (!empty(session()->getFlashdata('error'))) { ?>
+            <!-- <?php //if (!empty(session()->getFlashdata('error'))) { ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?php echo session()->getFlashdata('error'); ?>
+                <?php //echo session()->getFlashdata('error'); ?>
             </div>
-            <?php } ?>
+            <?php //} ?> -->
 
             <?php $validation = \Config\Services::validation() ?>
-            <?php if ($validation->hasError('username')) {
-                echo $validation->getError('username');
-            }?>
+           
             <!-- Show error ]-->
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">
@@ -35,6 +33,9 @@
                     <div class="input-box">
                         <span class="details">Username :</span>
                         <input type="text" name="username" value="<?= old('username') ?>">
+                        <?php if ($validation->hasError('username')) {
+                            echo $validation->getError('username');
+                        }?>
                     </div>
                     <div class="input-box">
                         <span class="details">E-mail :</span>

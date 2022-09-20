@@ -478,6 +478,7 @@
             $('#deletePostModal').modal('show');
         });
 
+        // Hide element if certain element clicked
         // $('.post_bg').on('click', function(event) {
         //     // compare the element clicked (event.target) with the
         //     // element that has the click attached (this)
@@ -485,6 +486,9 @@
         //         return;
         //     console.log('red div was clicked')
         // });
+
+        // Add new (did not change the original) class to element
+        // document.getElementById("last_name").className += " is-invalid";
     });
 </script>
 

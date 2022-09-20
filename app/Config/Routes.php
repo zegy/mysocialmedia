@@ -43,7 +43,8 @@ $routes->add('home/home_private', 'Home::homePrivate'); // filter dosen
 $routes->add('search', 'Search::index'); 
 $routes->add('searchresult/(:any)', 'Search::searchResult/$1'); 
 
-$routes->add('account/signup', 'Account::signUp', ['filter' => 'admin']);
+// $routes->add('account/signup', 'Account::signUp', ['filter' => 'admin']);
+$routes->add('account/signup', 'Account::signUp');
 $routes->add('account/createaccount', 'Account::createAccount');
 
 $routes->add('login', 'Login::index');

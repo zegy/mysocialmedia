@@ -21,6 +21,7 @@ class Account extends BaseController
     public function createAccount()
 	{
         $data = $this->request->getPost();
+        // dd($data);
 
         $validation = \Config\Services::validation(); // Loading the Library (The library is loaded as a service named validation). https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#loading-the-library
 

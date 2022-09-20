@@ -32,7 +32,7 @@
                 <?php $validation = \Config\Services::validation() ?>
                 <?php echo form_open('account/createaccount') ?>
                 <div class="row">
-                  <!-- field Nama lengkap [ -->
+                  <!-- Field Nama lengkap [ -->
                   <div class="form-group col-6">
                     <label for="nama_lengkap">Nama Lengkap</label>
                     <?php if ($validation->hasError('nama_lengkap')) { ?> <!-- Has it's error -->
@@ -49,8 +49,8 @@
                         <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap">
                     <?php } ?>
                   </div>
-                  <!-- field Nama lengkap ] -->
-                  <!-- field Username [ -->
+                  <!-- Field Nama lengkap ] -->
+                  <!-- Field Username [ -->
                   <div class="form-group col-6">
                     <label for="username">Username</label>
                     <?php if ($validation->hasError('username')) { ?> <!-- Has it's error -->
@@ -67,9 +67,9 @@
                         <input id="username" type="text" class="form-control" name="username">
                     <?php } ?>
                   </div>
-                  <!-- field Username ] -->
+                  <!-- Field Username ] -->
                 </div>
-                <!-- field Email [ -->
+                <!-- Field Email [ -->
                 <div class="form-group">
                   <label for="email">Email</label> <!-- NOTE input type "email" changed to "text", fully rely on CI's validation -->
                   <?php if ($validation->hasError('email')) { ?> <!-- Has it's error -->
@@ -86,9 +86,9 @@
                     <input id="email" type="text" class="form-control" name="email">
                   <?php } ?>
                 </div>
-                <!-- field Email ] -->
+                <!-- Field Email ] -->
                 <div class="row">
-                  <!-- field Password [ -->
+                  <!-- Field Password [ -->
                   <div class="form-group col-6">
                     <label for="password" class="d-block">Password</label>
                     <?php if ($validation->hasError('password')) { ?> <!-- Has it's error -->
@@ -109,8 +109,8 @@
                       <div class="label"></div>
                     </div>
                   </div>
-                  <!-- field Password ] -->
-                  <!-- field Konfirmasi Password [ -->
+                  <!-- Field Password ] -->
+                  <!-- Field Konfirmasi Password [ -->
                   <div class="form-group col-6">
                     <label for="konfirmasi_password">Konfirmasi Password</label>
                     <?php if ($validation->hasError('konfirmasi_password')) { ?> <!-- Has it's error -->
@@ -129,7 +129,7 @@
                         <input id="konfirmasi_password" type="password" class="form-control" name="konfirmasi_password">
                     <?php } ?>
                   </div>
-                  <!-- field Konfirmasi Password ] -->
+                  <!-- Field Konfirmasi Password ] -->
                 </div>
 
                 <!-- <div class="form-divider">
@@ -146,14 +146,16 @@
                       <option>Thailand</option>
                     </select>
                   </div> -->
+                  <!-- Field Jenis Kelamin [ -->
                   <div class="form-group col-6">
                     <label>Jenis Kelamin</label>
                     <select class="form-control selectric" name="jenis_kelamin">
-                      <option <?php if (old('jenis_kelamin') == 'Laki-laki'){ ?> selected <?php } ?> >Laki-laki</option>
-                      <option <?php if (old('jenis_kelamin') == 'Perempuan'){ ?> selected <?php } ?> >Perempuan</option>
+                      <option <?php if (old('jenis_kelamin') == 'Laki-laki'){ ?> selected <?php } ?> value="L">Laki-laki</option>
+                      <option <?php if (old('jenis_kelamin') == 'Perempuan'){ ?> selected <?php } ?> value="P">Perempuan</option>
                     </select>
                   </div>
-                  <!-- field Nomor Handphone [ -->
+                  <!-- Field Jenis Kelamin ] -->
+                  <!-- Field Nomor Handphone [ -->
                   <div class="form-group col-6">
                     <label for="nomor_handphone">Nomor Handphone</label>
                     <?php if ($validation->hasError('nomor_handphone')) { ?> <!-- Has it's error -->
@@ -170,7 +172,7 @@
                         <input id="nomor_handphone" type="text" class="form-control" name="nomor_handphone">
                     <?php } ?>
                   </div>
-                  <!-- field Nomor Handphone ] -->
+                  <!-- Field Nomor Handphone ] -->
                 </div>
                 <!-- <div class="row">
                   <div class="form-group col-6">

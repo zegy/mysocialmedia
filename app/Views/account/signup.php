@@ -27,6 +27,7 @@
               <img src="<?php echo base_url('assets/img/stisla-fill.svg') ?>" alt="logo" width="100" class="shadow-light rounded-circle">
             </div>
 
+            <?php echo form_open('account/createaccount') ?>
             <div class="card card-primary">
               <div class="card-header"><h4>Register</h4></div>
 
@@ -113,6 +114,8 @@
                 </form>
               </div>
             </div>
+            <?php echo form_close() ?> 
+
             <div class="simple-footer">
               Copyright &copy; Stisla 2018
             </div>

@@ -20,6 +20,11 @@
                 <?php echo session()->getFlashdata('error'); ?>
             </div>
             <?php } ?>
+
+            <?php $validation = \Config\Services::validation() ?>
+            <?php if ($validation->hasError('username')) {
+                echo $validation->getError('username');
+            }?>
             <!-- Show error ]-->
             <form action="<?php echo base_url('account/createaccount') ?>" method="post" enctype="multipart/form-data">
                 <div class="user-details">

@@ -47,13 +47,18 @@
 
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <?php if ($validation->hasError('email')) { ?>
+                    <?php if ($validation->hasError('email')) { ?> <!-- Has it's error -->
                       <input id="email" class="form-control is-invalid" name="email" value="<?= old('email') ?>">
                       <div class="invalid-feedback">
                         <?php echo $validation->getError('email') ?>
                       </div>
-                    <?php } else { ?>
-                      <input id="email" class="form-control" name="email" value="<?= old('email') ?>">
+                    <?php } else if (!empty(old('email'))) { ?> <!-- No error, but others has -->
+                      <input id="email" class="form-control is-valid" name="email" value="<?= old('email') ?>">
+                      <div class="valid-feedback">
+                        Sudah benar!
+                      </div>
+                    <?php } else { ?> <!-- Just opened -->
+                      <input id="email" class="form-control" name="email">
                     <?php } ?>
                   </div>
 

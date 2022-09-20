@@ -27,6 +27,7 @@
               <img src="<?php echo base_url('assets/img/stisla-fill.svg') ?>" alt="logo" width="100" class="shadow-light rounded-circle">
             </div>
 
+            <?php $validation = \Config\Services::validation() ?>
             <?php echo form_open('account/createaccount') ?>
             <div class="card card-primary">
               <div class="card-header"><h4>Register</h4></div>
@@ -46,9 +47,14 @@
 
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email">
-                    <div class="invalid-feedback">
-                    </div>
+                    <?php if ($validation->hasError('email')) { ?>
+                      <input id="email" class="form-control is-invalid" name="email" value="<?= old('email') ?>">
+                      <div class="invalid-feedback">
+                        <?php echo $validation->getError('email') ?>
+                      </div>
+                    <?php } else { ?>
+                      <input id="email" class="form-control" name="email" value="<?= old('email') ?>">
+                    <?php } ?>
                   </div>
 
                   <div class="row">

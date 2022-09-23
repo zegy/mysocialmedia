@@ -35,51 +35,75 @@
                   <!-- Field Nama lengkap [ -->
                   <div class="form-group col-6">
                     <label for="nama_lengkap">Nama Lengkap</label>
-                    <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap">
-                    <div class="invalid-feedback">
-                      Salah!
-                    </div>
-                    <div class="valid-feedback">
-                      Sudah benar!
-                    </div>
+                    <?php if ($validation->hasError('nama_lengkap')) { ?> <!-- Has it's error -->
+                        <input id="nama_lengkap" type="text" class="form-control is-invalid" name="nama_lengkap" value="<?= old('nama_lengkap') ?>">
+                        <div class="invalid-feedback">
+                        <?php echo $validation->getError('nama_lengkap') ?>
+                        </div>
+                    <?php } else if (!empty(old('nama_lengkap'))) { ?> <!-- No error, but others has -->
+                        <input id="nama_lengkap" type="text" class="form-control is-valid" name="nama_lengkap" value="<?= old('nama_lengkap') ?>">
+                        <div class="valid-feedback">
+                        Sudah benar!
+                        </div>
+                    <?php } else { ?> <!-- Default -->
+                        <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap">
+                    <?php } ?>
                   </div>
                   <!-- Field Nama lengkap ] -->
                   <!-- Field Username [ -->
                   <div class="form-group col-6">
                     <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control" name="username">
-                      <div class="invalid-feedback">
-                        Salah!
-                      </div>
-                      <div class="valid-feedback">
+                    <?php if ($validation->hasError('username')) { ?> <!-- Has it's error -->
+                        <input id="username" type="text" class="form-control is-invalid" name="username" value="<?= old('username') ?>">
+                        <div class="invalid-feedback">
+                        <?php echo $validation->getError('username') ?>
+                        </div>
+                    <?php } else if (!empty(old('username'))) { ?> <!-- No error, but others has -->
+                        <input id="username" type="text" class="form-control is-valid" name="username" value="<?= old('username') ?>">
+                        <div class="valid-feedback">
                         Sudah benar!
-                      </div>
+                        </div>
+                    <?php } else { ?> <!-- Default -->
+                        <input id="username" type="text" class="form-control" name="username">
+                    <?php } ?>
                   </div>
                   <!-- Field Username ] -->
                 </div>
                 <!-- Field Email [ -->
                 <div class="form-group">
                   <label for="email">Email</label> <!-- NOTE input type "email" changed to "text", fully rely on CI's validation -->
-                  <input id="email" type="text" class="form-control" name="email">
-                  <div class="invalid-feedback">
-                    Salah!
-                  </div>
-                  <div class="valid-feedback">
-                    Sudah benar!
-                  </div>
+                  <?php if ($validation->hasError('email')) { ?> <!-- Has it's error -->
+                    <input id="email" type="text" class="form-control is-invalid" name="email" value="<?= old('email') ?>">
+                    <div class="invalid-feedback">
+                      <?php echo $validation->getError('email') ?>
+                    </div>
+                  <?php } else if (!empty(old('email'))) { ?> <!-- No error, but others has -->
+                    <input id="email" type="text" class="form-control is-valid" name="email" value="<?= old('email') ?>">
+                    <div class="valid-feedback">
+                      Sudah benar!
+                    </div>
+                  <?php } else { ?> <!-- Default -->
+                    <input id="email" type="text" class="form-control" name="email">
+                  <?php } ?>
                 </div>
                 <!-- Field Email ] -->
                 <div class="row">
                   <!-- Field Password [ -->
                   <div class="form-group col-6">
                     <label for="password" class="d-block">Password</label>
-                    <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
-                    <div class="invalid-feedback">
-                      Salah!
-                    </div>
-                    <div class="valid-feedback">
-                      Sudah benar!
-                    </div>                    
+                    <?php if ($validation->hasError('password')) { ?> <!-- Has it's error -->
+                        <input id="password" type="password" class="form-control pwstrength is-invalid" data-indicator="pwindicator" name="password" value="<?= old('password') ?>">
+                        <div class="invalid-feedback">
+                        <?php echo $validation->getError('password') ?>
+                        </div>
+                    <?php } else if (!empty(old('password'))) { ?> <!-- No error, but others has -->
+                        <input id="password" type="password" class="form-control pwstrength is-valid" data-indicator="pwindicator" name="password" value="<?= old('password') ?>">
+                        <div class="valid-feedback">
+                        Sudah benar!
+                        </div>
+                    <?php } else { ?> <!-- Default -->
+                        <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
+                    <?php } ?>                    
                     <div id="pwindicator" class="pwindicator">
                       <div class="bar"></div>
                       <div class="label"></div>
@@ -89,13 +113,21 @@
                   <!-- Field Konfirmasi Password [ -->
                   <div class="form-group col-6">
                     <label for="konfirmasi_password">Konfirmasi Password</label>
-                    <input id="konfirmasi_password" type="password" class="form-control" name="konfirmasi_password">
-                    <div class="invalid-feedback">
-                      Salah!
-                    </div>
-                    <div class="valid-feedback">
-                      Sudah benar!
-                    </div>
+                    <?php if ($validation->hasError('konfirmasi_password')) { ?> <!-- Has it's error -->
+                        <input id="konfirmasi_password" type="password" class="form-control is-invalid" name="konfirmasi_password" value="<?= old('konfirmasi_password') ?>">
+                        <div class="invalid-feedback">
+                        <?php echo $validation->getError('konfirmasi_password') ?>
+                        </div>
+                    <?php } else if ($validation->hasError('password')) { ?> <!-- Has error in password field so no old value or feedback given -->
+                        <input id="konfirmasi_password" type="password" class="form-control" name="konfirmasi_password">
+                    <?php } else if (!empty(old('konfirmasi_password'))) { ?> <!-- No error, but others has -->
+                        <input id="konfirmasi_password" type="password" class="form-control is-valid" name="konfirmasi_password" value="<?= old('konfirmasi_password') ?>">
+                        <div class="valid-feedback">
+                        Sudah benar!
+                        </div>
+                    <?php } else { ?> <!-- Default -->
+                        <input id="konfirmasi_password" type="password" class="form-control" name="konfirmasi_password">
+                    <?php } ?>
                   </div>
                   <!-- Field Konfirmasi Password ] -->
                 </div>
@@ -112,13 +144,19 @@
                   <!-- Field Nomor Handphone [ -->
                   <div class="form-group col-6">
                     <label for="nomor_handphone">Nomor Handphone</label>
-                    <input id="nomor_handphone" type="text" class="form-control" name="nomor_handphone">
-                    <div class="invalid-feedback">
-                      Salah!
-                    </div>
-                    <div class="valid-feedback">
-                      Sudah benar!
-                    </div>
+                    <?php if ($validation->hasError('nomor_handphone')) { ?> <!-- Has it's error -->
+                        <input id="nomor_handphone" type="text" class="form-control is-invalid" name="nomor_handphone" value="<?= old('nomor_handphone') ?>">
+                        <div class="invalid-feedback">
+                        <?php echo $validation->getError('nomor_handphone') ?>
+                        </div>
+                    <?php } else if (!empty(old('nomor_handphone'))) { ?> <!-- No error, but others has -->
+                        <input id="nomor_handphone" type="text" class="form-control is-valid" name="nomor_handphone" value="<?= old('nomor_handphone') ?>">
+                        <div class="valid-feedback">
+                        Sudah benar!
+                        </div>
+                    <?php } else { ?> <!-- Default -->
+                        <input id="nomor_handphone" type="text" class="form-control" name="nomor_handphone">
+                    <?php } ?>
                   </div>
                   <!-- Field Nomor Handphone ] -->
                 </div>

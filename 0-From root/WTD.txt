@@ -4,6 +4,7 @@ knowledge :
 
 Done (xampp) : intl ext
 
+fix useless base_url because now use manual route
 erro.php (view) change to error.php
 "mutil"?
 check for time zone

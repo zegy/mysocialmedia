@@ -26,32 +26,32 @@ class Login extends BaseController
 
     public function signIn()
     {
-        $email        = $this->request->getPost('inputEmail');
-        $password     = $this->request->getPost('inputPassword');
-        $usuarioModel = new UserModel();
-        $dadosUsuario = $usuarioModel->where('user_email', $email)->first();
+        $data = $this->request->getPost();
 
-        if (!empty($dadosUsuario))
+        $userModel = new UserModel();
+        $dataUser = $userModel->where('user_email', $data['email'])->first();
+
+        if (!empty($dataUser))
         {
-            $hashUsuario = $dadosUsuario->user_password;
+            $hash = $dataUser->user_password;
 
-            if (password_verify($password, $hashUsuario))
+            if (password_verify($data['password'], $hash))
             {
                 session()->set('isLoggedIn', true);
-                session()->set('id', $dadosUsuario->user_pk);
-                session()->set('role', $dadosUsuario->user_role);
+                session()->set('id', $dataUser->user_pk);
+                session()->set('role', $dataUser->user_role);
                 return redirect()->to(base_url("/"));
-           }
-           else
-           {
+            }
+            else
+            {
                session()->setFlashData('msg','Usuario ou senha incorretos!');
-               return redirect()->to('/login');
-           }
+               return redirect()->back();         
+            }
         }
         else
         {
             session()->setFlashData('msg','Usuario ou senha incorretos!');
-            return redirect()->to('/login');
+            return redirect()->back();         
         }
     }
 

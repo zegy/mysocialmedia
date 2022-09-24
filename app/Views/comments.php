@@ -13,8 +13,8 @@
     </div>
 
     <div class="section-body">
-      <h2 class="section-title">Users</h2>
-      <p class="section-lead">Components relating to users, lists of users and so on.</p>
+      <!-- <h2 class="section-title">Users</h2>
+      <p class="section-lead">Components relating to users, lists of users and so on.</p> -->
 
       <div class="row">
         <div class="col-12 col-sm-12 col-lg-6">

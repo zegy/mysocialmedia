@@ -95,7 +95,7 @@
                     </td> -->
                     <td><?= $post->pttl ?> <!-- NOTE using "htmlspecialchars()" will disable "font" style! -->
                       <div class="table-links">
-                        <a href="#">View</a>
+                        <a href="comment/show/<?= $post->pid ?>">View</a>
                         <div class="bullet"></div>
                         <a href="#" class="edit_post" data-toggle="modal" data-id="<?= $post->pid;?>" data-text="<?= $post->texto;?>">Edit</a>
                         <div class="bullet"></div>

@@ -72,7 +72,7 @@
                 </table>
               </div>
               <div class="float-right">
-                <nav>
+                <!-- <nav>
                   <ul class="pagination">
                     <li class="page-item disabled">
                       <a class="page-link" href="#" aria-label="Previous">
@@ -96,7 +96,7 @@
                       </a>
                     </li>
                   </ul>
-                </nav>
+                </nav> -->
               </div>
             </div>
           </div>

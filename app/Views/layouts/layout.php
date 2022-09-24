@@ -12,15 +12,15 @@
 
   <!-- CSS Libraries -->
     <!-- features-posts -->
-    <link rel="stylesheet" href="../node_modules/selectric/public/selectric.css">
+    <link rel="stylesheet" href="<?= base_url("/node_modules/selectric/public/selectric.css") ?>">
     <!-- features-post-create TODO need to check!-->
-    <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
+    <link rel="stylesheet" href="<?= base_url("/node_modules/summernote/dist/summernote-bs4.css") ?>">
     <!-- <link rel="stylesheet" href="../node_modules/selectric/public/selectric.css"> -->
-    <link rel="stylesheet" href="../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="<?= base_url("/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css") ?>">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="<?= base_url("/assets/css/style.css") ?>">
+  <link rel="stylesheet" href="<?= base_url("/assets/css/components.css") ?>">
 </head>
 <!-- PART : Header ] -->
 
@@ -453,26 +453,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="../assets/js/stisla.js"></script>
+    <script src="<?= base_url("/assets/js/stisla.js") ?>"></script>
 
   <!-- JS Libraies -->
     <!-- features-posts -->
-    <script src="../node_modules/selectric/public/jquery.selectric.min.js"></script>
+    <script src="<?= base_url("/node_modules/selectric/public/jquery.selectric.min.js") ?>"></script>
     <!-- features-post-create TODO need to check!-->
-    <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
-    <script src="../node_modules/selectric/public/jquery.selectric.min.js"></script>
-    <script src="../node_modules/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js"></script> <!-- TODO danger here! -->
-    <script src="../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="<?= base_url("/node_modules/summernote/dist/summernote-bs4.js") ?>"></script>
+    <script src="<?= base_url("/node_modules/selectric/public/jquery.selectric.min.js") ?>"></script>
+    <script src="<?= base_url("/node_modules/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js") ?>"></script> <!-- TODO danger here! -->
+    <script src="<?= base_url("/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js") ?>"></script>
 
   <!-- Template JS File -->
-  <script src="../assets/js/scripts.js"></script>
-  <script src="../assets/js/custom.js"></script>
+  <script src="<?= base_url("/assets/js/scripts.js") ?>"></script>
+  <script src="<?= base_url("/assets/js/custom.js") ?>"></script>
 
   <!-- Page Specific JS File -->
     <!-- features-posts -->
-    <script src="../assets/js/page/features-posts.js"></script>
+    <script src="<?= base_url("/assets/js/page/features-posts.js") ?>"></script>
     <!-- features-post-create -->
-    <script src="../assets/js/page/features-post-create.js"></script>
+    <script src="<?= base_url("/assets/js/page/features-post-create.js") ?>"></script>
 
   <!-- TODO Custom (Future : move to "custom.js"-->
   <script>

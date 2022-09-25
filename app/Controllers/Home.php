@@ -14,11 +14,27 @@ class Home extends BaseController
 
     public function homePublic()
     {
+        $posts = $this->postModel->getAllByType('public');
+        // dd($posts[0]->pid);
+        $LSP = session('latestShowedPost') ?? 0;
+        $newPostNo = 0;
+        foreach ($posts as $post) //TODO number only based on "pagination" result, need all posts!
+        {
+            if ($post->pid > $LSP)
+            {
+                $newPostNo++;
+            }
+        }
+
+        session()->set('latestShowedPost', $posts[0]->pid);
+        // dd($posts[0]->pid);
+        // dd($LSP);
         return view('home',
         [
-            "posts"    => $this->postModel->getAllByType('public'),
+            "posts"    => $posts,
             "pager"    => $this->postModel->pager,
-            "homeType" => "public"
+            "homeType" => "public",
+            "newPostNo" => $newPostNo,
         ]);
         
         // return  view('layouts/header').

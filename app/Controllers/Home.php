@@ -14,11 +14,13 @@ class Home extends BaseController
 
     public function homePublic()
     {
-        $posts = $this->postModel->getAllByType('public');
+        // $posts = $this->postModel->getAllByType('public');
+        $posts_all = $this->postModel->getAllByType('public')->findAll();
+        $posts_paginated = $this->postModel->getAllByType('public')->paginate(5); 
         // dd($posts[0]->pid);
         $LSP = session('latestShowedPost') ?? 0;
         $newPostNo = 0;
-        foreach ($posts as $post) //TODO number only based on "pagination" result, need all posts!
+        foreach ($posts_all as $post) //TODO number only based on "pagination" result, need all posts!
         {
             if ($post->pid > $LSP)
             {
@@ -26,13 +28,18 @@ class Home extends BaseController
             }
         }
 
-        session()->set('latestShowedPost', $posts[0]->pid);
+        $pager = $this->postModel->pager;
+        // dd($pager->getCurrentPage());
+        if ($pager->getCurrentPage() == 1)
+        {
+            session()->set('latestShowedPost', $posts_paginated[0]->pid);
+        }
         // dd($posts[0]->pid);
         // dd($LSP);
         return view('home',
         [
-            "posts"    => $posts,
-            "pager"    => $this->postModel->pager,
+            "posts"    => $posts_paginated,
+            "pager"    => $pager,
             "homeType" => "public",
             "newPostNo" => $newPostNo,
         ]);
@@ -54,7 +61,7 @@ class Home extends BaseController
     {
         return view('homeOld',
         [
-            "posts"    => $this->postModel->getAllByType('private'),
+            "posts"    => $this->postModel->getAllByType('private')->paginate(5),
             "pager"    => $this->postModel->pager,
             "homeType" => "private"
         ]);

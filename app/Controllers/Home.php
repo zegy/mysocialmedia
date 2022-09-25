@@ -14,29 +14,23 @@ class Home extends BaseController
 
     public function homePublic()
     {
-        // $posts = $this->postModel->getAllByType('public');
-        $posts_all = $this->postModel->getAllByType('public')->findAll();
-        $posts_paginated = $this->postModel->getAllByType('public')->paginate(5); 
-        // dd($posts[0]->pid);
         $LSP = session('latestShowedPost') ?? 0;
-        $newPostNo = 0;
-        foreach ($posts_all as $post)
-        {
-            if ($post->pid > $LSP)
-            {
-                $newPostNo++;
-            }
-        }
+        $newPostNo = $this->postModel->where('post_pk >', $LSP)->countAllResults();
+        // https://codeigniter.com/user_guide/database/query_builder.html#custom-key-value-method
+        // https://codeigniter.com/user_guide/database/query_builder.html#builder-countallresults
+        
+        $posts_paginated = $this->postModel->getAllByType('public')->paginate(5); 
 
         $pager = $this->postModel->pager;
-        // dd($pager->getCurrentPage());
+    
         if ($pager->getCurrentPage() == 1)
         {
             $starter = $posts_paginated[0]->pid ?? 0; //NOTE incase no post yet
             session()->set('latestShowedPost', $starter);
         }
-        // dd($posts[0]->pid);
-        // dd($LSP);
+
+        // DD($starter, $LSP, $newPostNo);
+
         return view('home',
         [
             "posts"    => $posts_paginated,

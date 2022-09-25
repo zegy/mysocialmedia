@@ -20,7 +20,7 @@ class Home extends BaseController
         // dd($posts[0]->pid);
         $LSP = session('latestShowedPost') ?? 0;
         $newPostNo = 0;
-        foreach ($posts_all as $post) //TODO number only based on "pagination" result, need all posts!
+        foreach ($posts_all as $post)
         {
             if ($post->pid > $LSP)
             {
@@ -32,7 +32,8 @@ class Home extends BaseController
         // dd($pager->getCurrentPage());
         if ($pager->getCurrentPage() == 1)
         {
-            session()->set('latestShowedPost', $posts_paginated[0]->pid);
+            $starter = $posts_paginated[0]->pid ?? 0; //NOTE incase no post yet
+            session()->set('latestShowedPost', $starter);
         }
         // dd($posts[0]->pid);
         // dd($LSP);

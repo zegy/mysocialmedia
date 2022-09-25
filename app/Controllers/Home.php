@@ -14,12 +14,18 @@ class Home extends BaseController
 
     public function homePublic()
     {
+        // $newPost = $this->postModel->where('post_pk >', session('latestShowedPost'))->findAll();
+        // // dd($newPost);
+        // $data = array_column($newPost, 'post_pk'); //NOTE Extract a property from an array of objects
+        // dd($data);
+
         $newPostNo = $this->postModel->getNewPostNo(session('latestShowedPost') ?? 0);
         $posts = $this->postModel->getAllByType('public');
         $pager = $this->postModel->pager;
     
         if ($pager->getCurrentPage() == 1)
         {
+            // $starter = $data[0]->post_pk ?? $posts[0]->pid; //NOTE incase no post yet
             $starter = $posts[0]->pid ?? 0; //NOTE incase no post yet
             session()->set('latestShowedPost', $starter);
         }

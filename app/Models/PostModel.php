@@ -33,6 +33,12 @@ class PostModel extends Model
         (select count(*) from t_comment where comment_fk_post = post_pk) as qtdcom
     ';
 
+    public function getNewPostNo($latestShowedPost)
+    {
+        return $this->where('post_pk >', $latestShowedPost) //NOTE https://codeigniter.com/user_guide/database/query_builder.html#custom-key-value-method
+                    ->countAllResults(); //NOTE https://codeigniter.com/user_guide/database/query_builder.html#builder-countallresults
+    }
+
     public function getOneById($pid) //TODO "qtdcom" not used in the view, need to add later?
     {
         return $this->select($this->select)
@@ -46,7 +52,8 @@ class PostModel extends Model
         return $this->select($this->select)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
-                    ->orderBy('post_pk', 'DESC'); //TODO Danger, not results yet! need paginate() / findAll()!
+                    ->orderBy('post_pk', 'DESC')
+                    ->paginate(5);
     }
 
     public function getAllByUser($uid)

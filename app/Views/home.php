@@ -16,12 +16,10 @@
             <div class="card-body">
               <ul class="nav nav-pills">
                 <li class="nav-item">
-                  <!-- <a class="nav-link active" href="#">Forum Diskusi Publik <span class="badge badge-white"><?php //echo $newPostNo ?></span></a> -->
-                  <a class="nav-link active" href="#">Forum Diskusi Publik <span class="badge badge-white"></span></a>
+                  <a class="nav-link active" href="#">Forum Diskusi Publik <span class="badge badge-white"><?php //echo $newPostNo ?></span></a>
                 </li>
                 <li class="nav-item">
-                  <!-- <a class="nav-link" href="#">Forum Diskusi Dosen <span class="badge badge-primary">1</span></a> -->
-                  <a class="nav-link" href="#">Forum Diskusi Dosen <span class="badge badge-primary"></span></a>
+                  <a class="nav-link" href="#">Forum Diskusi Dosen <span class="badge badge-primary"><?php //echo $newPostNo ?></span></a>
                 </li>
               </ul>
             </div>
@@ -56,7 +54,7 @@
                   <?php if ($posts) { foreach ($posts as $post) { ?>
                   <tr>
                     <td>
-                      <a href="comment/show/<?= $post->pid ?>"><?= $post->pttl ?></a> <!-- NOTE using "htmlspecialchars()" will disable "font" style! -->
+                      <a href="comment/show/<?= $post->pid ?>"><?= $post->pttl ?></a> <!-- NOTE Using "htmlspecialchars()" will disable "font" style! -->
                     </td>
                     <td>
                       <a href="<?= base_url('user/showprofile/'. $post->uid) ?>">
@@ -64,9 +62,7 @@
                       </a>
                     </td>
                     <td><?= formatDate($post->data)?></td> <!-- TODO must use "formatDate()"? -->
-                    <td><div class="badge badge-primary">Terjawab</div></td>
-                    <!-- <td><div class="badge badge-warning">Pending</div></td> -->
-                    <!-- <td><div class="badge badge-danger">Draft</div></td> -->
+                    <td><div class="badge badge-primary">Terjawab</div></td> <!-- NOTE Variants : badge-warning / badge-danger -->
                   </tr>
                   <?php } } else { ?>
                     <!-- TODO if empty -->

@@ -40,6 +40,7 @@ class Login extends BaseController
                 session()->set('isLoggedIn', true);
                 session()->set('id', $dataUser->user_pk);
                 session()->set('role', $dataUser->user_role);
+                session()->set('picture', $dataUser->user_profile_picture);
                 return redirect()->to(base_url("/"));
             }
             else

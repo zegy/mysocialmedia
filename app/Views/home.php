@@ -30,6 +30,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
+              <?php if ($posts) { ?>
               <div class="float-right">
                 <form>
                   <div class="input-group">
@@ -40,9 +41,7 @@
                   </div>
                 </form>
               </div>
-
               <div class="clearfix mb-3"></div>
-
               <div class="table-responsive">
                 <table class="table table-striped">
                   <tr>
@@ -51,7 +50,7 @@
                     <th>Tanggal</th>
                     <th>Status</th>
                   </tr>
-                  <?php if ($posts) { foreach ($posts as $post) { ?>
+                  <?php foreach ($posts as $post) { ?>
                   <tr>
                     <td>
                       <a href="comment/show/<?= $post->pid ?>"><?= $post->pttl ?></a> <!-- NOTE Using "htmlspecialchars()" will disable "font" style! -->
@@ -64,14 +63,30 @@
                     <td><?= formatDate($post->data)?></td> <!-- TODO must use "formatDate()"? -->
                     <td><div class="badge badge-primary">Terjawab</div></td> <!-- NOTE Variants : badge-warning / badge-danger -->
                   </tr>
-                  <?php } } else { ?>
-                    <!-- TODO if empty -->
                   <?php } ?>
                 </table>
               </div>
-              <div class="float-right">
-                <?php echo $pager->links('default', 'stisla') ?>
+              <?php } else { ?>
+              <div class="card">
+                <!-- <div class="card-header">
+                  <h4>Empty Data</h4>
+                </div> -->
+                <div class="card-body">
+                  <div class="empty-state" data-height="400">
+                    <div class="empty-state-icon">
+                      <i class="fas fa-question"></i>
+                    </div>
+                    <h2>We couldn't find any data</h2>
+                    <p class="lead">
+                      Sorry we can't find any data, to get rid of this message, make at least 1 entry.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-4">Create new One</a>
+                    <a href="#" class="mt-4 bb">Need Help?</a>
+                  </div>
+                </div>
               </div>
+              <?php } ?>
+              <div class="float-right"><?php echo $pager->links('default', 'stisla') ?></div>
             </div>
           </div>
         </div>

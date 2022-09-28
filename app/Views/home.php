@@ -16,10 +16,12 @@
             <div class="card-body">
               <ul class="nav nav-pills">
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">Forum Diskusi Publik <span class="badge badge-white"><?php echo $newPostNo ?></span></a>
+                  <!-- <a class="nav-link active" href="#">Forum Diskusi Publik <span class="badge badge-white"><?php //echo $newPostNo ?></span></a> -->
+                  <a class="nav-link active" href="#">Forum Diskusi Publik <span class="badge badge-white"></span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Forum Diskusi Dosen <span class="badge badge-primary">1</span></a>
+                  <!-- <a class="nav-link" href="#">Forum Diskusi Dosen <span class="badge badge-primary">1</span></a> -->
+                  <a class="nav-link" href="#">Forum Diskusi Dosen <span class="badge badge-primary"></span></a>
                 </li>
               </ul>
             </div>

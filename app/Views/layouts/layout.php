@@ -113,7 +113,7 @@
     <script src="<?= base_url("/assets/js/page/features-post-create.js") ?>"></script>
 
   <!-- TODO Custom (Future : move to "custom.js"-->
-  <script>
+  <!-- <script>
     $(document).ready(function(){
         $('.edit_post').on('click',function(){ // get Edit Post
             // get data from button edit
@@ -147,7 +147,7 @@
         // Add new (did not change the original) class to element
         // document.getElementById("last_name").className += " is-invalid";
     });
-</script>
+</script> -->
 
 <!-- TODO TEST ONLY! -->
 <!-- Hide if clicked : https://api.jquery.com/event.target-->
@@ -163,8 +163,8 @@
 
 <!-- Other junk -->
 <!-- Modal Edit Post [ -->
-<?php echo form_open('post/update') ?>
-<div class="modal fade" tabindex="-1" role="dialog" id="editPostModal">
+<?php //echo form_open('post/update') ?>
+<!-- <div class="modal fade" tabindex="-1" role="dialog" id="editPostModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -174,9 +174,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-            <label>Detail diskusi</label> <!-- TODO change to text area -->
-            <input type="text" class="form-control post_text" name="text" placeholder="">
+        <div class="form-group"> -->
+            <!-- <label>Detail diskusi</label> TODO change to text area -->
+            <!-- <input type="text" class="form-control post_text" name="text" placeholder="">
         </div>
       </div>
       <div class="modal-footer bg-whitesmoke br">
@@ -186,13 +186,13 @@
       </div>
     </div>
   </div>
-</div>
-<?php echo form_close() ?> 
+</div> -->
+<?php //echo form_close() ?> 
 <!-- Modal Edit Post ] -->
 
 <!-- Modal Delete Post [ -->
-<?php echo form_open('post/delete') ?>
-<div class="modal fade" tabindex="-1" role="dialog" id="deletePostModal">
+<?php //echo form_open('post/delete') ?>
+<!-- <div class="modal fade" tabindex="-1" role="dialog" id="deletePostModal">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -213,8 +213,8 @@
         </div>
       </div>
   </div>
-</div>
-<?php echo form_close() ?> 
+</div> -->
+<?php //echo form_close() ?> 
 <!-- Modal Delete Post ] -->
 
 </body>

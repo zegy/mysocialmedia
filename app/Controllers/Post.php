@@ -139,7 +139,8 @@ class Post extends BaseController
             $dataToSave =
             [
                 "post_fk_user" => 3, // Mahasiswa
-                "post_text"    => $no,
+                "post_title"   => 'judul postingan  ' . $no,
+                "post_text"    => 'detail postingan  ' . $no,
                 "post_type"    => 'public',
             ];
             $this->postModel->insert($dataToSave);
@@ -156,7 +157,8 @@ class Post extends BaseController
             $dataToSave =
             [
                 "post_fk_user" => 2, // Dosen
-                "post_text"    => $no,
+                "post_title"   => 'judul postingan  ' . $no,
+                "post_text"    => 'detail postingan  ' . $no,
                 "post_type"    => 'private',
             ];
             $this->postModel->insert($dataToSave);

@@ -24,83 +24,10 @@
 
   <!-- TODO temp only! for comment page -->
   <style>
-    /* 1.34 Ticket */
-    /* .tickets-list .ticket-item {
-      text-decoration: none;
-      display: inline-block;
-      width: 100%;
-      padding: 20px;
-      border-bottom: 1px solid #f9f9f9;
-    }
-    .tickets-list .ticket-item.ticket-more {
-      padding: 15px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 12px;
-    }
-    .tickets-list .ticket-item .ticket-title h4 {
-      font-size: 16px;
-      font-weight: 700;
-    }
-    .tickets-list .ticket-item .ticket-info {
-      display: flex;
-      font-size: 12px;
-      font-weight: 500;
-      color: #34395e;
-      letter-spacing: 0.5px;
-    }
-    .tickets-list .ticket-item .ticket-info .bullet {
-      margin: 0 10px;
-    } */
-    
+    /* 1.34 Ticket. Fixed "which ones is use for custom" */
     .tickets {
       display: flex;
     }
-    /* .tickets .ticket-items {
-      width: 30%;
-      padding-right: 30px;
-    }
-    .tickets .ticket-items .ticket-item {
-      display: inline-block;
-      width: 100%;
-      padding: 25px 15px;
-      border-bottom: 1px solid #f9f9f9;
-      cursor: pointer;
-      transition: all 0.5s;
-    }
-    .tickets .ticket-items .ticket-item:hover {
-      background-color: rgba(63, 82, 227, 0.03);
-    }
-    .tickets .ticket-items .ticket-item:hover .ticket-title {
-      color: #6777ef;
-    }
-    .tickets .ticket-items .ticket-item.active {
-      box-shadow: 0 2px 6px #acb5f6;
-      border-radius: 3px;
-      background-color: #6777ef;
-      border-bottom: none;
-    } */
-    /* .tickets .ticket-items .ticket-item.active .ticket-title, .tickets .ticket-items .ticket-item.active .ticket-desc {
-      color: #fff !important;
-    } */
-    /* .tickets .ticket-items .ticket-item .ticket-title h4 {
-      font-size: 13px;
-      letter-spacing: 0.3px;
-    }
-    .tickets .ticket-items .ticket-item .ticket-title h4 .badge {
-      padding: 7px 10px;
-      margin-left: 5px;
-    } */
-    /* .tickets .ticket-items .ticket-item .ticket-desc {
-      display: flex;
-      font-size: 11px;
-      font-weight: 500;
-      color: #34395e;
-      letter-spacing: 0.5px;
-    }
-    .tickets .ticket-items .ticket-item .ticket-desc .bullet {
-      margin: 0 10px;
-    } */
     .tickets .ticket-content {
       width: 100%;
     }
@@ -146,27 +73,11 @@
     .tickets .ticket-description p { /* TODO used? most likely yes */
       margin-bottom: 20px;
     }
-    /* .tickets .ticket-description .ticket-form {
-      margin-top: 40px;
-    }
-    .tickets .ticket-description .ticket-form .note-editable {
-      color: #34395e;
-      font-weight: 500;
-    }
-    .tickets .ticket-description .ticket-form .note-editable p {
-      margin-bottom: 5px;
-    } */
     
     @media (min-width: 576px) and (max-width: 767.98px) {
       .tickets {
         display: inline-block;
       }
-      /* .tickets .ticket-items {
-        width: 100%;
-        margin-bottom: 30px;
-        padding: 0;
-        display: none;
-      } */
       .tickets .ticket-content {
         width: 100%;
       }
@@ -176,20 +87,6 @@
         flex-wrap: wrap;
         margin: 0 -15px;
       }
-      /* .tickets .ticket-items {
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-        padding: 0;
-        margin-bottom: 15px;
-        padding: 15px;
-        overflow: auto;
-      }
-      .tickets .ticket-items .ticket-item {
-        flex-basis: 50%;
-        flex-grow: 0;
-        flex-shrink: 0;
-      } */
       .tickets .ticket-content {
         margin: 15px;
         width: 100%;

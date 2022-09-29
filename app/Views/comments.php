@@ -26,16 +26,23 @@
                     </div>
                     <div class="ticket-detail">
                       <div class="ticket-title">
-                        <h4>Technical Problem</h4>
+                        <h4>Technical Problem</h4> <!-- TODO As judul diskusi -->
                       </div>
                       <div class="ticket-info">
                         <div class="font-weight-600">Farhan A. Mujib</div>
                         <div class="bullet"></div>
                         <div class="text-primary font-weight-600">2 min ago</div>
                       </div>
+                      <div class="media-links"> <!-- TODO Template from comment below. Sync later -->
+                        <!-- <a href="#">View</a> -->
+                        <div class="bullet"></div>
+                        <a href="#">Edit</a>
+                        <div class="bullet"></div>
+                        <a href="#" class="text-danger">Hapus</a>
+                      </div>
                     </div>
                   </div>
-                  <div class="ticket-description">
+                  <div class="ticket-description"> <!-- TODO only use one "p" -->
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

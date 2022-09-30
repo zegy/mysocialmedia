@@ -20,17 +20,18 @@ class PostModel extends Model
     protected $createdField  = 'post_date_time';
     protected $updatedField; //NOTE It's needed by "useTimestamps" even if we not use it. https://codeigniter.com/user_guide/models/model.html?highlight=find#usetimestamps
 
-    protected $select = '
-        post_pk              as pid,
-        post_title           as pttl,
-        post_text            as texto,
-        post_date_time       as data,
-        post_type            as type,
-        user_pk              as uid,
-        user_full_name       as nome,
-        user_profile_picture as image,
-        user_role            as role,
-        (select count(*) from t_comment where comment_fk_post = post_pk) as qtdcom
+    //NOTE Custom var with "standard query" string (instead of CI's Model and Query Builder)
+    protected $selected = '
+        post_pk              AS pid,
+        post_title           AS pttl,
+        post_text            AS texto,
+        post_date_time       AS data,
+        post_type            AS type,
+        user_pk              AS uid,
+        user_full_name       AS nome,
+        user_profile_picture AS image,
+        user_role            AS role,
+        (SELECT COUNT(*) FROM t_comment WHERE comment_fk_post = post_pk) AS qtdcom
     ';
 
     public function getNewPostNo($latestShowedPost)
@@ -41,7 +42,7 @@ class PostModel extends Model
 
     public function getOneById($pid) //TODO "qtdcom" not used in the view, need to add later?
     {
-        return $this->select($this->select)
+        return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_pk', $pid) //TODO Why not using "find($pid)" ?
                     ->first();
@@ -49,7 +50,7 @@ class PostModel extends Model
 
     public function getAllByType($postType)
     {
-        return $this->select($this->select)
+        return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_type', $postType)
                     ->orderBy('post_pk', 'DESC')
@@ -58,7 +59,7 @@ class PostModel extends Model
 
     public function getAllByUser($uid)
     {
-        return $this->select($this->select)
+        return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_fk_user', $uid)
                     ->orderBy('post_pk', 'DESC')
@@ -67,7 +68,7 @@ class PostModel extends Model
 
     public function getAllByKeyword($keyword)
     {   
-        return $this->select($this->select)
+        return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->like('post_text', $keyword)
                     ->paginate(5);

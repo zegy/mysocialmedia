@@ -37,13 +37,17 @@ $routes->setAutoRoute(false);
 // ZEGY OTC CLEAN ROUTES (NEED TO FILTER!)
 // $routes->add('home/home_umum', 'Home::homeUmum', ['filter' => 'auth']);
 
+// $routes->group('admin', static function ($routes) {
+//     $routes->get('users', 'Admin\Users::index');
+//     $routes->get('blog', 'Admin\Blog::index');
+// });
+
 $routes->add('/', 'Home::homePublic');
 $routes->add('home/home_private', 'Home::homePrivate'); // filter dosen
 
 $routes->add('search', 'Search::index'); 
 $routes->add('searchresult/(:any)', 'Search::searchResult/$1'); 
 
-// $routes->add('account/signup', 'Account::signUp', ['filter' => 'admin']);
 $routes->add('account/signup', 'Account::signUp');
 $routes->add('account/createaccount', 'Account::createAccount');
 
@@ -53,14 +57,10 @@ $routes->add('login/signout', 'Login::signOut');
 
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
 
-$routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
 $routes->add('post/save', 'Post::save');
-// $routes->add('post/update/(:num)', 'Post::update/$1');
 $routes->add('post/update', 'Post::update');
-// $routes->add('post/update_form/(:num)', 'Post::updateForm/$1');
-// $routes->add('post/delete/(:num)', 'Post::delete/$1');
 $routes->add('post/delete', 'Post::delete');
-$routes->add('post/saveform', 'Post::saveForm');
+$routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
 
 $routes->add('comment/save', 'Comment::save');
 $routes->add('comment/show/(:num)', 'Comment::show/$1');

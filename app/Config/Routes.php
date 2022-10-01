@@ -42,8 +42,13 @@ $routes->setAutoRoute(false);
 //     $routes->get('blog', 'Admin\Blog::index');
 // });
 
-$routes->add('/', 'Home::homePublic');
-$routes->add('home/home_private', 'Home::homePrivate'); // filter dosen
+$routes->add('/', 'Post::publicPosts');
+$routes->add('privateposts', 'Post::privatePosts'); // filter dosen
+
+$routes->add('post/create', 'Post::create');
+$routes->add('post/update', 'Post::update');
+$routes->add('post/delete', 'Post::delete');
+$routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
 
 $routes->add('search', 'Search::index'); 
 $routes->add('searchresult/(:any)', 'Search::searchResult/$1'); 
@@ -56,11 +61,6 @@ $routes->add('login/signin', 'Login::signIn');
 $routes->add('login/signout', 'Login::signOut');
 
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
-
-$routes->add('post/create', 'Post::create');
-$routes->add('post/update', 'Post::update');
-$routes->add('post/delete', 'Post::delete');
-$routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
 
 $routes->add('comment/save', 'Comment::save');
 $routes->add('comment/show/(:num)', 'Comment::show/$1');

@@ -13,6 +13,26 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
+    public function publicPosts()
+    {
+        return view('home',
+        [
+            "posts"    => $this->postModel->getAllByType('public'),
+            "pager"    => $this->postModel->pager,
+            "homeType" => "public"
+        ]);
+    }
+
+    public function privatePosts()
+    {
+        return view('home',
+        [
+            "posts"    => $this->postModel->getAllByType('private'),
+            "pager"    => $this->postModel->pager,
+            "homeType" => "private"
+        ]);
+    }
+
     public function create()
     {
         $data = $this->request->getPost(); //GET title, text, type

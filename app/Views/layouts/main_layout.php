@@ -45,7 +45,7 @@
                         <?php } ?>
                         <?php if(session('role') == 'dosen'){ ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('home/home_private') ?>">home_private</a>
+                            <a class="nav-link" href="<?php echo base_url('privateposts') ?>">home_private</a>
                         </li>
                         <?php } ?>
                         <!-- =================================== ZEGY DEVELOPMENT ONLY [ =================================== -->

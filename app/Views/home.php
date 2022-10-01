@@ -33,7 +33,7 @@
     <div class = "cointainer">
         <div class="row">
             <div class = "col-sm-12 ">
-                <?php echo form_open('post/save',  ['class' => 'pull_right']) ?>
+                <?php echo form_open('post/create',  ['class' => 'pull_right']) ?>
 
                 <!-- Decide post type [ -->
                 <?php if ($homeType == "public") { ?>

@@ -57,7 +57,7 @@ $routes->add('login/signout', 'Login::signOut');
 
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
 
-$routes->add('post/save', 'Post::save');
+$routes->add('post/create', 'Post::create');
 $routes->add('post/update', 'Post::update');
 $routes->add('post/delete', 'Post::delete');
 $routes->add('post/userposts/(:num)', 'Post::userPosts/$1');

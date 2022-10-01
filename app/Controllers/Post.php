@@ -13,7 +13,7 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
-    public function save()
+    public function create()
     {
         $data = $this->request->getPost(); //GET title, text, type
         $dataToSave =

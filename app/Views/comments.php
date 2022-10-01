@@ -1,115 +1,68 @@
-<?= $this->extend('layouts/layout') ?>
+<?= $this->extend('/layouts/main_layout') ?>
+
 <?= $this->section('content') ?>
 
-<div class="main-content">
-  <section class="section">
-    <div class="section-header">
-      <h1>User</h1>
-      <div class="section-header-breadcrumb">
-        <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-        <div class="breadcrumb-item"><a href="#">Components</a></div>
-        <div class="breadcrumb-item">User</div>
-      </div>
-    </div>
+<div class="media border p-3 box-component">
+	<a href="<?= base_url('user/showprofile/'. $post->uid) ?>" ><img src="<?php echo base_url($post->image)?>" alt="<?= $post->nome ?>" class="mr-3 mt-3 rounded-circle" style="width:60px;"></a>
+	<div class="text-message media-body">
+		<h4><?= $post->nome ?> <small><i>Postado em <?= formatDate($post->data)?></i></small></h4>
+		<p><?= htmlspecialchars($post->texto) ?></p>
+		
+        <div class="form-group">
+			<?php if (session()->get('id') == $post->uid) { ?>
+			<a href="<?= base_url('post/edit/' . $post->pid) ?>" class="btn btn-warning"><i class="fa fa-address-book" aria-hidden="true"></i> editar</a>
+			<a href="<?= base_url('post/delete/' . $post->pid) ?>" class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>
+			<?php } ?>
+		</div>
+        
+        <!-- All comments [ -->
+        <?php if($comments) { foreach ($comments as $comment) { ?>
 
-    <div class="section-body">
-      <!-- "Post" with custom template based on stisla's "features-tickets" [ -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="tickets">
-                <div class="ticket-content">
-                  <div class="ticket-header">
-                    <div class="ticket-sender-picture img-shadow">
-                      <img src="../assets/img/avatar/avatar-5.png" alt="image">
-                    </div>
-                    <div class="ticket-detail">
-                      <div class="ticket-title">
-                        <h4>Technical Problem</h4> <!-- TODO As judul diskusi -->
-                      </div>
-                      <div class="ticket-info">
-                        <div class="font-weight-600">Farhan A. Mujib</div>
-                        <div class="bullet"></div>
-                        <div class="text-primary font-weight-600">2 min ago</div>
-                      </div>
-                      <div class="media-links"> <!-- TODO Template from comment below. Sync later -->
-                        <!-- <a href="#">View</a> -->
-                        <div class="bullet"></div>
-                        <a href="#">Edit</a>
-                        <div class="bullet"></div>
-                        <a href="#" class="text-danger">Hapus</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ticket-description"> <!-- TODO only use one "p" -->
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  
-                    <div class="gallery">
-                      <div class="gallery-item" data-image="../assets/img/news/img01.jpg" data-title="Image 1"></div>
-                      <div class="gallery-item" data-image="../assets/img/news/img02.jpg" data-title="Image 2"></div>
-                      <div class="gallery-item" data-image="../assets/img/news/img03.jpg" data-title="Image 3"></div>
-                      <div class="gallery-item gallery-more" data-image="../assets/img/news/img04.jpg" data-title="Image 4">
-                        <div>+2</div>
-                      </div>
-                    </div>
-  
-                    <div class="ticket-divider"></div>
-                  </div>
+        <div class="media p-3">
+            <a href="<?= base_url('user/showprofile/'. $post->uid) ?>" ><img src="<?php echo base_url($comment->image)?>" alt="user" class="mr-3 mt-3 rounded-circle" style="width:45px;"></a>
+            <div class="text-message media-body">
+                <h4><?= $comment->nome ?> <small><i>Postado em <?= formatDate($comment->data)?></i></small></h4>
+                <p><?= htmlspecialchars($comment->texto) ?></p>
+                <div class="form-group">
+                    <?php if (session()->get('id') == $comment->uid) { ?>
+                    <a href="<?= base_url('comment/edit/' . $comment->cid) ?>" class="btn btn-warning"><i class="fa fa-address-book" aria-hidden="true"></i> editar</a>
+                    <a href="<?= base_url('comment/delete/'.$comment->cid) ?>" class="btn btn-danger" > <i class="fa fa-trash" aria-hidden="true"></i> excluir</a>
+                    <?php } ?>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- "Post" with custom template based on stisla's "features-tickets" ] -->
-      <!-- "Comments" [ -->
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-6">
-          <div class="card">
-            <div class="card-header">
-              <h4>Comments</h4>
-            </div>
-            <div class="card-body">
-              <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
-                <li class="media">
-                  <img alt="image" class="mr-3 rounded-circle" width="70" src="../assets/img/avatar/avatar-3.png">
-                  <div class="media-body">
-                    <!-- <div class="media-right"><div class="text-warning">Pending</div></div> -->
-                    <div class="media-right"><div class="text-primary">Approved</div></div>
-                    <div class="media-title mb-1">Ujang Maman</div>
-                    <div class="text-time">Yesterday</div>
-                    <div class="media-description text-muted">Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident</div>
-                    <div class="media-links">
-                      <a href="#">View</a>
-                      <div class="bullet"></div>
-                      <a href="#">Edit</a>
-                      <div class="bullet"></div>
-                      <a href="#" class="text-danger">Trash</a>
+
+        <?php } } else { ?>
+
+        <div class="alert alert-info">
+            <strong>Ups!</strong> Belum ada komentar
+        </div>
+
+        <?php } ?>
+        <!-- All comments ] -->
+		<hr>
+        <!-- Form add comment [ -->
+        <div class = "cointainer">
+            <div class="row">
+                <div class = "col-sm-12 ">
+                    <?php echo form_open('comment/save',  ['class' => 'pull_right']) ?>
+                    <input type="hidden" name="post_id" value="<?php echo $post->pid ?>" />
+                    <input type="hidden" name="save_type" value="new_com" />
+                    <h3>Escrever um novo comentário</h3>
+                    <fieldset>
+                        <div class="form-group ">
+                            <textarea class="form-control" id="texto" name="text"  cols="30" rows="10" placeholder=" ...Digite aqui um comentário" ></textarea>
+                        </div>
+                    </fieldset>
+                    <div class = "col-sm-1">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane" aria-hidden="true"></i>Enviar</button>
                     </div>
-                  </div>
-                </li>
-              </ul>
+                    <?php echo form_close() ?> 
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- "Comments" ] -->
-    </div>
-  </section>
+        <!-- Form add comment ] -->
+	</div>
 </div>
 
 <?= $this->endSection() ?>

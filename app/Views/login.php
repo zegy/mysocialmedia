@@ -25,10 +25,10 @@
         <form class="form-cad" action="<?php echo base_url('login/signin') ?>" method="post">
             <img class="mb-4" src="<?php echo base_url('images/logoEdited3.png') ?>" alt="" width="72" height="72">
             <h1 class="h3 mb-3 fw-normal">Por favor, logue-se</h1>
-            <label for="inputEmail" class="visually-hidden">Email address</label>
-            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="E-mail..." required autofocus>
-            <label for="inputPassword" class="visually-hidden">Password</label>
-            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Senha..." required>
+            <label for="email" class="visually-hidden">Email address</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="E-mail..." required autofocus>
+            <label for="password" class="visually-hidden">Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Senha..." required>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar!</button>
             <a href="<?php  echo base_url('account/signup') ?>">Não tem uma conta ainda? cadastre-se!</a>
             <p class="mt-5 mb-3 text-muted" id="copy">&copy; 2021 - Rodrigo Guimarães </p>

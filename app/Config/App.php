@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-      public $baseURL = 'https://mysocialmedia.test/public';
+      public $baseURL = 'https://mysocialmedia.test/';
 
     /**
      * --------------------------------------------------------------------------

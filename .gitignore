@@ -125,3 +125,7 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+# Custom
+# AdminLTE v3.2.0 assets
+/public/assets/dist
+/public/assets/plugins

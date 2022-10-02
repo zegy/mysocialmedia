@@ -27,6 +27,7 @@ class Login extends BaseController
     public function signIn()
     {
         $data = $this->request->getPost();
+        // dd($data);
 
         $userModel = new UserModel();
         $dataUser = $userModel->where('user_email', $data['email'])->first();

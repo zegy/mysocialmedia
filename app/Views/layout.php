@@ -197,7 +197,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="<?= base_url('dashboard') ?>" class="nav-link">
+            <a href="<?= base_url('dashboard') ?>" class="nav-link" id="dashboard">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
@@ -205,7 +205,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('post/publicposts') ?>" class="nav-link active">
+            <a href="<?= base_url('post/publicposts') ?>" class="nav-link" id="post">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Public Posts
@@ -255,5 +255,15 @@
 <script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url('assets/dist/js/pages/dashboard3.js') ?>"></script>
+
+<!-- NOTE CUSTOM SCRIPTS -->
+<!-- Set active sidebar menu (experimental, mixed js with php). Set id on each sidebar menu first! -->
+<?php $uri = service('uri') ?>
+<script>
+  $(document).ready(function(){
+    document.getElementById("<?= $uri->getSegment(1) ?>").className += " active"
+  });
+</script>
+
 </body>
 </html>

@@ -15,7 +15,7 @@ class Post extends BaseController
 
     public function publicPosts()
     {
-        return view('home',
+        return view('posts',
         [
             "posts"    => $this->postModel->getAllByType('public'),
             "pager"    => $this->postModel->pager,
@@ -25,7 +25,7 @@ class Post extends BaseController
 
     public function privatePosts()
     {
-        return view('home',
+        return view('posts',
         [
             "posts"    => $this->postModel->getAllByType('private'),
             "pager"    => $this->postModel->pager,

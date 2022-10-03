@@ -42,6 +42,8 @@ $routes->setAutoRoute(false);
 //     $routes->get('blog', 'Admin\Blog::index');
 // });
 
+$routes->add('dashboard', 'Dashboard::index');
+
 $routes->add('/', 'Post::publicPosts');
 $routes->add('privateposts', 'Post::privatePosts'); // filter dosen
 

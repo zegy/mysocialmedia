@@ -197,7 +197,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="widgets.html" class="nav-link">
+            <a href="<?= base_url('dashboard') ?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
@@ -205,10 +205,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="widgets.html" class="nav-link active">
+            <a href="<?= base_url('post/publicposts') ?>" class="nav-link active">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Posts
+                Public Posts
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>

@@ -38,11 +38,14 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
-      <!-- NOTE Custom START -->
+      <!-- TODO Custom START -->
       <li class="nav-item d-none d-sm-inline-block">
         <a href="login/signout" class="nav-link">Sign Out</a>
       </li>
-      <!-- NOTE Custom END -->
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="post/publicposts" class="nav-link">Post Public</a>
+      </li>
+      <!-- TODO Custom END -->
     </ul>
 
     <!-- Right navbar links -->

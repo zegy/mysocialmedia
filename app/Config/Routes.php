@@ -45,6 +45,10 @@ $routes->setAutoRoute(false);
 $routes->add('/', 'Post::publicPosts');
 $routes->add('privateposts', 'Post::privatePosts'); // filter dosen
 
+
+$routes->add('post/publicposts', 'Post::publicPosts');
+$routes->add('post/privateposts', 'Post::privatePosts');
+
 $routes->add('post/create', 'Post::create');
 $routes->add('post/update', 'Post::update');
 $routes->add('post/delete', 'Post::delete');

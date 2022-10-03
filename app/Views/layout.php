@@ -40,10 +40,10 @@
       </li>
       <!-- TODO Custom START -->
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="login/signout" class="nav-link">Sign Out</a>
+        <a href="<?php echo base_url('login/signout') ?>" class="nav-link">Sign Out</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="post/publicposts" class="nav-link">Post Public</a>
+        <a href="<?php echo base_url('post/publicposts') ?>" class="nav-link">Post Public</a>
       </li>
       <!-- TODO Custom END -->
     </ul>

@@ -204,7 +204,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item menu-open">
+          <li class="nav-item" id="postmain">
             <a href="#" class="nav-link" id="post">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -271,17 +271,24 @@
 <script src="<?= base_url('assets/dist/js/pages/dashboard3.js') ?>"></script>
 
 <!-- NOTE CUSTOM SCRIPTS -->
-<!-- Set active sidebar menu (experimental, mixed js with php). Set id on each sidebar menu first! -->
+<!-- Set active sidebar menu { (experimental, mixed js with php). Set id on each sidebar menu first! -->
 <?php $uri = service('uri') ?>
+
 <script>
   $(document).ready(function(){
     document.getElementById("<?= $uri->getSegment(1) ?>").className += " active"
   });
-
-  $(document).ready(function(){
-    document.getElementById("<?= $uri->getSegment(2) ?>").className += " active"
-  });
 </script>
+
+<?php if (!empty($uri->getSegment(2))) { ?>
+  <script>
+    $(document).ready(function(){
+      document.getElementById("<?= $uri->getSegment(2) ?>").className += " active"
+      document.getElementById("<?= $uri->getSegment(1).'main' ?>").className += " menu-open"
+    });
+  </script>
+<?php } ?>
+<!-- Set active sidebar menu } -->
 
 </body>
 </html>

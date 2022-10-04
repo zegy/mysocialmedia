@@ -44,7 +44,7 @@ $routes->setAutoRoute(false);
 
 $routes->add('dashboard', 'Dashboard::index');
 
-$routes->add('/', 'Post::publicPosts');
+$routes->add('publicposts', 'Post::publicPosts');
 $routes->add('privateposts', 'Post::privatePosts'); // filter dosen
 
 

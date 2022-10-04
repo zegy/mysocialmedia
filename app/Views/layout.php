@@ -45,6 +45,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<?php echo base_url('post/publicposts') ?>" class="nav-link">Post Public</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<?php echo base_url('user/showprofile/' . session('id')) ?>" class="nav-link">Profile</a>
+      </li>
       <!-- TODO Custom END -->
     </ul>
 

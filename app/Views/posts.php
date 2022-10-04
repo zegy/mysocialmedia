@@ -54,15 +54,18 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php if($posts) { foreach ($posts as $post) { ?>
                   <tr>
                     <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
+                    <td><?= $post->nome ?></td>
+                    <td><?= $post->data ?></td>
                     <td><span class="badge bg-warning">Pending</span></td>
                     <!-- <td><span class="badge bg-success">Approved</span></td> -->
                     <!-- <td><span class="badge bg-danger">Denied</span></td> -->
-                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                    <td><a href="<?= base_url('comment/show/'.$post->pid) ?>"><?= $post->pttl ?></a></td>
                   </tr>
+                  <?php } } else { ?>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>

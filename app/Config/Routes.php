@@ -19,8 +19,8 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
-$routes->setDefaultMethod('homeUmum');
+$routes->setDefaultController('Post');
+$routes->setDefaultMethod('publicPosts');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
@@ -44,6 +44,7 @@ $routes->setAutoRoute(false);
 
 $routes->add('dashboard', 'Dashboard::index');
 
+$routes->add('/', 'Post::publicPosts'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
 $routes->add('publicposts', 'Post::publicPosts');
 $routes->add('privateposts', 'Post::privatePosts'); // filter dosen
 

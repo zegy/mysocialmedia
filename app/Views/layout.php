@@ -259,64 +259,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= base_url('assets/dist/js/pages/dashboard3.js') ?>"></script>
 
-<!-- jquery-validation -->
-<script src="<?= base_url('assets/plugins/jquery-validation/jquery.validate.min.js') ?>"></script>
-<script src="<?= base_url('assets/plugins/jquery-validation/additional-methods.min.js') ?>"></script>
-<!-- Page specific script (jquery-validation) -->
-<script>
-$(function () {
-  $.validator.setDefaults({
-    submitHandler: function () {
-      alert( "Form successful submitted!" );
-    }
-  });
-  $('#quickForm').validate({
-    rules: {
-      email: {
-        required: true,
-        email: true,
-      },
-      password: {
-        required: true,
-        minlength: 5
-      },
-      terms: {
-        required: true
-      },
-    },
-    messages: {
-      email: {
-        required: "Please enter a email address",
-        email: "Please enter a valid email address"
-      },
-      password: {
-        required: "Please provide a password",
-        minlength: "Your password must be at least 5 characters long"
-      },
-      terms: "Please accept our terms"
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
-});
-</script>
-
-
-
-
-
-
-
-
 <!-- NOTE CUSTOM SCRIPTS -->
 <!-- Set active sidebar menu { (experimental, mixed js with php). Set id on each sidebar menu first! -->
 <?php $uri = service('uri') ?>

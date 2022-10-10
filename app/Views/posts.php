@@ -43,7 +43,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0" style="height: 300px;">
-              <table class="table table-head-fixed text-nowrap">
+              <table class="table table-head-fixed text-nowrap projects">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -57,7 +57,10 @@
                   <?php if($posts) { foreach ($posts as $post) { ?>
                   <tr>
                     <td>183</td>
-                    <td><?= $post->nome ?></td>
+                    <td>
+                      <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
+                      <a href="<?php echo base_url('user/showprofile/' . $post->uid) ?>"><?= $post->nome ?></a>
+                    </td>
                     <td><?= $post->data ?></td>
                     <td><span class="badge bg-warning">Pending</span></td>
                     <!-- <td><span class="badge bg-success">Approved</span></td> -->

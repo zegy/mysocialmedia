@@ -1,10 +1,8 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?> 
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
+<div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
+  <section class="content-header"><!-- Content Header (Page header) -->
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -20,20 +18,17 @@
     </div><!-- /.container-fluid -->
   </section>
 
-  <!-- Main content -->
-  <section class="content">
+  <section class="content"><!-- Main content -->
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-6">
-          <!-- Box Comment -->
-          <div class="card card-widget">
+          <div class="card card-widget"><!-- Box Comment -->
             <div class="card-header">
               <div class="user-block">
                 <img class="img-circle" src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="User Image">
                 <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
                 <span class="description">Shared publicly - 7:30 PM Today</span>
-              </div>
-              <!-- /.user-block -->
+              </div><!-- /.user-block -->
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" title="Mark as read">
                   <i class="far fa-circle"></i>
@@ -44,29 +39,21 @@
                 <button type="button" class="btn btn-tool" data-card-widget="remove">
                   <i class="fas fa-times"></i>
                 </button>
-              </div>
-              <!-- /.card-tools -->
-            </div>
-            <!-- /.card-header -->
+              </div><!-- /.card-tools -->
+            </div><!-- /.card-header -->
             <div class="card-body">
               <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
-
               <p>I took this photo this morning. What do you guys think?</p>
               <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
               <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
               <span class="float-right text-muted">127 likes - 3 comments</span>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
+            </div><!-- /.card-body -->
+          </div><!-- /.card -->
+        </div><!-- /.col -->
         <div class="col-md-6">
-          <!-- Box Comment -->
-          <div class="card card-widget">
+          <div class="card card-widget"><!-- Box Comment -->
             <div class="card-header">
               <h3 class="float-left" style="margin-bottom: 7px;">Komentar</h3>
-
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" title="Mark as read">
                   <i class="far fa-circle"></i>
@@ -77,17 +64,13 @@
                 <button type="button" class="btn btn-tool" data-card-widget="remove">
                   <i class="fas fa-times"></i>
                 </button>
-              </div>
-              <!-- /.card-tools -->
-            </div>
-            <!-- /.card-header -->
+              </div><!-- /.card-tools -->
+            </div><!-- /.card-header -->
             <div class="card-footer card-comments">
               <div class="card-comment">
                 <div class="row">
                   <div class="col-11">
-                    <!-- User image -->
-                    <img class="img-circle img-sm" src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Image">
-
+                    <img class="img-circle img-sm" src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Image"><!-- User image -->
                     <div class="comment-text">
                     <span class="username">
                         Maria Gonzales
@@ -95,10 +78,8 @@
                     </span><!-- /.username -->
                     It is a long established fact that a reader will be distracted
                     by the readable content of a page when looking at its layout.
-                    </div>
-                    <!-- /.comment-text -->
-                  </div>
-                  <!-- /.col -->
+                    </div><!-- /.comment-text -->
+                  </div><!-- /.col -->
                   <div class="col-1">
                     <div class="btn-group-vertical">
                       <button type="button" class="btn btn-default btn-xs">
@@ -111,34 +92,23 @@
                         <i class="fas fa-arrow-down"></i>
                       </button>
                     </div>
-                  </div>
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
-              </div>
-              <!-- /.card-comment -->
-            </div>
-            <!-- /.card-footer -->
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </div><!-- /.card-comment -->
+            </div><!-- /.card-footer -->
             <div class="card-footer">
               <form action="#" method="post">
                 <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
-                <!-- .img-push is used to add margin to elements next to floating images -->
-                <div class="img-push">
+                <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
                   <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">
                 </div>
               </form>
-            </div>
-            <!-- /.card-footer -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+            </div><!-- /.card-footer -->
+          </div><!-- /.card -->
+        </div><!-- /.col -->
+      </div><!-- /.row -->
     </div><!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
 
 <?= $this->endSection() ?>

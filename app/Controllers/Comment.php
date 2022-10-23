@@ -19,31 +19,6 @@ class Comment extends BaseController
         $this->commentModel = new CommentModel();
     }
 
-    public function show($group, $pid) //TODO use $group
-    {
-        $post = $this->postModel->getOneById($pid);
-        
-        if (!empty($post))
-        {
-            if (session('role') == 'mahasiswa' && $post->type == 'private') // avoid mahasiswa to open private posts
-            {                
-                return redirect()->to('/'); // ZEGY OTC 404 DOSEN'S PRIVATE POST    
-            }
-            else
-            {
-                return view('comments',
-                [
-                    'post'     => $post,
-                    'comments' => $this->commentModel->getAllByPost($pid)
-                ]);
-            }
-        }
-        else
-        {
-            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
-        }
-    }
-
     public function save() //TODO save or edit comment. Okd format, sync with post controller after using javascript
     {
         $data = $this->request->getPost();

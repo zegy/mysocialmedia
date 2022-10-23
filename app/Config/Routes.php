@@ -46,9 +46,8 @@ $routes->add('/', 'Post::publicPosts'); //TODO UNKNOWN TEMP ONLY. "setDefaultCon
 
 
 
-$routes->add('fordis/(:segment)', 'Post::show/$1'); //NOTE Inc. Umum
-$routes->add('fordis/(:segment)/(:num)', 'Comment::show/$1/$2');
-
+$routes->add('fordis/(:segment)', 'Post::showAll/$1'); //NOTE Inc. Umum
+$routes->add('fordis/(:segment)/(:num)', 'Post::detail/$1/$2');
 
 
 $routes->add('fordis_khusus/create', 'Group::create');

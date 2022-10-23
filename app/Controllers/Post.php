@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PostModel;
+use App\Models\CommentModel; //TODO TEMP!
 
 class Post extends BaseController
 {
@@ -11,9 +12,10 @@ class Post extends BaseController
     {
         helper('form');
         $this->postModel = new PostModel();
+        $this->commentModel = new CommentModel(); //TODO TEMP!
     }
 
-    public function show($group)
+    public function showAll($group)
     {
         return view('posts',
         [
@@ -22,15 +24,22 @@ class Post extends BaseController
         ]);
     }
 
-    // public function privatePosts()
-    // {
-    //     return view('posts',
-    //     [
-    //         "posts" => $this->postModel->getAllByType('private'),
-    //         "pager" => $this->postModel->pager,
-    //         "type"  => "dosen"
-    //     ]);
-    // }
+    public function detail($group, $pid) //TODO use $group
+    {
+        $post = $this->postModel->getOneById($pid);
+        if (!empty($post))
+        {
+            return view('comments',
+            [
+                'post'     => $post,
+                'comments' => $this->commentModel->getAllByPost($pid)
+            ]);
+        }
+        else
+        {
+            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
+        }
+    }
 
     public function create()
     {

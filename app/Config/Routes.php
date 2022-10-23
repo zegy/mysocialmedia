@@ -43,12 +43,15 @@ $routes->setAutoRoute(false);
 // });
 
 $routes->add('/', 'Post::publicPosts'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
-$routes->add('publicposts', 'Post::publicPosts');
-$routes->add('privateposts', 'Post::privatePosts'); // filter dosen
 
 
-$routes->add('fordis/umum', 'Post::publicPosts');
-$routes->add('fordis/dosen', 'Post::privatePosts');
+
+$routes->add('fordis/(:segment)', 'Post::show/$1'); //NOTE Inc. Umum
+$routes->add('fordis/(:segment)/(:num)', 'Comment::show/$1/$2');
+
+
+
+$routes->add('fordis_khusus/create', 'Group::create');
 
 $routes->add('post/create', 'Post::create');
 $routes->add('post/update', 'Post::update');
@@ -68,8 +71,6 @@ $routes->add('login/signout', 'Login::signOut');
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
 
 $routes->add('comment/save', 'Comment::save');
-$routes->add('fordis/umum/(:num)', 'Comment::show/$1');
-// $routes->add('fordis/dosen/(:num)', 'Comment::show/$1');
 
 $routes->add('comment/edit/(:num)', 'Comment::edit/$1');
 $routes->add('comment/delete/(:num)', 'Comment::delete/$1');

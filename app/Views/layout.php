@@ -159,16 +159,16 @@
                 </p>
               </a>
             </li>
-            <!-- <li class="nav-item" id="fordismain">
-              <a href="#" class="nav-link" id="fordis">
+            <li class="nav-item" id="fordis_khusus_main">
+              <a href="#" class="nav-link" id="fordis_khusus">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                  Forum Diskusi
+                  Forum Diskusi Khusus
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="<?= base_url('fordis/publik') ?>" class="nav-link" id="publik">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Publik</p>
@@ -179,9 +179,15 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Dosen</p>
                   </a>
+                </li> -->
+                <li class="nav-item">
+                  <a href="<?= base_url('fordis_khusus/create') ?>" class="nav-link" id="create">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Buat group baru</p>
+                  </a>
                 </li>
               </ul>
-            </li> -->
+            </li>
           </ul>
         </nav><!-- /.sidebar-menu -->
       </div><!-- /.sidebar -->

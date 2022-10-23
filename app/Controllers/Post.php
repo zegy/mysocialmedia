@@ -13,25 +13,24 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
-    public function publicPosts()
+    public function show($group)
     {
         return view('posts',
         [
-            "posts" => $this->postModel->getAllByType('public'),
+            "posts" => $this->postModel->getAllByType($group),
             "pager" => $this->postModel->pager,
-            "type"  => "publik"
         ]);
     }
 
-    public function privatePosts()
-    {
-        return view('posts',
-        [
-            "posts" => $this->postModel->getAllByType('private'),
-            "pager" => $this->postModel->pager,
-            "type"  => "dosen"
-        ]);
-    }
+    // public function privatePosts()
+    // {
+    //     return view('posts',
+    //     [
+    //         "posts" => $this->postModel->getAllByType('private'),
+    //         "pager" => $this->postModel->pager,
+    //         "type"  => "dosen"
+    //     ]);
+    // }
 
     public function create()
     {

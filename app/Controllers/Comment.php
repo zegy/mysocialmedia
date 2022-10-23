@@ -19,7 +19,7 @@ class Comment extends BaseController
         $this->commentModel = new CommentModel();
     }
 
-    public function show($pid)
+    public function show($group, $pid) //TODO use $group
     {
         $post = $this->postModel->getOneById($pid);
         

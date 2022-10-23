@@ -43,45 +43,24 @@ class Login extends BaseController
           ];
           echo json_encode($output);
         } else {
-        //   $this->model->save([
-        //     'name' => $this->request->getPost('name'),
-        //     'price' => $price,
-        //     'category' => $this->request->getPost('category'),
-        //     'detail' => $this->request->getPost('detail'),
-        //   ]);
-          echo json_encode(['status' => TRUE]);
-        }
+            $data = $this->request->getPost();
+            $userModel = new UserModel();
+            $dataUser = $userModel->where('user_email', $data['email'])->first();
 
-        // ========================================================================================
-        // $data = $this->request->getPost();
-        // // dd($data);
-
-        // $userModel = new UserModel();
-        // $dataUser = $userModel->where('user_email', $data['email'])->first();
-
-        // if (!empty($dataUser))
-        // {
-        //     $hash = $dataUser->user_password;
-
-        //     if (password_verify($data['password'], $hash))
-        //     {
-        //         session()->set('isLoggedIn', true);
-        //         session()->set('id', $dataUser->user_pk);
-        //         session()->set('role', $dataUser->user_role);
-        //         session()->set('picture', $dataUser->user_profile_picture);
-        //         return redirect()->to('/fordis/umum'); //TODO right way?
-        //     }
-        //     else
-        //     {
-        //        session()->setFlashData('msg','Usuario ou senha incorretos!');
-        //        return redirect()->back();         
-        //     }
-        // }
-        // else
-        // {
-        //     session()->setFlashData('msg','Usuario ou senha incorretos!');
-        //     return redirect()->back();         
-        // }
+            if (!empty($dataUser))
+            {
+                $hash = $dataUser->user_password;
+                if (password_verify($data['password'], $hash))
+                {
+                    session()->set('isLoggedIn', true);
+                    session()->set('id', $dataUser->user_pk);
+                    session()->set('role', $dataUser->user_role);
+                    session()->set('picture', $dataUser->user_profile_picture);
+                    // return redirect()->to('/fordis/umum'); //TODO right way?
+                    echo json_encode(['status' => TRUE]);
+                }
+            }
+        }      
     }
 
     public function signOut()

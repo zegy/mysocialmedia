@@ -67,7 +67,7 @@
   <script>
     const Toast = Swal.mixin({
       toast: true,
-      position: 'top-end',
+      position: 'top',
       showConfirmButton: false,
       timer: 2000,
       timerProgressBar: true,
@@ -89,7 +89,7 @@
                 icon: 'success',
                 title: 'Data berhasil ditambah'
               })
-            //   source_data()
+            window.location = "/"; //NOTE HERE IS NICE ONE!
             } else {
               $.each(res.errors, function(key, value) {
                 $('[name="' + key + '"]').addClass('is-invalid')

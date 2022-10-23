@@ -42,9 +42,7 @@ $routes->setAutoRoute(false);
 //     $routes->get('blog', 'Admin\Blog::index');
 // });
 
-$routes->add('/', 'Post::publicPosts'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
-
-
+$routes->add('/', 'Login::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
 
 $routes->add('fordis/(:segment)', 'Post::showAll/$1'); //NOTE Inc. Umum
 $routes->add('fordis/(:segment)/(:num)', 'Post::detail/$1/$2');

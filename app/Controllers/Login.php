@@ -16,7 +16,7 @@ class Login extends BaseController
     {
         if (session('isLoggedIn') == true)
         {
-            return redirect()->to('/');
+            return redirect()->to('/fordis/umum'); //TODO right way?
         }
         else
         {
@@ -42,7 +42,7 @@ class Login extends BaseController
                 session()->set('id', $dataUser->user_pk);
                 session()->set('role', $dataUser->user_role);
                 session()->set('picture', $dataUser->user_profile_picture);
-                return redirect()->to('/fordis/publik');
+                return redirect()->to('/fordis/umum'); //TODO right way?
             }
             else
             {

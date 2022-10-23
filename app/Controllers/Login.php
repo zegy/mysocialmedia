@@ -27,22 +27,26 @@ class Login extends BaseController
     public function signIn()
     {
         $rules = [
-          'email' => 'required',
-          'password' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ];
-    
-        if (!$this->validate($rules)) {
-          $errors = [
-            'email' => $this->validation->getError('email'),
-            'password' => $this->validation->getError('password'),
-          ];
-    
-          $output = [
-            'status' => FALSE,
-            'errors' => $errors
-          ];
-          echo json_encode($output);
-        } else {
+
+        if (!$this->validate($rules))
+        {
+            $errors = [
+                'email' => $this->validation->getError('email'),
+                'password' => $this->validation->getError('password'),
+            ];
+
+            $output = [
+                'status' => FALSE,
+                'errors' => $errors
+            ];
+
+            echo json_encode($output);
+        }
+        else
+        {
             $data = $this->request->getPost();
             $userModel = new UserModel();
             $dataUser = $userModel->where('user_email', $data['email'])->first();
@@ -56,7 +60,6 @@ class Login extends BaseController
                     session()->set('id', $dataUser->user_pk);
                     session()->set('role', $dataUser->user_role);
                     session()->set('picture', $dataUser->user_profile_picture);
-                    // return redirect()->to('/fordis/umum'); //TODO right way?
                     echo json_encode(['status' => TRUE]);
                 }
             }

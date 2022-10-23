@@ -47,7 +47,7 @@ $routes->add('publicposts', 'Post::publicPosts');
 $routes->add('privateposts', 'Post::privatePosts'); // filter dosen
 
 
-$routes->add('fordis/publik', 'Post::publicPosts');
+$routes->add('fordis/umum', 'Post::publicPosts');
 $routes->add('fordis/dosen', 'Post::privatePosts');
 
 $routes->add('post/create', 'Post::create');
@@ -68,8 +68,8 @@ $routes->add('login/signout', 'Login::signOut');
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
 
 $routes->add('comment/save', 'Comment::save');
-$routes->add('fordis/publik/(:num)', 'Comment::show/$1');
-$routes->add('fordis/dosen/(:num)', 'Comment::show/$1');
+$routes->add('fordis/umum/(:num)', 'Comment::show/$1');
+// $routes->add('fordis/dosen/(:num)', 'Comment::show/$1');
 
 $routes->add('comment/edit/(:num)', 'Comment::edit/$1');
 $routes->add('comment/delete/(:num)', 'Comment::delete/$1');

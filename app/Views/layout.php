@@ -150,7 +150,16 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-item" id="fordismain">
+            <li class="nav-item">
+              <a href="<?= base_url('fordis/umum') ?>" class="nav-link" id="umum">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Forum Diskusi Umum
+                  <!-- <span class="right badge badge-danger">1</span> -->
+                </p>
+              </a>
+            </li>
+            <!-- <li class="nav-item" id="fordismain">
               <a href="#" class="nav-link" id="fordis">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -172,7 +181,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
           </ul>
         </nav><!-- /.sidebar-menu -->
       </div><!-- /.sidebar -->

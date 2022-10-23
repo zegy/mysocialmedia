@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard 3</title>
+  <title>AdminLTE 3</title>
   <!-- Google Font: Source Sans Pro --> <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons --> <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
   <!-- IonIcons --> <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -150,14 +150,6 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="<?= base_url('dashboard') ?>" class="nav-link" id="dashboard">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Dashboard
-                </p>
-              </a>
-            </li>
             <li class="nav-item" id="postmain">
               <a href="#" class="nav-link" id="post">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -205,9 +197,7 @@
   <!-- AdminLTE --> <script src="<?= base_url('assets/dist/js/adminlte.js') ?>"></script>
   
   <!-- OPTIONAL SCRIPTS -->
-  <!-- TODO Dashboard part? --> <script src="<?= base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script>
   <!-- AdminLTE for demo purposes --> <script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) --> <script src="<?= base_url('assets/dist/js/pages/dashboard3.js') ?>"></script>
   
   <!-- MY CUSTOM SCRIPTS -->
   <!-- Set active sidebar menu START (experimental, mixed js with php). Set id on each sidebar menu first! -->

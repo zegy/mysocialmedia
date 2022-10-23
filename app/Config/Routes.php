@@ -42,8 +42,6 @@ $routes->setAutoRoute(false);
 //     $routes->get('blog', 'Admin\Blog::index');
 // });
 
-$routes->add('dashboard', 'Dashboard::index');
-
 $routes->add('/', 'Post::publicPosts'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
 $routes->add('publicposts', 'Post::publicPosts');
 $routes->add('privateposts', 'Post::privatePosts'); // filter dosen

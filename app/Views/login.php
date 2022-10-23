@@ -89,7 +89,7 @@
                 icon: 'success',
                 title: 'Data berhasil ditambah'
               })
-              source_data()
+            //   source_data()
             } else {
               $.each(res.errors, function(key, value) {
                 $('[name="' + key + '"]').addClass('is-invalid')

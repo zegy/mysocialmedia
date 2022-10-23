@@ -42,7 +42,7 @@ class Login extends BaseController
                 session()->set('id', $dataUser->user_pk);
                 session()->set('role', $dataUser->user_role);
                 session()->set('picture', $dataUser->user_profile_picture);
-                return redirect()->to('/post/publicposts');
+                return redirect()->to('/fordis/publik');
             }
             else
             {

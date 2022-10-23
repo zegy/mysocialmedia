@@ -150,25 +150,25 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-item" id="postmain">
-              <a href="#" class="nav-link" id="post">
+            <li class="nav-item" id="fordismain">
+              <a href="#" class="nav-link" id="fordis">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                  Posts
+                  Forum Diskusi
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('post/publicposts') ?>" class="nav-link" id="publicposts">
+                  <a href="<?= base_url('fordis/publik') ?>" class="nav-link" id="publik">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Public Posts</p>
+                    <p>Publik</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('post/privateposts') ?>" class="nav-link" id="privateposts">
+                  <a href="<?= base_url('fordis/dosen') ?>" class="nav-link" id="dosen">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Private Posts</p>
+                    <p>Dosen</p>
                   </a>
                 </li>
               </ul>

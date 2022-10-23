@@ -59,7 +59,13 @@
                     <td><span class="badge bg-warning">Pending</span></td>
                     <!-- <td><span class="badge bg-success">Approved</span></td> -->
                     <!-- <td><span class="badge bg-danger">Denied</span></td> -->
-                    <td><a href="<?= base_url('comment/show/'.$post->pid) ?>"><?= $post->pttl ?></a></td>
+                    <td>
+                      <?php if ($type == 'publik') { ?>
+                      <a href="<?= base_url('fordis/publik/'.$post->pid) ?>"><?= $post->pttl ?></a>
+                      <?php } else { ?>
+                      <a href="<?= base_url('fordis/dosen/'.$post->pid) ?>"><?= $post->pttl ?></a>
+                      <?php } ?>
+                    </td>
                   </tr>
                   <?php } } else { ?>
                   <?php } ?>

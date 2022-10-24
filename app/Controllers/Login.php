@@ -62,6 +62,22 @@ class Login extends BaseController
                     session()->set('picture', $dataUser->user_profile_picture);
                     echo json_encode(['status' => TRUE]);
                 }
+                else
+                {
+                    $output = [
+                        'not_match' => true,
+                    ];
+        
+                    echo json_encode($output);
+                }
+            }
+            else
+            {
+                $output = [
+                    'user_404' => true,
+                ];
+    
+                echo json_encode($output);
             }
         }      
     }

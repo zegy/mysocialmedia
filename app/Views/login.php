@@ -100,6 +100,20 @@
                 }
               })
             }
+
+            if (res.user_404) {
+              Toast.fire({
+                icon: 'error',
+                title: 'User-not-found'
+              })
+            }
+
+            if (res.not_match) {
+              Toast.fire({
+                icon: 'error',
+                title: 'Email or password not match'
+              })
+            }
           }
         })
 

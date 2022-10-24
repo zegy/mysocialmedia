@@ -42,8 +42,6 @@ class Login extends BaseController
                 'status' => FALSE,
                 'errors' => $errors
             ];
-
-            echo json_encode($output);
         }
         else
         {
@@ -60,26 +58,19 @@ class Login extends BaseController
                     session()->set('id', $dataUser->user_pk);
                     session()->set('role', $dataUser->user_role);
                     session()->set('picture', $dataUser->user_profile_picture);
-                    echo json_encode(['status' => TRUE]);
+                    $output = ['status' => true];
                 }
                 else
                 {
-                    $output = [
-                        'not_match' => true,
-                    ];
-        
-                    echo json_encode($output);
+                    $output = ['error_user' => true];
                 }
             }
             else
             {
-                $output = [
-                    'user_404' => true,
-                ];
-    
-                echo json_encode($output);
+                $output = ['error_user' => true];
             }
-        }      
+        }
+        echo json_encode($output);
     }
 
     public function signOut()

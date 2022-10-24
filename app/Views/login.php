@@ -84,12 +84,11 @@
           dataType: "json",
           success: function(res) {
             if (res.status) {
-            //   $(".modal").modal("toggle")
               Toast.fire({
                 icon: 'success',
-                title: 'Data berhasil ditambah'
+                title: 'Login berhasil!'
               })
-            window.location = "/"; //NOTE HERE IS NICE ONE!
+              window.location = "/"; //NOTE HERE IS NICE ONE!
             } else {
               $.each(res.errors, function(key, value) {
                 $('[name="' + key + '"]').addClass('is-invalid')
@@ -100,15 +99,8 @@
                 }
               })
             }
-
-            if (res.user_404) {
-              Toast.fire({
-                icon: 'error',
-                title: 'User-not-found'
-              })
-            }
-
-            if (res.not_match) {
+           
+            if (res.error_user) {
               Toast.fire({
                 icon: 'error',
                 title: 'Email or password not match'

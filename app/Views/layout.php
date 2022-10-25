@@ -220,7 +220,7 @@
   <script>
     function source_data() {
       $.ajax({
-        url: "<?= base_url('fordis/umum/posts_table') ?>",
+        url: "<?= base_url('fordis/' . $group) ?>",
         dataType: "json",
         success: function(res) {
           $(".source-data").html(res)

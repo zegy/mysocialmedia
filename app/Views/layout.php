@@ -151,42 +151,13 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="<?= base_url('fordis/umum') ?>" class="nav-link" id="fordis">
+              <a href="<?= base_url('fordis/umum') ?>" class="nav-link" id="umum">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Forum Diskusi Umum
                   <!-- <span class="right badge badge-danger">1</span> -->
                 </p>
               </a>
-            </li>
-            <li class="nav-item" id="fordis_khusus_main">
-              <a href="#" class="nav-link" id="fordis_khusus">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Forum Diskusi Khusus
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <!-- <li class="nav-item">
-                  <a href="<?= base_url('fordis/publik') ?>" class="nav-link" id="publik">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Publik</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('fordis/dosen') ?>" class="nav-link" id="dosen">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dosen</p>
-                  </a>
-                </li> -->
-                <li class="nav-item">
-                  <a href="<?= base_url('fordis_khusus/create') ?>" class="nav-link" id="create">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Buat group baru</p>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </nav><!-- /.sidebar-menu -->
@@ -222,14 +193,9 @@
   <script>
     $(document).ready(function() {
       //Decide "active sidebar" based on current page START
-      //Get current URL separated by "/" as segments
-      var seg = (window.location.href).split('/') //NOTE seg[3] is like CI's "1st" segment
-      const ele = document.getElementById(seg[3]);
-      const ele2 = document.getElementById(seg[4]);
+      var seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
+      const ele = document.getElementById(seg[4]);
       if (ele !== null) {
-        $(ele).addClass('active')
-      } else if (ele2 !== null && ele2 !== 'umum') {
-        $(ele2 + 'main').addClass('active')
         $(ele).addClass('active')
       }
       //Decide "active sidebar" based on current page END

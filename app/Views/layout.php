@@ -215,8 +215,6 @@
   <!-- AdminLTE for demo purposes --> <script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
   
   <!-- MY CUSTOM SCRIPTS -->
-  <!-- Set active sidebar menu START (experimental, mixed js with php). Set id on each sidebar menu first! -->
-  <?php $uri = service('uri') ?>
   <script>
     function source_data() {
       $.ajax({
@@ -229,20 +227,18 @@
     }
 
     $(document).ready(function(){
-      document.getElementById("<?= $uri->getSegment(1) ?>").className += " active"
+      var URL = window.location.href
+      var seg = URL.split('/') //NOTE seg[3] is like CI's "1st" segment
+      document.getElementById(seg[3]).className += " active"
+    //   console.log(seg)
 
-
+      if (seg[5] != null) {
+        document.getElementById(seg[3]).className += " active"
+        document.getElementById(seg[4] + "main").className += " menu-open"
+      }
+      
       source_data()
     });
   </script>
-  <?php if (!empty($uri->getSegment(2) AND $uri->getSegment(2) != 'umum')) { ?>
-    <script>
-      $(document).ready(function(){
-        document.getElementById("<?= $uri->getSegment(2) ?>").className += " active"
-        document.getElementById("<?= $uri->getSegment(1).'main' ?>").className += " menu-open"
-      });
-    </script>
-  <?php } ?>
-  <!-- Set active sidebar menu END -->
 </body>
 </html>

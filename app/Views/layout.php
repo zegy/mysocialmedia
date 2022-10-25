@@ -159,6 +159,15 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="<?= base_url('fordis/test') ?>" class="nav-link" id="test">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Forum Diskusi Test
+                  <!-- <span class="right badge badge-danger">1</span> -->
+                </p>
+              </a>
+            </li>
           </ul>
         </nav><!-- /.sidebar-menu -->
       </div><!-- /.sidebar -->

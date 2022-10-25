@@ -216,28 +216,34 @@
   
   <!-- MY CUSTOM SCRIPTS -->
   <script>
-    function source_data() {
-      $.ajax({
-        url: "<?= base_url('fordis/' . $group) ?>",
-        dataType: "json",
-        success: function(res) {
-          $(".source-data").html(res)
+    $(document).ready(function() {
+      //Get current URL separated by "/" as segments
+      var seg = (window.location.href).split('/') //NOTE seg[3] is like CI's "1st" segment
+      
+      //Decide which script to use based on current page START
+      if (seg[3] == 'fordis') {
+        function source_data() {
+          $.ajax({
+            url: "<?= base_url('fordis/' . $group) ?>",
+            dataType: "json",
+            success: function(res) {
+              $(".source-data").html(res)
+            }
+          })
         }
-      })
-    }
+        source_data()
+      }
+      //Decide which script to use based on current page END
 
-    $(document).ready(function(){
-      var URL = window.location.href
-      var seg = URL.split('/') //NOTE seg[3] is like CI's "1st" segment
-      document.getElementById(seg[3]).className += " active"
-    //   console.log(seg)
-
+      //Decide "active sidebar" based on current page START
       if (seg[5] != null) {
         document.getElementById(seg[3]).className += " active"
         document.getElementById(seg[4] + "main").className += " menu-open"
       }
-      
-      source_data()
+      else {
+        document.getElementById(seg[3]).className += " active"
+      }
+      //Decide "active sidebar" based on current page END
     });
   </script>
 </body>

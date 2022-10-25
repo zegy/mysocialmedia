@@ -221,16 +221,16 @@
   <!-- "Layout" script -->
   <script>
     $(document).ready(function() {
+      //Decide "active sidebar" based on current page START
       //Get current URL separated by "/" as segments
       var seg = (window.location.href).split('/') //NOTE seg[3] is like CI's "1st" segment
-      
-      //Decide "active sidebar" based on current page START
-      if (seg[5] != null && seg[4] != 'umum') {
-        document.getElementById(seg[3]).className += " active"
-        document.getElementById(seg[4] + "main").className += " menu-open"
-      }
-      else {
-        document.getElementById(seg[3]).className += " active"
+      const ele = document.getElementById(seg[3]);
+      const ele2 = document.getElementById(seg[4]);
+      if (ele !== null) {
+        $(ele).addClass('active')
+      } else if (ele2 !== null && ele2 !== 'umum') {
+        $(ele2 + 'main').addClass('active')
+        $(ele).addClass('active')
       }
       //Decide "active sidebar" based on current page END
     });

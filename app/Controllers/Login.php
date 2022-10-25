@@ -12,7 +12,7 @@ class Login extends BaseController
         helper('form');
     }
 
-    public function index() //TODO Why not in "__construct" ?
+    public function index()
     {
         if (session('isLoggedIn') == true)
         {
@@ -39,68 +39,18 @@ class Login extends BaseController
                 session()->set('id', $dataUser->user_pk);
                 session()->set('role', $dataUser->user_role);
                 session()->set('picture', $dataUser->user_profile_picture);
-                $output = ['status' => true];
+                echo json_encode(['status' => true]);
             }
             else
             {
-                $output = ['status' => false];
+                echo json_encode(['status' => false]);
             }
         }
         else
         {
-            $output = ['status' => false];
+            echo json_encode(['status' => false]);
         }
-        echo json_encode($output);
     }
-
-    // public function signIn()
-    // {
-    //     $rules = [
-    //         'email' => 'required',
-    //         'password' => 'required',
-    //     ];
-
-    //     if (!$this->validate($rules))
-    //     {
-    //         $errors = [
-    //             'email' => $this->validation->getError('email'),
-    //             'password' => $this->validation->getError('password'),
-    //         ];
-
-    //         $output = [
-    //             'status' => FALSE,
-    //             'errors' => $errors
-    //         ];
-    //     }
-    //     else
-    //     {
-    //         $data = $this->request->getPost();
-    //         $userModel = new UserModel();
-    //         $dataUser = $userModel->where('user_email', $data['email'])->first();
-
-    //         if (!empty($dataUser))
-    //         {
-    //             $hash = $dataUser->user_password;
-    //             if (password_verify($data['password'], $hash))
-    //             {
-    //                 session()->set('isLoggedIn', true);
-    //                 session()->set('id', $dataUser->user_pk);
-    //                 session()->set('role', $dataUser->user_role);
-    //                 session()->set('picture', $dataUser->user_profile_picture);
-    //                 $output = ['status' => true];
-    //             }
-    //             else
-    //             {
-    //                 $output = ['error_user' => true];
-    //             }
-    //         }
-    //         else
-    //         {
-    //             $output = ['error_user' => true];
-    //         }
-    //     }
-    //     echo json_encode($output);
-    // }
 
     public function signOut()
     {

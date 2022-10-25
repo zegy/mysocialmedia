@@ -88,25 +88,21 @@
                 icon: 'success',
                 title: 'Login berhasil!'
               })
-              window.location = "/"; //NOTE HERE IS NICE ONE!
+              window.location = "/" //TODO this is for redirect (since it's not working via C. But is it the best way?
             } else {
               Toast.fire({
                 icon: 'error',
                 title: 'Email or password not match'
               })
+              $('[name="email"]').addClass('is-invalid')
+              $('[name="password"]').addClass('is-invalid')
             }
           }
         })
-
-        // $("#form-data input").on("keyup", function() {
-        //   $(this).removeClass('is-invalid is-valid')
-        // })
-        // $("#form-data input").on("click", function() {
-        //   $(this).removeClass('is-invalid is-valid')
-        // })
-        // $("#form-data select").on("click", function() {
-        //   $(this).removeClass('is-invalid is-valid')
-        // })
+        
+        $("#form-data input").on("click", function() {
+          $(this).removeClass('is-invalid')
+        })
       })
     })
   </script>

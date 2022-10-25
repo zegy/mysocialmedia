@@ -151,7 +151,7 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="<?= base_url('fordis/umum') ?>" class="nav-link" id="umum">
+              <a href="<?= base_url('fordis/umum') ?>" class="nav-link" id="fordis">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Forum Diskusi Umum
@@ -222,7 +222,7 @@
       document.getElementById("<?= $uri->getSegment(1) ?>").className += " active"
     });
   </script>
-  <?php if (!empty($uri->getSegment(2))) { ?>
+  <?php if (!empty($uri->getSegment(2) AND $uri->getSegment(2) != 'umum')) { ?>
     <script>
       $(document).ready(function(){
         document.getElementById("<?= $uri->getSegment(2) ?>").className += " active"

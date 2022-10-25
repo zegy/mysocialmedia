@@ -24,21 +24,23 @@ class Login extends BaseController
         }
     }
 
-    public function signIn()
+    public function signIn() //NOTE Using AJAX
     {
-        $data = $this->request->getPost();
         $userModel = new UserModel();
-        $dataUser = $userModel->where('user_email', $data['email'])->first();
+        $userData = $userModel->where('user_email', $this->request->getPost('email'))->first();
 
-        if (!empty($dataUser))
+        if (!empty($userData))
         {
-            $hash = $dataUser->user_password;
-            if (password_verify($data['password'], $hash))
+            if (password_verify($this->request->getPost('password'), $userData->user_password)) //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the "Important" note!). https://www.php.net/manual/en/function.password-verify.php
             {
-                session()->set('isLoggedIn', true);
-                session()->set('id', $dataUser->user_pk);
-                session()->set('role', $dataUser->user_role);
-                session()->set('picture', $dataUser->user_profile_picture);
+                $sessionData =
+                [
+                    'isLoggedIn' => true,
+                    'id'         => $userData->user_pk,
+                    'role'       => $userData->user_role,
+                    'picture'    => $userData->user_profile_picture
+                ];
+                session()->set($sessionData);
                 echo json_encode(['status' => true]);
             }
             else

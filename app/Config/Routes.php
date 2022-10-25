@@ -48,6 +48,12 @@ $routes->add('fordis/(:segment)', 'Post::showAll/$1'); //NOTE Inc. Umum
 $routes->add('fordis/(:segment)/(:num)', 'Post::detail/$1/$2');
 
 
+$routes->add('fordis/umum/posts_table', 'Post::posts_table');
+
+
+
+
+
 $routes->add('fordis_khusus/create', 'Group::create');
 
 $routes->add('post/create', 'Post::create');

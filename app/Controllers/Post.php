@@ -17,11 +17,25 @@ class Post extends BaseController
 
     public function showAll($group)
     {
-        return view('posts',
-        [
-            "posts" => $this->postModel->getAllByType($group),
-            "pager" => $this->postModel->pager,
-        ]);
+        return view('posts');
+    }
+
+    public function posts_table()
+    {
+        if ($this->request->isAJAX()) {
+            $data =
+            [
+              "posts" => $this->postModel->getAllByType('public'),
+              "pager" => $this->postModel->pager,
+            ];
+      
+            $output = view('posts_table', $data);
+            echo json_encode($output);
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
     }
 
     public function detail($group, $pid) //TODO use $group

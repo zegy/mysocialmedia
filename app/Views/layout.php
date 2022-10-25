@@ -218,8 +218,21 @@
   <!-- Set active sidebar menu START (experimental, mixed js with php). Set id on each sidebar menu first! -->
   <?php $uri = service('uri') ?>
   <script>
+    function source_data() {
+      $.ajax({
+        url: "<?= base_url('fordis/umum/posts_table') ?>",
+        dataType: "json",
+        success: function(res) {
+          $(".source-data").html(res)
+        }
+      })
+    }
+
     $(document).ready(function(){
       document.getElementById("<?= $uri->getSegment(1) ?>").className += " active"
+
+
+      source_data()
     });
   </script>
   <?php if (!empty($uri->getSegment(2) AND $uri->getSegment(2) != 'umum')) { ?>

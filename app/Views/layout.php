@@ -231,5 +231,23 @@
     </script>
   <?php } ?>
   <!-- Set active sidebar menu END -->
+
+
+
+
+
+  <!-- AJAX OTC -->
+  <!-- posts -->
+  <script>
+    function source_data() {
+      $.ajax({
+        url: "<?= base_url('fordis/umum') ?>",
+        dataType: "json",
+        success: function(res) {
+          $(".source-data").html(res)
+        }
+      })
+    }
+  </script>
 </body>
 </html>

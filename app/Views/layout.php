@@ -225,7 +225,7 @@
       var seg = (window.location.href).split('/') //NOTE seg[3] is like CI's "1st" segment
       
       //Decide "active sidebar" based on current page START
-      if (seg[5] != null) {
+      if (seg[5] != null && seg[4] != 'umum') {
         document.getElementById(seg[3]).className += " active"
         document.getElementById(seg[4] + "main").className += " menu-open"
       }

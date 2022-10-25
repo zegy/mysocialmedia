@@ -215,26 +215,15 @@
   <!-- AdminLTE for demo purposes --> <script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
   
   <!-- MY CUSTOM SCRIPTS -->
+  <!-- Page spesific script -->
+  <?= $this->renderSection('script') ?>
+  
+  <!-- "Layout" script -->
   <script>
     $(document).ready(function() {
       //Get current URL separated by "/" as segments
       var seg = (window.location.href).split('/') //NOTE seg[3] is like CI's "1st" segment
       
-      //Decide which script to use based on current page START
-      if (seg[3] == 'fordis') {
-        function source_data() {
-          $.ajax({
-            url: "<?= base_url('fordis/' . $group) ?>",
-            dataType: "json",
-            success: function(res) {
-              $(".source-data").html(res)
-            }
-          })
-        }
-        source_data()
-      }
-      //Decide which script to use based on current page END
-
       //Decide "active sidebar" based on current page START
       if (seg[5] != null) {
         document.getElementById(seg[3]).className += " active"

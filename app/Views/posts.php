@@ -33,3 +33,22 @@
 </div><!-- /.content-wrapper -->
 
 <?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+
+<script>
+  $(document).ready(function() {
+    function source_data() {
+      $.ajax({
+        url: "<?= base_url('fordis/' . $group) ?>",
+        dataType: "json",
+        success: function(res) {
+          $(".source-data").html(res)
+        }
+      })
+    }
+    source_data()
+  });
+</script>
+
+<?= $this->endSection() ?>

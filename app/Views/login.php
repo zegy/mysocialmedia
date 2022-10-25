@@ -23,7 +23,7 @@
         <p class="login-box-msg">Sign in to start your session</p>
         <?= form_open('login/signin', ['id' => 'form-data']) ?>
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email">
+            <input type="email" class="form-control" name="email" placeholder="Email" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password">
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -90,17 +90,6 @@
               })
               window.location = "/"; //NOTE HERE IS NICE ONE!
             } else {
-              $.each(res.errors, function(key, value) {
-                $('[name="' + key + '"]').addClass('is-invalid')
-                // $('[name="' + key + '"]').next().text(value)
-                if (value == "") {
-                  $('[name="' + key + '"]').removeClass('is-invalid')
-                  $('[name="' + key + '"]').addClass('is-valid')
-                }
-              })
-            }
-           
-            if (res.error_user) {
               Toast.fire({
                 icon: 'error',
                 title: 'Email or password not match'
@@ -109,15 +98,15 @@
           }
         })
 
-        $("#form-data input").on("keyup", function() {
-          $(this).removeClass('is-invalid is-valid')
-        })
-        $("#form-data input").on("click", function() {
-          $(this).removeClass('is-invalid is-valid')
-        })
-        $("#form-data select").on("click", function() {
-          $(this).removeClass('is-invalid is-valid')
-        })
+        // $("#form-data input").on("keyup", function() {
+        //   $(this).removeClass('is-invalid is-valid')
+        // })
+        // $("#form-data input").on("click", function() {
+        //   $(this).removeClass('is-invalid is-valid')
+        // })
+        // $("#form-data select").on("click", function() {
+        //   $(this).removeClass('is-invalid is-valid')
+        // })
       })
     })
   </script>

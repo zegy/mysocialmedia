@@ -21,6 +21,9 @@
         <li class="nav-item">
           <a href="<?php echo base_url('user/showprofile/' . session('id')) ?>" class="nav-link">Profile</a>
         </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url('group') ?>" class="nav-link">Forum</a>
+        </li>
       </ul>
       <ul class="navbar-nav ml-auto"><!-- Right navbar links -->
         <li class="nav-item"><!-- Navbar Search -->
@@ -150,21 +153,12 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="<?= base_url('group') ?>" class="nav-link" id="group">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Daftar Forum Diskusi
-                  <!-- <span class="right badge badge-danger">1</span> -->
-                </p>
-              </a>
-            </li>
             <li class="nav-header">FORUM DISKUSI :</li>
             <li class="nav-item">
               <a href="<?= base_url('fordis/umum') ?>" class="nav-link" id="umum">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Forum Diskusi Umum
+                  Umum
                   <!-- <span class="right badge badge-danger">1</span> -->
                 </p>
               </a>
@@ -173,7 +167,7 @@
               <a href="<?= base_url('fordis/test') ?>" class="nav-link" id="test">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Forum Diskusi Test
+                  Test
                   <!-- <span class="right badge badge-danger">1</span> -->
                 </p>
               </a>

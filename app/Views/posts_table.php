@@ -28,7 +28,8 @@
         <tr>
           <td>183</td>
           <td>
-            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
+            <!-- TODO Check later if there is problem -->
+            <img alt="Avatar" class="table-avatar profile-user-img img-fluid img-circle" src="<?= base_url('assets/dist/img/avatar.png') ?>"> <!-- NOTE Original : Only had "table-avatar", the additions is from profile page's "Profile Image" (overrided in layout) -->
             <a href="<?php echo base_url('user/showprofile/' . $post->uid) ?>"><?= $post->nome ?></a>
           </td>
           <td><?= $post->data ?></td>

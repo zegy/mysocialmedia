@@ -51,9 +51,7 @@ $routes->add('fordis/(:segment)/(:num)', 'Post::detail/$1/$2');
 // $routes->add('fordis/umum/posts_table', 'Post::posts_table');
 // $routes->add('posts/(:any)', 'Post::showAll/$1');
 
-
-
-
+$routes->add('group', 'Group::index');
 
 
 $routes->add('fordis_khusus/create', 'Group::create');

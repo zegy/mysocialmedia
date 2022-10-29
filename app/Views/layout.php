@@ -151,6 +151,16 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
+              <a href="<?= base_url('group') ?>" class="nav-link" id="group">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Daftar Forum Diskusi
+                  <!-- <span class="right badge badge-danger">1</span> -->
+                </p>
+              </a>
+            </li>
+            <li class="nav-header">FORUM DISKUSI :</li>
+            <li class="nav-item">
               <a href="<?= base_url('fordis/umum') ?>" class="nav-link" id="umum">
                 <i class="nav-icon fas fa-th"></i>
                 <p>

@@ -9,6 +9,10 @@
   <!-- Font Awesome Icons --> <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
   <!-- IonIcons --> <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style --> <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
+  <!-- NOTE Custom "AdminLTE-3.2.0" style (Override "adminlte.min") -->
+  <style>
+      .profile-user-img{border:3px solid #bc4b4b;margin:0 auto;padding:3px;width:100px}
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini"><!-- options: sidebar-collapse / sidebar-mini -->

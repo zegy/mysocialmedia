@@ -20,7 +20,7 @@
           <th>User</th>
           <th>Date</th>
           <th>Status</th>
-          <th>Reason</th>
+          <th>Reason</th> <!-- TODO Set later : style="width: 50%" -->
         </tr>
       </thead>
       <tbody>
@@ -28,8 +28,8 @@
         <tr>
           <td>183</td>
           <td>
-            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
-            <a href="<?php echo base_url('user/showprofile/' . $post->uid) ?>"><?= $post->nome ?></a>
+            <!-- TODO Check later if there is problem -->
+            <img alt="Avatar" class="table-avatar profile-user-img img-fluid img-circle" src="<?= base_url('assets/dist/img/avatar.png') ?>"> <!-- NOTE Original : Only had "table-avatar", the additions is from profile page's "Profile Image" (overrided in layout) -->
           </td>
           <td><?= $post->data ?></td>
           <td><span class="badge bg-warning">Pending</span></td>

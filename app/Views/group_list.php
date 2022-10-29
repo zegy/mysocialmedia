@@ -30,7 +30,7 @@
                 <th style="width: 8%" class="text-center">
                     Status
                 </th>
-                <th style="width: 20%">
+                <th style="width: 22%"> <!-- Original : "20%" -->
                 </th>
             </tr>
         </thead>
@@ -51,16 +51,16 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar2.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar3.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar4.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -110,10 +110,10 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar2.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -163,13 +163,13 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar2.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar3.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -219,16 +219,16 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar2.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar3.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar4.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -278,13 +278,13 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar4.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar5.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar5.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -334,16 +334,16 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar2.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar3.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar4.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -393,10 +393,10 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar4.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar5.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar5.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -446,13 +446,13 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar3.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar4.png') ?>">
                         </li>
                     </ul>
                 </td>
@@ -502,16 +502,16 @@
                 <td>
                     <ul class="list-inline">
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar3.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar4.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar4.png') ?>">
                         </li>
                         <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar5.png">
+                            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar5.png') ?>">
                         </li>
                     </ul>
                 </td>

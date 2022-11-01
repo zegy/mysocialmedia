@@ -12,7 +12,9 @@
   <!-- NOTE Custom "AdminLTE-3.2.0" style (Override "adminlte.min") -->
   <style>
       /* User profile image's circle based on role (Style based on profile page's "Profile Image") */
-      .circle-role-dosen{border:3px solid #bc4b4b;margin:0 auto;padding:3px;width:100px}
+      .circle-role-admin{border:2px solid #bc4b4b;margin:0 auto;padding:3px;width:100px}
+      .circle-role-dosen{border:2px solid #e8df5d;margin:0 auto;padding:3px;width:100px}
+      .circle-role-mahasiswa{border:2px solid #5de8df;margin:0 auto;padding:3px;width:100px}
   </style>
 </head>
 

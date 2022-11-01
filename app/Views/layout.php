@@ -122,11 +122,31 @@
                 </p>
               </a>
             </li>
+            <!-- TODO Dev-only feature START -->
+            <li class="nav-header">ADMIN TOOLS :</li>
+            <li class="nav-item">
+              <a href="#" class="nav-link btn-add-posts">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Create Posts
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('deletebatchpublic') ?>" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Delete Posts
+                </p>
+              </a>
+            </li>
+            <!-- TODO Dev-only feature END -->
           </ul>
         </nav><!-- /.sidebar-menu -->
       </div><!-- /.sidebar -->
     </aside>
     <?= $this->renderSection('content') ?><!-- Content -->
+    <aside class="view-modal"></aside> <!-- TODO Experimental : Use "aside"? -->
     <aside class="control-sidebar control-sidebar-dark"><!-- Control Sidebar -->
       <!-- Control sidebar content goes here -->
     </aside><!-- /.control-sidebar -->
@@ -162,6 +182,59 @@
         $(ele).addClass('active')
       }
       //Decide "active sidebar" based on current page END
+
+      //TODO Dev-only feature START
+      $(document).on("click", ".btn-add-posts", function() {
+        $.ajax({
+          url: "<?= base_url('admin_tools/get_add_posts_modal') ?>",
+          dataType: "json",
+          success: function(res) {
+            $(".view-modal").html(res)
+            $(".modal").modal("toggle")
+          }
+        })
+      })
+
+      $(document).on("submit", "#form-data", function(e) {
+        e.preventDefault()
+
+        $.ajax({
+          url: $(this).attr("action"),
+          type: $(this).attr("method"),
+          data: $(this).serialize(),
+          dataType: "json",
+          success: function(res) {
+            if (res.status) {
+              $(".modal").modal("toggle")
+              Toast.fire({
+                icon: 'success',
+                title: 'Data berhasil ditambah'
+              })
+              source_data()
+            } else {
+              $.each(res.errors, function(key, value) {
+                $('[name="' + key + '"]').addClass('is-invalid')
+                $('[name="' + key + '"]').next().text(value)
+                if (value == "") {
+                  $('[name="' + key + '"]').removeClass('is-invalid')
+                  $('[name="' + key + '"]').addClass('is-valid')
+                }
+              })
+            }
+          }
+        })
+
+        $("#form-data input").on("keyup", function() {
+          $(this).removeClass('is-invalid is-valid')
+        })
+        $("#form-data input").on("click", function() {
+          $(this).removeClass('is-invalid is-valid')
+        })
+        $("#form-data select").on("click", function() {
+          $(this).removeClass('is-invalid is-valid')
+        })
+      })
+      //TODO Dev-only feature END
     });
   </script>
 </body>

@@ -45,6 +45,7 @@
         dataType: "json",
         success: function(res) {
           $(".source-data").html(res)
+          $(".table-avatar").addClass("profile-user-img img-fluid img-circle");
         }
       })
     }

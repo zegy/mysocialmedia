@@ -11,7 +11,8 @@
   <!-- Theme style --> <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
   <!-- NOTE Custom "AdminLTE-3.2.0" style (Override "adminlte.min") -->
   <style>
-      .profile-user-img{border:3px solid #bc4b4b;margin:0 auto;padding:3px;width:100px}
+      /* User profile image's circle based on role (Style based on profile page's "Profile Image") */
+      .circle-role-dosen{border:3px solid #bc4b4b;margin:0 auto;padding:3px;width:100px}
   </style>
 </head>
 

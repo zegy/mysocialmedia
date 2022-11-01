@@ -28,8 +28,7 @@
         <tr>
           <td>183</td>
           <td>
-            <!-- TODO Check later if there is problem -->
-            <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>"> <!-- NOTE Original : Only had "table-avatar", the additions is from profile page's "Profile Image" (overrided in layout) -->
+            <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>"> <!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
           </td>
           <td><?= $post->data ?></td>
           <td><span class="badge bg-warning">Pending</span></td>

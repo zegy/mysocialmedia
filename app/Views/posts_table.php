@@ -20,7 +20,7 @@
           <th>User</th>
           <th>Date</th>
           <th>Status</th>
-          <th>Reason</th> <!-- TODO Set later : style="width: 50%" -->
+          <th style="width:100%">Reason</th> <!-- NOTE Experimental -->
         </tr>
       </thead>
       <tbody>

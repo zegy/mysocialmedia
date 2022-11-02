@@ -9,6 +9,7 @@ class Admin_tools extends BaseController
 {
     function __construct()
     {
+        helper('form');
         $this->postModel = new PostModel();
     }
 

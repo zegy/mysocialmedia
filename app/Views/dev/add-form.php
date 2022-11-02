@@ -8,27 +8,23 @@
       <div class="modal-body">
 
         <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" name="name" id="name" class="form-control">
+          <label for="group">Group (Manual input)</label>
+          <input type="text" name="group" id="group" class="form-control">
           <div class="invalid-feedback"></div>
         </div>
         <div class="form-group">
-          <label for="price">Price</label>
-          <input type="text" name="price" id="price" class="form-control">
-          <div class="invalid-feedback"></div>
-        </div>
-        <div class="form-group">
-          <label for="category">category</label>
-          <select name="category" id="category" class="form-control">
-            <option value="">-- Choose --</option>
-            <option value="kaos">Kaos</option>
-            <option value="kemeja">Kemeja</option>
+          <label for="user">User</label>
+          <select name="user" id="user" class="form-control">
+            <option value="">-- Pilih --</option>
+            <option value="1">un_admin</option>
+            <option value="2">un_dosen</option>
+            <option value="3">un_mahasiswa</option>
           </select>
           <div class="invalid-feedback"></div>
         </div>
         <div class="form-group">
-          <label for="detail">Detail</label>
-          <textarea name="detail" id="detail" cols="30" rows="3" class="form-control"></textarea>
+          <label for="count">Jumlah</label>
+          <input type="number" name="count" id="count" class="form-control">
           <div class="invalid-feedback"></div>
         </div>
 

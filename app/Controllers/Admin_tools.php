@@ -28,23 +28,25 @@ class Admin_tools extends BaseController
     {
         $rules =
         [
-            'name' => 'required',
-            'category' => 'required',
+            'group' => 'required',
+            'user' => 'required',
+            'count' => 'required',
         ];
 
-        $price = $this->request->getPost('price');
-        if ($price)
-        {
-            $rules['price'] = 'numeric';
-        }
+        // $price = $this->request->getPost('price'); //NOTE For optional with validation
+        // if ($price)
+        // {
+        //     $rules['price'] = 'numeric'; //NOTE Then add new rule if it exist
+        // }
 
         if (!$this->validate($rules))
         {
             $errors =
             [
-                'name' => $this->validation->getError('name'),
-                'price' => $this->validation->getError('price'),
-                'category' => $this->validation->getError('category'),
+                'group' => $this->validation->getError('group'),
+                // 'price' => $this->validation->getError('price'), //NOTE For "example"
+                'user' => $this->validation->getError('user'),
+                'count' => $this->validation->getError('count'),
             ];
 
             $output =
@@ -57,12 +59,31 @@ class Admin_tools extends BaseController
         }
         else
         {
-            $this->model->save([
-                'name' => $this->request->getPost('name'),
-                'price' => $price,
-                'category' => $this->request->getPost('category'),
-                'detail' => $this->request->getPost('detail'),
-            ]);
+            // $this->model->save([
+            //     'group' => $this->request->getPost('group'),
+            //     // 'price' => $price, //NOTE For "example"
+            //     'user' => $this->request->getPost('user'),
+            //     // 'detail' => $this->request->getPost('detail'), //NOTE For optional without validation
+            // ]);
+            // echo json_encode(['status' => TRUE]);
+
+
+            $group = $this->request->getPost('group');
+            $user = $this->request->getPost('user');
+            $count = $this->request->getPost('count');
+            
+            for ($x = 0; $x < $count; $x++) {
+            $data[$x] =
+                [
+                    'post_fk_user' => $user,
+                    'post_title' => 'title',
+                    'post_text' => 'text',
+                    'post_type' => $group,
+                ];
+            };
+
+            $this->postModel->insertBatch($data);
+
             echo json_encode(['status' => TRUE]);
         }
     }

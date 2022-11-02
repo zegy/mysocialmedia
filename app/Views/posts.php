@@ -35,9 +35,9 @@
 
 <?= $this->endSection() ?>
 
-<?= $this->section('script') ?>
-
-<script>
+<!-- ================================================ SCRIPTS ================================================ -->
+<script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
+  <?= $this->section('script') ?>
   $(document).ready(function() {
     function source_data() {
       $.ajax({
@@ -50,6 +50,5 @@
     }
     source_data()
   });
+  <?= $this->endSection() ?>
 </script>
-
-<?= $this->endSection() ?>

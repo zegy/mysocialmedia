@@ -34,21 +34,18 @@
 
 <?= $this->endSection() ?>
 
-<?= $this->section('script') ?>
-
-<script>
-  $(document).ready(function() {
-    function source_data() {
-      $.ajax({
-        url: "<?= base_url('group') ?>",
-        dataType: "json",
-        success: function(res) {
-          $(".source-data").html(res)
-        }
-      })
-    }
-    source_data()
-  });
+<!-- ================================================ SCRIPTS ================================================ -->
+<script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
+  <?= $this->section('script') ?>
+  function source_data() {
+    $.ajax({
+      url: "<?= base_url('group') ?>",
+      dataType: "json",
+      success: function(res) {
+        $(".source-data").html(res)
+      }
+    })
+  }
+  source_data()
+  <?= $this->endSection() ?>
 </script>
-
-<?= $this->endSection() ?>

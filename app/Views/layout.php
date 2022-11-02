@@ -168,13 +168,10 @@
   <!-- OPTIONAL SCRIPTS -->
   <!-- AdminLTE for demo purposes --> <script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
   
-  <!-- MY CUSTOM SCRIPTS -->
-  <!-- Page spesific script -->
-  <?= $this->renderSection('script') ?>
-  
-  <!-- "Layout" script -->
+  <!-- MY CUSTOM SCRIPTS -->    
   <script>
     $(document).ready(function() {
+      //"Layout" script START
       //Decide "active sidebar" based on current page START
       var seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
       const ele = document.getElementById(seg[4]);
@@ -182,8 +179,9 @@
         $(ele).addClass('active')
       }
       //Decide "active sidebar" based on current page END
+      //"Layout" script END
 
-      //TODO Dev-only feature START
+      //TODO Delete later, "Layout" script (Dev-only, Admin_tools) START
       $(document).on("click", ".btn-add-posts", function() {
         $.ajax({
           url: "<?= base_url('admin_tools/get_add_posts_modal') ?>",
@@ -206,11 +204,12 @@
           success: function(res) {
             if (res.status) {
               $(".modal").modal("toggle")
-              Toast.fire({
-                icon: 'success',
-                title: 'Data berhasil ditambah'
-              })
-              source_data()
+              alert('sukses') //TODO Temp
+            //   Toast.fire({
+            //     icon: 'success',
+            //     title: 'Data berhasil ditambah'
+            //   })
+            //   source_data()
             } else {
               $.each(res.errors, function(key, value) {
                 $('[name="' + key + '"]').addClass('is-invalid')
@@ -234,7 +233,10 @@
           $(this).removeClass('is-invalid is-valid')
         })
       })
-      //TODO Dev-only feature END
+      //TODO Delete later, "Layout" script (Dev-only, Admin_tools) END
+      
+      //Page spesific script
+      <?= $this->renderSection('script') ?>
     });
   </script>
 </body>

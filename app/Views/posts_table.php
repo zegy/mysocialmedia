@@ -1,3 +1,4 @@
+<?php if($posts) { ?>
 <div class="card">
   <div class="card-header">
     <h3 class="card-title">Fixed Header Table</h3>
@@ -24,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <?php if($posts) { foreach ($posts as $post) { ?>
+        <?php foreach ($posts as $post) { ?>
         <tr>
           <td>183</td>
           <td>
@@ -36,7 +37,6 @@
           <!-- <td><span class="badge bg-danger">Denied</span></td> -->
           <td><a href="<?= base_url('fordis/umum/'.$post->pid) ?>"><?= $post->pttl ?></a></td>
         </tr>
-        <?php } } else { ?>
         <?php } ?>
       </tbody>
     </table>
@@ -51,3 +51,10 @@
     </ul>
   </div>
 </div><!-- /.card -->
+
+<?php } else { ?>
+<div class="callout callout-danger">
+  <h5><i class="far fa-times-circle"></i> Belum ada diskusi di forum ini!</h5>
+  Silahkan buat diskusi 
+</div>
+<?php } ?>

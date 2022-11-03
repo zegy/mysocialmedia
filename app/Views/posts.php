@@ -38,17 +38,15 @@
 <!-- ================================================ SCRIPTS ================================================ -->
 <script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
   <?= $this->section('script') ?>
-  $(document).ready(function() {
-    function source_data() {
-      $.ajax({
-        url: "<?= base_url('fordis/' . $group) ?>",
-        dataType: "json",
-        success: function(res) {
-          $(".source-data").html(res)
-        }
-      })
-    }
-    source_data()
-  });
+  function source_data() {
+    $.ajax({
+      url: "<?= base_url('fordis/' . $group) ?>",
+      dataType: "json",
+      success: function(res) {
+        $(".source-data").html(res)
+      }
+    })
+  }
+  source_data()
   <?= $this->endSection() ?>
 </script>

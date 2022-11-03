@@ -125,7 +125,7 @@
             <!-- TODO Delete later, "Layout" script (Dev-only, Admin_tools) START -->
             <li class="nav-header">ADMIN TOOLS :</li>
             <li class="nav-item">
-              <a href="#" class="nav-link btn-add-posts"> <!-- Toggle modal, post via AJAX -->
+              <a href="#" class="nav-link btn-add-posts-batch"> <!-- Toggle modal, post via AJAX -->
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Create Posts
@@ -182,7 +182,7 @@
       //"Layout" script END
 
       //TODO Delete later, "Layout" script (Dev-only, Admin_tools) START
-      $(document).on("click", ".btn-add-posts", function() {
+      $(document).on("click", ".btn-add-posts-batch", function() {
         $.ajax({
           url: "<?= base_url('admin_tools/get_add_posts_modal') ?>",
           dataType: "json",
@@ -204,12 +204,11 @@
           success: function(res) {
             if (res.status) {
               $(".modal").modal("toggle")
-              alert('sukses') //TODO Temp
             //   Toast.fire({
             //     icon: 'success',
             //     title: 'Data berhasil ditambah'
             //   })
-            //   source_data()
+              source_data() //NOTE Using "posts" script
             } else {
               $.each(res.errors, function(key, value) {
                 $('[name="' + key + '"]').addClass('is-invalid')

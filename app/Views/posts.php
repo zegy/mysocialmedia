@@ -7,7 +7,7 @@
       <div class="row mb-2">
         <div class="col-sm-9">
           <h1 class="float-left">Simple Tables</h1>
-          <button style="margin-left: 10px;" class="btn btn-primary float-left"><i class="fa fa-plus"></i> Buat Diskusi</button>
+          <button style="margin-left: 10px;" class="btn btn-primary float-left btn-add-post"><i class="fa fa-plus"></i> Buat Diskusi</button>
         </div>
         <div class="col-sm-3">
           <ol class="breadcrumb float-sm-right">
@@ -48,5 +48,16 @@
     })
   }
   source_data()
+
+  $(document).on("click", ".btn-add-post", function() {
+    $.ajax({
+      url: "<?= base_url('post/get_add_post_modal') ?>",
+      dataType: "json",
+      success: function(res) {
+        $(".view-modal").html(res)
+        $(".modal").modal("toggle")
+      }
+    })
+  })
   <?= $this->endSection() ?>
 </script>

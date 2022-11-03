@@ -17,21 +17,18 @@ class Post extends BaseController
 
     public function showAll($group)
     {
-        if ($this->request->isAJAX()) {
-            $data =
-            [
+        if ($this->request->isAJAX())
+        {
+            $data = [
               "posts" => $this->postModel->getAllByType($group),
               "pager" => $this->postModel->pager,
             ];
-      
             $output = view('posts_table', $data);
             echo json_encode($output);
         }
         else
         {
-            $data = [
-                "group" => $group
-            ];
+            $data = ["group" => $group];
             return view('posts', $data);
         }
     }
@@ -42,7 +39,9 @@ class Post extends BaseController
         {
             $output = view('forms/add-post-form');
             echo json_encode($output);
-        } else {
+        }
+        else
+        {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
@@ -60,13 +59,7 @@ class Post extends BaseController
 
 
 
-
-
-
-
-
-
-
+    
     public function detail($group, $pid) //TODO use $group
     {
         $post = $this->postModel->getOneById($pid);

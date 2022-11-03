@@ -44,9 +44,10 @@
             <div class="card-body">
               <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
               <p>I took this photo this morning. What do you guys think?</p>
-              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
-              <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
-              <span class="float-right text-muted">127 likes - 3 comments</span>
+              <button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Hapus</button>
+              <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i> Ubah</button>
+              <!-- <span class="float-right text-muted">127 likes - 3 comments</span> -->
+              <span class="float-right text-muted">3 comments</span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
         </div><!-- /.col -->

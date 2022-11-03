@@ -88,30 +88,9 @@ class Admin_tools extends BaseController
         }
     }
 
-    public function saveBatchPublic()
+    public function delete_all_posts()
     {
-        $no = 1;
-        do {
-            $dataToSave =
-            [
-                "post_fk_user" => 3, // Mahasiswa
-                "post_title"   => 'judul postingan  ' . $no,
-                "post_text"    => 'detail postingan  ' . $no,
-                "post_type"    => 'public',
-            ];
-            $this->postModel->insert($dataToSave);
-            $no++;
-        }
-        while ($no <= 15);
-        return redirect()->to('/');
-    }
-
-    public function deleteBatchPublic()
-    {
-        $post = $this->postModel->where('post_type', 'public')->findAll();        
-        foreach ($post as $row) {
-            $this->postModel->delete($row->post_pk);
-        }
-        return redirect()->to('/');
+        $post = $this->postModel->emptyTable();
+        return redirect()->back();
     }
 }

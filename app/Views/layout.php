@@ -122,10 +122,10 @@
                 </p>
               </a>
             </li>
-            <!-- TODO Dev-only feature START -->
+            <!-- TODO Delete later, "Layout" script (Dev-only, Admin_tools) START -->
             <li class="nav-header">ADMIN TOOLS :</li>
             <li class="nav-item">
-              <a href="#" class="nav-link btn-add-posts">
+              <a href="#" class="nav-link btn-add-posts"> <!-- Toggle modal, post via AJAX -->
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Create Posts
@@ -133,14 +133,14 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('deletebatchpublic') ?>" class="nav-link">
+              <a href="<?= base_url('admin_tools/delete_all_posts') ?>" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Delete Posts
+                  Delete All Posts
                 </p>
               </a>
             </li>
-            <!-- TODO Dev-only feature END -->
+            <!-- TODO Delete later, "Layout" script (Dev-only, Admin_tools) END -->
           </ul>
         </nav><!-- /.sidebar-menu -->
       </div><!-- /.sidebar -->

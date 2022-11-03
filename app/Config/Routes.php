@@ -83,9 +83,7 @@ $routes->add('notification/onfcm', 'Notification::onFCM');
 // =================================== ZEGY DEVELOPMENT ONLY ===================================
 $routes->add('admin_tools/get_add_posts_modal', 'Admin_tools::get_add_posts_modal');
 $routes->add('admin_tools/create_posts', 'Admin_tools::create_posts');
-
-$routes->add('savebatchpublic', 'Admin_tools::saveBatchPublic');
-$routes->add('deletebatchpublic', 'Admin_tools::deleteBatchPublic');
+$routes->add('admin_tools/delete_all_posts', 'Admin_tools::delete_all_posts');
 
 /*
  * --------------------------------------------------------------------

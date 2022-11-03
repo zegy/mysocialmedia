@@ -1,9 +1,11 @@
 <?php if($posts) { ?>
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title">Fixed Header Table</h3>
+    <!-- <h3 class="card-title">Fixed Header Table</h3> -->
+    <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i> Buat Diskusi Baru</button>
     <div class="card-tools">
-      <div class="input-group input-group-sm" style="width: 150px;">
+      <!-- <div class="input-group input-group-sm" style="width: 150px;"> -->
+      <div class="input-group input-group-sm" style="width: 150px; margin: 0px">
         <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
         <div class="input-group-append">
           <button type="submit" class="btn btn-default">

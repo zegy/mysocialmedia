@@ -1,4 +1,3 @@
-<?php if($posts) { ?>
 <div class="card">
   <div class="card-header">
     <!-- <h3 class="card-title">Fixed Header Table</h3> -->
@@ -16,6 +15,7 @@
       </div>
     </div>
   </div><!-- /.card-header -->
+  <?php if($posts) { ?>
   <div class="card-body table-responsive p-0" style="height: 300px;">
     <table class="table table-head-fixed text-nowrap projects">
       <thead>
@@ -53,11 +53,10 @@
       <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
     </ul>
   </div>
+  <?php } else { ?>
+  <div class="card-body">             
+    <h3>Belum ada diskusi di forum ini</h3>
+    Silahkan buat diskusi perdana dari anda!
+  </div><!-- /.card-body -->
+  <?php } ?>
 </div><!-- /.card -->
-
-<?php } else { ?>
-<div class="callout callout-danger">
-  <h5><i class="far fa-times-circle"></i> Belum ada diskusi di forum ini!</h5>
-  Silahkan <a href="#" class="btn-add-post">buat diskusi</a> pertama dari anda!
-</div>
-<?php } ?>

@@ -79,6 +79,22 @@
     source_data()
   })
 
+  $(document).on("click", ".btn-pagination", function(e) {
+    // $( ".overlay" ).show();
+    // source_data()
+    e.preventDefault()
+    const id = $(this).attr('id');
+    // console.log(id)
+    $.ajax({
+      url: "<?= base_url('fordis/' . $group . '?page=') ?>" + id,
+      dataType: "json",
+      success: function(res) {
+        $(".source-data").html(res)
+        $( ".overlay" ).hide();
+      }
+    })
+  })
+
   $(document).on("click", ".btn-add-post", function() {
     $.ajax({
       url: "<?= base_url('post/get_add_post_modal') ?>",

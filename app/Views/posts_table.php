@@ -27,15 +27,18 @@
     </tbody>
   </table>
 </div><!-- /.card-body -->
+<?php $pageCount = $pager->getPageCount()?>
+<?php if($pageCount > 1 ) { ?>
 <div class="card-footer clearfix">
   <ul class="pagination pagination-sm m-0 float-right">
-    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+    <?php for ($x = 1; $x <= $pageCount; $x++) { ?>
+    <!-- <li class="page-item btn-pagination"><a class="page-link" href="#">&laquo;</a></li> -->
+    <li class="page-item btn-pagination" id="<?= $x ?>"><a class="page-link" href="#"><?= $x ?></a></li>
+    <!-- <li class="page-item btn-pagination"><a class="page-link" href="#">&raquo;</a></li> -->
+    <?php } ?>
   </ul>
 </div>
+<?php } ?>
 <?php } else { ?>
 <div class="card-body">             
   <h3>Belum ada diskusi di forum ini</h3>

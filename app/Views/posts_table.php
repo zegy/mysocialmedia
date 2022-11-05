@@ -57,6 +57,6 @@
 <?php } else { ?>
 <div class="callout callout-danger">
   <h5><i class="far fa-times-circle"></i> Belum ada diskusi di forum ini!</h5>
-  Silahkan buat diskusi 
+  Silahkan <a href="#" class="btn-add-post">buat diskusi</a> pertama dari anda!
 </div>
 <?php } ?>

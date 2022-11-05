@@ -33,7 +33,7 @@
               <button class="btn btn-secondary btn-sm btn-refresh-post"><i class="fas fa-bars"></i></button>
               <div class="card-tools">
                 <!-- <div class="input-group input-group-sm" style="width: 150px;"> -->
-                <div class="input-group input-group-sm" style="width: 150px; margin: 0px">
+                <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-default">

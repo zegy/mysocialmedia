@@ -48,6 +48,10 @@
   }
   source_data()
 
+  $(document).on("click", ".btn-refresh-post", function() {
+    source_data()
+  })
+
   $(document).on("click", ".btn-add-post", function() {
     $.ajax({
       url: "<?= base_url('post/get_add_post_modal') ?>",

@@ -22,10 +22,32 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          
-          <!-- get data by ajax -->
-          <div class="source-data"></div>
+          <div class="card">
+            <div class="overlay">
+              <i class="fas fa-2x fa-sync fa-spin"></i>
+            </div>
+            <div class="card-header">
+              <!-- <h3 class="card-title">Fixed Header Table</h3> -->
+              <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
+              <button class="btn btn-secondary btn-sm btn-refresh-post"><i class="fas fa-bars"></i></button>
+              <div class="card-tools">
+                <!-- <div class="input-group input-group-sm" style="width: 150px;"> -->
+                <div class="input-group input-group-sm" style="width: 150px; margin: 0px">
+                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.card-header -->
 
+            <!-- get data by ajax -->
+            <div class="source-data"></div>
+            
+          </div><!-- /.card -->
         </div>
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -43,12 +65,14 @@
       dataType: "json",
       success: function(res) {
         $(".source-data").html(res)
+        $( ".overlay" ).hide();
       }
     })
   }
   source_data()
 
   $(document).on("click", ".btn-refresh-post", function() {
+    $( ".overlay" ).show();
     source_data()
   })
 

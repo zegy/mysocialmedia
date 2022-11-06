@@ -105,5 +105,21 @@
       }
     })
   })
+
+  $(document).on("click", ".table-avatar", function(e) {
+    e.preventDefault()
+
+    const id = $(this).attr('id');
+    console.log(id)
+
+    $.ajax({
+      url: "<?= base_url('user/get_user_modal') . '/' ?>" + id, //TODO : It's working but Check syntax later
+      dataType: "json",
+      success: function(res) {
+        $(".view-modal").html(res)
+        $(".modal").modal("toggle")
+      }
+    })
+  })
   <?= $this->endSection() ?>
 </script>

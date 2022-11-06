@@ -73,6 +73,7 @@ $routes->add('login/signin', 'Login::signIn');
 $routes->add('login/signout', 'Login::signOut');
 
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
+$routes->add('user/get_user_modal/(:num)', 'User::get_user_modal/$1');
 
 $routes->add('comment/save', 'Comment::save');
 

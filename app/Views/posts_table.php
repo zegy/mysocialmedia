@@ -16,7 +16,7 @@
       <tr>
         <td><?= $post->pid ?></td>
         <td>
-          <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>"> <!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
+          <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" id="<?= $post->uid ?>"> <!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
         </td>
         <!-- <td><a href="<?= base_url('fordis/umum/'.$post->pid) ?>"><?= $post->pttl ?></a></td> --> <!-- TODO : Change this, below is only temp -->
         <td><a href="<?= base_url('fordis/umum/'.$post->pid) ?>">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex laborum similique, eligendi, reiciendis ratione fugit aperiam atque mollitia soluta repudiandae voluptate voluptas excepturi minus suscipit tempore facere iusto doloribus! Enim.</a></td>

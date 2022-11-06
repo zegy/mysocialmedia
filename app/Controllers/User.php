@@ -33,4 +33,16 @@ class User extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
+
+    public function get_user_modal($uid) // From ci4-crud-ajax example (get_add_item_modal)
+    {
+        if ($this->request->isAJAX())
+        {
+            $data = ["user" => $this->userModel->find($uid)];
+            $output = view('forms/user-modal', $data);
+            echo json_encode($output);
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
 }

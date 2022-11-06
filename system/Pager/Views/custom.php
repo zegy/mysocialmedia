@@ -8,12 +8,12 @@ use CodeIgniter\Pager\PagerRenderer;
 $pager->setSurroundCount(3);
 ?>
 
-<ul class="pagination pagination-sm m-0 float-right">
-    <?php foreach ($pager->links() as $link) : ?>
-        <li <?= $link['active'] ? 'class="page-item active"' : 'page-item' ?>>
-            <a class="page-link btn-pagination" href="#" id="<?= $link['title'] ?>">
-                <?= $link['title'] ?>
-            </a>
-        </li>
-    <?php endforeach ?>
-</ul>
+<!-- NOTE : "Go to first page" is manualy set in view -->
+<?php foreach ($pager->links() as $link) : ?>
+<li <?= $link['active'] ? 'class="page-item active"' : 'page-item' ?>>
+    <a class="page-link btn-pagination" href="#" id="<?= $link['title'] ?>">
+        <?= $link['title'] ?>
+    </a>
+</li>
+<!-- NOTE : "Go to last page" is manualy set in view -->
+<?php endforeach ?>

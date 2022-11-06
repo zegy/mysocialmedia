@@ -27,18 +27,9 @@
     </tbody>
   </table>
 </div><!-- /.card-body -->
-<?php $pageCount = $pager->getPageCount()?>
-<?php if($pageCount > 1 ) { ?>
 <div class="card-footer clearfix">
-  <ul class="pagination pagination-sm m-0 float-right">
-    <?php for ($x = 1; $x <= $pageCount; $x++) { ?>
-    <!-- <li class="page-item btn-pagination"><a class="page-link" href="#">&laquo;</a></li> -->
-    <li class="page-item btn-pagination" id="<?= $x ?>"><a class="page-link" href="#"><?= $x ?></a></li>
-    <!-- <li class="page-item btn-pagination"><a class="page-link" href="#">&raquo;</a></li> -->
-    <?php } ?>
-  </ul>
+  <?php echo $pager->links('default', 'custom') ?> <!-- NOTE The 1st parameter is group and the 2nd is view / template -->
 </div>
-<?php } ?>
 <?php } else { ?>
 <div class="card-body">             
   <h3>Belum ada diskusi di forum ini</h3>

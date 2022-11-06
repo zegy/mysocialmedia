@@ -80,11 +80,11 @@
   })
 
   $(document).on("click", ".btn-pagination", function(e) {
-    // $( ".overlay" ).show();
-    // source_data()
     e.preventDefault()
+    
+    $( ".overlay" ).show();
     const id = $(this).attr('id');
-    // console.log(id)
+
     $.ajax({
       url: "<?= base_url('fordis/' . $group . '?page=') ?>" + id,
       dataType: "json",

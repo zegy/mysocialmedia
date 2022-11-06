@@ -14,7 +14,7 @@
     <tbody>
       <?php foreach ($posts as $post) { ?>
       <tr>
-        <td>183</td>
+        <td><?= $post->pid ?></td>
         <td>
           <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>"> <!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
         </td>

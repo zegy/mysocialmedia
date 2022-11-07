@@ -46,7 +46,7 @@
 
             <!-- get data by ajax -->
             <div class="source-data">
-              <div class="card-body p-0" style="height: 355px;"><!-- NOTE : act as "empty table" so "loading" overlay animation will be at the center of the card. This element will replaced with the one from the "source" -->
+              <div class="card-body table-responsive p-0" style="height: 355px;"><!-- NOTE : act as "empty table" so "loading" overlay animation will be at the center of the card. This element will replaced with the one from the "source" -->
               </div><!-- /.card-body -->
             </div>
             

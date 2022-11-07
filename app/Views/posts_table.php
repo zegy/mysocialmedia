@@ -1,12 +1,12 @@
 <?php if($posts) { ?>
-
-<div class="card-body p-0">
-  <table class="table table-sm projects">  <!-- TODO : Clean "projects" later -->
+<div class="card-body table-responsive p-0" style="height: auto;">
+  <!-- <table class="table table-head-fixed text-nowrap projects"> -->
+  <table class="table table-head-fixed text-wrap projects"> <!-- TODO : Clean "projects" later -->
     <thead>
       <tr>
-        <th style="width: 10px">ID</th>
+        <th>ID</th>
         <th>User</th>
-        <th style="width: 40px">Reason</th>
+        <th style="min-width: 500px;">Reason</th>
         <th>Date</th>
         <th>Status</th>
       </tr>
@@ -23,10 +23,7 @@
       <?php } ?>
     </tbody>
   </table>
-</div>
-<!-- /.card-body -->
-
-
+</div><!-- /.card-body -->
 <div class="card-footer clearfix">
   <ul class="pagination pagination-sm m-0 float-right">
     <li class="page-item"><a class="page-link btn-pagination" href="#" id="1">&laquo;</a></li>

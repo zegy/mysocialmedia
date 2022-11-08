@@ -18,7 +18,8 @@
   </style>
 </head>
 
-<body class="hold-transition sidebar-mini"><!-- options: sidebar-collapse / sidebar-mini -->
+<!-- <body class="hold-transition sidebar-mini"> --><!-- options: sidebar-collapse / sidebar-mini -->
+<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed"><!-- options: sidebar-collapse / sidebar-mini -->
   <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light"><!-- Navbar -->
       <ul class="navbar-nav"><!-- Left navbar links -->

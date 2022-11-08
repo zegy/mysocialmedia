@@ -44,7 +44,7 @@
             <div class="card-body">
               <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
               <p>I took this photo this morning. What do you guys think?</p>
-              <button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Hapus</button>
+              <button type="button" class="btn btn-danger btn-sm btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button> <!-- TODO LEARN DATA-ID -->
               <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i> Ubah</button>
               <!-- <span class="float-right text-muted">127 likes - 3 comments</span> -->
               <span class="float-right text-muted">3 comments</span>
@@ -113,3 +113,48 @@
 </div><!-- /.content-wrapper -->
 
 <?= $this->endSection() ?>
+
+<!-- ================================================ SCRIPTS ================================================ -->
+<script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
+  <?= $this->section('script') ?>
+  $(document).on("click", ".btn-delete-post", function() {
+    var item_id = $(this).data("id") //TODO LEARN DATA-ID
+
+    $.ajax({
+      url: "<?= base_url('post/get_delete_post_modal') ?>",
+      dataType: "json",
+      type: "post",
+      data: {
+        id: item_id
+      },
+      success: function(res) {
+        $(".view-modal").html(res)
+        $(".modal").modal("toggle")
+      }
+    })
+  })
+
+  $(document).on("submit", "#form-delete-post", function(e) {
+    e.preventDefault()
+
+    $.ajax({
+      url: $(this).attr("action"),
+      type: $(this).attr("method"),
+      data: $(this).serialize(),
+      dataType: "json",
+      success: function(res) {
+        if (res.status) {
+          $(".modal").modal("toggle")
+        //   Toast.fire({
+        //     icon: 'success',
+        //     title: 'Data berhasil dihapus'
+        //   })
+        //   source_data()
+        //temp, redirect instead
+        alert('sukses')
+        }
+      }
+    })
+  })
+  <?= $this->endSection() ?>
+</script>

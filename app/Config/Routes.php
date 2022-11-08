@@ -59,8 +59,13 @@ $routes->add('fordis_khusus/create', 'Group::create');
 $routes->add('post/get_add_post_modal', 'Post::get_add_post_modal');
 $routes->add('post/create', 'Post::create');
 $routes->add('post/update', 'Post::update');
-$routes->add('post/delete', 'Post::delete');
+// $routes->add('post/delete', 'Post::delete');
 $routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
+$routes->add('post/get_delete_post_modal', 'Post::get_delete_post_modal');
+$routes->add('post/delete_post', 'Post::delete_post');
+
+
+
 
 $routes->add('search', 'Search::index'); 
 $routes->add('searchresult/(:any)', 'Search::searchResult/$1'); 

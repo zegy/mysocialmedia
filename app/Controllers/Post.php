@@ -46,6 +46,29 @@ class Post extends BaseController
         }
     }
 
+    public function get_delete_post_modal()
+    {
+        if ($this->request->isAJAX())
+        {
+            $id = $this->request->getVar('id'); //TODO Why getVar?
+            $data['item'] = ['id' => $id];
+
+            $output = view('forms/delete-post-form', $data);
+            echo json_encode($output);
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    public function delete_post()
+    {
+        $id = $this->request->getPost('id');
+        $this->postModel->delete($id);
+        echo json_encode(['status' => TRUE]);
+    }
+
 
 
 

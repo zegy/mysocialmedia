@@ -1,12 +1,12 @@
 <?php if($posts) { ?>
 <div class="card-body table-responsive p-0" style="height: auto;">
   <!-- <table class="table table-head-fixed text-nowrap projects"> -->
-  <table class="table table-head-fixed text-wrap projects"> <!-- TODO : Clean "projects" later -->
+  <table style="text-align: center" class="table table-head-fixed text-wrap projects"> <!-- TODO : Clean "projects" later -->
     <thead>
       <tr>
         <th>ID</th>
         <th>User</th>
-        <th style="min-width: 500px;">Reason</th>
+        <th>Reason</th>
         <th>Date</th>
         <th>Status</th>
       </tr>
@@ -16,8 +16,8 @@
       <tr>
         <td><?= $post->pid ?></td>
         <td><img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" id="<?= $post->uid ?>"></td> <!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
-        <td><a href="<?= base_url('fordis/umum/'.$post->pid) ?>"><?= $post->pttl ?></a></td>
-        <td><?= $post->data ?></td>
+        <td style="min-width: 330px; max-width: 330px; text-align: justify"><a href="<?= base_url('fordis/umum/'.$post->pid) ?>"><?= $post->pttl ?></a></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
+        <td style="min-width: 100px"><?= $post->data ?></td>
         <td><span class="badge bg-warning">Pending</span></td>
       </tr>
       <?php } ?>

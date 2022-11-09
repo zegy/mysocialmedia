@@ -19,8 +19,9 @@ class Post extends BaseController
     {
         if ($this->request->isAJAX())
         {
+            $page = $this->request->getVar('id');
             $data = [
-              "posts" => $this->postModel->getAllByType($group),
+              "posts" => $this->postModel->getAllByType($group, $page),
               "pager" => $this->postModel->pager,
             ];
             $output = view('posts_table', $data);

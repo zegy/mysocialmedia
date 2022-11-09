@@ -86,8 +86,12 @@
     const id = $(this).attr('id');
 
     $.ajax({
-      url: "<?= base_url('fordis/' . $group . '?page=') ?>" + id,
+      url: "<?= base_url('fordis/' . $group) ?>",
       dataType: "json",
+      type: "post",
+      data: {
+        id: id
+      },
       success: function(res) {
         $(".source-data").html(res)
         $( ".overlay" ).hide();

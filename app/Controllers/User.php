@@ -34,12 +34,13 @@ class User extends BaseController
         }
     }
 
-    public function get_user_modal($uid) // From ci4-crud-ajax example (get_add_item_modal)
+    public function userSumModal()
     {
         if ($this->request->isAJAX())
         {
+            $uid = $this->request->getVar('uid');
             $data = ["user" => $this->userModel->find($uid)];
-            $output = view('forms/user-modal', $data);
+            $output = view('user/user-sum-modal', $data);
             echo json_encode($output);
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();

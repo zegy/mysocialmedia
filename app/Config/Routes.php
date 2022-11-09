@@ -47,6 +47,8 @@ $routes->add('/', 'Login::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultControll
 $routes->add('group/(:segment)/groupposts', 'Post::groupPosts/$1');
 $routes->add('group/(:segment)/grouppostslist', 'Post::groupPostsList/$1');
 $routes->add('group/(:segment)/grouppostdetail/(:num)', 'Post::groupPostDetail/$1/$2');
+
+$routes->add('user/user_sum_modal', 'User::userSumModal');
 // Fixed END
 
 
@@ -89,7 +91,6 @@ $routes->add('login/signin', 'Login::signIn');
 $routes->add('login/signout', 'Login::signOut');
 
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
-$routes->add('user/get_user_modal/(:num)', 'User::get_user_modal/$1');
 
 $routes->add('comment/save', 'Comment::save');
 

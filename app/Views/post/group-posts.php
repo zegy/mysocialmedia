@@ -121,11 +121,14 @@
     e.preventDefault()
 
     const id = $(this).attr('id');
-    console.log(id)
 
     $.ajax({
-      url: "<?= base_url('user/get_user_modal') . '/' ?>" + id, //TODO : It's working but Check syntax later
+      url: "<?= base_url('user/user_sum_modal') ?>",
       dataType: "json",
+      type: "post",
+      data: {
+        uid: id
+      },
       success: function(res) {
         $(".view-modal").html(res)
         $(".modal").modal("toggle")

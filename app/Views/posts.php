@@ -66,43 +66,44 @@
   <?= $this->section('script') ?>
   function source_data() {
     $.ajax({
-      url: "<?= base_url('fordis/' . $group) ?>",
+      url: "<?= base_url('group/' . $group . '/grouppostslist') ?>",
       dataType: "json",
       success: function(res) {
         if (res.status) {
           $(".source-data").html(res.posts)
-          $( ".overlay" ).hide();
+          $(".overlay" ).hide();
         } else {
-          $( ".overlay" ).hide();
+          $(".overlay" ).hide();
         }
       }
     })
   }
-  source_data()
 
-  $(document).on("click", ".btn-refresh-post", function() {
-    $( ".overlay" ).show();
-    source_data()
-  })
+  source_data()
 
   $(document).on("click", ".btn-pagination", function(e) {
     e.preventDefault()
     
-    $( ".overlay" ).show();
+    $(".overlay" ).show();
     const id = $(this).attr('id');
 
     $.ajax({
-      url: "<?= base_url('fordis/' . $group) ?>",
+      url: "<?= base_url('group/' . $group . '/grouppostslist') ?>",
       dataType: "json",
       type: "post",
       data: {
-        id: id
+        page: id
       },
       success: function(res) {
         $(".source-data").html(res.posts)
-        $( ".overlay" ).hide();
+        $(".overlay" ).hide();
       }
     })
+  })
+
+  $(document).on("click", ".btn-refresh-post", function() {
+    $(".overlay" ).show();
+    source_data()
   })
 
   $(document).on("click", ".btn-add-post", function() {

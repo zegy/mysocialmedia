@@ -48,13 +48,13 @@ class PostModel extends Model
                     ->first();
     }
 
-    public function getAllByType($postType, $id = null)
+    public function getAllByGroup($group, $page = null)
     {
         return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
-                    ->where('post_type', $postType)
+                    ->where('post_type', $group)
                     ->orderBy('post_pk', 'DESC')
-                    ->paginate(5, 'default', $id);
+                    ->paginate(5, 'default', $page);
     }
 
     public function getAllByUser($uid)

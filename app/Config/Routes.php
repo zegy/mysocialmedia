@@ -42,10 +42,21 @@ $routes->setAutoRoute(false);
 //     $routes->get('blog', 'Admin\Blog::index');
 // });
 
+// Fixed START
 $routes->add('/', 'Login::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
+$routes->add('group/(:segment)/groupposts', 'Post::groupPosts/$1');
+$routes->add('group/(:segment)/grouppostslist', 'Post::groupPostsList/$1');
+// Fixed END
 
-$routes->add('fordis/(:segment)', 'Post::showAll/$1'); //NOTE Inc. Umum
-$routes->add('fordis/(:segment)/(:num)', 'Post::detail/$1/$2');
+
+
+
+
+
+
+
+
+$routes->add('(:segment)/(:num)', 'Post::detail/$1/$2');
 
 
 // $routes->add('fordis/umum/posts_table', 'Post::posts_table');

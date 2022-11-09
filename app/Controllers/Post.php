@@ -15,36 +15,40 @@ class Post extends BaseController
         $this->commentModel = new CommentModel(); //TODO TEMP!
     }
 
-    public function showAll($group)
+    public function groupPosts($group)
+    {
+        $data = ["group" => $group];
+        return view('posts', $data);
+    }
+
+    public function groupPostsList($group)
     {
         if ($this->request->isAJAX())
         {
-            $id = $this->request->getVar('id');
-
-            $posts = $this->postModel->getAllByType($group, $id);
+            $page = $this->request->getVar('page');
+            $posts = $this->postModel->getAllByGroup($group, $page);
+            $pager = $this->postModel->pager;
             
-            if (empty($posts)) {
+            if (empty($posts))
+            {
                 echo json_encode(['status' => false]);
             }
             else
             {
                 $data = [
                     "posts" => $posts,
-                    "pager" => $this->postModel->pager,
+                    "pager" => $pager,
                 ];
-                
-                $output = view('posts_table', $data);
-    
+                    
                 echo json_encode([
-                    'status' => true,
-                    'posts'  => $output
+                    'posts'  => view('posts_table', $data),
+                    'status' => true
                 ]);
             }
         }
         else
         {
-            $data = ["group" => $group];
-            return view('posts', $data);
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 

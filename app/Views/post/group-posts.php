@@ -71,9 +71,9 @@
       success: function(res) {
         if (res.status) {
           $(".source-data").html(res.posts)
-          $(".overlay" ).hide();
+          $(".overlay").hide();
         } else {
-          $(".overlay" ).hide();
+          $(".overlay").hide();
         }
       }
     })
@@ -84,7 +84,7 @@
   $(document).on("click", ".btn-pagination", function(e) {
     e.preventDefault()
     
-    $(".overlay" ).show();
+    $(".overlay").show();
     const id = $(this).attr('id');
 
     $.ajax({
@@ -96,13 +96,13 @@
       },
       success: function(res) {
         $(".source-data").html(res.posts)
-        $(".overlay" ).hide();
+        $(".overlay").hide();
       }
     })
   })
 
   $(document).on("click", ".btn-refresh-post", function() {
-    $(".overlay" ).show();
+    $(".overlay").show();
     source_data()
   })
 

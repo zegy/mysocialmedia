@@ -65,11 +65,11 @@ class Post extends BaseController
     //     }
     // }
 
-    public function get_delete_post_modal()
+    public function deletePostModal()
     {
         if ($this->request->isAJAX())
         {
-            $id = $this->request->getVar('id'); //TODO Why getVar?
+            $id = $this->request->getVar('id');
             $data['item'] = ['id' => $id];
 
             $output = view('forms/delete-post-form', $data);
@@ -81,11 +81,11 @@ class Post extends BaseController
         }
     }
 
-    public function delete_post()
+    public function deletePost()
     {
         $id = $this->request->getPost('id');
         $this->postModel->delete($id);
-        echo json_encode(['status' => TRUE]);
+        echo json_encode(['status' => true]);
     }
 
 

@@ -18,7 +18,7 @@ class Post extends BaseController
     public function groupPosts($group)
     {
         $data = ["group" => $group];
-        return view('posts', $data);
+        return view('post/group-posts', $data);
     }
 
     public function groupPostsList($group)
@@ -41,7 +41,7 @@ class Post extends BaseController
                 ];
                     
                 echo json_encode([
-                    'posts'  => view('posts_table', $data),
+                    'posts'  => view('post/group-posts-list', $data),
                     'status' => true
                 ]);
             }
@@ -52,18 +52,18 @@ class Post extends BaseController
         }
     }
 
-    public function get_add_post_modal() // From ci4-crud-ajax example (get_add_item_modal)
-    {
-        if ($this->request->isAJAX())
-        {
-            $output = view('forms/add-post-form');
-            echo json_encode($output);
-        }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-    }
+    // public function get_add_post_modal() // From ci4-crud-ajax example (get_add_item_modal)
+    // {
+    //     if ($this->request->isAJAX())
+    //     {
+    //         $output = view('forms/add-post-form');
+    //         echo json_encode($output);
+    //     }
+    //     else
+    //     {
+    //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    //     }
+    // }
 
     public function get_delete_post_modal()
     {

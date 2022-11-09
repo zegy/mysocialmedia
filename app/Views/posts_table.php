@@ -31,9 +31,4 @@
     <li class="page-item"><a class="page-link btn-pagination" href="#" id="<?= $pager->getPageCount() ?>">&raquo;</a></li> <!-- NOTE : The getLastPageNumber and getPageCount not working properly in "template". Hence why it's here -->
   </ul>
 </div>
-<?php } else { ?>
-<div class="card-body">             
-  <h3>Belum ada diskusi di forum ini</h3>
-  Silahkan buat diskusi perdana dari anda!
-</div><!-- /.card-body -->
 <?php } ?>

@@ -19,12 +19,27 @@ class Post extends BaseController
     {
         if ($this->request->isAJAX())
         {
-            $data = [
-              "posts" => $this->postModel->getAllByType($group),
-              "pager" => $this->postModel->pager,
-            ];
-            $output = view('posts_table', $data);
-            echo json_encode($output);
+            $id = $this->request->getVar('id');
+
+            $posts = $this->postModel->getAllByType($group, $id);
+            
+            if (empty($posts)) {
+                echo json_encode(['status' => false]);
+            }
+            else
+            {
+                $data = [
+                    "posts" => $posts,
+                    "pager" => $this->postModel->pager,
+                ];
+                
+                $output = view('posts_table', $data);
+    
+                echo json_encode([
+                    'status' => true,
+                    'posts'  => $output
+                ]);
+            }
         }
         else
         {

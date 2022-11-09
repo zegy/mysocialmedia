@@ -47,6 +47,8 @@
             <!-- get data by ajax -->
             <div class="source-data">
               <div class="card-body" style="height: 355px;"><!-- NOTE : act as "empty table" so "loading" overlay animation will be at the center of the card. This element will replaced with the one from the "source" -->
+                <h3>Belum ada diskusi di forum ini</h3>
+                Silahkan buat diskusi perdana dari anda!
               </div><!-- /.card-body -->
             </div>
             
@@ -67,8 +69,12 @@
       url: "<?= base_url('fordis/' . $group) ?>",
       dataType: "json",
       success: function(res) {
-        $(".source-data").html(res)
-        $( ".overlay" ).hide();
+        if (res.status) {
+          $(".source-data").html(res.posts)
+          $( ".overlay" ).hide();
+        } else {
+          $( ".overlay" ).hide();
+        }
       }
     })
   }
@@ -86,10 +92,14 @@
     const id = $(this).attr('id');
 
     $.ajax({
-      url: "<?= base_url('fordis/' . $group . '?page=') ?>" + id,
+      url: "<?= base_url('fordis/' . $group) ?>",
       dataType: "json",
+      type: "post",
+      data: {
+        id: id
+      },
       success: function(res) {
-        $(".source-data").html(res)
+        $(".source-data").html(res.posts)
         $( ".overlay" ).hide();
       }
     })

@@ -59,7 +59,7 @@ class Post extends BaseController
             $id = $this->request->getVar('id');
             $data['item'] = ['id' => $id];
 
-            $output = view('forms/delete-post-form', $data);
+            $output = view('post/group-post-delete-modal', $data);
             echo json_encode($output);
         }
         else

@@ -47,6 +47,8 @@ $routes->add('/', 'Login::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultControll
 $routes->add('group/(:segment)/group_posts', 'Post::groupPosts/$1');
 $routes->add('group/(:segment)/group_posts_list', 'Post::groupPostsList/$1');
 $routes->add('group/(:segment)/group_post_detail/(:num)', 'Post::groupPostDetail/$1/$2');
+$routes->add('post/delete_post_modal', 'Post::deletePostModal');
+$routes->add('post/delete_post', 'Post::deletePost');
 
 $routes->add('user/user_sum_modal', 'User::userSumModal');
 // Fixed END
@@ -74,8 +76,6 @@ $routes->add('post/create', 'Post::create');
 $routes->add('post/update', 'Post::update');
 // $routes->add('post/delete', 'Post::delete');
 $routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
-$routes->add('post/get_delete_post_modal', 'Post::get_delete_post_modal');
-$routes->add('post/delete_post', 'Post::delete_post');
 
 
 

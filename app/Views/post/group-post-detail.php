@@ -121,7 +121,7 @@
     var item_id = $(this).data("id") //TODO LEARN DATA-ID
 
     $.ajax({
-      url: "<?= base_url('post/get_delete_post_modal') ?>",
+      url: "<?= base_url('post/delete_post_modal') ?>",
       dataType: "json",
       type: "post",
       data: {

@@ -52,19 +52,6 @@ class Post extends BaseController
         }
     }
 
-    // public function get_add_post_modal() // From ci4-crud-ajax example (get_add_item_modal)
-    // {
-    //     if ($this->request->isAJAX())
-    //     {
-    //         $output = view('forms/add-post-form');
-    //         echo json_encode($output);
-    //     }
-    //     else
-    //     {
-    //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-    //     }
-    // }
-
     public function deletePostModal()
     {
         if ($this->request->isAJAX())
@@ -95,6 +82,19 @@ class Post extends BaseController
 
 
 
+    // public function get_add_post_modal() // From ci4-crud-ajax example (get_add_item_modal)
+    // {
+    //     if ($this->request->isAJAX())
+    //     {
+    //         $output = view('forms/add-post-form');
+    //         echo json_encode($output);
+    //     }
+    //     else
+    //     {
+    //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    //     }
+    // }
+
 
 
 
@@ -102,20 +102,17 @@ class Post extends BaseController
 
 
     
-    public function detail($group, $pid) //TODO use $group
+    public function groupPostDetail($group, $pid) //TODO : Use $group to limit the user who can see the post later
     {
         $post = $this->postModel->getOneById($pid);
         if (!empty($post))
         {
-            return view('comments',
-            [
-                'post'     => $post,
-                'comments' => $this->commentModel->getAllByPost($pid)
-            ]);
+            $data = ["post" => $post];
+            return view('post/group-post-detail', $data);
         }
         else
         {
-            return redirect()->to('/'); // ZEGY OTC 404 POST NOT FOUND
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 

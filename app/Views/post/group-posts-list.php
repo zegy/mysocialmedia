@@ -16,7 +16,7 @@
       <tr>
         <td><?= $post->pid ?></td>
         <td><img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" id="<?= $post->uid ?>"></td> <!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
-        <td style="min-width: 330px; max-width: 330px; text-align: justify"><a href="<?= base_url('fordis/umum/'.$post->pid) ?>"><?= $post->pttl ?></a></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
+        <td style="min-width: 330px; max-width: 330px; text-align: justify"><a href="<?= base_url('group/umum/grouppostdetail/' . $post->pid) ?>"><?= $post->pttl ?></a></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
         <td style="min-width: 100px"><?= $post->data ?></td>
         <td><span class="badge bg-warning">Pending</span></td>
       </tr>

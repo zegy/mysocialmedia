@@ -106,7 +106,7 @@
                  with font-awesome or any other icon font library -->
             <li class="nav-header">FORUM DISKUSI :</li>
             <li class="nav-item">
-              <a href="<?= base_url('group/umum/groupposts') ?>" class="nav-link" id="umum">
+              <a href="<?= base_url('group/umum/group_posts') ?>" class="nav-link" id="umum">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Umum
@@ -115,7 +115,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('group/test/groupposts') ?>" class="nav-link" id="test">
+              <a href="<?= base_url('group/test/group_posts') ?>" class="nav-link" id="test">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Test

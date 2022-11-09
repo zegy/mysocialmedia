@@ -16,7 +16,7 @@ class Login extends BaseController
     {
         if (session('isLoggedIn') == true)
         {
-            return redirect()->to('group/umum/groupposts'); //TODO right way?
+            return redirect()->to('group/umum/group_posts'); //TODO right way?
         }
         else
         {

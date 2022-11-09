@@ -66,7 +66,7 @@
   <?= $this->section('script') ?>
   function source_data() {
     $.ajax({
-      url: "<?= base_url('group/' . $group . '/grouppostslist') ?>",
+      url: "<?= base_url('group/' . $group . '/group_posts_list') ?>",
       dataType: "json",
       success: function(res) {
         if (res.status) {
@@ -88,7 +88,7 @@
     const id = $(this).attr('id');
 
     $.ajax({
-      url: "<?= base_url('group/' . $group . '/grouppostslist') ?>",
+      url: "<?= base_url('group/' . $group . '/group_posts_list') ?>",
       dataType: "json",
       type: "post",
       data: {

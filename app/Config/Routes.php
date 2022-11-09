@@ -44,9 +44,9 @@ $routes->setAutoRoute(false);
 
 // Fixed START
 $routes->add('/', 'Login::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
-$routes->add('group/(:segment)/groupposts', 'Post::groupPosts/$1');
-$routes->add('group/(:segment)/grouppostslist', 'Post::groupPostsList/$1');
-$routes->add('group/(:segment)/grouppostdetail/(:num)', 'Post::groupPostDetail/$1/$2');
+$routes->add('group/(:segment)/group_posts', 'Post::groupPosts/$1');
+$routes->add('group/(:segment)/group_posts_list', 'Post::groupPostsList/$1');
+$routes->add('group/(:segment)/group_post_detail/(:num)', 'Post::groupPostDetail/$1/$2');
 
 $routes->add('user/user_sum_modal', 'User::userSumModal');
 // Fixed END

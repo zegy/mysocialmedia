@@ -4,7 +4,7 @@
       <div class="modal-header">
         <h5 class="modal-title">Delete Item</h5>
       </div>
-      <?= form_open('post/delete_post', ['id' => 'form-delete-post']); ?>
+      <?= form_open('post/delete', ['id' => 'form-delete-post']); ?>
       <div class="modal-body">
         
         <input type="hidden" name="id" id="item_id" value="<?= $item["id"]; ?>">

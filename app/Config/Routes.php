@@ -44,11 +44,13 @@ $routes->setAutoRoute(false);
 
 // Fixed START
 $routes->add('/', 'Login::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
-$routes->add('group/(:segment)/group_posts', 'Post::groupPosts/$1');
-$routes->add('group/(:segment)/group_posts_list', 'Post::groupPostsList/$1');
-$routes->add('group/(:segment)/group_post_detail/(:num)', 'Post::groupPostDetail/$1/$2');
-$routes->add('post/delete_post_modal', 'Post::deletePostModal');
-$routes->add('post/delete_post', 'Post::deletePost');
+$routes->add('group/(:segment)',                'Post::index/$1');
+$routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
+
+// AJAX
+$routes->add('post/list',          'Post::list');
+$routes->add('post/delete_modal',  'Post::deleteModal');
+$routes->add('post/delete',        'Post::delete');
 
 $routes->add('user/user_sum_modal', 'User::userSumModal');
 // Fixed END

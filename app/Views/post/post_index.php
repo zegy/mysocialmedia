@@ -64,10 +64,17 @@
 <!-- ================================================ SCRIPTS ================================================ -->
 <script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
   <?= $this->section('script') ?>
-  function source_data() {
+  function source_data(page_no) {
+    var page = page_no //NOTE : Optional, used in pagination
+
     $.ajax({
-      url: "<?= base_url('group/' . $group . '/group_posts_list') ?>",
+      url: "<?= base_url('post/list') ?>",
       dataType: "json",
+      type: "post",
+      data: {
+        group: "<?= $group ?>",
+        page: page
+      },
       success: function(res) {
         if (res.status) {
           $(".source-data").html(res.posts)
@@ -85,20 +92,8 @@
     e.preventDefault()
     
     $(".overlay").show();
-    const id = $(this).attr('id');
-
-    $.ajax({
-      url: "<?= base_url('group/' . $group . '/group_posts_list') ?>",
-      dataType: "json",
-      type: "post",
-      data: {
-        page: id
-      },
-      success: function(res) {
-        $(".source-data").html(res.posts)
-        $(".overlay").hide();
-      }
-    })
+    const page = $(this).attr('id');
+    source_data(page)
   })
 
   $(document).on("click", ".btn-refresh-post", function() {

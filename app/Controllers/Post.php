@@ -15,17 +15,18 @@ class Post extends BaseController
         $this->commentModel = new CommentModel(); //TODO TEMP!
     }
 
-    public function groupPosts($group)
+    public function index($group)
     {
         $data = ["group" => $group];
-        return view('post/group-posts', $data);
+        return view('post/post_index', $data);
     }
 
-    public function groupPostsList($group)
+    public function list()
     {
         if ($this->request->isAJAX())
         {
             $page = $this->request->getVar('page');
+            $group = $this->request->getVar('group');
             $posts = $this->postModel->getAllByGroup($group, $page);
             $pager = $this->postModel->pager;
             
@@ -41,7 +42,7 @@ class Post extends BaseController
                 ];
                     
                 echo json_encode([
-                    'posts'  => view('post/group-posts-list', $data),
+                    'posts'  => view('post/post_list', $data),
                     'status' => true
                 ]);
             }
@@ -52,14 +53,14 @@ class Post extends BaseController
         }
     }
 
-    public function deletePostModal()
+    public function deleteModal()
     {
         if ($this->request->isAJAX())
         {
             $id = $this->request->getVar('id');
             $data['item'] = ['id' => $id];
 
-            $output = view('post/group-post-delete-modal', $data);
+            $output = view('post/post_modal_delete', $data);
             echo json_encode($output);
         }
         else
@@ -68,11 +69,25 @@ class Post extends BaseController
         }
     }
 
-    public function deletePost()
+    public function delete()
     {
         $id = $this->request->getPost('id');
         $this->postModel->delete($id);
         echo json_encode(['status' => true]);
+    }
+
+    public function detail($group, $pid) //TODO : Use $group to limit the user who can see the post later
+    {
+        $post = $this->postModel->getOneById($pid);
+        if (!empty($post))
+        {
+            $data = ["post" => $post];
+            return view('post/post_detail', $data);
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
     }
 
 
@@ -102,19 +117,7 @@ class Post extends BaseController
 
 
     
-    public function groupPostDetail($group, $pid) //TODO : Use $group to limit the user who can see the post later
-    {
-        $post = $this->postModel->getOneById($pid);
-        if (!empty($post))
-        {
-            $data = ["post" => $post];
-            return view('post/group-post-detail', $data);
-        }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-    }
+    
 
     public function create()
     {
@@ -141,10 +144,10 @@ class Post extends BaseController
         return redirect()->back();
     }
 
-    public function delete()
-    {
-        $data = $this->request->getPost(); //GET pid
-        $this->postModel->delete($data["pid"]);
-        return redirect()->back();
-    }
+    // public function delete()
+    // {
+    //     $data = $this->request->getPost(); //GET pid
+    //     $this->postModel->delete($data["pid"]);
+    //     return redirect()->back();
+    // }
 }

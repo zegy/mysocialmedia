@@ -70,27 +70,32 @@
             <div class="card-footer card-comments">
               <div class="card-comment">
                 <div class="row">
-                  <div class="col-11">
+                  <div class="col-12">
                     <img class="img-circle img-sm" src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Image"><!-- User image -->
                     <div class="comment-text">
                     <span class="username">
-                        Maria Gonzales
-                        <span class="text-muted float-right">8:03 PM Today</span>
+                      Maria Gonzales
+                      <span class="text-muted float-right">8:03 PM Today</span>
                     </span><!-- /.username -->
                     It is a long established fact that a reader will be distracted
                     by the readable content of a page when looking at its layout.
                     </div><!-- /.comment-text -->
                   </div><!-- /.col -->
-                  <div class="col-1">
-                    <div class="btn-group-vertical">
-                      <button type="button" class="btn btn-default btn-xs">
+                </div><!-- /.row -->
+                <div class="row">
+                  <div class="col-12">
+                    <div style="display: flex; padding-left: 40px; margin-top: 5px;" class="btn-group">
+                      <button style="margin-right: 1px" type="button" class="btn btn-outline-success btn-xs">
                         <i class="fas fa-arrow-up"></i>
                       </button>
-                      <button type="button" class="btn btn-default btn-xs">
+                      <button type="button" class="btn btn-default btn-xs text-success">
                         123
                       </button>
-                      <button type="button" class="btn btn-default btn-xs">
+                      <button style="margin-right: 1px" type="button" class="btn btn-outline-danger btn-xs">
                         <i class="fas fa-arrow-down"></i>
+                      </button>
+                      <button type="button" class="btn btn-default btn-xs text-danger">
+                        123
                       </button>
                     </div>
                   </div><!-- /.col -->

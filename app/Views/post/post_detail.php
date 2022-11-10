@@ -117,10 +117,6 @@
 <!-- ================================================ SCRIPTS ================================================ -->
 <script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
   <?= $this->section('script') ?>
-  function redirect() {
-    window.location = "<?= base_url('group/' . $post->type) ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
-  }
-
   $(document).on("click", ".btn-delete-post", function() {
     var item_id = $(this).data("id") //TODO LEARN DATA-ID
 
@@ -149,7 +145,7 @@
       success: function(res) {
         if (res.status) {
           $(".modal").modal("toggle")
-          setTimeout(redirect, 1000)
+          window.location = "<?= base_url('group/' . $post->type) ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
         }
       }
     })

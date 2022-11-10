@@ -88,7 +88,7 @@
                 icon: 'success',
                 title: 'Login berhasil!'
               })
-              window.location = "/" //TODO this is for redirect (since it's not working via C. But is it the best way?
+              window.location = "<?= base_url('/') ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
             } else {
               Toast.fire({
                 icon: 'error',

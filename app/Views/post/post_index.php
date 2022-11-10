@@ -78,9 +78,9 @@
       success: function(res) {
         if (res.status) {
           $(".source-data").html(res.posts)
-          $(".overlay").hide();
+          $(".overlay").hide()
         } else {
-          $(".overlay").hide();
+          $(".overlay").hide()
         }
       }
     })
@@ -92,12 +92,12 @@
     e.preventDefault()
     
     $(".overlay").show();
-    const page = $(this).attr('id');
+    const page = $(this).attr('id')
     source_data(page)
   })
 
   $(document).on("click", ".btn-refresh-post", function() {
-    $(".overlay").show();
+    $(".overlay").show()
     source_data()
   })
 
@@ -115,7 +115,7 @@
   $(document).on("click", ".table-avatar", function(e) {
     e.preventDefault()
 
-    const id = $(this).attr('id');
+    const id = $(this).attr('id')
 
     $.ajax({
       url: "<?= base_url('user/user_sum_modal') ?>",

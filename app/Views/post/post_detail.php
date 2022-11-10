@@ -145,13 +145,7 @@
       success: function(res) {
         if (res.status) {
           $(".modal").modal("toggle")
-        //   Toast.fire({
-        //     icon: 'success',
-        //     title: 'Data berhasil dihapus'
-        //   })
-        //   source_data()
-        //temp, redirect instead
-        alert('sukses')
+          window.location = "<?= base_url('group/' . $post->type) ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
         }
       }
     })

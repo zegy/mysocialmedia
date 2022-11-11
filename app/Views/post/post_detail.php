@@ -44,8 +44,8 @@
             <div class="card-body">
               <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
               <p>I took this photo this morning. What do you guys think?</p>
-              <button type="button" class="btn btn-danger btn-sm btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button> <!-- TODO LEARN DATA-ID -->
-              <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i> Ubah</button>
+              <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button> <!-- TODO LEARN DATA-ID -->
+              <button type="button" class="btn btn-secondary btn-xs"><i class="far fa-edit"></i> Ubah</button>
               <!-- <span class="float-right text-muted">127 likes - 3 comments</span> -->
               <span class="float-right text-muted">3 comments</span>
             </div><!-- /.card-body -->
@@ -84,18 +84,12 @@
                 </div><!-- /.row -->
                 <div class="row">
                   <div class="col-12">
-                    <div style="display: flex; padding-left: 40px; margin-top: 5px;" class="btn-group">
-                      <button style="margin-right: 1px" type="button" class="btn btn-outline-success btn-xs">
-                        <i class="fas fa-arrow-up"></i>
+                    <div style="margin-top: 5px" class="float-right">
+                      <button style="width: 50px" type="button" class="btn btn-outline-success btn-xs">
+                        <i class="fas fa-thumbs-up"></i> 123
                       </button>
-                      <button type="button" class="btn btn-default btn-xs text-success">
-                        123
-                      </button>
-                      <button style="margin-right: 1px" type="button" class="btn btn-outline-danger btn-xs">
-                        <i class="fas fa-arrow-down"></i>
-                      </button>
-                      <button type="button" class="btn btn-default btn-xs text-danger">
-                        123
+                      <button style="width: 50px" type="button" class="btn btn-outline-danger btn-xs">
+                        <i class="fas fa-thumbs-down"></i> 123
                       </button>
                     </div>
                   </div><!-- /.col -->

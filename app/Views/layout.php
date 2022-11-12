@@ -238,10 +238,8 @@
         })
       })
       //TODO Delete later, "Layout" script (Dev-only, Admin_tools) END
-      
-      //Page spesific script
-      <?= $this->renderSection('script') ?>
-    });
+    })
   </script>
+  <?= $this->renderSection('script') ?>
 </body>
 </html>

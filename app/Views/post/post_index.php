@@ -93,100 +93,99 @@
 <?= $this->endSection() ?>
 
 <!-- SCRIPTS -->
-<script> //NOTE : The tag is just only to make it readable
-  <?= $this->section('script') ?>
-  function source_data(page_no) {
-    var page = page_no //NOTE : Optional, used in pagination
-
-    $.ajax({
-      url: "<?= base_url('post/list') ?>",
-      dataType: "json",
-      type: "post",
-      data: {
-        group: "<?= $group ?>",
-        page: page
-      },
-      success: function(res) {
-        if (res.status) {
-          $(".source-data").html(res.posts)
-        }
-        $(".overlay").hide()
-      }
-    })
-  }
-
-  source_data()
-
-  $(document).on("click", ".btn-pagination", function(e) {
-    e.preventDefault()
+<?= $this->section('script') ?>
+<script>
+  $(document).ready(function() {
+    function source_data(page_no) {
+      var page = page_no //NOTE : Optional, used in pagination
     
-    $(".overlay").show();
-    let page = $(this).attr('id')
-    source_data(page)
-  })
-
-  $(document).on("click", ".btn-refresh-post", function() {
-    $(".overlay").show()
-    source_data()
-  })
-
-  $(document).on("click", ".btn-add-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
-    $("#post_modal_add").modal("toggle")
-  })
-
-  $(document).on("submit", "#post_modal_add_form", function(e) {
-    e.preventDefault()
-
-    $.ajax({
-      url: $(this).attr("action"),
-      type: $(this).attr("method"),
-      data: $(this).serialize(),
-      dataType: "json",
-      success: function(res) {
-        if (res.status) {
-          $(".modal").modal("toggle")
-          source_data() 
-        } else {
-          $.each(res.errors, function(key, value) {
-            $('[name="' + key + '"]').addClass('is-invalid')
-            $('[name="' + key + '"]').next().text(value)
-            if (value == "") {
-              $('[name="' + key + '"]').removeClass('is-invalid')
-              $('[name="' + key + '"]').addClass('is-valid')
-            }
-          })
+      $.ajax({
+        url: "<?= base_url('post/list') ?>",
+        dataType: "json",
+        type: "post",
+        data: {
+          group: "<?= $group ?>",
+          page: page
+        },
+        success: function(res) {
+          if (res.status) {
+            $(".source-data").html(res.posts)
+          }
+          $(".overlay").hide()
         }
-      }
+      })
+    }
+    
+    source_data()
+    
+    $(document).on("click", ".btn-pagination", function(e) {
+      e.preventDefault()
+      
+      $(".overlay").show();
+      let page = $(this).attr('id')
+      source_data(page)
     })
-
-    $("#form-data input").on("keyup", function() {
-      $(this).removeClass('is-invalid is-valid')
+    
+    $(document).on("click", ".btn-refresh-post", function() {
+      $(".overlay").show()
+      source_data()
     })
-    $("#form-data input").on("click", function() {
-      $(this).removeClass('is-invalid is-valid')
+    
+    $(document).on("click", ".btn-add-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
+      $("#post_modal_add").modal("toggle")
     })
-    $("#form-data select").on("click", function() {
-      $(this).removeClass('is-invalid is-valid')
+    
+    $(document).on("submit", "#post_modal_add_form", function(e) {
+      e.preventDefault()
+    
+      $.ajax({
+        url: $(this).attr("action"),
+        type: $(this).attr("method"),
+        data: $(this).serialize(),
+        dataType: "json",
+        success: function(res) {
+          if (res.status) {
+            $(".modal").modal("toggle")
+            source_data() 
+          } else {
+            $.each(res.errors, function(key, value) {
+              $('[name="' + key + '"]').addClass('is-invalid')
+              $('[name="' + key + '"]').next().text(value)
+              if (value == "") {
+                $('[name="' + key + '"]').removeClass('is-invalid')
+                $('[name="' + key + '"]').addClass('is-valid')
+              }
+            })
+          }
+        }
+      })
+    
+      $("#post_modal_add_form input").on("click", function() {
+        $(this).removeClass('is-invalid is-valid')
+      })
+      $("#post_modal_add_form select").on("click", function() {
+        $(this).removeClass('is-invalid is-valid')
+      })
+    })
+    
+    $(document).on("click", ".table-avatar", function(e) {
+      e.preventDefault()
+    
+      const id = $(this).attr('id')
+    
+      $.ajax({
+        url: "<?= base_url('user/user_sum_modal') ?>",
+        dataType: "json",
+        type: "post",
+        data: {
+          uid: id
+        },
+        success: function(res) {
+          $(".view-modal").html(res)
+          $(".modal").modal("toggle")
+        }
+      })
     })
   })
-
-  $(document).on("click", ".table-avatar", function(e) {
-    e.preventDefault()
-
-    const id = $(this).attr('id')
-
-    $.ajax({
-      url: "<?= base_url('user/user_sum_modal') ?>",
-      dataType: "json",
-      type: "post",
-      data: {
-        uid: id
-      },
-      success: function(res) {
-        $(".view-modal").html(res)
-        $(".modal").modal("toggle")
-      }
-    })
-  })
-  <?= $this->endSection() ?>
 </script>
+<?= $this->endSection() ?>

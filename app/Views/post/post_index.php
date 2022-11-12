@@ -1,6 +1,6 @@
 <?= $this->extend('layout') ?>
+<!-- CONTENT -->
 <?= $this->section('content') ?> 
-
 <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
   <section class="content-header"><!-- Content Header (Page header) -->
     <div class="container-fluid">
@@ -17,7 +17,6 @@
       </div>
     </div><!-- /.container-fluid -->
   </section>
-
   <section class="content"><!-- Main content -->
     <div class="container-fluid">
       <div class="row">
@@ -27,12 +26,10 @@
               <i class="fas fa-2x fa-sync fa-spin"></i>
             </div>
             <div class="card-header">
-              <!-- <h3 class="card-title">Fixed Header Table</h3> -->
               <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i></button>
               <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
               <button class="btn btn-secondary btn-sm btn-refresh-post"><i class="fas fa-bars"></i></button>
               <div class="card-tools">
-                <!-- <div class="input-group input-group-sm" style="width: 150px;"> -->
                 <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                   <div class="input-group-append">
@@ -43,15 +40,12 @@
                 </div>
               </div>
             </div><!-- /.card-header -->
-
-            <!-- get data by ajax -->
-            <div class="source-data">
+            <div class="source-data"><!-- NOTE : Get data by ajax -->
               <div class="card-body" style="height: 355px;"><!-- NOTE : act as "empty table" so "loading" overlay animation will be at the center of the card. This element will replaced with the one from the "source" -->
                 <h3>Belum ada diskusi di forum ini</h3>
                 Silahkan buat diskusi perdana dari anda!
               </div><!-- /.card-body -->
             </div>
-            
           </div><!-- /.card -->
         </div>
       </div><!-- /.row -->
@@ -59,11 +53,8 @@
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-<?= $this->endSection() ?>
-
-<?= $this->section('modal') ?> 
-
-<div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<!-- MODALS -->
+<div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -71,7 +62,6 @@
       </div>
       <?= form_open('admin_tools/create_posts', ['id' => 'post_modal_add_form']); ?>
       <div class="modal-body">
-
         <div class="form-group">
           <label for="group">Group (Manual input)</label>
           <input type="text" name="group" id="group" class="form-control">
@@ -92,22 +82,18 @@
           <input type="number" name="count" id="count" class="form-control">
           <div class="invalid-feedback"></div>
         </div>
-
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
-
       <?= form_close(); ?>
-
     </div>
   </div>
 </div>
-
 <?= $this->endSection() ?>
 
-<!-- ================================================ SCRIPTS ================================================ -->
-<script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
+<!-- SCRIPTS -->
+<script> //NOTE : The tag is just only to make it readable
   <?= $this->section('script') ?>
   function source_data(page_no) {
     var page = page_no //NOTE : Optional, used in pagination
@@ -123,10 +109,8 @@
       success: function(res) {
         if (res.status) {
           $(".source-data").html(res.posts)
-          $(".overlay").hide()
-        } else {
-          $(".overlay").hide()
         }
+        $(".overlay").hide()
       }
     })
   }
@@ -137,7 +121,7 @@
     e.preventDefault()
     
     $(".overlay").show();
-    const page = $(this).attr('id')
+    let page = $(this).attr('id')
     source_data(page)
   })
 

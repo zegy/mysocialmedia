@@ -150,9 +150,6 @@
       </div><!-- /.sidebar -->
     </aside>
     <?= $this->renderSection('content') ?><!-- Content -->
-    <aside>
-      <?= $this->renderSection('modal') ?><!-- TODO : Experimental! Use "aside"? -->
-    </aside>
     <aside class="control-sidebar control-sidebar-dark"><!-- Control Sidebar -->
       <!-- Control sidebar content goes here -->
     </aside><!-- /.control-sidebar -->

@@ -73,6 +73,7 @@ class Post extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
+ 
 
 
 
@@ -81,18 +82,11 @@ class Post extends BaseController
 
 
 
-    public function get_add_post_modal() // From ci4-crud-ajax example (get_add_item_modal)
-    {
-        if ($this->request->isAJAX())
-        {
-            $output = view('post/post_modal_add');
-            echo json_encode($output);
-        }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-    }
+
+
+
+
+
 
 
 
@@ -101,8 +95,6 @@ class Post extends BaseController
 
 
     
-    
-
     public function create()
     {
         $data = $this->request->getPost(); //GET title, text, type

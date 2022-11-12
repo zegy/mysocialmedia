@@ -72,7 +72,6 @@ $routes->add('group', 'Group::index');
 
 $routes->add('fordis_khusus/create', 'Group::create');
 
-$routes->add('post/get_add_post_modal', 'Post::get_add_post_modal');
 $routes->add('post/create', 'Post::create');
 $routes->add('post/update', 'Post::update');
 // $routes->add('post/delete', 'Post::delete');

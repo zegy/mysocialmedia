@@ -61,6 +61,51 @@
 
 <?= $this->endSection() ?>
 
+<?= $this->section('modal') ?> 
+
+<div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add new Item</h5>
+      </div>
+      <?= form_open('admin_tools/create_posts', ['id' => 'post_modal_add_form']); ?>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label for="group">Group (Manual input)</label>
+          <input type="text" name="group" id="group" class="form-control">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label for="user">User</label>
+          <select name="user" id="user" class="form-control">
+            <option value="">-- Pilih --</option>
+            <option value="1">un_admin</option>
+            <option value="2">un_dosen</option>
+            <option value="3">un_mahasiswa</option>
+          </select>
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label for="count">Jumlah</label>
+          <input type="number" name="count" id="count" class="form-control">
+          <div class="invalid-feedback"></div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+
+      <?= form_close(); ?>
+
+    </div>
+  </div>
+</div>
+
+<?= $this->endSection() ?>
+
 <!-- ================================================ SCRIPTS ================================================ -->
 <script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
   <?= $this->section('script') ?>
@@ -102,13 +147,42 @@
   })
 
   $(document).on("click", ".btn-add-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
+    $("#post_modal_add").modal("toggle")
+  })
+
+  $(document).on("submit", "#post_modal_add_form", function(e) {
+    e.preventDefault()
+
     $.ajax({
-      url: "<?= base_url('post/get_add_post_modal') ?>",
+      url: $(this).attr("action"),
+      type: $(this).attr("method"),
+      data: $(this).serialize(),
       dataType: "json",
       success: function(res) {
-        $(".view-modal").html(res)
-        $(".modal").modal("toggle")
+        if (res.status) {
+          $(".modal").modal("toggle")
+          source_data() 
+        } else {
+          $.each(res.errors, function(key, value) {
+            $('[name="' + key + '"]').addClass('is-invalid')
+            $('[name="' + key + '"]').next().text(value)
+            if (value == "") {
+              $('[name="' + key + '"]').removeClass('is-invalid')
+              $('[name="' + key + '"]').addClass('is-valid')
+            }
+          })
+        }
       }
+    })
+
+    $("#form-data input").on("keyup", function() {
+      $(this).removeClass('is-invalid is-valid')
+    })
+    $("#form-data input").on("click", function() {
+      $(this).removeClass('is-invalid is-valid')
+    })
+    $("#form-data select").on("click", function() {
+      $(this).removeClass('is-invalid is-valid')
     })
   })
 

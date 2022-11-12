@@ -53,22 +53,6 @@ class Post extends BaseController
         }
     }
 
-    public function deleteModal()
-    {
-        if ($this->request->isAJAX())
-        {
-            $id = $this->request->getVar('id');
-            $data['item'] = ['id' => $id];
-
-            $output = view('post/post_modal_delete', $data);
-            echo json_encode($output);
-        }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-    }
-
     public function delete()
     {
         $pid = $this->request->getPost('pid');

@@ -119,7 +119,6 @@
   $(document).on("click", ".btn-delete-post", function() {
     // NOTE: From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
     var pid = $(this).data("id") //TODO LEARN DATA-ID
-    
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -146,29 +145,11 @@
               confirmButtonText: 'OK'
             }).then((result) => {
               if (result.isConfirmed) {
-                window.location = "<?= base_url('group/' . $post->type) ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
+                window.location = "<?= base_url('group/' . $post->type) ?>" //NOTE : This is for redirect (since it's not working via Controller)
               }
             })
           }
         })
-      }
-    })
-
-  })
-
-  $(document).on("submit", "#form-delete-post", function(e) {
-    e.preventDefault()
-
-    $.ajax({
-      url: $(this).attr("action"),
-      type: $(this).attr("method"),
-      data: $(this).serialize(), //NOTE : Contains all "input" values (but what this function for?) result like : id=597&test=100000%3B%20%3F%3E (there is 2nd input as "test" with value 100000, test only)
-      dataType: "json",
-      success: function(res) {
-        if (res.status) {
-          $(".modal").modal("toggle")
-          window.location = "<?= base_url('group/' . $post->type) ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
-        }
       }
     })
   })

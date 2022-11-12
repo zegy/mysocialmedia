@@ -60,6 +60,7 @@
       <div class="modal-header">
         <h5 class="modal-title">Add new Item</h5>
       </div>
+      <?= form_open('post/create', ['id' => 'post_modal_add_form']); ?>
       <div class="modal-body">
         <div class="form-group">
           <label for="group">Judul</label>
@@ -75,6 +76,7 @@
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
+      <?= form_close(); ?>
     </div>
   </div>
 </div>
@@ -123,18 +125,13 @@
       $("#post_modal_add").modal("toggle")
     })
     
-    $(document).on("submit", "#post_modal_add", function(e) {
+    $(document).on("submit", "#post_modal_add_form", function(e) {
       e.preventDefault()
-      let judul = $("#judul").val()
-      let deskripsi = $("#deskripsi").val()
     
       $.ajax({
-        url: <?= base_url('post/create') ?>,
-        type: "post",
-        data: {
-          judul: judul,
-          deskripsi: deskripsi
-        },
+        url: $(this).attr("action"),
+        type: $(this).attr("method"),
+        data: $(this).serialize(),
         dataType: "json",
         success: function(res) {
           if (res.status) {

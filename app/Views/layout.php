@@ -5,10 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3</title>
-  <!-- Google Font: Source Sans Pro --> <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons --> <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
-  <!-- IonIcons --> <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style --> <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
+  <!-- Google Font: Source Sans Pro --><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons --><link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
+  <!-- IonIcons --><link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style --><link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
+
+  <!-- SweetAlert2 --><link rel="stylesheet" href="<?= base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
+
   <!-- NOTE Custom "AdminLTE-3.2.0" style (Override "adminlte.min") -->
   <style>
       /* User profile image's circle based on role (Style based on profile page's "Profile Image") */
@@ -162,12 +165,14 @@
 
   <!-- ================================================ SCRIPTS ================================================ -->
   <!-- REQUIRED SCRIPTS -->
-  <!-- jQuery --> <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
-  <!-- Bootstrap --> <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-  <!-- AdminLTE --> <script src="<?= base_url('assets/dist/js/adminlte.js') ?>"></script>
+  <!-- jQuery --><script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
+  <!-- Bootstrap --><script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+  <!-- AdminLTE --><script src="<?= base_url('assets/dist/js/adminlte.js') ?>"></script>
+  
+  <!-- SweetAlert2 --><script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
   
   <!-- OPTIONAL SCRIPTS -->
-  <!-- AdminLTE for demo purposes --> <script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
+  <!-- AdminLTE for demo purposes --><script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
   
   <!-- MY CUSTOM SCRIPTS -->    
   <script>

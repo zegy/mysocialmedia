@@ -44,7 +44,7 @@
             <div class="card-body">
               <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
               <p>I took this photo this morning. What do you guys think?</p>
-              <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button> <!-- TODO LEARN DATA-ID -->
+              <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs"><i class="far fa-edit"></i> Ubah</button>
               <!-- <span class="float-right text-muted">127 likes - 3 comments</span> -->
               <span class="float-right text-muted">3 comments</span>
@@ -117,8 +117,8 @@
 <script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
   <?= $this->section('script') ?>
   $(document).on("click", ".btn-delete-post", function() {
-    // NOTE: From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
-    var pid = $(this).data("id") //TODO LEARN DATA-ID
+    //NOTE : From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
+    let pid = $(this).data("id") //NOTE : From the element's "data-id" attribute 
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",

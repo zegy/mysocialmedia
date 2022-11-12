@@ -1,6 +1,6 @@
 <?= $this->extend('layout') ?>
+<!-- CONTENT -->
 <?= $this->section('content') ?> 
-
 <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
   <section class="content-header"><!-- Content Header (Page header) -->
     <div class="container-fluid">
@@ -17,7 +17,6 @@
       </div>
     </div><!-- /.container-fluid -->
   </section>
-
   <section class="content"><!-- Main content -->
     <div class="container-fluid">
       <div class="row">
@@ -46,7 +45,6 @@
               <p>I took this photo this morning. What do you guys think?</p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs"><i class="far fa-edit"></i> Ubah</button>
-              <!-- <span class="float-right text-muted">127 likes - 3 comments</span> -->
               <span class="float-right text-muted">3 comments</span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
@@ -110,48 +108,49 @@
     </div><!-- /.container-fluid -->
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
-
 <?= $this->endSection() ?>
 
-<!-- ================================================ SCRIPTS ================================================ -->
-<script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
-  <?= $this->section('script') ?>
-  $(document).on("click", ".btn-delete-post", function() { //NOTE : Fully using "sweetalert2"
-    //NOTE : From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
-    let pid = $(this).data("id") //NOTE : From the element's "data-id" attribute 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          url: "<?= base_url('post/delete') ?>",
-          dataType: "json",
-          type: "post",
-          data: {
-            pid: pid
-          },
-          success: function(res) {
-            Swal.fire({
-              title: 'Deleted!',
-              text: "Your file has been deleted.",
-              icon: 'success',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'OK'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location = "<?= base_url('group/' . $post->type) ?>" //NOTE : This is for redirect (since it's not working via Controller)
-              }
-            })
-          }
-        })
-      }
+<!-- SCRIPTS -->
+<?= $this->section('script') ?>
+<script>
+  $(document).ready(function() {
+    $(document).on("click", ".btn-delete-post", function() { //NOTE : Fully using "sweetalert2"
+      //NOTE : From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
+      let pid = $(this).data("id") //NOTE : From the element's "data-id" attribute 
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "<?= base_url('post/delete') ?>",
+            dataType: "json",
+            type: "post",
+            data: {
+              pid: pid
+            },
+            success: function(res) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: "Your file has been deleted.",
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location = "<?= base_url('group/' . $post->type) ?>" //NOTE : This is for redirect (since it's not working via Controller)
+                }
+              })
+            }
+          })
+        }
+      })
     })
   })
-  <?= $this->endSection() ?>
 </script>
+<?= $this->endSection() ?>

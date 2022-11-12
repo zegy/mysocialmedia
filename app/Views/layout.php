@@ -213,7 +213,7 @@
             //     icon: 'success',
             //     title: 'Data berhasil ditambah'
             //   })
-              source_data() //NOTE Using "posts" script
+              post_list() //NOTE Using "posts" script
             } else {
               $.each(res.errors, function(key, value) {
                 $('[name="' + key + '"]').addClass('is-invalid')

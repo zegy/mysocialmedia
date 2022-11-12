@@ -40,7 +40,7 @@
                 </div>
               </div>
             </div><!-- /.card-header -->
-            <div class="source-data"><!-- NOTE : Get data by ajax -->
+            <div class="post_list"><!-- NOTE : Get data using AJAX -->
               <div class="card-body" style="height: 355px;"><!-- NOTE : act as "empty table" so "loading" overlay animation will be at the center of the card. This element will replaced with the one from the "source" -->
                 <h3>Belum ada diskusi di forum ini</h3>
                 Silahkan buat diskusi perdana dari anda!
@@ -96,7 +96,7 @@
 <?= $this->section('script') ?>
 <script>
   $(document).ready(function() {
-    function source_data(page_no) {
+    function get_post_list(page_no) {
       var page = page_no //NOTE : Optional, used in pagination
     
       $.ajax({
@@ -109,26 +109,26 @@
         },
         success: function(res) {
           if (res.status) {
-            $(".source-data").html(res.posts)
+            $(".post_list").html(res.posts)
           }
           $(".overlay").hide()
         }
       })
     }
     
-    source_data()
+    get_post_list()
     
     $(document).on("click", ".btn-pagination", function(e) {
       e.preventDefault()
       
       $(".overlay").show();
       let page = $(this).attr('id')
-      source_data(page)
+      get_post_list(page)
     })
     
     $(document).on("click", ".btn-refresh-post", function() {
       $(".overlay").show()
-      source_data()
+      get_post_list()
     })
     
     $(document).on("click", ".btn-add-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
@@ -146,7 +146,7 @@
         success: function(res) {
           if (res.status) {
             $(".modal").modal("toggle")
-            source_data() 
+            get_post_list() 
           } else {
             $.each(res.errors, function(key, value) {
               $('[name="' + key + '"]').addClass('is-invalid')
@@ -168,24 +168,24 @@
       })
     })
     
-    $(document).on("click", ".table-avatar", function(e) {
-      e.preventDefault()
+    // $(document).on("click", ".table-avatar", function(e) {
+    //   e.preventDefault()
     
-      const id = $(this).attr('id')
+    //   const id = $(this).attr('id')
     
-      $.ajax({
-        url: "<?= base_url('user/user_sum_modal') ?>",
-        dataType: "json",
-        type: "post",
-        data: {
-          uid: id
-        },
-        success: function(res) {
-          $(".view-modal").html(res)
-          $(".modal").modal("toggle")
-        }
-      })
-    })
+    //   $.ajax({
+    //     url: "<?= base_url('user/user_sum_modal') ?>",
+    //     dataType: "json",
+    //     type: "post",
+    //     data: {
+    //       uid: id
+    //     },
+    //     success: function(res) {
+    //       $(".view-modal").html(res)
+    //       $(".modal").modal("toggle")
+    //     }
+    //   })
+    // })
   })
 </script>
 <?= $this->endSection() ?>

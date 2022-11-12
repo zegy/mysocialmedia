@@ -50,6 +50,8 @@ $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
 // AJAX
 $routes->add('post/list',          'Post::list');
 $routes->add('post/delete',        'Post::delete');
+$routes->add('post/create',        'Post::create');
+
 
 $routes->add('user/user_sum_modal', 'User::userSumModal');
 // Fixed END

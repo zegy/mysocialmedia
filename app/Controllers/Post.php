@@ -73,6 +73,41 @@ class Post extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
+
+    public function create()
+    {
+        $rules =
+        [
+            'judul' => 'required',
+            'deskripsi' => 'required',
+        ];
+
+        if (!$this->validate($rules))
+        {
+            $errors =
+            [
+                'judul' => $this->validation->getError('judul'),
+                'deskripsi' => $this->validation->getError('deskripsi'),
+            ];
+
+            $output =
+            [
+                'status' => FALSE,
+                'errors' => $errors
+            ];
+
+            echo json_encode($output);
+        }
+        else
+        {
+            $judul = $this->request->getPost('judul');
+            $deskripsi = $this->request->getPost('deskripsi');
+            
+            $this->postModel->insertBatch($data);
+
+            echo json_encode(['status' => TRUE]);
+        }
+    }
  
 
 
@@ -95,19 +130,19 @@ class Post extends BaseController
 
 
     
-    public function create()
-    {
-        $data = $this->request->getPost(); //GET title, text, type
-        $dataToSave =
-        [
-            "post_fk_user" => session('id'),
-            "post_title"   => $data['post_title'],
-            "post_text"    => $data["post_text"],
-            "post_type"    => $data['post_type']
-        ];
-        $this->postModel->insert($dataToSave); //NOTE In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
-        return redirect()->back();
-    }
+    // public function create()
+    // {
+    //     $data = $this->request->getPost(); //GET title, text, type
+    //     $dataToSave =
+    //     [
+    //         "post_fk_user" => session('id'),
+    //         "post_title"   => $data['post_title'],
+    //         "post_text"    => $data["post_text"],
+    //         "post_type"    => $data['post_type']
+    //     ];
+    //     $this->postModel->insert($dataToSave); //NOTE In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
+    //     return redirect()->back();
+    // }
 
     public function update()
     {   

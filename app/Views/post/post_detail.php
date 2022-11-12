@@ -116,7 +116,7 @@
 <!-- ================================================ SCRIPTS ================================================ -->
 <script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
   <?= $this->section('script') ?>
-  $(document).on("click", ".btn-delete-post", function() {
+  $(document).on("click", ".btn-delete-post", function() { //NOTE : Fully using "sweetalert2"
     //NOTE : From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
     let pid = $(this).data("id") //NOTE : From the element's "data-id" attribute 
     Swal.fire({

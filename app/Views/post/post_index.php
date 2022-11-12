@@ -101,7 +101,7 @@
     source_data()
   })
 
-  $(document).on("click", ".btn-add-post", function() {
+  $(document).on("click", ".btn-add-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
     $.ajax({
       url: "<?= base_url('post/get_add_post_modal') ?>",
       dataType: "json",

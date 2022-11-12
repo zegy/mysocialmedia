@@ -71,8 +71,8 @@ class Post extends BaseController
 
     public function delete()
     {
-        $id = $this->request->getPost('id');
-        $this->postModel->delete($id);
+        $pid = $this->request->getPost('pid');
+        $this->postModel->delete($pid);
         echo json_encode(['status' => true]);
     }
 

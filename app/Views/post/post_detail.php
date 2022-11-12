@@ -117,20 +117,43 @@
 <script> //NOTE Inside this "$(document).ready(function)", this "script" tag is not needed, it just only to make it readable
   <?= $this->section('script') ?>
   $(document).on("click", ".btn-delete-post", function() {
-    var item_id = $(this).data("id") //TODO LEARN DATA-ID
-
-    $.ajax({
-      url: "<?= base_url('post/delete_modal') ?>",
-      dataType: "json",
-      type: "post",
-      data: {
-        id: item_id
-      },
-      success: function(res) {
-        $(".view-modal").html(res)
-        $(".modal").modal("toggle")
+    // NOTE: From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
+    var pid = $(this).data("id") //TODO LEARN DATA-ID
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "<?= base_url('post/delete') ?>",
+          dataType: "json",
+          type: "post",
+          data: {
+            pid: pid
+          },
+          success: function(res) {
+            Swal.fire({
+              title: 'Deleted!',
+              text: "Your file has been deleted.",
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location = "<?= base_url('group/' . $post->type) ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
+              }
+            })
+          }
+        })
       }
     })
+
   })
 
   $(document).on("submit", "#form-delete-post", function(e) {

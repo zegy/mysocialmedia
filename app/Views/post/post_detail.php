@@ -22,23 +22,12 @@
       <div class="row">
         <div class="col-md-6">
           <div class="card card-widget"><!-- Box Comment -->
-            <div class="card-header">
+            <div style="height: 60px" class="card-header">
               <div class="user-block">
                 <img class="img-circle" src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="User Image">
                 <span class="username"><a href="#"><?= $post->nome ?></a></span>
                 <span class="description">Dibuat pada : <?= $post->data ?></span>
               </div><!-- /.user-block -->
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" title="Mark as read">
-                  <i class="far fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div><!-- /.card-tools -->
             </div><!-- /.card-header -->
             <div class="card-body">
               <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
@@ -51,19 +40,8 @@
         </div><!-- /.col -->
         <div class="col-md-6">
           <div class="card card-widget"><!-- Box Comment -->
-            <div class="card-header">
-              <h3 class="float-left" style="margin-bottom: 7px;">Komentar</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" title="Mark as read">
-                  <i class="far fa-circle"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div><!-- /.card-tools -->
+            <div style="height: 60px" class="card-header">
+              <h3 class="float-left">Komentar</h3>
             </div><!-- /.card-header -->
             <div class="card-footer card-comments">
               <div class="card-comment">

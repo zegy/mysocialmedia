@@ -101,7 +101,11 @@ class Post extends BaseController
                 "post_type"    => $this->request->getPost('group')
             ]);
 
-            echo json_encode(['status' => TRUE]);
+            echo json_encode([
+                'group'  => $this->request->getPost('group'),
+                'pid'    => $this->postModel->insertID(), //NOTE : Get id from the last insert/save. TODO : What if other user do the insert/save?
+                'status' => TRUE
+            ]);
         }
     }
  

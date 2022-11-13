@@ -137,7 +137,7 @@
         success: function(res) {
           if (res.status) {
             $(".modal").modal("toggle")
-            get_post_list() 
+            window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
             $.each(res.errors, function(key, value) {
               $('[name="' + key + '"]').addClass('is-invalid')

@@ -84,16 +84,10 @@ class Post extends BaseController
 
         if (!$this->validate($rules))
         {
-            $errors =
-            [
-                'judul' => $this->validation->getError('judul'),
-                'deskripsi' => $this->validation->getError('deskripsi'),
-            ];
-
             $output =
             [
-                'status' => FALSE,
-                'errors' => $errors
+                'errors' => $this->validation->getErrors(),
+                'status' => FALSE
             ];
 
             echo json_encode($output);

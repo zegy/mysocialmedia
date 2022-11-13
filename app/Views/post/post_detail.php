@@ -10,8 +10,8 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">User Profile</li>
+            <li class="breadcrumb-item"><a href="#">Forum Diskusi : <?= $post->type ?></a></li>
+            <li class="breadcrumb-item active">No : <?= $post->pid ?></li>
           </ol>
         </div>
       </div>
@@ -25,8 +25,8 @@
             <div class="card-header">
               <div class="user-block">
                 <img class="img-circle" src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="User Image">
-                <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                <span class="description">Shared publicly - 7:30 PM Today</span>
+                <span class="username"><a href="#"><?= $post->nome ?></a></span>
+                <span class="description">Dibuat pada : <?= $post->data ?></span>
               </div><!-- /.user-block -->
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" title="Mark as read">
@@ -42,7 +42,7 @@
             </div><!-- /.card-header -->
             <div class="card-body">
               <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
-              <p>I took this photo this morning. What do you guys think?</p>
+              <p><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs"><i class="far fa-edit"></i> Ubah</button>
               <span class="float-right text-muted">3 comments</span>

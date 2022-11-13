@@ -30,7 +30,20 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div class="card-body">
-              <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo">
+              <!-- <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo"> -->
+              <!-- Container (notice the relative width) :  -->
+              <div id="container2" style="width: 100%; max-width:1000px; height: 350px; background: #E0E0E0; margin:auto; margin-bottom: 4px"></div>
+              <div id="example3">
+                <a class="chocolat-image" href="<?= base_url('assets/dist/img/photo2.png') ?>" title="Rose">
+                  <img src="<?= base_url('assets/dist/img/photo2.png') ?>" style="width:75px; height:50px" alt="">
+                </a>
+                <a class="chocolat-image" href="<?= base_url('assets/dist/img/photo2.png') ?>" title="Black">
+                  <img src="<?= base_url('assets/dist/img/photo2.png') ?>" style="width:75px; height:50px" alt="">
+                </a>
+                <a class="chocolat-image" href="<?= base_url('assets/dist/img/photo2.png') ?>" title="Yellow">
+                  <img src="<?= base_url('assets/dist/img/photo2.png') ?>" style="width:75px; height:50px" alt="">
+                </a>
+              </div>
               <p><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs"><i class="far fa-edit"></i> Ubah</button>
@@ -129,6 +142,27 @@
         }
       })
     })
+
+    // Chocolat(document.querySelectorAll('#example3 .chocolat-image'), {
+    //   container: document.querySelector('#container2'),
+    //   imageSize: 'cover',
+    // })
+
+    const { api } = Chocolat(document.querySelectorAll('#example3 .chocolat-image'), {
+      container: document.querySelector('#container2'),
+      imageSize: 'cover',
+      firstImageIndex: 0,
+      loop: false,
+      allowZoom: true,
+      afterInitialize: function () {
+        $("#container2").show()
+      },
+      afterClose: function () {
+        $("#container2").hide()
+      }
+    })
+
+    api.open()
   })
 </script>
 <?= $this->endSection() ?>

@@ -19,6 +19,9 @@
       .circle-role-dosen{border:2px solid #e8df5d;margin:0 auto;padding:3px;width:100px}
       .circle-role-mahasiswa{border:2px solid #5de8df;margin:0 auto;padding:3px;width:100px}
   </style>
+  
+  <!-- NOTE Custom (Not from AdminLTE-3.2.0 ) -->
+  <!-- Chocolat --><link rel="stylesheet" href="<?= base_url('custom/css/chocolat.css') ?>" type="text/css" media="screen" >
 </head>
 
 <!-- <body class="hold-transition sidebar-mini"> --><!-- options: sidebar-collapse / sidebar-mini -->
@@ -170,6 +173,9 @@
   
   <!-- SweetAlert2 --><script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
   
+  <!-- NOTE Custom (Not from AdminLTE-3.2.0 ) -->
+  <!-- Chocolat --><script type="text/javascript" src="<?= base_url('custom/js/chocolat.js') ?>"></script>
+
   <!-- OPTIONAL SCRIPTS -->
   <!-- AdminLTE for demo purposes --><script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
   

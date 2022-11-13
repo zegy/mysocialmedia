@@ -93,11 +93,13 @@ class Post extends BaseController
             echo json_encode($output);
         }
         else
-        {
-            $judul = $this->request->getPost('judul');
-            $deskripsi = $this->request->getPost('deskripsi');
-            
-            $this->postModel->insertBatch($data);
+        { 
+            $this->postModel->save([
+                "post_fk_user" => session('id'),
+                "post_title"   => $this->request->getPost('judul'),
+                "post_text"    => $this->request->getPost('deskripsi'),
+                "post_type"    => $this->request->getPost('group')
+            ]);
 
             echo json_encode(['status' => TRUE]);
         }

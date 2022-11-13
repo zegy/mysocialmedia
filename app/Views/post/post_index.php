@@ -60,23 +60,23 @@
       <div class="modal-header">
         <h5 class="modal-title">Add new Item</h5>
       </div>
-      <form action="<?= base_url('post/create') ?>" id="post_modal_add_form" method="post">
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="group">Judul</label>
-            <input type="text" name="judul" id="judul" class="form-control">
-            <div class="invalid-feedback"></div>
-          </div>
-          <div class="form-group">
-            <label for="group">Deskripsi</label>
-            <input type="text" name="deskripsi" id="deskripsi" class="form-control">
-            <div class="invalid-feedback"></div>
-          </div>
+      <?= form_open('post/create', ['id' => 'post_modal_add_form']); ?>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="group">Judul</label>
+          <input type="text" name="judul" id="judul" class="form-control">
+          <div class="invalid-feedback"></div>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
+        <div class="form-group">
+          <label for="group">Deskripsi</label>
+          <input type="text" name="deskripsi" id="deskripsi" class="form-control">
+          <div class="invalid-feedback"></div>
         </div>
-      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+      <?= form_close(); ?>
     </div>
   </div>
 </div>
@@ -127,10 +127,6 @@
     
     $(document).on("submit", "#post_modal_add_form", function(e) {
       e.preventDefault()
-
-      let judul = $(this).serialize()
-    //   let deskripsi = $(this).val()
-      alert(judul)
     
       $.ajax({
         url: $(this).attr("action"),

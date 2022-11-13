@@ -11,7 +11,6 @@
   <!-- Theme style --><link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
 
   <!-- SweetAlert2 --><link rel="stylesheet" href="<?= base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
-  <!-- dropzonejs --><link rel="stylesheet" href="<?= base_url('assets/plugins/dropzone/min/dropzone.min.css') ?>">
 
   <!-- NOTE Custom "AdminLTE-3.2.0" style (Override "adminlte.min") -->
   <style>
@@ -170,7 +169,6 @@
   <!-- AdminLTE --><script src="<?= base_url('assets/dist/js/adminlte.js') ?>"></script>
   
   <!-- SweetAlert2 --><script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
-  <!-- dropzonejs --><script src="<?= base_url('assets/plugins/dropzone/min/dropzone.min.js') ?>"></script>
   
   <!-- OPTIONAL SCRIPTS -->
   <!-- AdminLTE for demo purposes --><script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>

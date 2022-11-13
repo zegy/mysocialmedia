@@ -508,17 +508,17 @@ class Chocolat {
 
   attachListeners() {
     this.off(document, 'keydown.chocolat');
-    this.on(document, 'keydown.chocolat', e => {
-      if (this.state.initialized) {
-        if (e.keyCode == 37) {
-          this.change(-1);
-        } else if (e.keyCode == 39) {
-          this.change(1);
-        } else if (e.keyCode == 27) {
-          this.close();
-        }
-      }
-    });
+    // this.on(document, 'keydown.chocolat', e => {
+    //   if (this.state.initialized) {
+    //     if (e.keyCode == 37) {
+    //       this.change(-1);
+    //     } else if (e.keyCode == 39) {
+    //       this.change(1);
+    //     } else if (e.keyCode == 27) {
+    //       this.close();
+    //     }
+    //   }
+    // });
     const right = this.elems.wrapper.querySelector('.chocolat-right');
     this.off(right, 'click.chocolat');
     this.on(right, 'click.chocolat', () => {

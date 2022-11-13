@@ -30,10 +30,8 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div class="card-body">
-              <!-- <img class="img-fluid pad" src="<?= base_url('assets/dist/img/photo2.png') ?>" alt="Photo"> -->
-              <!-- Container (notice the relative width) :  -->
-              <div id="container2" style="width: 100%; max-width:1000px; height: 350px; background: #E0E0E0; margin:auto; margin-bottom: 4px"></div>
-              <div id="example3">
+              <div id="container-post-imgs" style="width: 100%; height: 350px; background: #E0E0E0; margin-bottom: 4px"></div><!-- NOTE : Chocolat's Container -->
+              <div id="post-imgs">
                 <a class="chocolat-image" href="<?= base_url('assets/dist/img/photo2.png') ?>" title="Rose">
                   <img src="<?= base_url('assets/dist/img/photo2.png') ?>" style="width:75px; height:50px" alt="">
                 </a>
@@ -143,26 +141,22 @@
       })
     })
 
-    // Chocolat(document.querySelectorAll('#example3 .chocolat-image'), {
-    //   container: document.querySelector('#container2'),
-    //   imageSize: 'cover',
-    // })
-
-    const { api } = Chocolat(document.querySelectorAll('#example3 .chocolat-image'), {
-      container: document.querySelector('#container2'),
+    //NOTE : From Chocolat v1.0.4's demo (The "example3" and "container2" with custom options. The "close button" is disabled via css and the "chocolat's keyboard event listener" is also disabled via js)
+    const { api } = Chocolat(document.querySelectorAll('#post-imgs .chocolat-image'), {
+      container: document.querySelector('#container-post-imgs'),
       imageSize: 'cover',
       firstImageIndex: 0,
       loop: false,
       allowZoom: true,
       afterInitialize: function () {
-        $("#container2").show()
+        $("#container-post-imgs").show()
       },
       afterClose: function () {
-        $("#container2").hide()
+        $("#container-post-imgs").hide()
       }
     })
 
-    api.open()
+    api.open() //NOTE : To show the first image in the container. From https://stackoverflow.com/a/65642200
   })
 </script>
 <?= $this->endSection() ?>

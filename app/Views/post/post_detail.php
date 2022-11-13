@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Profile</h1>
+          <h4><b>Judul Diskusi : </b> <?= $post->pttl ?></h4>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -41,7 +41,7 @@
         <div class="col-md-6">
           <div class="card card-widget"><!-- Box Comment -->
             <div style="height: 60px" class="card-header">
-              <h3 class="float-left">Komentar</h3>
+              <h5 class="d-flex justify-content-center"><b>Komentar Diskusi</b></h5>
             </div><!-- /.card-header -->
             <div class="card-footer card-comments">
               <div class="card-comment">

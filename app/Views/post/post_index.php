@@ -160,12 +160,17 @@
         }
       })
     
+      $("#post_modal_add_form textarea").on("click", function() {
+        $(this).removeClass('is-invalid is-valid')
+      })
+
       $("#post_modal_add_form input").on("click", function() {
         $(this).removeClass('is-invalid is-valid')
       })
-      $("#post_modal_add_form select").on("click", function() {
-        $(this).removeClass('is-invalid is-valid')
-      })
+
+    //   $("#post_modal_add_form select").on("click", function() {
+    //     $(this).removeClass('is-invalid is-valid')
+    //   })
     })
     
     // $(document).on("click", ".table-avatar", function(e) {

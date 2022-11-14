@@ -102,9 +102,10 @@ class Post extends BaseController
         }
         else
         {
-            // $files = $this->request->getFile('files');
+            $files = $this->request->getFile('files');
             // $fileName = $files->getRandomName();
-            // $files->move('uploads/berkas/', $fileName);
+            $files->move(WRITEPATH . 'uploads');
+
             // $files->move(WRITEPATH . 'uploads');
             // $files->move('uploads/berkas/');
             // $files->move(ROOTPATH . 'images', 'test' . '.' . $files->getClientExtension());

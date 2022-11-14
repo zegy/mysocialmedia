@@ -64,12 +64,12 @@
       <div class="modal-body">
         <div class="form-group">
           <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
-          <input type="text" class="form-control" name="judul" id="judul">
+          <textarea class="form-control" name="judul" id="judul" rows="2"></textarea>
           <div class="invalid-feedback"></div>
         </div>
         <div class="form-group">
           <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
-          <input type="text" class="form-control" name="deskripsi" id="deskripsi">
+          <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
           <div class="invalid-feedback"></div>
         </div>
         <div class="form-group">

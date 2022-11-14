@@ -54,13 +54,13 @@
 </div><!-- /.content-wrapper -->
 
 <!-- MODALS -->
-<div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add new Item</h5>
-      </div>
-      <form id="post_modal_add_form">
+<form id="post_modal_add_form">
+  <div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add new Item</h5>
+        </div>
         <div class="modal-body">
           <div class="form-group">
             <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
@@ -82,10 +82,10 @@
           <input type="hidden" name="group" id="group" value="<?= $group ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
+</form>
 <?= $this->endSection() ?>
 
 <!-- SCRIPTS -->

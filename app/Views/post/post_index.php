@@ -63,13 +63,18 @@
       <?= form_open('post/create', ['id' => 'post_modal_add_form']); ?>
       <div class="modal-body">
         <div class="form-group">
-          <label for="judul"><i class="fas fa-exclamation-circle text-danger"></i> Judul</label>
+          <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
           <input type="text" class="form-control" name="judul" id="judul">
           <div class="invalid-feedback"></div>
         </div>
         <div class="form-group">
-          <label for="deskripsi"><i class="fas fa-exclamation-circle text-danger"></i> Deskripsi</label>
+          <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
           <input type="text" class="form-control" name="deskripsi" id="deskripsi">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label for="files">File</label>
+          <input style="height: 45px" type="file" class="form-control" name="files" id="files" multiple>
           <div class="invalid-feedback"></div>
         </div>
       </div>

@@ -84,9 +84,15 @@ class Post extends BaseController
 
         if (!$this->validate($rules))
         {
+            $errors = //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
+            [
+                'judul' => $this->validation->getError('judul'),
+                'deskripsi' => $this->validation->getError('deskripsi'),
+            ];
+
             $output =
             [
-                'errors' => $this->validation->getErrors(),
+                'errors' => $errors,
                 'status' => FALSE
             ];
 

@@ -74,7 +74,7 @@
           </div>
           <div class="form-group">
             <label for="files">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="files" id="files">
+            <input style="height: 45px" type="file" class="form-control" name="files[]" id="files" multiple>
             <div class="invalid-feedback"></div>
           </div>
         </div>

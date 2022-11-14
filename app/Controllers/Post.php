@@ -80,7 +80,9 @@ class Post extends BaseController
         [
             'judul' => 'required',
             'deskripsi' => 'required',
-            'files' => 'uploaded[files]|is_image[files]|mime_in[files,image/jpg,image/jpeg]|max_size[files,30]|max_dims[files,200,200]',
+            // 'files' => 'uploaded[files]|is_image[files]|mime_in[files,image/jpg,image/jpeg]|max_size[files,30]|max_dims[files,200,200]',
+            'files' => 'uploaded[files]',
+
         ];
 
         if (!$this->validate($rules))
@@ -102,13 +104,22 @@ class Post extends BaseController
         }
         else
         {
-            $files = $this->request->getFile('files');
-            // $fileName = $files->getRandomName();
-            $files->move(WRITEPATH . 'uploads');
+            // $files = $this->request->getFile('files');
+            // // $fileName = $files->getRandomName();
+            // $files->move(WRITEPATH . 'uploads');
 
             // $files->move(WRITEPATH . 'uploads');
             // $files->move('uploads/berkas/');
             // $files->move(ROOTPATH . 'images', 'test' . '.' . $files->getClientExtension());
+
+            if ($imagefile = $this->request->getFiles()) {
+                foreach ($imagefile['files'] as $img) {
+                    // if ($img->isValid() && ! $img->hasMoved()) {
+                        $newName = $img->getRandomName();
+                        $img->move(WRITEPATH . 'uploads', $newName);
+                    // }
+                }
+            }
 
  
             $this->postModel->save([

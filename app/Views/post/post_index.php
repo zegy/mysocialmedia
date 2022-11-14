@@ -74,7 +74,7 @@
         </div>
         <div class="form-group">
           <label for="files">File</label>
-          <input style="height: 45px" type="file" class="form-control" name="files" id="files" multiple>
+          <input style="height: 45px" type="file" class="form-control" name="files" id="files">
           <div class="invalid-feedback"></div>
         </div>
       </div>
@@ -133,11 +133,15 @@
     
     $(document).on("submit", "#post_modal_add_form", function(e) {
       e.preventDefault()
+      const formData = new FormData(this);
     
       $.ajax({
         url: $(this).attr("action"),
         type: $(this).attr("method"),
-        data: $(this).serialize(),
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
         dataType: "json",
         success: function(res) {
           if (res.status) {

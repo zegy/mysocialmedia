@@ -80,6 +80,7 @@ class Post extends BaseController
         [
             'judul' => 'required',
             'deskripsi' => 'required',
+            'files' => 'uploaded[files]|is_image[files]|mime_in[files,image/jpg,image/jpeg]|max_size[files,30]|max_dims[files,200,200]',
         ];
 
         if (!$this->validate($rules))
@@ -88,6 +89,7 @@ class Post extends BaseController
             [
                 'judul' => $this->validation->getError('judul'),
                 'deskripsi' => $this->validation->getError('deskripsi'),
+                'files' => $this->validation->getError('files')
             ];
 
             $output =
@@ -99,7 +101,15 @@ class Post extends BaseController
             echo json_encode($output);
         }
         else
-        { 
+        {
+            // $files = $this->request->getFile('files');
+            // $fileName = $files->getRandomName();
+            // $files->move('uploads/berkas/', $fileName);
+            // $files->move(WRITEPATH . 'uploads');
+            // $files->move('uploads/berkas/');
+            // $files->move(ROOTPATH . 'images', 'test' . '.' . $files->getClientExtension());
+
+ 
             $this->postModel->save([
                 "post_fk_user" => session('id'),
                 "post_title"   => $this->request->getPost('judul'),

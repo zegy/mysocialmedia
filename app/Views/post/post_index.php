@@ -60,29 +60,29 @@
       <div class="modal-header">
         <h5 class="modal-title">Add new Item</h5>
       </div>
-      <?= form_open('post/create', ['id' => 'post_modal_add_form']); ?>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
-          <textarea class="form-control" name="judul" id="judul" rows="2"></textarea>
-          <div class="invalid-feedback"></div>
+      <form id="post_modal_add_form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <textarea class="form-control" name="judul" id="judul" rows="2"></textarea>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="files">File</label>
+            <input style="height: 45px" type="file" class="form-control" name="files" id="files">
+            <div class="invalid-feedback"></div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
-          <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
-          <div class="invalid-feedback"></div>
+        <div class="modal-footer">
+          <input type="hidden" name="group" id="group" value="<?= $group ?>">
+          <button type="submit" class="btn btn-primary">Save</button>
         </div>
-        <div class="form-group">
-          <label for="files">File</label>
-          <input style="height: 45px" type="file" class="form-control" name="files" id="files">
-          <div class="invalid-feedback"></div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <input type="hidden" name="group" id="group" value="<?= $group ?>">
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
-      <?= form_close(); ?>
+      </form>
     </div>
   </div>
 </div>
@@ -136,8 +136,8 @@
       const formData = new FormData(this);
     
       $.ajax({
-        url: $(this).attr("action"),
-        type: $(this).attr("method"),
+        url: "<?= base_url('post/create') ?>",
+        type: "post",
         data: formData,
         contentType: false,
         cache: false,

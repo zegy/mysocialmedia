@@ -32,8 +32,8 @@
             <div class="card-body">
               <div id="container-post-imgs" style="width: 100%; height: 350px; background: #E0E0E0; margin-bottom: 4px"></div><!-- NOTE : Chocolat's Container -->
               <div id="post-imgs">
-                <a class="chocolat-image" href="<?= base_url('assets/dist/img/photo2.png') ?>" title="Rose">
-                  <img src="<?= base_url('assets/dist/img/photo2.png') ?>" style="width:75px; height:50px" alt="">
+                <a class="chocolat-image" href="<?= base_url('imageRender/1668437892_bd689fd0af3ee0c83109.jpg') ?>" title="Rose">
+                  <img src="<?= base_url('imageRender/1668437892_bd689fd0af3ee0c83109.jpg') ?>" style="width:75px; height:50px" alt="">
                 </a>
                 <a class="chocolat-image" href="<?= base_url('assets/dist/img/photo2.png') ?>" title="Black">
                   <img src="<?= base_url('assets/dist/img/photo2.png') ?>" style="width:75px; height:50px" alt="">

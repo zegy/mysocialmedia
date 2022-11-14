@@ -54,6 +54,8 @@ $routes->add('post/create',        'Post::create');
 
 
 $routes->add('user/user_sum_modal', 'User::userSumModal');
+
+$routes->match(['get', 'post'], 'imageRender/(:segment)', 'RenderImage::index/$1');
 // Fixed END
 
 

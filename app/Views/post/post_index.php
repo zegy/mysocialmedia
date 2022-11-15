@@ -74,22 +74,7 @@
           </div>
           <div class="form-group">
             <label for="files">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="files1" id="files1">
-            <div class="invalid-feedback"></div>
-          </div>
-          <div class="form-group">
-            <label for="files">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="files2" id="files2">
-            <div class="invalid-feedback"></div>
-          </div>
-          <div class="form-group">
-            <label for="files">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="files3" id="files3">
-            <div class="invalid-feedback"></div>
-          </div>
-          <div class="form-group">
-            <label for="files">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="files4" id="files4">
+            <input style="height: 45px" type="file" class="form-control" name="files[]" id="files" multiple>
             <div class="invalid-feedback"></div>
           </div>
         </div>
@@ -173,10 +158,10 @@
             })
           }
           //TODO : TEMP ONLY! START
-          console.log(res.test)
-          $.each(res.test, function(key, value) {
-              console.log(key + value)
-          })
+        //   console.log(res.test)
+        //   $.each(res.test, function(key, value) {
+        //       console.log(key + value)
+        //   })
           //TODO : TEMP ONLY! END
         }
       })

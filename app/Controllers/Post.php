@@ -75,43 +75,25 @@ class Post extends BaseController
     }
 
     public function create()
-    {
-        $test = null; //TODO : TEMP ONLY!
-        
-        // ==================================== NOTE : FIXED ====================================
+    {    
+        $validated = $this->validate([
+            'judul'     => ['required'],
+            'deskripsi' => ['required'],
+            'files'     => [
+                'uploaded[files]',
+                'mime_in[files,image/jpg,image/jpeg,image/gif,image/png]',
+                'max_size[files,4096]',
+            ]
+        ]);
 
-        $data = [
-            'judul'     => $this->request->getPost('judul'),
-            'deskripsi' => $this->request->getPost('deskripsi'),
-            'files1'    => $this->request->getFile('files1'),
-            'files2'    => $this->request->getFile('files2'),
-            'files3'    => $this->request->getFile('files3'),
-            'files4'    => $this->request->getFile('files4'),
-        ];
-
-        $rule = [
-            'judul'     => 'required',
-            'deskripsi' => 'required',
-            'files1'    => 'uploaded[files1]|max_size[files1,1024]',
-            'files2'    => 'uploaded[files2]|max_size[files2,1024]',
-            'files3'    => 'uploaded[files3]|max_size[files3,1024]',
-            'files4'    => 'uploaded[files4]|max_size[files4,1024]',
-        ];
-
-        if (!$this->validateData($data, $rule)) {
-            $errors = //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
-            [
-                'judul' => $this->validation->getError('judul'),
+        if (!$validated) {
+            $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
+                'judul'     => $this->validation->getError('judul'),
                 'deskripsi' => $this->validation->getError('deskripsi'),
-                'files1' => $this->validation->getError('files1'),
-                'files2' => $this->validation->getError('files2'),
-                'files3' => $this->validation->getError('files3'),
-                'files4' => $this->validation->getError('files4'),
+                'files'     => $this->validation->getError('files')
             ];
 
-            $output =
-            [
-                'test'   => $test, //TODO : TEMP ONLY!
+            $output = [
                 'errors' => $errors,
                 'status' => FALSE
             ];
@@ -120,6 +102,14 @@ class Post extends BaseController
         }
         else
         {
+            $files = $this->request->getFileMultiple('files');
+            foreach($files as $file) {
+                if($file->isValid() && !$file->hasMoved()) {
+                    $newName = $file->getRandomName();
+                    $file->move('uploads', $newName); //TODO
+                }           
+            }
+
             $this->postModel->save([
                 "post_fk_user" => session('id'),
                 "post_title"   => $this->request->getPost('judul'),

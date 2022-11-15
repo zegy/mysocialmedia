@@ -149,12 +149,13 @@
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
             $.each(res.errors, function(key, value) {
-              $('[name="' + key + '"]').addClass('is-invalid')
-              $('[name="' + key + '"]').next().text(value)
+              $('[id="' + key + '"]').addClass('is-invalid')
+              $('[id="' + key + '"]').next().text(value)
               if (value == "") {
-                $('[name="' + key + '"]').removeClass('is-invalid')
-                $('[name="' + key + '"]').addClass('is-valid')
+                $('[id="' + key + '"]').removeClass('is-invalid')
+                $('[id="' + key + '"]').addClass('is-valid')
               }
+            //   console.log(key + value)
             })
           }
           //TODO : TEMP ONLY! START

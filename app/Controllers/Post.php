@@ -76,22 +76,21 @@ class Post extends BaseController
 
     public function create()
     {
-        $rules =
-        [
-            'judul' => 'required',
-            'deskripsi' => 'required',
-            // 'files' => 'uploaded[files]|is_image[files]|mime_in[files,image/jpg,image/jpeg]|max_size[files,30]|max_dims[files,200,200]',
-            'files' => 'uploaded[files]',
-
+        $data = [
+            "judul"     => $this->request->getPost('judul'),
+            "deskripsi" => $this->request->getPost('deskripsi'),
         ];
 
-        if (!$this->validate($rules))
-        {
+        $rule = [
+            'judul'     => 'required',
+            'deskripsi' => 'required',
+        ];
+
+        if (!$this->validateData($data, $rule)) {
             $errors = //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
             [
                 'judul' => $this->validation->getError('judul'),
                 'deskripsi' => $this->validation->getError('deskripsi'),
-                'files' => $this->validation->getError('files')
             ];
 
             $output =
@@ -104,24 +103,6 @@ class Post extends BaseController
         }
         else
         {
-            // $files = $this->request->getFile('files');
-            // // $fileName = $files->getRandomName();
-            // $files->move(WRITEPATH . 'uploads');
-
-            // $files->move(WRITEPATH . 'uploads');
-            // $files->move('uploads/berkas/');
-            // $files->move(ROOTPATH . 'images', 'test' . '.' . $files->getClientExtension());
-
-            if ($imagefile = $this->request->getFiles()) {
-                foreach ($imagefile['files'] as $img) {
-                    // if ($img->isValid() && ! $img->hasMoved()) {
-                        $newName = $img->getRandomName();
-                        $img->move(WRITEPATH . 'uploads', $newName);
-                    // }
-                }
-            }
-
- 
             $this->postModel->save([
                 "post_fk_user" => session('id'),
                 "post_title"   => $this->request->getPost('judul'),
@@ -135,6 +116,67 @@ class Post extends BaseController
                 'status' => TRUE
             ]);
         }
+
+
+        // $rules =
+        // [
+        //     'judul' => 'required',
+        //     'deskripsi' => 'required',
+        //     // 'files' => 'uploaded[files]|is_image[files]|mime_in[files,image/jpg,image/jpeg]|max_size[files,30]|max_dims[files,200,200]',
+        //     'files' => 'uploaded[files]',
+
+        // ];
+
+        // if (!$this->validate($rules))
+        // {
+        //     $errors = //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
+        //     [
+        //         'judul' => $this->validation->getError('judul'),
+        //         'deskripsi' => $this->validation->getError('deskripsi'),
+        //         'files' => $this->validation->getError('files')
+        //     ];
+
+        //     $output =
+        //     [
+        //         'errors' => $errors,
+        //         'status' => FALSE
+        //     ];
+
+        //     echo json_encode($output);
+        // }
+        // else
+        // {
+        //     // $files = $this->request->getFile('files');
+        //     // // $fileName = $files->getRandomName();
+        //     // $files->move(WRITEPATH . 'uploads');
+
+        //     // $files->move(WRITEPATH . 'uploads');
+        //     // $files->move('uploads/berkas/');
+        //     // $files->move(ROOTPATH . 'images', 'test' . '.' . $files->getClientExtension());
+
+        //     if ($imagefile = $this->request->getFiles()) {
+        //         foreach ($imagefile['files'] as $img) {
+        //             // if ($img->isValid() && ! $img->hasMoved()) {
+        //                 $newName = $img->getRandomName();
+        //                 $img->move(WRITEPATH . 'uploads', $newName);
+        //             // }
+        //         }
+        //     }
+
+ 
+        //     // $this->postModel->save([
+        //     //     "post_fk_user" => session('id'),
+        //     //     "post_title"   => $this->request->getPost('judul'),
+        //     //     "post_text"    => $this->request->getPost('deskripsi'),
+        //     //     "post_type"    => $this->request->getPost('group')
+        //     // ]);
+
+        //     // echo json_encode([
+        //     //     'group'  => $this->request->getPost('group'),
+        //     //     'pid'    => $this->postModel->insertID(), //NOTE : Get id from the last insert/save. TODO : What if other user do the insert/save?
+        //     //     'status' => TRUE
+        //     // ]);
+        // }
     }
  
 

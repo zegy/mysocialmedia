@@ -7,23 +7,27 @@ $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
-if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
+if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
     require SYSTEMPATH . 'Config/Routes.php';
 }
 
-
-
-/**
+/*
  * --------------------------------------------------------------------
  * Router Setup
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Post');
-$routes->setDefaultMethod('publicPosts');
+// $routes->setDefaultController('Home'); // NOTE : Original CI (updated version)
+// $routes->setDefaultMethod('index'); // NOTE : Original CI (updated version)
+$routes->setDefaultController('Post'); // TODO : FIX LATER!
+$routes->setDefaultMethod('publicPosts'); // NOTE : FIX LATER!
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(false);
+// The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
+// where controller filters or CSRF protection are bypassed.
+// If you don't want to define all routes, please use the Auto Routing (Improved).
+// Set `$autoRoutesImproved` to true in `app/Config/Feature.php` and set the following to true.
+// $routes->setAutoRoute(false);
 
 /*
  * --------------------------------------------------------------------
@@ -33,6 +37,7 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+// $routes->get('/', 'Home::index'); // NOTE : Original CI (updated version)
 
 // ZEGY OTC CLEAN ROUTES (NEED TO FILTER!)
 // $routes->add('home/home_umum', 'Home::homeUmum', ['filter' => 'auth']);
@@ -121,9 +126,6 @@ $routes->add('admin_tools/delete_all_posts', 'Admin_tools::delete_all_posts');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
-
-if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
-
-

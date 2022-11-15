@@ -2,16 +2,17 @@
 
 namespace Config;
 
+use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Validation\CreditCardRules;
 use CodeIgniter\Validation\FileRules;
 use CodeIgniter\Validation\FormatRules;
 use CodeIgniter\Validation\Rules;
 
-class Validation
+class Validation extends BaseConfig
 {
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
     // Setup
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
     /**
      * Stores the classes that contain the
@@ -37,11 +38,11 @@ class Validation
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
     // Rules
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
-    // ZEGY OTC CUSTOM
+    // NOTE : OTC From prev CI version (WTD : use the rules only!)
     // https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#how-to-save-your-rules
     // public $createAccount = [
     //     'nama_lengkap' => [
@@ -82,34 +83,34 @@ class Validation
     //     ],
     // ];
 
-    public $createAccount = [
-        'nama_lengkap' => [
-            'label' => 'nama lengkap',
-            'rules' => 'required|min_length[3]'
-        ],
-        'username' => [
-            'label' => 'username',
-            'rules' => 'required|min_length[5]|alpha_dash|is_unique[t_user.user_name]'
-        ],
-        'email' => [
-            'label' => 'email',
-            'rules' => 'required|valid_email|is_unique[t_user.user_email]'
-        ],
-        'nomor_handphone' => [
-            'label' => 'nomor handphone',
-            'rules' => 'required|min_length[8]|numeric'
-        ],
-        'password' => [
-            'label' => 'password',
-            'rules' => 'required|min_length[8]'
-        ],
-        'konfirmasi_password' => [
-            'label' => 'konfirmasi password',
-            'rules' => 'required|matches[password]'
-        ],
-        'jenis_kelamin' => [
-            'label' => 'Jenis kelamin',
-            'rules' => 'required'
-        ],
-    ];
+    // public $createAccount = [
+    //     'nama_lengkap' => [
+    //         'label' => 'nama lengkap',
+    //         'rules' => 'required|min_length[3]'
+    //     ],
+    //     'username' => [
+    //         'label' => 'username',
+    //         'rules' => 'required|min_length[5]|alpha_dash|is_unique[t_user.user_name]'
+    //     ],
+    //     'email' => [
+    //         'label' => 'email',
+    //         'rules' => 'required|valid_email|is_unique[t_user.user_email]'
+    //     ],
+    //     'nomor_handphone' => [
+    //         'label' => 'nomor handphone',
+    //         'rules' => 'required|min_length[8]|numeric'
+    //     ],
+    //     'password' => [
+    //         'label' => 'password',
+    //         'rules' => 'required|min_length[8]'
+    //     ],
+    //     'konfirmasi_password' => [
+    //         'label' => 'konfirmasi password',
+    //         'rules' => 'required|matches[password]'
+    //     ],
+    //     'jenis_kelamin' => [
+    //         'label' => 'Jenis kelamin',
+    //         'rules' => 'required'
+    //     ],
+    // ];
 }

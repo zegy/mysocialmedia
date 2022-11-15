@@ -24,10 +24,8 @@ class Paths
      * the path if the folder is not in the same directory as this file.
      *
      * @var string
-     */ 
-    	//public $systemDirectory = __DIR__ . '/../../../system';
-        public $systemDirectory = __DIR__ . '/../../system';
-
+     */
+    public $systemDirectory = __DIR__ . '/../../system';
 
     /**
      * ---------------------------------------------------------------
@@ -36,8 +34,8 @@ class Paths
      *
      * If you want this front controller to use a different "app"
      * folder than the default one you can set its name here. The folder
-     * can also be renamed or relocated anywhere on your getServer. If
-     * you do, use a full getServer path.
+     * can also be renamed or relocated anywhere on your server. If
+     * you do, use a full server path.
      *
      * @see http://codeigniter.com/user_guide/general/managing_apps.html
      *

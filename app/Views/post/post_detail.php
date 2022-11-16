@@ -128,7 +128,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <!-- <input type="hidden" name="group" id="group" value=""> -->
+          <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
+          <input type="hidden" name="group" id="group" value="<?= $post->type ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
@@ -194,9 +195,9 @@
         $("#container-post-imgs").hide()
       }
     })
-    <?php } ?>
 
     api.open() //NOTE : To show the first image in the container. From https://stackoverflow.com/a/65642200
+    <?php } ?>
 
     $(document).on("click", ".btn-edit-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
       let judul = $("#judul").text()
@@ -205,6 +206,48 @@
 
       $("#post_modal_edit_form #judul").text(judul)
       $("#post_modal_edit_form #deskripsi").text(deskripsi)
+    })
+
+    $(document).on("submit", "#post_modal_edit_form", function(e) {
+      e.preventDefault()
+      const formData = new FormData(this);
+    
+      $.ajax({
+        url: "<?= base_url('post/create') ?>",
+        type: "post",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        dataType: "json",
+        success: function(res) {
+          if (res.status) {
+            $(".modal").modal("toggle")
+            window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+          } else {
+            $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
+              $('[id="' + key + '"]').addClass('is-invalid')
+              $('[id="' + key + '"]').next().text(value)
+              if (value == "") {
+                $('[id="' + key + '"]').removeClass('is-invalid')
+                $('[id="' + key + '"]').addClass('is-valid')
+              }
+            })
+          }
+        }
+      })
+    
+      $("#post_modal_add_form textarea").on("click", function() {
+        $(this).removeClass('is-invalid is-valid')
+      })
+
+      $("#post_modal_add_form input").on("click", function() {
+        $(this).removeClass('is-invalid is-valid')
+      })
+
+    //   $("#post_modal_add_form select").on("click", function() {
+    //     $(this).removeClass('is-invalid is-valid')
+    //   })
     })
 
   })

@@ -129,17 +129,27 @@ class Post extends BaseController
 
             $fileNamesString = implode(",", $fileNames); 
 
-            $this->postModel->save([
+            $data = [
                 "post_fk_user" => session('id'),
                 "post_title"   => $this->request->getPost('judul'),
                 "post_text"    => $this->request->getPost('deskripsi'),
                 "post_type"    => $this->request->getPost('group'),
                 "post_img"     => $fileNamesString
-            ]);
+            ];
+
+            $pid = $this->request->getPost('pid');
+
+            if (!empty($pid))
+            {
+                $data["post_pk"] = $pid;
+            }
+
+            $this->postModel->save($data);
+            $pid_redirect = $pid ?? $this->postModel->insertID(); //NOTE : Get id from the last insert/save (if new post). TODO : What if other user do the insert/save?
 
             echo json_encode([
                 'group'  => $this->request->getPost('group'),
-                'pid'    => $this->postModel->insertID(), //NOTE : Get id from the last insert/save. TODO : What if other user do the insert/save?
+                'pid'    => $pid_redirect,
                 'status' => TRUE
             ]);
         }

@@ -215,6 +215,18 @@
 
     $(document).on("submit", "#post_modal_edit_form", function(e) {
       e.preventDefault()
+
+      //TODO : START
+      if($("#exampleCheck1").prop("checked") == true){
+        console.log("Checkbox is checked.");
+      }
+      else
+      {
+        console.log("Checkbox is NOT checked.");
+      }
+      //TODO : END
+
+
       const formData = new FormData(this);
     
       $.ajax({

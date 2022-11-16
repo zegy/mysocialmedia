@@ -56,7 +56,18 @@ class Post extends BaseController
     public function delete()
     {
         $pid = $this->request->getPost('pid');
+        $post = $this->postModel->getOneById($pid); //NOTE : Not so "clean" because we use "delete" funcion from CI's (only need the "ID"). I need it just to get file names.
         $this->postModel->delete($pid);
+        
+        if (!empty($post->img))
+        { 
+            $imgs = explode(",", $post->img);
+            foreach ($imgs as $img)
+            {
+                unlink(WRITEPATH . 'uploads/posts/' . $img);
+            }
+        }
+
         echo json_encode(['status' => true]);
     }
 

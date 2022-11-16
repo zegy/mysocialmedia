@@ -234,6 +234,7 @@
           }).then((result) => {
             if (result.isConfirmed) {
             //   Swal.fire('Saved!', '', 'success')
+              // ============== COMMON FUNCTION START ==============
               const formData = new FormData(this);
               $.ajax({
                 url: "<?= base_url('post/create') ?>",
@@ -259,11 +260,13 @@
                   }
                 }
               })
+              // ============== COMMON FUNCTION END ==============
             } else if (result.isDenied) {
             //   Swal.fire('Changes are not saved', '', 'info')
             }
           })
         } else {
+          // ============== COMMON FUNCTION START ==============
           const formData = new FormData(this);
           $.ajax({
             url: "<?= base_url('post/create') ?>",
@@ -289,9 +292,11 @@
               }
             }
           })
+          // ============== COMMON FUNCTION END ==============
         }   
         //TODO : END
       <?php } else { ?>
+      // ============== COMMON FUNCTION START ==============
       const formData = new FormData(this);
       $.ajax({
         url: "<?= base_url('post/create') ?>",
@@ -317,6 +322,7 @@
           }
         }
       })
+      // ============== COMMON FUNCTION END ==============
       <?php } ?>
     
       $("#post_modal_add_form textarea").on("click", function() {

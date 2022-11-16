@@ -80,17 +80,17 @@ class Post extends BaseController
             'judul'     => ['required'],
             'deskripsi' => ['required'],
             'files'     => [
-                'uploaded[files]',
                 'mime_in[files,image/jpg,image/jpeg,image/gif,image/png]',
                 'max_size[files,4096]',
             ]
         ]);
 
-        if (!$validated) {
+        if (!$validated)
+        {
             $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
                 'judul'     => $this->validation->getError('judul'),
                 'deskripsi' => $this->validation->getError('deskripsi'),
-                'files'     => $this->validation->getError('files')
+                'files'     => $this->validation->getError('files') //TODO (pending) : individual "error" for each file
             ];
 
             $output = [
@@ -103,10 +103,12 @@ class Post extends BaseController
         else
         {
             $files = $this->request->getFileMultiple('files');
-            foreach($files as $file) {
-                if($file->isValid() && !$file->hasMoved()) {
+            foreach($files as $file)
+            {
+                if($file->isValid() && !$file->hasMoved())
+                {
                     $newName = $file->getRandomName();
-                    $file->move('uploads', $newName); //TODO
+                    $file->move(WRITEPATH . 'uploads/posts', $newName);
                 }           
             }
 

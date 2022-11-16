@@ -148,22 +148,15 @@
             $(".modal").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
-            $.each(res.errors, function(key, value) {
+            $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
               $('[id="' + key + '"]').addClass('is-invalid')
               $('[id="' + key + '"]').next().text(value)
               if (value == "") {
                 $('[id="' + key + '"]').removeClass('is-invalid')
                 $('[id="' + key + '"]').addClass('is-valid')
               }
-            //   console.log(key + value)
             })
           }
-          //TODO : TEMP ONLY! START
-        //   console.log(res.test)
-        //   $.each(res.test, function(key, value) {
-        //       console.log(key + value)
-        //   })
-          //TODO : TEMP ONLY! END
         }
       })
     

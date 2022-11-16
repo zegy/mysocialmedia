@@ -201,8 +201,10 @@
     $(document).on("click", ".btn-edit-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
       let judul = $("#judul").text()
       let deskripsi = $("#deskripsi").text()
-    //   console.log(deskripsi)
       $("#post_modal_edit").modal("toggle")
+
+      $("#post_modal_edit_form #judul").text(judul)
+      $("#post_modal_edit_form #deskripsi").text(deskripsi)
     })
 
   })

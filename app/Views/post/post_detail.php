@@ -127,6 +127,10 @@
             <div class="invalid-feedback"></div>
           </div>
         </div>
+        <div style="margin-left: 20px" class="form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Ganti file</label>
+        </div>
         <div class="modal-footer">
           <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
           <input type="hidden" name="group" id="group" value="<?= $post->type ?>">

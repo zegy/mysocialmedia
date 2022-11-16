@@ -30,8 +30,13 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div class="card-body">
+              <?php if (!empty($post->img)){ $imgs = explode(",", $post->img); $count = count($imgs)?>
               <div id="container-post-imgs" style="width: 100%; height: 350px; background: #E0E0E0; margin-bottom: 4px"></div><!-- NOTE : Chocolat's Container -->
-              <?php if (!empty($post->img)){ $imgs = explode(",", $post->img)?>
+              <?php if ($count == 1) { ?>
+              <div id="post-imgs">
+                <a class="chocolat-image" href="<?= base_url('imageRender/' . $imgs[0]) ?>" title="Rose"></a>
+              </div>
+              <?php } else { ?>
               <div id="post-imgs">
                 <?php foreach ($imgs as $img) { ?>
                 <a class="chocolat-image" href="<?= base_url('imageRender/' . $img) ?>" title="Rose">
@@ -39,6 +44,7 @@
                 </a>
                 <?php } ?>
               </div>
+              <?php } ?>
               <?php } ?>
               <p><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
@@ -139,6 +145,7 @@
       })
     })
 
+    <?php if (!empty($post->img)){ ?> //NOTE : Experimental! If post has no image.
     //NOTE : From Chocolat v1.0.4's demo (The "example3" and "container2" with custom options. The "close button" is disabled via css and the "chocolat's keyboard event listener" is also disabled via js)
     const { api } = Chocolat(document.querySelectorAll('#post-imgs .chocolat-image'), {
       container: document.querySelector('#container-post-imgs'),
@@ -153,6 +160,7 @@
         $("#container-post-imgs").hide()
       }
     })
+    <?php } ?>
 
     api.open() //NOTE : To show the first image in the container. From https://stackoverflow.com/a/65642200
   })

@@ -128,12 +128,14 @@
           </div>
         </div>
         <div style="margin-left: 20px" class="form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <input type="checkbox" class="form-check-input" name="exampleCheck1" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">Ganti file</label>
         </div>
         <div class="modal-footer">
+          <input type="hidden" name="type" id="type" value="edit">
           <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
           <input type="hidden" name="group" id="group" value="<?= $post->type ?>">
+          <input type="hidden" name="old_files" id="old_files" value="<?= $post->img ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>

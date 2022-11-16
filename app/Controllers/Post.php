@@ -113,37 +113,74 @@ class Post extends BaseController
         }
         else
         {
-            $files = $this->request->getFileMultiple('files');
-            $count = 0;
-            $fileNames[] = null; //NOTE (pending) : empty($files) is not working for file input to be optional. Solved (weirdly) by give "$fileNamesString" no value to begin with.
-            foreach($files as $file)
+            $data = null; //TODO : need this?
+            $type = $this->request->getPost('type'); //NOTE : To decide it's New / Edit post
+            if ($type == 'add') //NOTE : TYPE = ADD
             {
-                if($file->isValid() && !$file->hasMoved())
+                $files = $this->request->getFileMultiple('files');
+                $count = 0;
+                $fileNames[] = null; //NOTE (pending) : empty($files) is not working for file input to be optional. Solved (weirdly) by give "$fileNamesString" no value to begin with.
+                foreach($files as $file)
                 {
-                    $name = $file->getRandomName();
-                    $fileNames[$count] = $name; 
-                    $file->move(WRITEPATH . 'uploads/posts', $name);
-                    $count++;
-                }           
+                    if($file->isValid() && !$file->hasMoved())
+                    {
+                        $name = $file->getRandomName();
+                        $fileNames[$count] = $name; 
+                        $file->move(WRITEPATH . 'uploads/posts', $name);
+                        $count++;
+                    }           
+                }
+
+                $fileNamesString = implode(",", $fileNames); 
+
+                $data = [
+                    "post_fk_user" => session('id'),
+                    "post_title"   => $this->request->getPost('judul'),
+                    "post_text"    => $this->request->getPost('deskripsi'),
+                    "post_type"    => $this->request->getPost('group'),
+                    "post_img"     => $fileNamesString
+                ];
             }
-
-            $fileNamesString = implode(",", $fileNames); 
-
-            $data = [
-                "post_fk_user" => session('id'),
-                "post_title"   => $this->request->getPost('judul'),
-                "post_text"    => $this->request->getPost('deskripsi'),
-                "post_type"    => $this->request->getPost('group'),
-                "post_img"     => $fileNamesString
-            ];
-
-            $pid = $this->request->getPost('pid');
-
-            if (!empty($pid))
+            else //NOTE : TYPE = EDIT
             {
-                $data["post_pk"] = $pid;
-            }
+                $pid = $this->request->getPost('pid'); //NOTE : Need for "pid_redirect"
 
+                $data = [
+                    "post_pk"      => $pid,
+                    "post_fk_user" => session('id'),
+                    "post_title"   => $this->request->getPost('judul'),
+                    "post_text"    => $this->request->getPost('deskripsi'),
+                    "post_type"    => $this->request->getPost('group'),
+                ];
+                
+                $check_replace_files = $this->request->getPost('exampleCheck1');
+                if ($check_replace_files == true)
+                {
+                    $old_files = $this->request->getPost('old_files'); //NOTE : String    
+                    $old_files_deletes = explode(",", $old_files);
+                    foreach ($old_files_deletes as $old_files_delete)
+                    {
+                        unlink(WRITEPATH . 'uploads/posts/' . $old_files_delete);
+                    }
+                    $files = $this->request->getFileMultiple('files');
+                    $count = 0;
+                    $fileNames[] = null; //NOTE (pending) : empty($files) is not working for file input to be optional. Solved (weirdly) by give "$fileNamesString" no value to begin with.
+                    foreach($files as $file)
+                    {
+                        if($file->isValid() && !$file->hasMoved())
+                        {
+                            $name = $file->getRandomName();
+                            $fileNames[$count] = $name; 
+                            $file->move(WRITEPATH . 'uploads/posts', $name);
+                            $count++;
+                        }           
+                    }
+                    $fileNamesString = implode(",", $fileNames); 
+                
+                    $data["post_img"] = $fileNamesString;
+                }
+            }
+            
             $this->postModel->save($data);
             $pid_redirect = $pid ?? $this->postModel->insertID(); //NOTE : Get id from the last insert/save (if new post). TODO : What if other user do the insert/save?
 

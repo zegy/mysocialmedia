@@ -79,6 +79,7 @@
           </div>
         </div>
         <div class="modal-footer">
+          <input type="hidden" name="type" id="type" value="add">
           <input type="hidden" name="group" id="group" value="<?= $group ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>

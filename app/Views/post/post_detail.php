@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h4><b>Judul Diskusi : </b> <?= $post->pttl ?></h4>
+          <h4><b>Judul Diskusi : </b><span id="judul"><?= $post->pttl ?></span></h4>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -46,7 +46,7 @@
               </div>
               <?php } ?>
               <?php } ?>
-              <p><?= $post->texto ?></p>
+              <p id="deskripsi"><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
               <span class="float-right text-muted">3 comments</span>
@@ -199,6 +199,9 @@
     api.open() //NOTE : To show the first image in the container. From https://stackoverflow.com/a/65642200
 
     $(document).on("click", ".btn-edit-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
+      let judul = $("#judul").text()
+      let deskripsi = $("#deskripsi").text()
+    //   console.log(deskripsi)
       $("#post_modal_edit").modal("toggle")
     })
 

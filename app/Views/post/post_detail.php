@@ -195,10 +195,10 @@
       loop: false,
       allowZoom: true,
       afterInitialize: function () {
-        $("#container-post-imgs").show()
+        $("#container-post-imgs").show() //TODO : Need?
       },
       afterClose: function () {
-        $("#container-post-imgs").hide()
+        $("#container-post-imgs").hide() //TODO : Need?
       }
     })
 
@@ -256,7 +256,6 @@
     })
 
     $("#exampleCheck1").on("click", function() {
-      let inputValue = $(this).attr("value");
       $("#files_input").toggle();
     })
 

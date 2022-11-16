@@ -79,7 +79,7 @@ class Post extends BaseController
         $validated = $this->validate([
             'judul'     => ['required'],
             'deskripsi' => ['required'],
-            'files'     => [
+            'files'     => [ //TODO set max 5! Problem with file names in SQL
                 'mime_in[files,image/jpg,image/jpeg,image/gif,image/png]',
                 'max_size[files,4096]',
             ]
@@ -103,20 +103,26 @@ class Post extends BaseController
         else
         {
             $files = $this->request->getFileMultiple('files');
+            $count = 0;
             foreach($files as $file)
             {
                 if($file->isValid() && !$file->hasMoved())
                 {
-                    $newName = $file->getRandomName();
-                    $file->move(WRITEPATH . 'uploads/posts', $newName);
+                    $name = $file->getRandomName();
+                    $fileNames[$count] = $name; 
+                    $file->move(WRITEPATH . 'uploads/posts', $name);
+                    $count++;
                 }           
             }
+
+            $fileNamesString = implode(",", $fileNames); 
 
             $this->postModel->save([
                 "post_fk_user" => session('id'),
                 "post_title"   => $this->request->getPost('judul'),
                 "post_text"    => $this->request->getPost('deskripsi'),
-                "post_type"    => $this->request->getPost('group')
+                "post_type"    => $this->request->getPost('group'),
+                "post_img"     => $fileNamesString
             ]);
 
             echo json_encode([

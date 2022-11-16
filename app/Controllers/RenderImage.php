@@ -8,7 +8,7 @@ class RenderImage extends Controller
 {
     public function index($imageName)
     {
-        if(($image = file_get_contents(WRITEPATH.'uploads/'.$imageName)) === FALSE)
+        if(($image = file_get_contents(WRITEPATH.'uploads/posts/' . $imageName)) === FALSE)
             show_404();
 
         // choose the right mime type

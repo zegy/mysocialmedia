@@ -30,9 +30,9 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div class="card-body">
-              <?php if (!empty($post->img)){ $imgs = explode(",", $post->img); $count = count($imgs)?>
+              <?php if (!empty($post->img)){ ?>
               <div id="container-post-imgs" style="width: 100%; height: 350px; background: #E0E0E0; margin-bottom: 4px"></div><!-- NOTE : Chocolat's Container -->
-              <?php if ($count == 1) { ?>
+              <?php $imgs = explode(",", $post->img); $count = count($imgs); if ($count == 1) { ?>
               <div id="post-imgs">
                 <a class="chocolat-image" href="<?= base_url('imageRender/' . $imgs[0]) ?>" title="Rose"></a>
               </div>

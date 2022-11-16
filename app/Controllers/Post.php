@@ -115,6 +115,7 @@ class Post extends BaseController
         {
             $files = $this->request->getFileMultiple('files');
             $count = 0;
+            $fileNames[] = null; //NOTE (pending) : empty($files) is not working for file input to be optional. Solved (weirdly) by give "$fileNamesString" no value to begin with.
             foreach($files as $file)
             {
                 if($file->isValid() && !$file->hasMoved())

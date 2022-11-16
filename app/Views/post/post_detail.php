@@ -203,6 +203,10 @@
       let judul = $("#judul").text()
       let deskripsi = $("#deskripsi").text()
       $("#post_modal_edit").modal("toggle")
+      $(".chocolat-image").each(function(){
+        let imgLink = $(this).attr("href")
+        console.log(imgLink)
+      })
 
       $("#post_modal_edit_form #judul").text(judul)
       $("#post_modal_edit_form #deskripsi").text(deskripsi)

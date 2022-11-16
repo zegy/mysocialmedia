@@ -157,11 +157,15 @@ class Post extends BaseController
                 if ($check_replace_files == true)
                 {
                     $old_files = $this->request->getPost('old_files'); //NOTE : String    
-                    $old_files_deletes = explode(",", $old_files);
-                    foreach ($old_files_deletes as $old_files_delete)
+                    if (!empty($old_files))
                     {
-                        unlink(WRITEPATH . 'uploads/posts/' . $old_files_delete);
+                        $old_files_deletes = explode(",", $old_files);
+                        foreach ($old_files_deletes as $old_files_delete)
+                        {
+                            unlink(WRITEPATH . 'uploads/posts/' . $old_files_delete);
+                        }
                     }
+                    
                     $files = $this->request->getFileMultiple('files');
                     $count = 0;
                     $fileNames[] = null; //NOTE (pending) : empty($files) is not working for file input to be optional. Solved (weirdly) by give "$fileNamesString" no value to begin with.

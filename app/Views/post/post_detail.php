@@ -203,9 +203,13 @@
       let judul = $("#judul").text()
       let deskripsi = $("#deskripsi").text()
       $("#post_modal_edit").modal("toggle")
+      $(".temp").empty(); //NOTE EXAMPLE TO "RESET MODAL"
+      
       $(".chocolat-image").each(function(){
         let imgLink = $(this).attr("href")
-        console.log(imgLink)
+        // console.log(imgLink)
+        
+        $(".modal-header").append('<h5 class="modal-title temp">Add new Item</h5>') //NOTE : "temp" class if for empty() at the begining
       })
 
       $("#post_modal_edit_form #judul").text(judul)

@@ -48,7 +48,7 @@
               <?php } ?>
               <p><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-              <button type="button" class="btn btn-secondary btn-xs"><i class="far fa-edit"></i> Ubah</button>
+              <button type="button" class="btn btn-secondary btn-xs btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
               <span class="float-right text-muted">3 comments</span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
@@ -103,8 +103,8 @@
 </div><!-- /.content-wrapper -->
 
 <!-- MODALS -->
-<form id="post_modal_add_form">
-  <div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+<form id="post_modal_edit_form">
+  <div class="modal fade" id="post_modal_edit" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -128,7 +128,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <input type="hidden" name="group" id="group" value="<?= $group ?>">
+          <!-- <input type="hidden" name="group" id="group" value=""> -->
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
@@ -197,6 +197,11 @@
     <?php } ?>
 
     api.open() //NOTE : To show the first image in the container. From https://stackoverflow.com/a/65642200
+
+    $(document).on("click", ".btn-edit-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
+      $("#post_modal_edit").modal("toggle")
+    })
+
   })
 </script>
 <?= $this->endSection() ?>

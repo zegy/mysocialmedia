@@ -215,20 +215,84 @@
 
     $(document).on("submit", "#post_modal_edit_form", function(e) {
       e.preventDefault()
-
-      //TODO : START
-      if($("#exampleCheck1").prop("checked") == true){
-        console.log("Checkbox is checked.");
-      }
-      else
-      {
-        console.log("Checkbox is NOT checked.");
-      }
-      //TODO : END
-
-
+      <?php if (!empty($post->img)){ ?>
+        //TODO : START
+        if($("#exampleCheck1").prop("checked") == true){
+          // console.log("Checkbox is checked.");
+          Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'No',
+            customClass: {
+              actions: 'my-actions',
+              cancelButton: 'order-1 right-gap',
+              confirmButton: 'order-2',
+              denyButton: 'order-3',
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+            //   Swal.fire('Saved!', '', 'success')
+              const formData = new FormData(this);
+              $.ajax({
+                url: "<?= base_url('post/create') ?>",
+                type: "post",
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                success: function(res) {
+                  if (res.status) {
+                    $(".modal").modal("toggle")
+                    window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+                  } else {
+                    $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
+                      $('[id="' + key + '"]').addClass('is-invalid')
+                      $('[id="' + key + '"]').next().text(value)
+                      if (value == "") {
+                        $('[id="' + key + '"]').removeClass('is-invalid')
+                        $('[id="' + key + '"]').addClass('is-valid')
+                      }
+                    })
+                  }
+                }
+              })
+            } else if (result.isDenied) {
+            //   Swal.fire('Changes are not saved', '', 'info')
+            }
+          })
+        } else {
+          const formData = new FormData(this);
+          $.ajax({
+            url: "<?= base_url('post/create') ?>",
+            type: "post",
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            dataType: "json",
+            success: function(res) {
+              if (res.status) {
+                $(".modal").modal("toggle")
+                window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+              } else {
+                $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
+                  $('[id="' + key + '"]').addClass('is-invalid')
+                  $('[id="' + key + '"]').next().text(value)
+                  if (value == "") {
+                    $('[id="' + key + '"]').removeClass('is-invalid')
+                    $('[id="' + key + '"]').addClass('is-valid')
+                  }
+                })
+              }
+            }
+          })
+        }   
+        //TODO : END
+      <?php } else { ?>
       const formData = new FormData(this);
-    
       $.ajax({
         url: "<?= base_url('post/create') ?>",
         type: "post",
@@ -253,6 +317,7 @@
           }
         }
       })
+      <?php } ?>
     
       $("#post_modal_add_form textarea").on("click", function() {
         $(this).removeClass('is-invalid is-valid')

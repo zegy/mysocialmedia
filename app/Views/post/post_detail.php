@@ -101,6 +101,40 @@
     </div><!-- /.container-fluid -->
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+
+<!-- MODALS -->
+<form id="post_modal_add_form">
+  <div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add new Item</h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <textarea class="form-control" name="judul" id="judul" rows="2"></textarea>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="files">File</label>
+            <input style="height: 45px" type="file" class="form-control" name="files[]" id="files" multiple>
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="group" id="group" value="<?= $group ?>">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 <?= $this->endSection() ?>
 
 <!-- SCRIPTS -->

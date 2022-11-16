@@ -14,7 +14,8 @@ class PostModel extends Model
         'post_fk_user',
         'post_title',
         'post_text',
-        'post_type'
+        'post_type',
+        'post_img'
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'post_date_time';
@@ -27,6 +28,7 @@ class PostModel extends Model
         post_text            AS texto,
         post_date_time       AS data,
         post_type            AS type,
+        post_img             AS img,
         user_pk              AS uid,
         user_full_name       AS nome,
         user_profile_picture AS image,

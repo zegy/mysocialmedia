@@ -156,6 +156,7 @@
     <aside class="control-sidebar control-sidebar-dark"><!-- Control Sidebar -->
       <!-- Control sidebar content goes here -->
     </aside><!-- /.control-sidebar -->
+    <aside class="view-modal"></aside><!-- TODO Delete later, "Layout" script (Dev-only, Admin_tools) END -->
     <footer class="main-footer"><!-- Main Footer -->
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
@@ -199,7 +200,7 @@
           dataType: "json",
           success: function(res) {
             $(".view-modal").html(res)
-            $(".modal").modal("toggle")
+            $("#post_modal_add_batch").modal("toggle")
           }
         })
       })
@@ -214,7 +215,7 @@
           dataType: "json",
           success: function(res) {
             if (res.status) {
-              $(".modal").modal("toggle")
+              $("#post_modal_add_batch").modal("toggle")
             //   Toast.fire({
             //     icon: 'success',
             //     title: 'Data berhasil ditambah'

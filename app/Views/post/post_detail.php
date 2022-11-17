@@ -122,20 +122,20 @@
             <div class="invalid-feedback"></div>
           </div>
           <div style="display: none" class="form-group" id="files_input">
-            <label for="files">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="files[]" id="files" multiple>
+            <label for="images">File</label>
+            <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
             <div class="invalid-feedback"></div>
           </div>
         </div>
         <div style="margin-left: 20px" class="form-check">
           <input type="checkbox" class="form-check-input" name="exampleCheck1" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Ganti file</label>
+          <label class="form-check-label" for="exampleCheck1">Hapus / Ganti Foto</label>
         </div>
         <div class="modal-footer">
           <input type="hidden" name="type" id="type" value="edit">
           <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
           <input type="hidden" name="group" id="group" value="<?= $post->type ?>">
-          <input type="hidden" name="old_files" id="old_files" value="<?= $post->img ?>">
+          <input type="hidden" name="old_images" id="old_images" value="<?= $post->img ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
@@ -167,7 +167,7 @@
             type: "post",
             data: {
               pid: pid,
-              files : "<?= $post->img ?>"
+              images : "<?= $post->img ?>"
             },
             success: function(res) {
               Swal.fire({
@@ -250,7 +250,7 @@
                     $(".modal").modal("toggle")
                     window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
                   } else {
-                    $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
+                    $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
                       $('[id="' + key + '"]').addClass('is-invalid')
                       $('[id="' + key + '"]').next().text(value)
                       if (value == "") {
@@ -282,7 +282,7 @@
                 $(".modal").modal("toggle")
                 window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
               } else {
-                $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
+                $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
                   $('[id="' + key + '"]').addClass('is-invalid')
                   $('[id="' + key + '"]').next().text(value)
                   if (value == "") {
@@ -312,7 +312,7 @@
             $(".modal").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
-            $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
+            $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
               $('[id="' + key + '"]').addClass('is-invalid')
               $('[id="' + key + '"]').next().text(value)
               if (value == "") {

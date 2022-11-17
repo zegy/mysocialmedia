@@ -73,8 +73,8 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="files">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="files[]" id="files" multiple>
+            <label for="images">File</label>
+            <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
             <div class="invalid-feedback"></div>
           </div>
         </div>
@@ -149,7 +149,7 @@
             $(".modal").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
-            $.each(res.errors, function(key, value) { //TODO (pending) : the file upload is optional, "valid status" is not needed if there is no file upload. 
+            $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
               $('[id="' + key + '"]').addClass('is-invalid')
               $('[id="' + key + '"]').next().text(value)
               if (value == "") {

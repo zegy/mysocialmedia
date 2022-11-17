@@ -54,11 +54,11 @@ class Post extends BaseController
         if ($this->request->isAJAX())
         {
             $pid   = $this->request->getPost('pid');
-            $files = $this->request->getPost('files');
+            $images = $this->request->getPost('images');
 
-            if (!empty($files))
+            if (!empty($images))
             { 
-                $imgs = explode(",", $files);
+                $imgs = explode(",", $images);
                 foreach ($imgs as $img)
                 {
                     unlink(WRITEPATH . 'uploads/posts/' . $img);
@@ -95,9 +95,9 @@ class Post extends BaseController
             $validated = $this->validate([
                 'judul'     => ['required'],
                 'deskripsi' => ['required'],
-                'files'     => [ //TODO : set max 5! Problem with file names in SQL
-                    'mime_in[files,image/jpg,image/jpeg,image/gif,image/png]',
-                    'max_size[files,4096]',
+                'images'     => [ //TODO : set max 5! Problem with image names in SQL
+                    'mime_in[images,image/jpg,image/jpeg,image/gif,image/png]',
+                    'max_size[images,4096]',
                 ]
             ]);
 
@@ -106,7 +106,7 @@ class Post extends BaseController
                 $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
                     'judul'     => $this->validation->getError('judul'),
                     'deskripsi' => $this->validation->getError('deskripsi'),
-                    'files'     => $this->validation->getError('files') //TODO (pending) : individual "error" for each file
+                    'images'     => $this->validation->getError('images') //TODO (pending) : individual "error" for each image
                 ];
 
                 $output = [
@@ -128,22 +128,21 @@ class Post extends BaseController
                         "post_type"    => $this->request->getPost('group'),
                     ];
 
-                    $files = $this->request->getFileMultiple('files');
-                    if (file_exists($files[0]))
+                    $images = $this->request->getFileMultiple('images');
+                    if (file_exists($images[0]))
                     {
                         $count = 0;
-                        $fileNames[] = null; //NOTE (pending) : empty($files) is not working for file input to be optional. Solved (weirdly) by give "$fileNamesString" no value to begin with.
-                        foreach($files as $file)
+                        foreach($images as $image)
                         {
-                            if($file->isValid() && !$file->hasMoved())
+                            if($image->isValid() && !$image->hasMoved())
                             {
-                                $name = $file->getRandomName();
-                                $fileNames[$count] = $name; 
-                                $file->move(WRITEPATH . 'uploads/posts', $name);
+                                $name = $image->getRandomName();
+                                $imageNames[$count] = $name; 
+                                $image->move(WRITEPATH . 'uploads/posts', $name);
                                 $count++;
                             }           
                         }
-                        $data["post_img"] = implode(",", $fileNames);
+                        $data["post_img"] = implode(",", $imageNames);
                     }
                     $this->postModel->save($data);
                     $pid = $this->postModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
@@ -160,37 +159,36 @@ class Post extends BaseController
                         "post_type"    => $this->request->getPost('group'),
                     ];
                     
-                    $check_replace_files = $this->request->getPost('exampleCheck1');
-                    if ($check_replace_files == true)
+                    $check_replace_images = $this->request->getPost('exampleCheck1');
+                    if ($check_replace_images == true)
                     {
-                        //NOTE : Remove old files
-                        $old_files = $this->request->getPost('old_files'); //NOTE : String    
-                        if (!empty($old_files))
+                        //NOTE : Remove old images
+                        $old_images = $this->request->getPost('old_images'); //NOTE : String    
+                        if (!empty($old_images))
                         {
-                            $old_files_deletes = explode(",", $old_files);
-                            foreach ($old_files_deletes as $old_files_delete)
+                            $old_images_to_remove = explode(",", $old_images);
+                            foreach ($old_images_to_remove as $old_image_to_remove)
                             {
-                                unlink(WRITEPATH . 'uploads/posts/' . $old_files_delete);
+                                unlink(WRITEPATH . 'uploads/posts/' . $old_image_to_remove);
                             }
                         }
                         
-                        //NOTE : Get new files (if exists)
-                        $files = $this->request->getFileMultiple('files');
-                        if (file_exists($files[0]))
+                        //NOTE : Get new images (if exists)
+                        $images = $this->request->getFileMultiple('images');
+                        if (file_exists($images[0]))
                         {
                             $count = 0;
-                            $fileNames[] = null; //NOTE (pending) : empty($files) is not working for file input to be optional. Solved (weirdly) by give "$fileNamesString" no value to begin with.
-                            foreach($files as $file)
+                            foreach($images as $image)
                             {
-                                if($file->isValid() && !$file->hasMoved())
+                                if($image->isValid() && !$image->hasMoved())
                                 {
-                                    $name = $file->getRandomName();
-                                    $fileNames[$count] = $name; 
-                                    $file->move(WRITEPATH . 'uploads/posts', $name);
+                                    $name = $image->getRandomName();
+                                    $imageNames[$count] = $name; 
+                                    $image->move(WRITEPATH . 'uploads/posts', $name);
                                     $count++;
                                 }           
                             }
-                            $data["post_img"] = implode(",", $fileNames);
+                            $data["post_img"] = implode(",", $imageNames);
                         }
                         else
                         {

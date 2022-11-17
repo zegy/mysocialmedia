@@ -4,47 +4,43 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PostModel;
-use App\Models\CommentModel; //TODO TEMP!
 
 class Post extends BaseController
 {
     function __construct()
     {
-        helper('form');
         $this->postModel = new PostModel();
-        $this->commentModel = new CommentModel(); //TODO TEMP!
     }
 
     public function index($group)
     {
-        $data = ["group" => $group];
-        return view('post/post_index', $data);
+        return view('post/post_index', ["group" => $group]);
     }
 
-    public function list()
+    public function list() //NOTE : AJAX
     {
         if ($this->request->isAJAX())
         {
-            $page = $this->request->getVar('page');
-            $group = $this->request->getVar('group');
+            $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
+            $group = $this->request->getPost('group');
             $posts = $this->postModel->getAllByGroup($group, $page);
             $pager = $this->postModel->pager;
             
-            if (empty($posts))
+            if (!empty($posts))
             {
-                echo json_encode(['status' => false]);
-            }
-            else
-            {
-                $data = [
+                $dataView = [
                     "posts" => $posts,
                     "pager" => $pager,
                 ];
                     
                 echo json_encode([
-                    'posts'  => view('post/post_list', $data),
+                    'posts'  => view('post/post_list', $dataView),
                     'status' => true
                 ]);
+            }
+            else
+            {
+                echo json_encode(['status' => false]);
             }
         }
         else
@@ -53,31 +49,38 @@ class Post extends BaseController
         }
     }
 
-    public function delete()
+    public function delete() //NOTE : AJAX
     {
-        $pid = $this->request->getPost('pid');
-        $post = $this->postModel->getOneById($pid); //NOTE : Not so "clean" because we use "delete" funcion from CI's (only need the "ID"). I need it just to get file names.
-        $this->postModel->delete($pid);
-        
-        if (!empty($post->img))
-        { 
-            $imgs = explode(",", $post->img);
-            foreach ($imgs as $img)
-            {
-                unlink(WRITEPATH . 'uploads/posts/' . $img);
-            }
-        }
+        if ($this->request->isAJAX())
+        {
+            $pid   = $this->request->getPost('pid');
+            $files = $this->request->getPost('files');
 
-        echo json_encode(['status' => true]);
+            if (!empty($files))
+            { 
+                $imgs = explode(",", $files);
+                foreach ($imgs as $img)
+                {
+                    unlink(WRITEPATH . 'uploads/posts/' . $img);
+                }
+            }
+            
+            $this->postModel->delete($pid);
+            echo json_encode(['status' => true]);
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
     }
 
-    public function detail($group, $pid) //TODO : Use $group to limit the user who can see the post later
+    public function detail($group, $pid)
     {
+        //TODO : Use $group to limit the user who can see the post later
         $post = $this->postModel->getOneById($pid);
         if (!empty($post))
         {
-            $data = ["post" => $post];
-            return view('post/post_detail', $data);
+            return view('post/post_detail', ["post" => $post]);
         }
         else
         {
@@ -195,57 +198,4 @@ class Post extends BaseController
             ]);
         }
     }
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    // public function create()
-    // {
-    //     $data = $this->request->getPost(); //GET title, text, type
-    //     $dataToSave =
-    //     [
-    //         "post_fk_user" => session('id'),
-    //         "post_title"   => $data['post_title'],
-    //         "post_text"    => $data["post_text"],
-    //         "post_type"    => $data['post_type']
-    //     ];
-    //     $this->postModel->insert($dataToSave); //NOTE In case using "save()", if it contain PK then it update the existing record or else it insert into the database (no need to create "update" method)
-    //     return redirect()->back();
-    // }
-
-    public function update()
-    {   
-        $data = $this->request->getPost(); //GET pid, text
-        $dataToSave =
-        [
-            "post_text" => $data["text"]
-        ];
-        $this->postModel->update($data["pid"], $dataToSave);        
-        return redirect()->back();
-    }
-
-    // public function delete()
-    // {
-    //     $data = $this->request->getPost(); //GET pid
-    //     $this->postModel->delete($data["pid"]);
-    //     return redirect()->back();
-    // }
 }

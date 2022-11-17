@@ -166,7 +166,8 @@
             dataType: "json",
             type: "post",
             data: {
-              pid: pid
+              pid: pid,
+              files : "<?= $post->img ?>"
             },
             success: function(res) {
               Swal.fire({

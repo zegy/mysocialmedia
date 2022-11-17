@@ -91,34 +91,34 @@
 <!-- SCRIPTS -->
 <?= $this->section('script') ?>
 <script>
-  $(document).ready(function() {
-    function get_post_list(page_no) {
-      let page = page_no //NOTE : Optional, used in pagination
-      $.ajax({
-        url: "<?= base_url('post/list') ?>",
-        dataType: "json",
-        type: "post",
-        data: {
-          group: "<?= $group ?>",
-          page: page
-        },
-        success: function(res) {
-          if (res.status) {
-            $(".post_list").html(res.posts)
-          }
-          $(".overlay").hide()
+  // Callable functions
+  function get_post_list(page_no) {
+    $.ajax({
+      url: "<?= base_url('post/list') ?>",
+      dataType: "json",
+      type: "post",
+      data: {
+        group: "<?= $group ?>",
+        page: page_no
+      },
+      success: function(res) {
+        if (res.status) {
+          $(".post_list").html(res.posts)
         }
-      })
-    }
-    
+        $(".overlay").hide()
+      }
+    })
+  }
+
+  // Main script (jQuery)
+  $(document).ready(function() {
     get_post_list()
     
     $(document).on("click", ".btn-pagination", function(e) {
       e.preventDefault()
-      
       $(".overlay").show();
-      let page = $(this).attr('id')
-      get_post_list(page)
+      let page_no = $(this).attr('id')
+      get_post_list(page_no)
     })
     
     $(document).on("click", ".btn-refresh-post", function() {
@@ -132,8 +132,7 @@
     
     $(document).on("submit", "#post_modal_add_form", function(e) {
       e.preventDefault()
-      const formData = new FormData(this);
-    
+      let formData = new FormData(this);
       $.ajax({
         url: "<?= base_url('post/save') ?>",
         type: "post",
@@ -166,10 +165,6 @@
       $("#post_modal_add_form input").on("click", function() {
         $(this).removeClass('is-invalid is-valid')
       })
-
-    //   $("#post_modal_add_form select").on("click", function() {
-    //     $(this).removeClass('is-invalid is-valid')
-    //   })
     })
     
     // $(document).on("click", ".table-avatar", function(e) {

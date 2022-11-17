@@ -216,10 +216,6 @@
           success: function(res) {
             if (res.status) {
               $("#post_modal_add_batch").modal("toggle")
-            //   Toast.fire({
-            //     icon: 'success',
-            //     title: 'Data berhasil ditambah'
-            //   })
               post_list() //NOTE Using "posts" script
             } else {
               $.each(res.errors, function(key, value) {

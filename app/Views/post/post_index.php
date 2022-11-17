@@ -137,7 +137,7 @@
       const formData = new FormData(this);
     
       $.ajax({
-        url: "<?= base_url('post/create') ?>",
+        url: "<?= base_url('post/save') ?>",
         type: "post",
         data: formData,
         contentType: false,

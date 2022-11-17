@@ -88,12 +88,12 @@ class Post extends BaseController
         }
     }
 
-    public function create()
+    public function save () //NOTE : Single create + update function
     {    
         $validated = $this->validate([
             'judul'     => ['required'],
             'deskripsi' => ['required'],
-            'files'     => [ //TODO set max 5! Problem with file names in SQL
+            'files'     => [ //TODO : set max 5! Problem with file names in SQL
                 'mime_in[files,image/jpg,image/jpeg,image/gif,image/png]',
                 'max_size[files,4096]',
             ]

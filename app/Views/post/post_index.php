@@ -93,8 +93,7 @@
 <script>
   $(document).ready(function() {
     function get_post_list(page_no) {
-      var page = page_no //NOTE : Optional, used in pagination
-    
+      let page = page_no //NOTE : Optional, used in pagination
       $.ajax({
         url: "<?= base_url('post/list') ?>",
         dataType: "json",

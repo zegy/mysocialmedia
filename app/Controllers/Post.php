@@ -118,8 +118,8 @@ class Post extends BaseController
             }
             else //NOTE : IF VALID
             {
-                $type = $this->request->getPost('type'); //NOTE : To decide if it's create or update post
-                if ($type == 'add') //NOTE : TYPE = ADD
+                $pid = $this->request->getPost('pid'); //NOTE : To decide if it's create or update post. If no pid (null) = create post. Otherwise it's update post
+                if (empty($pid)) //NOTE : Create
                 {
                     $data = [
                         "post_fk_user" => session('id'),
@@ -147,10 +147,8 @@ class Post extends BaseController
                     $this->postModel->save($data);
                     $pid = $this->postModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
                 }
-                else //NOTE : TYPE = EDIT
+                else //NOTE : Update
                 {
-                    $pid = $this->request->getPost('pid');
-
                     $data = [
                         "post_pk"      => $pid,
                         "post_fk_user" => session('id'),

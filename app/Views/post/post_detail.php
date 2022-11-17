@@ -132,7 +132,6 @@
           <label class="form-check-label" for="exampleCheck1">Hapus / Ganti Foto</label>
         </div>
         <div class="modal-footer">
-          <input type="hidden" name="type" id="type" value="edit">
           <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
           <input type="hidden" name="group" id="group" value="<?= $post->type ?>">
           <input type="hidden" name="old_images" id="old_images" value="<?= $post->img ?>">

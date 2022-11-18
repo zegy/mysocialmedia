@@ -146,10 +146,39 @@
 <!-- SCRIPTS -->
 <?= $this->section('script') ?>
 <script>
+  // Callable functions
+  function submit_update_post_form(formData) {
+    $.ajax({
+      url: "<?= base_url('post/save') ?>",
+      type: "post",
+      data: formData,
+      contentType: false,
+      cache: false,
+      processData: false,
+      dataType: "json",
+      success: function(res) {
+        if (res.status) {
+          $(".modal").modal("toggle")
+          window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+        } else {
+          $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
+            $('[id="' + key + '"]').addClass('is-invalid')
+            $('[id="' + key + '"]').next().text(value)
+            if (value == "") {
+              $('[id="' + key + '"]').removeClass('is-invalid')
+              $('[id="' + key + '"]').addClass('is-valid')
+            }
+          })
+        }
+      }
+    })
+  }
+
+  // Main script (jQuery)
   $(document).ready(function() {
-    $(document).on("click", ".btn-delete-post", function() { //NOTE : Fully using "sweetalert2"
-      //NOTE : From https://sweetalert2.github.io/#examples (A confirm dialog, with a function attached to the "Confirm"-button)
-      let pid = $(this).data("id") //NOTE : From the element's "data-id" attribute 
+    // Create post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
+    $(document).on("click", ".btn-delete-post", function() {
+      let pid = $(this).data("id")
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -186,26 +215,21 @@
       })
     })
 
-    <?php if (!empty($post->img)){ ?> //NOTE : Experimental! If post has no image.
-    //NOTE : From Chocolat v1.0.4's demo (The "example3" and "container2" with custom options. The "close button" is disabled via css and the "chocolat's keyboard event listener" is also disabled via js)
+    // Chocolat (For post's images). From Chocolat v1.0.4's demo (The "example3" and "container2" with custom options. The "close button" is disabled via css and the "chocolat's keyboard event listener" is also disabled via js)
+    <?php if (!empty($post->img)){ ?> //NOTE : If post has no image.
     const { api } = Chocolat(document.querySelectorAll('#post-imgs .chocolat-image'), {
       container: document.querySelector('#container-post-imgs'),
       imageSize: 'cover',
       firstImageIndex: 0,
       loop: false,
-      allowZoom: true,
-      afterInitialize: function () {
-        $("#container-post-imgs").show() //TODO : Need?
-      },
-      afterClose: function () {
-        $("#container-post-imgs").hide() //TODO : Need?
-      }
+      allowZoom: true
     })
 
-    api.open() //NOTE : To show the first image in the container. From https://stackoverflow.com/a/65642200
+    api.open()
     <?php } ?>
 
-    $(document).on("click", ".btn-edit-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
+    // Update post (form modal with data)
+    $(document).on("click", ".btn-edit-post", function() {
       let judul = $("#judul").text()
       let deskripsi = $("#deskripsi").text()
       $("#post_modal_edit").modal("toggle")
@@ -213,131 +237,51 @@
       $("#post_modal_edit_form #deskripsi").text(deskripsi)
     })
 
+    // Update post (form submit)
     $(document).on("submit", "#post_modal_edit_form", function(e) {
       e.preventDefault()
-      <?php if (!empty($post->img)){ ?>
-        //TODO : START
-        if($("#exampleCheck1").prop("checked") == true){
-          // console.log("Checkbox is checked.");
-          Swal.fire({
-            title: 'Do you want to save the changes?',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            denyButtonText: 'No',
-            customClass: {
-              actions: 'my-actions',
-              cancelButton: 'order-1 right-gap',
-              confirmButton: 'order-2',
-              denyButton: 'order-3',
-            }
-          }).then((result) => {
-            if (result.isConfirmed) {
-            //   Swal.fire('Saved!', '', 'success')
-              // ============== COMMON FUNCTION START ==============
-              const formData = new FormData(this);
-              $.ajax({
-                url: "<?= base_url('post/save') ?>",
-                type: "post",
-                data: formData,
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType: "json",
-                success: function(res) {
-                  if (res.status) {
-                    $(".modal").modal("toggle")
-                    window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
-                  } else {
-                    $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
-                      $('[id="' + key + '"]').addClass('is-invalid')
-                      $('[id="' + key + '"]').next().text(value)
-                      if (value == "") {
-                        $('[id="' + key + '"]').removeClass('is-invalid')
-                        $('[id="' + key + '"]').addClass('is-valid')
-                      }
-                    })
-                  }
-                }
-              })
-              // ============== COMMON FUNCTION END ==============
-            } else if (result.isDenied) {
-            //   Swal.fire('Changes are not saved', '', 'info')
-            }
-          })
-        } else {
-          // ============== COMMON FUNCTION START ==============
-          const formData = new FormData(this);
-          $.ajax({
-            url: "<?= base_url('post/save') ?>",
-            type: "post",
-            data: formData,
-            contentType: false,
-            cache: false,
-            processData: false,
-            dataType: "json",
-            success: function(res) {
-              if (res.status) {
-                $(".modal").modal("toggle")
-                window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
-              } else {
-                $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
-                  $('[id="' + key + '"]').addClass('is-invalid')
-                  $('[id="' + key + '"]').next().text(value)
-                  if (value == "") {
-                    $('[id="' + key + '"]').removeClass('is-invalid')
-                    $('[id="' + key + '"]').addClass('is-valid')
-                  }
-                })
-              }
-            }
-          })
-          // ============== COMMON FUNCTION END ==============
-        }   
-        //TODO : END
-      <?php } else { ?>
-      // ============== COMMON FUNCTION START ==============
-      const formData = new FormData(this);
-      $.ajax({
-        url: "<?= base_url('post/save') ?>",
-        type: "post",
-        data: formData,
-        contentType: false,
-        cache: false,
-        processData: false,
-        dataType: "json",
-        success: function(res) {
-          if (res.status) {
-            $(".modal").modal("toggle")
-            window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
-          } else {
-            $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
-              $('[id="' + key + '"]').addClass('is-invalid')
-              $('[id="' + key + '"]').next().text(value)
-              if (value == "") {
-                $('[id="' + key + '"]').removeClass('is-invalid')
-                $('[id="' + key + '"]').addClass('is-valid')
-              }
-            })
+      let formData = new FormData(this);
+
+      <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
+      if($("#exampleCheck1").prop("checked") == true){
+        Swal.fire({
+          title: 'Do you want to save the changes?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          denyButtonText: 'No',
+          customClass: {
+            actions: 'my-actions',
+            cancelButton: 'order-1 right-gap',
+            confirmButton: 'order-2',
+            denyButton: 'order-3',
           }
-        }
-      })
-      // ============== COMMON FUNCTION END ==============
+        }).then((result) => {
+          if (result.isConfirmed) {
+          //   Swal.fire('Saved!', '', 'success')
+            submit_update_post_form(formData)
+          } else if (result.isDenied) {
+          //   Swal.fire('Changes are not saved', '', 'info')
+          }
+        })
+      } else {
+        submit_update_post_form(formData)
+      }   
+      <?php } else { ?> //NOTE : If post has no image.
+      submit_update_post_form(formData)
       <?php } ?>
-    
-      $("#post_modal_add_form textarea").on("click", function() {
-        $(this).removeClass('is-invalid is-valid')
-      })
-
-      $("#post_modal_add_form input").on("click", function() {
-        $(this).removeClass('is-invalid is-valid')
-      })
-
-    //   $("#post_modal_add_form select").on("click", function() {
-    //     $(this).removeClass('is-invalid is-valid')
-    //   })
     })
 
+    // Reset input valid status (All)
+    $("textarea").on("click", function() {
+      $(this).removeClass('is-invalid is-valid')
+    })
+
+    $("input").on("click", function() {
+      $(this).removeClass('is-invalid is-valid')
+    })
+
+    // Show or hide file input (on update)
     $("#exampleCheck1").on("click", function() {
       $("#files_input").toggle();
     })

@@ -150,8 +150,10 @@
 
   // Main script (jQuery)
   $(document).ready(function() {
+    // Get post list
     get_post_list()
     
+    // Refresh post list based on page number (pagination)
     $(document).on("click", ".btn-pagination", function(e) {
       e.preventDefault()
       $(".overlay").show();
@@ -159,15 +161,18 @@
       get_post_list(page_no)
     })
     
+    // Refresh post list
     $(document).on("click", ".btn-refresh-post", function() {
       $(".overlay").show()
       get_post_list()
     })
     
-    $(document).on("click", ".btn-add-post", function() { //NOTE : Using custom modal, semi using "sweetalert2" (Because it's multiple inputs method is not flexible)
+    // Create post (form modal)
+    $(document).on("click", ".btn-add-post", function() {
       $("#post_modal_add").modal("toggle")
     })
     
+    // Create post (form submit)
     $(document).on("submit", "#post_modal_add_form", function(e) {
       e.preventDefault()
       let formData = new FormData(this);
@@ -181,7 +186,7 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            $(".modal").modal("toggle")
+            $("#post_modal_add").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
             $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
@@ -195,16 +200,18 @@
           }
         }
       })
-    
-      $("#post_modal_add_form textarea").on("click", function() {
-        $(this).removeClass('is-invalid is-valid')
-      })
-
-      $("#post_modal_add_form input").on("click", function() {
-        $(this).removeClass('is-invalid is-valid')
-      })
     })
-    
+
+    // Reset input valid status (All)
+    $("textarea").on("click", function() {
+      $(this).removeClass('is-invalid is-valid')
+    })
+
+    $("input").on("click", function() {
+      $(this).removeClass('is-invalid is-valid')
+    })
+
+    // Show post's user modal
     $(document).on("click", ".table-avatar", function(e) {
       e.preventDefault()
       //NOTE : Using "data()" so no need to request the same data again (from post_list)

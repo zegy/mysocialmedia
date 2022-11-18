@@ -39,10 +39,12 @@ class User extends BaseController
         if ($this->request->isAJAX())
         {
             $uid = $this->request->getVar('uid');
-            $data = ["user" => $this->userModel->find($uid)];
-            $output = view('user/user-sum-modal', $data);
-            echo json_encode($output);
-        } else {
+            $user = $this->userModel->find($uid); //NOTE : As object (Based on "$returnType" in model)
+            $userData = (array)$user; //NOTE : Convert it to array
+            echo json_encode($userData);
+        }
+        else
+        {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }

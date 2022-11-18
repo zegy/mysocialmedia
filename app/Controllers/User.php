@@ -33,19 +33,4 @@ class User extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
-
-    public function userSumModal()
-    {
-        if ($this->request->isAJAX())
-        {
-            $uid = $this->request->getVar('uid');
-            $user = $this->userModel->find($uid); //NOTE : As object (Based on "$returnType" in model)
-            $userData = (array)$user; //NOTE : Convert it to array
-            echo json_encode($userData);
-        }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-    }
 }

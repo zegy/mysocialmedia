@@ -205,23 +205,6 @@
       })
     })
     
-    // $(document).on("click", ".table-avatar", function(e) {
-    //   e.preventDefault()
-    //   let id = $(this).attr('id')
-    //   $.ajax({
-    //     url: "<?= base_url('user/user_sum_modal') ?>",
-    //     dataType: "json",
-    //     type: "post",
-    //     data: {
-    //       uid: id
-    //     },
-    //     success: function(res) {
-    //       $(".view-modal").html(res)
-    //       $(".modal").modal("toggle")
-    //     }
-    //   })
-    // })
-
     $(document).on("click", ".table-avatar", function(e) {
       e.preventDefault()
       //NOTE : Using "data()" so no need to request the same data again (from post_list)

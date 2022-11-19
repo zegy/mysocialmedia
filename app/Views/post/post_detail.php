@@ -30,22 +30,15 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div class="card-body">
-              <?php if (!empty($post->img)){ ?>
-              <div id="container-post-imgs" style="width: 100%; height: 350px; background: #E0E0E0; margin-bottom: 4px"></div><!-- NOTE : Chocolat's Container -->
-              <?php $imgs = explode(",", $post->img); $count = count($imgs); if ($count == 1) { ?>
-              <div id="post-imgs">
-                <a class="chocolat-image" href="<?= base_url('imageRender/' . $imgs[0]) ?>" title="Rose"></a>
+              <div class="row">
+              <?php if (!empty($post->img)){ $imgs = explode(",", $post->img); foreach ($imgs as $img) {?>
+                <div class="col-sm-2">
+                  <a href="<?= base_url('imageRender/' . $img) ?>" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
+                    <img src="<?= base_url('imageRender/' . $img) ?>" class="img-fluid mb-2" alt="white sample"/>
+                  </a>
+                </div>
+              <?php } } ?>
               </div>
-              <?php } else { ?>
-              <div id="post-imgs">
-                <?php foreach ($imgs as $img) { ?>
-                <a class="chocolat-image" href="<?= base_url('imageRender/' . $img) ?>" title="Rose">
-                  <img src="<?= base_url('imageRender/' . $img) ?>" style="width:75px; height:50px" alt="">
-                </a>
-                <?php } ?>
-              </div>
-              <?php } ?>
-              <?php } ?>
               <p id="post_deskripsi"><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
@@ -219,17 +212,14 @@
       })
     })
 
-    // Chocolat (For post's images). From Chocolat v1.0.4's demo (The "example3" and "container2" with custom options. The "close button" is disabled via css and the "chocolat's keyboard event listener" is also disabled via js)
+    // Ekko Lightbox (For post's images)
     <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
-    const { api } = Chocolat(document.querySelectorAll('#post-imgs .chocolat-image'), {
-      container: document.querySelector('#container-post-imgs'),
-      imageSize: 'cover',
-      firstImageIndex: 0,
-      loop: false,
-      allowZoom: true
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault()
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      })
     })
-
-    api.open()
     <?php } ?>
 
     // Update post (form modal with data)

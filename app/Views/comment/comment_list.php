@@ -23,8 +23,8 @@
         </button>
       </div>
       <div style="margin-top: 5px; margin-left: 40px" class="float-left">
-        <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-cid="<?= $comment->cid ?>"><i class="far fa-trash-alt"></i></button>
-        <button type="button" class="btn btn-secondary btn-xs btn-edit-post"><i class="far fa-edit"></i></button>
+        <button type="button" class="btn btn-danger btn-xs btn-delete-comment" data-cid="<?= $comment->cid ?>"><i class="far fa-trash-alt"></i></button>
+        <button type="button" class="btn btn-secondary btn-xs btn-edit-comment"><i class="far fa-edit"></i></button>
       </div>
     </div><!-- /.col -->
   </div><!-- /.row -->

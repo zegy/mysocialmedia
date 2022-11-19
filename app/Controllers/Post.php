@@ -157,8 +157,8 @@ class Post extends BaseController
                         "post_type"    => $this->request->getPost('group'),
                     ];
                     
-                    $check_replace_images = $this->request->getPost('exampleCheck1');
-                    if ($check_replace_images == true)
+                    $update_image = $this->request->getPost('cb_update_image');
+                    if ($update_image == true)
                     {
                         //NOTE : Remove old images
                         $old_images = $this->request->getPost('old_images'); //NOTE : String    

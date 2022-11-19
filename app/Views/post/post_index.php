@@ -148,7 +148,7 @@
     })
   }
 
-  // Main script (jQuery)
+  // Main scripts
   $(document).ready(function() {
     // Get post list
     get_post_list()

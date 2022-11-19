@@ -128,8 +128,8 @@
           </div>
         </div>
         <div style="margin-left: 20px" class="form-check">
-          <input type="checkbox" class="form-check-input" name="exampleCheck1" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Hapus / Ganti Foto</label>
+          <input type="checkbox" class="form-check-input" name="cb_update_image" id="cb_update_image">
+          <label class="form-check-label" for="cb_update_image">Hapus / Ganti Foto</label>
         </div>
         <div class="modal-footer">
           <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
@@ -174,7 +174,7 @@
     })
   }
 
-  // Main script (jQuery)
+  // Main scripts
   $(document).ready(function() {
     // Create post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
     $(document).on("click", ".btn-delete-post", function() {
@@ -216,7 +216,7 @@
     })
 
     // Chocolat (For post's images). From Chocolat v1.0.4's demo (The "example3" and "container2" with custom options. The "close button" is disabled via css and the "chocolat's keyboard event listener" is also disabled via js)
-    <?php if (!empty($post->img)){ ?> //NOTE : If post has no image.
+    <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
     const { api } = Chocolat(document.querySelectorAll('#post-imgs .chocolat-image'), {
       container: document.querySelector('#container-post-imgs'),
       imageSize: 'cover',
@@ -243,25 +243,18 @@
       let formData = new FormData(this);
 
       <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
-      if($("#exampleCheck1").prop("checked") == true){
+      if($("#cb_update_image").prop("checked") == true){
         Swal.fire({
-          title: 'Do you want to save the changes?',
-          showDenyButton: true,
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes',
-          denyButtonText: 'No',
-          customClass: {
-            actions: 'my-actions',
-            cancelButton: 'order-1 right-gap',
-            confirmButton: 'order-2',
-            denyButton: 'order-3',
-          }
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
           if (result.isConfirmed) {
-          //   Swal.fire('Saved!', '', 'success')
             submit_update_post_form(formData)
-          } else if (result.isDenied) {
-          //   Swal.fire('Changes are not saved', '', 'info')
           }
         })
       } else {
@@ -282,10 +275,9 @@
     })
 
     // Show or hide file input (on update)
-    $("#exampleCheck1").on("click", function() {
+    $("#cb_update_image").on("click", function() {
       $("#files_input").toggle();
     })
-
   })
 </script>
 <?= $this->endSection() ?>

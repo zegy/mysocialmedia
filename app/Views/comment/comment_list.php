@@ -16,10 +16,10 @@
     <div class="col-12">
       <div style="margin-top: 5px" class="float-right">
         <button style="width: 50px" type="button" class="btn btn-outline-success btn-xs btn-like-comment" data-cid="<?= $comment->cid ?>">
-          <i class="fas fa-thumbs-up"></i> 123
+          <i class="fas fa-thumbs-up"></i> <?= $comment->nolike ?>
         </button>
         <button style="width: 50px" type="button" class="btn btn-outline-danger btn-xs btn-dislike-comment" data-cid="<?= $comment->cid ?>">
-          <i class="fas fa-thumbs-down"></i> 123
+          <i class="fas fa-thumbs-down"></i> <?= $comment->nodislike ?>
         </button>
       </div>
       <div style="margin-top: 5px; margin-left: 40px" class="float-left">

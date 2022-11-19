@@ -167,6 +167,29 @@
       }
     })
   }
+  
+  function submit_likeordis(cid, type) {
+    $.ajax({
+      url: "<?= base_url('comment/like') ?>",
+      dataType: "json",
+      type: "post",
+      data: {
+        cid: cid,
+        type: type
+      },
+      success: function(res) {
+        if (res.status) {
+          // $("#post_list_data").html(res.posts)
+          get_comment_list()
+        }
+        else
+        {
+          // $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
+        }
+      //   $(".overlay").hide()
+      }
+    })
+  }
 
   // Main scripts
   $(document).ready(function() {
@@ -176,24 +199,13 @@
     // Like a comment
     $(document).on("click", ".btn-like-comment", function() {
       let cid = $(this).data("cid")
-      $.ajax({
-        url: "<?= base_url('comment/like') ?>",
-        dataType: "json",
-        type: "post",
-        data: {
-          cid: cid
-        },
-        success: function(res) {
-          if (res.status) {
-            // $("#post_list_data").html(res.posts)
-          }
-          else
-          {
-            // $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
-          }
-        //   $(".overlay").hide()
-        }
-      })
+      submit_likeordis(cid, 'like')
+    })
+
+    // Dislike a comment
+    $(document).on("click", ".btn-dislike-comment", function() {
+      let cid = $(this).data("cid")
+      submit_likeordis(cid, 'dislike')
     })
 
     // Delete post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)

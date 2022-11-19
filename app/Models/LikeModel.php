@@ -13,6 +13,7 @@ class LikeModel extends Model
     [
         'like_fk_user',
         'like_fk_comment',
+        'like_status'
     ];
     protected $useTimestamps = true; //TODO : Need this for "like"?. Sync with DB and other if no!
     protected $createdField  = 'like_date_time';

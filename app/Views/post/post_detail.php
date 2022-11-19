@@ -266,6 +266,44 @@
       })
     })
 
+    // Delete comment (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
+    $(document).on("click", ".btn-delete-comment", function() {
+      let cid = $(this).data("cid")
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "<?= base_url('comment/delete') ?>",
+            dataType: "json",
+            type: "post",
+            data: {
+              cid: cid,
+            },
+            success: function(res) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: "Your file has been deleted.",
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  get_comment_list()
+                }
+              })
+            }
+          })
+        }
+      })
+    })
+
     // Update post (form submit)
     $(document).on("submit", "#post_modal_edit_form", function(e) {
       e.preventDefault()

@@ -97,4 +97,18 @@ class Comment extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
+
+    public function delete() //NOTE : AJAX
+    {
+        if ($this->request->isAJAX())
+        {
+            $cid = $this->request->getPost('cid');            
+            $this->commentModel->delete($cid);
+            echo json_encode(['status' => true]);
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
 }

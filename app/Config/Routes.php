@@ -57,8 +57,9 @@ $routes->add('post/list',    'Post::list');
 $routes->add('post/delete',  'Post::delete');
 $routes->add('post/save',    'Post::save');
 
-$routes->add('comment/list', 'Comment::list');
-$routes->add('comment/save', 'Comment::save');
+$routes->add('comment/list',   'Comment::list');
+$routes->add('comment/save',   'Comment::save');
+$routes->add('comment/delete', 'Comment::delete');
 
 
 $routes->match(['get', 'post'], 'imageRender/(:segment)', 'RenderImage::index/$1');

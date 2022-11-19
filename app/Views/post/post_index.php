@@ -40,10 +40,9 @@
                 </div>
               </div>
             </div><!-- /.card-header -->
-            <div id="post_list_data"><!-- NOTE : Get data using AJAX -->
-              <div class="card-body" style="height: 355px;"><!-- NOTE : act as "empty table" so "loading" overlay animation will be at the center of the card. This element will replaced with the one from the "source" -->
-                <h3>Belum ada diskusi di forum ini</h3>
-                Silahkan buat diskusi perdana dari anda!
+            <div id="post_list_data">
+              <!-- NOTE : Get data using AJAX (Replace anything inside this "post_list_data" after request) -->
+              <div class="card-body" style="height: 355px;"><!-- NOTE : As "empty table" so "loading" overlay animation will be at the center of the card -->
               </div><!-- /.card-body -->
             </div>
           </div><!-- /.card -->
@@ -142,6 +141,10 @@
       success: function(res) {
         if (res.status) {
           $("#post_list_data").html(res.posts)
+        }
+        else
+        {
+          $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
         }
         $(".overlay").hide()
       }

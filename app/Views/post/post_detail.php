@@ -58,8 +58,8 @@
             <div style="height: 60px" class="card-header">
               <h5 class="d-flex justify-content-center"><b>Komentar Diskusi</b></h5>
             </div><!-- /.card-header -->
-            <div class="card-footer card-comments" id="comment_list_data"><!-- NOTE : Get data using AJAX -->
-              <!-- TODO : Empty comment -->
+            <div class="card-footer card-comments" id="comment_list_data">
+              <!-- NOTE : Get data using AJAX (Replace anything inside this "comment_list_data" after request) -->
             </div><!-- /.card-footer -->
             <div class="card-footer">
               <form id="comment_add_form">
@@ -138,7 +138,10 @@
         if (res.status) {
           $("#comment_list_data").html(res.comments)
         }
-        // $(".overlay").hide()
+        else
+        {
+          $("#comment_list_data").html('<div style="height: 35px; padding-top: 4px; padding-bottom: 4px; margin-bottom: 0px" class="alert alert-warning"><p><i class="icon fas fa-exclamation-triangle"></i> Belum ada komentar!</p></div>')
+        }
       }
     })
   }

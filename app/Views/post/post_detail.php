@@ -58,40 +58,19 @@
             <div style="height: 60px" class="card-header">
               <h5 class="d-flex justify-content-center"><b>Komentar Diskusi</b></h5>
             </div><!-- /.card-header -->
-            <div class="card-footer card-comments">
-              <div class="card-comment">
-                <div class="row">
-                  <div class="col-12">
-                    <img class="img-circle img-sm" src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Image"><!-- User image -->
-                    <div class="comment-text">
-                    <span class="username">
-                      Maria Gonzales
-                      <span class="text-muted float-right">8:03 PM Today</span>
-                    </span><!-- /.username -->
-                    It is a long established fact that a reader will be distracted
-                    by the readable content of a page when looking at its layout.
-                    </div><!-- /.comment-text -->
-                  </div><!-- /.col -->
-                </div><!-- /.row -->
-                <div class="row">
-                  <div class="col-12">
-                    <div style="margin-top: 5px" class="float-right">
-                      <button style="width: 50px" type="button" class="btn btn-outline-success btn-xs">
-                        <i class="fas fa-thumbs-up"></i> 123
-                      </button>
-                      <button style="width: 50px" type="button" class="btn btn-outline-danger btn-xs">
-                        <i class="fas fa-thumbs-down"></i> 123
-                      </button>
-                    </div>
-                  </div><!-- /.col -->
-                </div><!-- /.row -->
-              </div><!-- /.card-comment -->
+            <div class="card-footer card-comments" id="comment_list_data"><!-- NOTE : Get data using AJAX -->
+              <!-- TODO : Empty comment -->
             </div><!-- /.card-footer -->
             <div class="card-footer">
-              <form action="#" method="post">
+              <form id="comment_add_form">
                 <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
                 <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
-                  <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">
+                  <div class="form-group">
+                    <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                  <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
+                  <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
                 </div>
               </form>
             </div><!-- /.card-footer -->
@@ -147,6 +126,23 @@
 <?= $this->section('script') ?>
 <script>
   // Callable functions
+  function get_comment_list() {
+    $.ajax({
+      url: "<?= base_url('comment/list') ?>",
+      dataType: "json",
+      type: "post",
+      data: {
+        pid: "<?= $post->pid ?>",
+      },
+      success: function(res) {
+        if (res.status) {
+          $("#comment_list_data").html(res.comments)
+        }
+        // $(".overlay").hide()
+      }
+    })
+  }
+
   function submit_update_post_form(formData) {
     $.ajax({
       url: "<?= base_url('post/save') ?>",
@@ -176,7 +172,10 @@
 
   // Main scripts
   $(document).ready(function() {
-    // Create post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
+    // Get comment list
+    get_comment_list()
+
+    // Delete post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
     $(document).on("click", ".btn-delete-post", function() {
       let pid = $(this).data("id")
       Swal.fire({
@@ -235,6 +234,36 @@
       $("#post_modal_edit").modal("toggle")
       $("#post_modal_edit_form #judul").text(judul)
       $("#post_modal_edit_form #deskripsi").text(deskripsi)
+    })
+
+    // Create comment (form submit)
+    $(document).on("submit", "#comment_add_form", function(e) {
+      e.preventDefault()
+      let formData = new FormData(this);
+      $.ajax({
+        url: "<?= base_url('comment/save') ?>",
+        type: "post",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        dataType: "json",
+        success: function(res) {
+          if (res.status) {
+            $("#comment_add_form #komentar").val('') // NOTE : To reset prev input
+            get_comment_list()
+          } else {
+            $.each(res.errors, function(key, value) { 
+              $('[id="' + key + '"]').addClass('is-invalid')
+              $('[id="' + key + '"]').next().text(value)
+              if (value == "") {
+                $('[id="' + key + '"]').removeClass('is-invalid')
+                $('[id="' + key + '"]').addClass('is-valid')
+              }
+            })
+          }
+        }
+      })
     })
 
     // Update post (form submit)

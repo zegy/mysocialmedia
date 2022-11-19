@@ -40,7 +40,7 @@
                 </div>
               </div>
             </div><!-- /.card-header -->
-            <div class="post_list"><!-- NOTE : Get data using AJAX -->
+            <div id="post_list_data"><!-- NOTE : Get data using AJAX -->
               <div class="card-body" style="height: 355px;"><!-- NOTE : act as "empty table" so "loading" overlay animation will be at the center of the card. This element will replaced with the one from the "source" -->
                 <h3>Belum ada diskusi di forum ini</h3>
                 Silahkan buat diskusi perdana dari anda!
@@ -141,7 +141,7 @@
       },
       success: function(res) {
         if (res.status) {
-          $(".post_list").html(res.posts)
+          $("#post_list_data").html(res.posts)
         }
         $(".overlay").hide()
       }

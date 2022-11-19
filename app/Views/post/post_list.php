@@ -1,4 +1,3 @@
-<?php if($posts) { ?>
 <div class="card-body table-responsive p-0" style="height: auto;">
   <!-- <table class="table table-head-fixed text-nowrap projects"> -->
   <table style="text-align: center" class="table table-head-fixed text-wrap projects"> <!-- TODO : Clean "projects" later -->
@@ -31,4 +30,3 @@
     <li class="page-item"><a class="page-link btn-pagination" href="#" id="<?= $pager->getPageCount() ?>">&raquo;</a></li> <!-- NOTE : The getLastPageNumber and getPageCount not working properly in "template". Hence why it's here -->
   </ul>
 </div>
-<?php } ?>

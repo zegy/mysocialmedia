@@ -3,115 +3,98 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-// use App\Controllers\Notification; //NOTE Needed soon
 use App\Models\CommentModel;
-use App\Models\PostModel;
-use App\Models\UserModel;
-use CodeIgniter\I18n\Time;
 
 class Comment extends BaseController
 {
     function __construct()
     {
-        helper('form');
-        $this->userModel    = new UserModel();
-        $this->postModel    = new PostModel();
         $this->commentModel = new CommentModel();
     }
 
-    public function save() //TODO save or edit comment. Okd format, sync with post controller after using javascript
-    {
-        $data = $this->request->getPost();
+    // public function index($pid)
+    // {
+    //     return view('post/comment_index', ["pid" => $pid]);
+    // }
 
-        if ($data["save_type"] == "new_com")
+    public function list() //NOTE : AJAX
+    {
+        if ($this->request->isAJAX())
         {
-            if (!empty($data["text"]))
-            {
-                $dataToSave =
-                [
-                    "comment_fk_user"   => session('id'),
-                    "comment_fk_post"   => $data["post_id"],
-                    "comment_text"      => $data["text"],
-                ];
+            $pid = $this->request->getPost('pid');
+            $comments = $this->commentModel->getAllByPost($pid);
+            
+            if (!empty($comments))
+            {     
+                echo json_encode([
+                    'comments'  => view('comment/comment_list', ["comments" => $comments]),
+                    'status' => true
+                ]);
             }
             else
             {
-                return redirect()->to('/'); // ZEGY OTC 404 COMMENT IS EMPTY (RELATED TO "REQUIRED" VIEW)
+                echo json_encode(['status' => false]);
             }
-        }
-
-        if ($data["save_type"] == "edit_com")
-        {
-            if ($data["com_user_id"] == session('id'))
-            {
-                if (!empty($data["text"]))
-                {
-                    $dataToSave =
-                    [
-                        "comment_pk"   => $data["com_id"], // ZEGY OTC : CI tau method "save" update otomatos berdasarkan PK?
-                        "comment_text" => $data["text"]
-                    ];
-                }
-                else
-                {
-                    return redirect()->to('/'); // ZEGY OTC 404 COMMENT IS EMPTY (RELATED TO "REQUIRED" VIEW)
-                }
-            }
-        }
-
-        $request = $this->commentModel->save($dataToSave);
-
-        // if ($request)
-        // {
-        //     $fcm = new Notification();
-        //     $sendNotif = $fcm->sendFCM($data); //FCM
-        //     return redirect()->to('/comment/show/'. $data["post_id"]);
-        // }
-        // else
-        // {
-        //     // ZEGY OTC ERROR
-        // }
-
-        return redirect()->to('/comment/show/'. $data["post_id"]); // ZEGY DANGER SEMENTARA!
-
-    }
-
-    public function delete($cid)
-    {
-        $comment = $this->commentModel->find($cid);
-        
-        if (!empty($comment))
-        {
-            if (session('id') == $comment->comment_fk_user)
-            {
-                $this->commentModel->delete($cid);
-                return redirect()->back();
-            }
-            else
-            {
-                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
-            }
-        }
-    }
-
-    public function edit($cid)
-    {
-        $comment = $this->commentModel->find($cid);
-
-        if (!empty($comment))
-        {
-            if (session('id') == $comment->comment_fk_user)
-            {
-                echo view('forms/form_edit_comment', ['comment' => $comment]); // ZEGY OTC IT WILL USE "SAVE() COMMENT" LATER
-            }
-            else
-            {
-                return redirect()->to('/'); // ZEGY OTC INVALID OWNER
-            }   
         }
         else
         {
-            return redirect()->to('/'); // ZEGY OTC 404 COMMENT NOT FOUND
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    public function save () //NOTE : AJAX. Single create + update function
+    {
+        if ($this->request->isAJAX())
+        {
+            $validated = $this->validate([
+                'komentar' => ['required']
+            ]);
+
+            if (!$validated) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
+            {
+                $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
+                    'komentar' => $this->validation->getError('komentar')
+                ];
+
+                $output = [
+                    'errors' => $errors,
+                    'status' => false
+                ];
+
+                echo json_encode($output);
+            }
+            else //NOTE : IF VALID
+            {
+                $cid = $this->request->getPost('cid'); //NOTE : To decide if it's create or update comment. If no cid (null) = create comment. Otherwise it's update comment
+                if (empty($cid)) //NOTE : Create
+                {
+                    $data = [
+                        "comment_fk_user"   => session('id'),
+                        "comment_fk_post"   => $this->request->getPost('pid'),
+                        "comment_text"      => $this->request->getPost('komentar'),
+                    ];
+
+                    $this->commentModel->save($data);
+                    $pid = $this->commentModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
+                }
+                else //NOTE : Update
+                {
+                    $data = [
+                        "comment_pk"   => $cid,
+                        "comment_text" => $this->request->getPost('komentar'),
+                    ];
+                    
+                    $this->commentModel->save($data);
+                }
+                
+                echo json_encode([
+                    'status' => true
+                ]);
+            }
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
 }

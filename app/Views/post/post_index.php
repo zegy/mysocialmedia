@@ -215,7 +215,7 @@
     $(document).on("click", ".table-avatar", function(e) {
       e.preventDefault()
       //NOTE : Using "data()" so no need to request the same data again (from post_list)
-      let id = $(this).data('id')
+      let uid = $(this).data('uid')
       let ufn = $(this).data('user_full_name')
       let role = $(this).data('user_role')
       $("#user_sum_modal .lead").html('<b>'+ ufn + '</b>')

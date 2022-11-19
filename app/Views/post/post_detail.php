@@ -224,6 +224,12 @@
 
     // Update post (form modal with data)
     $(document).on("click", ".btn-edit-post", function() {
+      //NOTE : Reset prev modal (if prev is canceled). TODO : More better syntax
+      $("#post_modal_edit_form textarea").removeClass('is-invalid is-valid')
+      $("#post_modal_edit_form input").removeClass('is-invalid is-valid')
+      $("#post_modal_edit_form #cb_update_image" ).prop( "checked", false );
+      $("#files_input").hide();
+
       let judul = $("#post_judul").text()
       let deskripsi = $("#post_deskripsi").text()
 

@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h4><b>Judul Diskusi : </b><span id="judul"><?= $post->pttl ?></span></h4>
+          <h4><b>Judul Diskusi : </b><span id="post_judul"><?= $post->pttl ?></span></h4>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -46,7 +46,7 @@
               </div>
               <?php } ?>
               <?php } ?>
-              <p id="deskripsi"><?= $post->texto ?></p>
+              <p id="post_deskripsi"><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
               <span class="float-right text-muted">3 comments</span>
@@ -158,7 +158,7 @@
       dataType: "json",
       success: function(res) {
         if (res.status) {
-          $(".modal").modal("toggle")
+          $("#post_modal_edit").modal("toggle")
           window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
         } else {
           $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
@@ -230,8 +230,8 @@
 
     // Update post (form modal with data)
     $(document).on("click", ".btn-edit-post", function() {
-      let judul = $("#judul").text()
-      let deskripsi = $("#deskripsi").text()
+      let judul = $("#post_judul").text()
+      let deskripsi = $("#post_deskripsi").text()
       $("#post_modal_edit").modal("toggle")
       $("#post_modal_edit_form #judul").text(judul)
       $("#post_modal_edit_form #deskripsi").text(deskripsi)

@@ -53,13 +53,15 @@ $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
 
 // AJAX
-$routes->add('post/list',    'Post::list');
-$routes->add('post/delete',  'Post::delete');
-$routes->add('post/save',    'Post::save');
+$routes->add('post/list',   'Post::list');
+$routes->add('post/delete', 'Post::delete');
+$routes->add('post/save',   'Post::save');
 
 $routes->add('comment/list',   'Comment::list');
 $routes->add('comment/save',   'Comment::save');
 $routes->add('comment/delete', 'Comment::delete');
+
+$routes->add('comment/like', 'Comment::like');
 
 
 $routes->match(['get', 'post'], 'imageRender/(:segment)', 'RenderImage::index/$1');

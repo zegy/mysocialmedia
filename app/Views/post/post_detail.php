@@ -173,6 +173,29 @@
     // Get comment list
     get_comment_list()
 
+    // Like a comment
+    $(document).on("click", ".btn-like-comment", function() {
+      let cid = $(this).data("cid")
+      $.ajax({
+        url: "<?= base_url('comment/like') ?>",
+        dataType: "json",
+        type: "post",
+        data: {
+          cid: cid
+        },
+        success: function(res) {
+          if (res.status) {
+            // $("#post_list_data").html(res.posts)
+          }
+          else
+          {
+            // $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
+          }
+        //   $(".overlay").hide()
+        }
+      })
+    })
+
     // Delete post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
     $(document).on("click", ".btn-delete-post", function() {
       let pid = $(this).data("id")

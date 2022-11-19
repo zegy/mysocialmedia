@@ -62,6 +62,7 @@ class Post extends BaseController
                 foreach ($imgs as $img)
                 {
                     unlink(WRITEPATH . 'uploads/posts/' . $img);
+                    unlink(WRITEPATH . 'uploads/posts/thumb' . $img);
                 }
             }
             
@@ -118,6 +119,8 @@ class Post extends BaseController
             }
             else //NOTE : IF VALID
             {
+                $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
+
                 $pid = $this->request->getPost('pid'); //NOTE : To decide if it's create or update post. If no pid (null) = create post. Otherwise it's update post
                 if (empty($pid)) //NOTE : Create
                 {
@@ -131,7 +134,6 @@ class Post extends BaseController
                     $images = $this->request->getFileMultiple('images');
                     if (file_exists($images[0]))
                     {
-                        $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class
                         $count = 0;
                         foreach($images as $image)
                         {
@@ -149,7 +151,7 @@ class Post extends BaseController
                                     ->save(WRITEPATH . 'uploads/posts/thumb' . $name);
 
                                 $count++;
-                            }           
+                            }        
                         }
                         $data["post_img"] = implode(",", $imageNames);
                     }
@@ -177,6 +179,7 @@ class Post extends BaseController
                             foreach ($old_images_to_remove as $old_image_to_remove)
                             {
                                 unlink(WRITEPATH . 'uploads/posts/' . $old_image_to_remove);
+                                unlink(WRITEPATH . 'uploads/posts/thumb' . $old_image_to_remove);
                             }
                         }
                         
@@ -189,11 +192,19 @@ class Post extends BaseController
                             {
                                 if($image->isValid() && !$image->hasMoved())
                                 {
+                                    // Saving image
                                     $name = $image->getRandomName();
                                     $imageNames[$count] = $name; 
                                     $image->move(WRITEPATH . 'uploads/posts', $name);
+
+                                    // Thumbnail Creation
+                                    $image_man
+                                        ->withFile(WRITEPATH . 'uploads/posts/' . $name)
+                                        ->fit(100, 100, 'center')
+                                        ->save(WRITEPATH . 'uploads/posts/thumb' . $name);
+
                                     $count++;
-                                }           
+                                } 
                             }
                             $data["post_img"] = implode(",", $imageNames);
                         }

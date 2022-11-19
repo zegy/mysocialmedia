@@ -70,6 +70,7 @@
                     <div class="invalid-feedback"></div>
                   </div>
                   <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
+                  <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
                   <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
                 </div>
               </form>
@@ -267,6 +268,15 @@
           }
         }
       })
+    })
+
+    // Update comment (Put value in "comment_add_form")
+    $(document).on("click", ".btn-edit-comment", function() {
+      let cid = $(this).data("cid")
+      let comment_text = $(this).data("comment_text")
+      $("#comment_add_form #cid").val(cid)
+      $("#comment_add_form #komentar").text(comment_text)
+      $("#comment" + cid).hide()
     })
 
     // Delete comment (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)

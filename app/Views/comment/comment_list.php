@@ -1,5 +1,5 @@
 <?php foreach ($comments as $comment) { ?>
-<div class="card-comment">
+<div class="card-comment" id="<?= 'comment' . $comment->cid ?>">
   <div class="row">
     <div class="col-12">
       <img class="img-circle img-sm" src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Image"><!-- User image -->
@@ -24,7 +24,7 @@
       </div>
       <div style="margin-top: 5px; margin-left: 40px" class="float-left">
         <button type="button" class="btn btn-danger btn-xs btn-delete-comment" data-cid="<?= $comment->cid ?>"><i class="far fa-trash-alt"></i></button>
-        <button type="button" class="btn btn-secondary btn-xs btn-edit-comment"><i class="far fa-edit"></i></button>
+        <button type="button" class="btn btn-secondary btn-xs btn-edit-comment" data-cid="<?= $comment->cid ?>" data-comment_text="<?= $comment->texto ?>"><i class="far fa-edit"></i></button>
       </div>
     </div><!-- /.col -->
   </div><!-- /.row -->

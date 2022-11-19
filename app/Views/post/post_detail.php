@@ -236,9 +236,11 @@
     $(document).on("click", ".btn-edit-post", function() {
       let judul = $("#post_judul").text()
       let deskripsi = $("#post_deskripsi").text()
+
       $("#post_modal_edit").modal("toggle")
-      $("#post_modal_edit_form #judul").text(judul)
-      $("#post_modal_edit_form #deskripsi").text(deskripsi)
+
+      $("#post_modal_edit_form #judul").val(judul)
+      $("#post_modal_edit_form #deskripsi").val(deskripsi)
     })
 
     // Create comment (form submit)

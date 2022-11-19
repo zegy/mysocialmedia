@@ -131,14 +131,23 @@ class Post extends BaseController
                     $images = $this->request->getFileMultiple('images');
                     if (file_exists($images[0]))
                     {
+                        $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class
                         $count = 0;
                         foreach($images as $image)
                         {
                             if($image->isValid() && !$image->hasMoved())
                             {
+                                // Saving image
                                 $name = $image->getRandomName();
                                 $imageNames[$count] = $name; 
                                 $image->move(WRITEPATH . 'uploads/posts', $name);
+
+                                // Thumbnail Creation
+                                $image_man
+                                    ->withFile(WRITEPATH . 'uploads/posts/' . $name)
+                                    ->fit(100, 100, 'center')
+                                    ->save(WRITEPATH . 'uploads/posts/thumb' . $name);
+
                                 $count++;
                             }           
                         }

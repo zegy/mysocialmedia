@@ -34,7 +34,7 @@
               <?php if (!empty($post->img)){ $imgs = explode(",", $post->img); foreach ($imgs as $img) {?>
                 <div class="col-sm-2">
                   <a href="<?= base_url('imageRender/' . $img) ?>" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
-                    <img src="<?= base_url('imageRender/' . $img) ?>" class="img-fluid mb-2" alt="white sample"/>
+                    <img src="<?= base_url('imageRender/thumb' . $img) ?>" class="img-fluid mb-2" alt="white sample"/>
                   </a>
                 </div>
               <?php } } ?>

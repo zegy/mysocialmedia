@@ -72,6 +72,7 @@
                   <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
                   <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
                   <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
+                  <button type="reset" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right btn-cancel-edit-comment">Batal</button>
                 </div>
               </form>
             </div><!-- /.card-footer -->
@@ -254,7 +255,9 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
+            $("#comment_add_form #cid").val('') // NOTE : To reset prev input
             $("#comment_add_form #komentar").val('') // NOTE : To reset prev input
+            $(".btn-cancel-edit-comment").hide() //NOTE : Related to edit comment
             get_comment_list()
           } else {
             $.each(res.errors, function(key, value) { 
@@ -275,8 +278,15 @@
       let cid = $(this).data("cid")
       let comment_text = $(this).data("comment_text")
       $("#comment_add_form #cid").val(cid)
-      $("#comment_add_form #komentar").text(comment_text)
+      $("#comment_add_form #komentar").val(comment_text)
       $("#comment" + cid).hide()
+      $(".btn-cancel-edit-comment").show()
+
+      $(document).on("click", ".btn-cancel-edit-comment", function() {
+        $("#comment_add_form textarea").removeClass('is-invalid is-valid') //NOTE : Reset validation status (spesific for #comment_add_form)
+        $("#comment" + cid).show()
+        $(".btn-cancel-edit-comment").hide()
+      })
     })
 
     // Delete comment (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)

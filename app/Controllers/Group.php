@@ -3,52 +3,32 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
+// use App\Models\GroupModel;
 
 class Group extends BaseController
 {
     function __construct()
     {
-        helper('form');
-        $this->userModel = new UserModel();
+        // $this->groupModel = new GroupModel();
     }
 
     public function index()
     {
-        // if ($this->request->isAJAX()) {
-        //     $data =
-        //     [
-        //       "posts" => $this->postModel->getAllByType($group),
-        //       "pager" => $this->postModel->pager,
-        //     ];
-      
-        //     $output = view('posts_table', $data);
-        //     echo json_encode($output);
-        // }
-        // else
-        // {
-        //     $data = [
-        //         "group" => $group
-        //     ];
-        //     return view('posts', $data);
-        // }
+        return view('group/group_index');
+    }
 
-        if ($this->request->isAJAX()) {
-            $output = view('group_list');
-            echo json_encode($output);
+    public function list() //NOTE : AJAX
+    {
+        if ($this->request->isAJAX())
+        {
+            echo json_encode([
+                'groups' => view('group/group_list'),
+                'status' => true
+            ]);
         }
         else
         {
-            return view('group');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-    }
-
-    public function create()
-    {
-        // return view('posts',
-        // [
-        //     "posts" => $this->postModel->getAllByType($group),
-        //     "pager" => $this->postModel->pager,
-        // ]);
     }
 }

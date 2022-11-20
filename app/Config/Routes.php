@@ -63,6 +63,11 @@ $routes->add('comment/delete', 'Comment::delete');
 
 $routes->add('comment/like', 'Comment::like');
 
+$routes->add('group_lists', 'Group::index');
+$routes->add('group_list',  'Group::list');
+
+
+
 
 $routes->match(['get', 'post'], 'imageRender/(:segment)', 'RenderImage::index/$1');
 // Fixed END

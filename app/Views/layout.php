@@ -34,7 +34,7 @@
           <a href="<?php echo base_url('user/showprofile/' . session('id')) ?>" class="nav-link">Profile</a>
         </li>
         <li class="nav-item">
-          <a href="<?php echo base_url('group') ?>" class="nav-link">Forum Diskusi</a>
+          <a href="<?php echo base_url('group_lists') ?>" class="nav-link">Forum Diskusi</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto"><!-- Right navbar links -->      

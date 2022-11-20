@@ -216,7 +216,7 @@ ALTER TABLE `t_comment`
 --
 ALTER TABLE `t_like`
   ADD CONSTRAINT `like_fk_user` FOREIGN KEY (`like_fk_user`) REFERENCES `t_user` (`user_pk`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `like_fk_comment` FOREIGN KEY (`like_fk_comment`) REFERENCES `t_comment` (`comment_pk`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `like_fk_comment` FOREIGN KEY (`like_fk_comment`) REFERENCES `t_comment` (`comment_pk`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `t_post`

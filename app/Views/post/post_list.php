@@ -19,7 +19,7 @@
             <?= $post->data ?>
           </small>
         </td>
-        <td style="width: 100%; min-width: 330px; text-align: justify"><a href="<?= base_url('group/umum/detail/' . $post->pid) ?>"><?= $post->pttl ?></a></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
+        <td style="width: 100%; min-width: 330px; text-align: justify"><a style="text-decoration: none; color: inherit;" href="<?= base_url('group/umum/detail/' . $post->pid) ?>"><?= $post->pttl ?></a></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
       </tr>
       <?php } ?>
     </tbody>

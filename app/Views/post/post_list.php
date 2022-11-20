@@ -3,9 +3,9 @@
   <table style="text-align: center" class="table table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
     <thead>
       <tr>
-        <th>ID</th>
-        <th>User</th>
-        <th>Reason</th>
+        <th>No.</th>
+        <th>Pembuat</th>
+        <th>Judul Diskusi</th>
       </tr>
     </thead>
     <tbody>

@@ -225,6 +225,13 @@
       $("#user_sum_modal .card-header").text(role)
       $("#user_sum_modal").modal("toggle")
     })
+
+    // Redirect to post_detail after click post_text's area (The table's td)
+    $(document).on("click", ".post_td_text", function(e) {
+      e.preventDefault()
+      let link = $(this).data('link')
+      window.location = link
+    })
   })
 </script>
 <?= $this->endSection() ?>

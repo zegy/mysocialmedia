@@ -160,13 +160,17 @@
           //NOTE : If images change, (Get the names from controller)
           if (res.images_change) {
             $("#post_images").empty() //NOTE : Clear prev images
-            $.each(res.images, function(index, value) {
-              $("#post_images").append('<div class="col-2"><a href="<?= base_url('imageRender')  . '/' ?>'+ value +'" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery"><img src="<?= base_url('imageRender/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
-            });
+            if($.isEmptyObject(res.images)) {
+                $("#post_modal_edit_form #old_images").val(null)
+            }else {
+                $.each(res.images, function(index, value) {
+                  $("#post_images").append('<div class="col-2"><a href="<?= base_url('imageRender')  . '/' ?>'+ value +'" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery"><img src="<?= base_url('imageRender/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
+                })
 
-            //NOTE DANGER : Set new value for old_images (Prev is from controller as object)
-            let res_images_string = (res.images).toString()
-            $("#post_modal_edit_form #old_images").val(res_images_string)
+                //NOTE DANGER : Set new value for old_images (Prev is from controller as object)
+                let res_images_string = (res.images).toString()
+                $("#post_modal_edit_form #old_images").val(res_images_string)
+            }
           }
         } else {
           $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
@@ -225,6 +229,7 @@
     // Delete post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
     $(document).on("click", ".btn-delete-post", function() {
       let pid = $(this).data("id")
+      let images = $("#post_modal_edit_form #old_images").val() //NOTE DANGER : Get the file names from this input value because it's dynamic (change after there is image post edit)
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -241,7 +246,7 @@
             type: "post",
             data: {
               pid: pid,
-              images : "<?= $post->img ?>"
+              images : images
             },
             success: function(res) {
               Swal.fire({

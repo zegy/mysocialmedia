@@ -22,7 +22,6 @@
             <div class="card-header">
               <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i></button>
               <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
-              <button class="btn btn-secondary btn-sm btn-refresh-post"><i class="fas fa-bars"></i></button>
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
                   <input type="text" name="table_search" class="form-control float-right" placeholder="Search">

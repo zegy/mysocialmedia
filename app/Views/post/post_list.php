@@ -1,23 +1,25 @@
-<div class="card-body table-responsive p-0" style="height: auto;">
+<div class="card-body" style="height: auto;">
   <!-- <table class="table table-head-fixed text-nowrap projects"> -->
-  <table style="text-align: center" class="table table-head-fixed text-wrap projects"> <!-- TODO : Clean "projects" later -->
+  <table style="text-align: center" class="table table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
     <thead>
       <tr>
         <th>ID</th>
         <th>User</th>
         <th>Reason</th>
-        <th>Date</th>
-        <th>Status</th>
       </tr>
     </thead>
     <tbody>
       <?php foreach ($posts as $post) { ?>
       <tr>
-        <td><?= $post->pid ?></td>
-        <td><img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" data-uid="<?= $post->uid ?>" data-user_full_name="<?= $post->nome ?>" data-user_role="<?= $post->role ?>"></td> <!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
-        <td style="min-width: 330px; max-width: 330px; text-align: justify"><a href="<?= base_url('group/umum/detail/' . $post->pid) ?>"><?= $post->pttl ?></a></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
-        <td style="min-width: 100px"><?= $post->data ?></td>
-        <td><span class="badge bg-warning">Pending</span></td>
+        <td style="width: 50px; min-width: 50px"><?= $post->pid ?></td>
+        <td style="width: 150px; min-width: 150px">
+          <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" data-uid="<?= $post->uid ?>" data-user_full_name="<?= $post->nome ?>" data-user_role="<?= $post->role ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
+          <br/>
+          <small>Pada : 
+            <?= $post->data ?>
+          </small>
+        </td>
+        <td style="width: 100%; min-width: 330px; text-align: justify"><a href="<?= base_url('group/umum/detail/' . $post->pid) ?>"><?= $post->pttl ?></a></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
       </tr>
       <?php } ?>
     </tbody>

@@ -30,7 +30,7 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div class="card-body">
-              <div class="row">
+              <div class="row" id="post_images">
               <?php if (!empty($post->img)){ $imgs = explode(",", $post->img); foreach ($imgs as $img) {?>
                 <div class="col-2">
                   <a href="<?= base_url('imageRender/' . $img) ?>" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
@@ -153,7 +153,21 @@
       success: function(res) {
         if (res.status) {
           $("#post_modal_edit").modal("toggle")
-          window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+          //NOTE : Set the data from formData to current page (Not get them from controller)
+          $("#post_deskripsi").text(formData.get('deskripsi'))
+          $("#post_judul").text(formData.get('judul'))
+
+          //NOTE : If images change, (Get the names from controller)
+          if (res.images_change) {
+            $("#post_images").empty() //NOTE : Clear prev images
+            $.each(res.images, function(index, value) {
+              $("#post_images").append('<div class="col-2"><a href="<?= base_url('imageRender')  . '/' ?>'+ value +'" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery"><img src="<?= base_url('imageRender/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
+            });
+
+            //NOTE DANGER : Set new value for old_images (Prev is from controller as object)
+            let res_images_string = (res.images).toString()
+            $("#post_modal_edit_form #old_images").val(res_images_string)
+          }
         } else {
           $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
             $('[id="' + key + '"]').addClass('is-invalid')
@@ -272,6 +286,7 @@
 
       $("#post_modal_edit_form #judul").val(judul)
       $("#post_modal_edit_form #deskripsi").val(deskripsi)
+      //NOTE : old_images value is reset after submit based on res! (default : from controller)
     })
 
     // Create comment (form submit)

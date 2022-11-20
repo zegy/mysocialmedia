@@ -157,6 +157,12 @@ class Post extends BaseController
                     }
                     $this->postModel->save($data);
                     $pid = $this->postModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
+
+                    echo json_encode([
+                        'group'  => $this->request->getPost('group'),
+                        'pid'    => $pid,
+                        'status' => true
+                    ]);
                 }
                 else //NOTE : Update
                 {
@@ -212,15 +218,24 @@ class Post extends BaseController
                         {
                             $data["post_img"] = null;
                         }
+                    
+                        $this->postModel->save($data);
+
+                        echo json_encode([
+                            'images' => $imageNames ?? null,
+                            'images_change' => true,
+                            'status' => true,
+                        ]);
                     }
-                    $this->postModel->save($data);
+                    else
+                    {
+                        $this->postModel->save($data);
+
+                        echo json_encode([
+                            'status' => true
+                        ]);
+                    }
                 }
-                
-                echo json_encode([
-                    'group'  => $this->request->getPost('group'),
-                    'pid'    => $pid,
-                    'status' => true
-                ]);
             }
         }
         else

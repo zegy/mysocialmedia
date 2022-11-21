@@ -49,7 +49,7 @@
               <!-- NOTE : Get data using AJAX (Replace anything inside this "comment_list_data" after request) -->
             </div><!-- /.card-footer -->
             <div class="card-footer">
-              <form id="comment_mixed_form">
+              <form id="comment_add_form">
                 <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
                 <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="form-group">
@@ -109,6 +109,23 @@
     </div>
   </div>
 </form>
+
+<!-- OTHER -->
+<div style="display: none">
+  <form id="comment_edit_form">
+    <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
+    <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
+      <div class="form-group">
+        <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>
+        <div class="invalid-feedback"></div>
+      </div>
+      <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
+      <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
+      <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
+      <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-edit-comment">Batal</button>
+    </div>
+  </form>
+</div>
 <?= $this->endSection() ?>
 
 <!-- SCRIPTS -->
@@ -204,15 +221,13 @@
     // After loaded
     get_comment_list()
 
-    // [Optional] Ekko Lightbox (For post's images)
-    <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
+    // Ekko Lightbox (For post's images)
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
       event.preventDefault()
       $(this).ekkoLightbox({
         alwaysShowClose: true
       })
     })
-    <?php } ?>
 
     // Update post (Form modal with data)
     $(document).on("click", "#btn-edit-post", function() {
@@ -311,38 +326,40 @@
       })
     })
 
-
-
-
-
-    // Update comment (Get the "comment_mixed_form" and "copy" it as "comment-edit-form" for each comment)
-    $(document).on("click", "#btn-edit-comment", function() {
+    // Update comment (Get the "comment_edit_form" and set it as temp)
+    let hasCommentEditForm = false // NOTE : Global var (Not inside function)
+    $(document).on("click", ".btn-edit-comment", function() {
+      if (hasCommentEditForm) { //NOTE : Check if already has "temp_comment_edit_form"
+        $("#temp_comment_edit_form").remove()
+        $(".btn-edit-comment").prop('disabled', false)
+        hasCommentEditForm = false
+      }
+      
       $(this).prop('disabled', true);
 
       let cid = $(this).data("cid")
       let comment_text = $("#comment" + cid + " " + "#comment_text").text()
 
-      $("#comment_mixed_form textarea").removeClass('is-invalid is-valid') //NOTE : Remove prev validation status of "comment_mixed_form"
-
-      let editForm = $("#comment_mixed_form").html()
-      $("#comment" + cid).append('<div class="card-footer" id="comment-edit-form' + cid + '"><form id="comment_mixed_form">' + editForm + '</form></div>')
+      let editForm = $("#comment_edit_form").html()
+      $("#comment" + cid).append('<div class="card-footer"><form id="temp_comment_edit_form">' + editForm + '</form></div>')
       
-      $("#comment-edit-form" + cid + " " + "#cid").val(cid)
-      $("#comment-edit-form" + cid + " " + "#komentar").val(comment_text)
-      $("#comment-edit-form" + cid + " " + "#btn-cancel-edit-comment").attr('data-cid', cid)
-      $("#comment-edit-form" + cid + " " + "#btn-cancel-edit-comment").show()
+      $("#temp_comment_edit_form #cid").val(cid)
+      $("#temp_comment_edit_form #komentar").val(comment_text)
+      $("#temp_comment_edit_form #btn-cancel-edit-comment").show()
+
+      hasCommentEditForm = true
+
+      // Cancel update comment (Nested function)
+      $(document).on("click", "#btn-cancel-edit-comment", function() {  
+        $("#temp_comment_edit_form").remove()
+        $("#comment" + cid + " " + ".btn-edit-comment").prop('disabled', false)
+  
+        hasCommentEditForm = false
+      })
     })
 
-    // Cancel update comment
-    $(document).on("click", "#btn-cancel-edit-comment", function() {
-      let cid = $(this).data("cid")
-
-      $("#comment-edit-form" + cid).remove()
-      $("#comment" + cid + " " + "#btn-edit-comment").prop('disabled', false)
-    })
-
-    // Create / Update comment (Mixed - form submit)
-    $(document).on("submit", "#comment_mixed_form", function(e) {
+    // Create comment (Form submit)
+    $(document).on("submit", "#comment_add_form", function(e) {
       e.preventDefault()
 
       let formData = new FormData(this);
@@ -357,9 +374,38 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            //NOTE : Reset "comment_mixed_form"
-            $("#comment_mixed_form #cid").val('')
-            $("#comment_mixed_form #komentar").val('')
+            //NOTE : Reset "comment_add_form"
+            $("#comment_add_form #cid").val('')
+            $("#comment_add_form #komentar").val('')
+
+            $("#btn-cancel-edit-comment").hide()
+            get_comment_list()
+          } else {
+            set_errors(res.errors)
+          }
+        }
+      })
+    })
+
+    // Update comment (Form submit)
+    $(document).on("submit", "#temp_comment_edit_form", function(e) {
+      e.preventDefault()
+
+      let formData = new FormData(this);
+      
+      $.ajax({
+        url: "<?= base_url('comment/save') ?>",
+        type: "post",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        dataType: "json",
+        success: function(res) {
+          if (res.status) {
+            //NOTE : Reset "comment_add_form"
+            $("#comment_add_form #cid").val('')
+            $("#comment_add_form #komentar").val('')
 
             $("#btn-cancel-edit-comment").hide()
             get_comment_list()
@@ -371,7 +417,7 @@
     })
 
     // Delete comment (Fully using "sweetalert2")
-    $(document).on("click", "#btn-delete-comment", function() {
+    $(document).on("click", ".btn-delete-comment", function() {
       let cid = $(this).data("cid")
 
       Swal.fire({

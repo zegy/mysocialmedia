@@ -313,28 +313,21 @@
 
 
 
-    // Update comment (Put values to "comment_mixed_form")
+    // Update comment (Get the "comment_mixed_form" and "copy" it as "comment-edit-form" for each comment)
     $(document).on("click", "#btn-edit-comment", function() {
       let cid = $(this).data("cid")
       let comment_text = $("#comment" + cid + " " + "#comment_text").text()
 
-      $("#comment_mixed_form #cid").val(cid)
-      $("#comment_mixed_form #komentar").val(comment_text)
+      let editForm = $("#comment_mixed_form").html()
+      $("#comment" + cid).append('<div class="card-footer" id="comment-edit-form' + cid + '"><form id="comment_mixed_form">' + editForm + '</form></div>')
       
-      $("#comment" + cid).hide()
-      
-      $("#btn-cancel-edit-comment").show()
-
+      $("#comment-edit-form" + cid + " " + "#cid").val(cid)
+      $("#comment-edit-form" + cid + " " + "#komentar").val(comment_text)
+      $("#comment-edit-form" + cid + " " + "#btn-cancel-edit-comment").show()
+     
       // Cancel update comment. (NOTE : This function is nested!)
       $(document).on("click", "#btn-cancel-edit-comment", function() {
-        //NOTE : Reset "comment_mixed_form"
-        $("#comment_mixed_form textarea").removeClass('is-invalid is-valid') //NOTE : Reset validation status (spesific for #comment_mixed_form)
-        $("#comment_mixed_form #cid").val('')
-        $("#comment_mixed_form #komentar").val('')
-
-        $("#comment" + cid).show()
-
-        $("#btn-cancel-edit-comment").hide()
+        $("#comment-edit-form" + cid).remove()
       })
     })
 

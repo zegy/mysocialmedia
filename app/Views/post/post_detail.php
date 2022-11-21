@@ -315,6 +315,8 @@
 
     // Update comment (Get the "comment_mixed_form" and "copy" it as "comment-edit-form" for each comment)
     $(document).on("click", "#btn-edit-comment", function() {
+      $(this).prop('disabled', true);
+
       let cid = $(this).data("cid")
       let comment_text = $("#comment" + cid + " " + "#comment_text").text()
 
@@ -323,12 +325,16 @@
       
       $("#comment-edit-form" + cid + " " + "#cid").val(cid)
       $("#comment-edit-form" + cid + " " + "#komentar").val(comment_text)
+      $("#comment-edit-form" + cid + " " + "#btn-cancel-edit-comment").attr('data-cid', cid)
       $("#comment-edit-form" + cid + " " + "#btn-cancel-edit-comment").show()
-     
-      // Cancel update comment. (NOTE : This function is nested!)
-      $(document).on("click", "#btn-cancel-edit-comment", function() {
-        $("#comment-edit-form" + cid).remove()
-      })
+    })
+
+    // Cancel update comment
+    $(document).on("click", "#btn-cancel-edit-comment", function() {
+      let cid = $(this).data("cid")
+
+      $("#comment-edit-form" + cid).remove()
+      $("#comment" + cid + " " + "#btn-edit-comment").prop('disabled', false)
     })
 
     // Create / Update comment (Mixed - form submit)

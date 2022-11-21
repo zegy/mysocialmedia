@@ -5,7 +5,7 @@
   <section class="content-header"><!-- Content Header (Page header) -->
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
           <h1>Profile</h1>
         </div>
       </div>

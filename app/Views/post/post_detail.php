@@ -34,8 +34,8 @@
               <?php } } ?>
               </div>
               <p id="post_deskripsi"><?= $post->texto ?></p>
-              <button type="button" class="btn btn-danger btn-xs btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-              <button type="button" class="btn btn-secondary btn-xs btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
+              <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
+              <button type="button" class="btn btn-secondary btn-xs" id="btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
               <span class="float-right text-muted">3 comments</span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
@@ -49,7 +49,7 @@
               <!-- NOTE : Get data using AJAX (Replace anything inside this "comment_list_data" after request) -->
             </div><!-- /.card-footer -->
             <div class="card-footer">
-              <form id="comment_add_form">
+              <form id="comment_mixed_form">
                 <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
                 <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="form-group">
@@ -59,7 +59,7 @@
                   <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
                   <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
                   <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
-                  <button type="reset" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right btn-cancel-edit-comment">Batal</button>
+                  <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-edit-comment">Batal</button>
                 </div>
               </form>
             </div><!-- /.card-footer -->
@@ -89,8 +89,8 @@
             <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
             <div class="invalid-feedback"></div>
           </div>
-          <div style="display: none" class="form-group" id="files_input">
-            <label for="images">File</label>
+          <div style="display: none" class="form-group" id="images_input">
+            <label for="images">Foto </label>
             <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
             <div class="invalid-feedback"></div>
           </div>
@@ -126,9 +126,7 @@
       success: function(res) {
         if (res.status) {
           $("#comment_list_data").html(res.comments)
-        }
-        else
-        {
+        } else {
           $("#comment_list_data").html('<div style="height: 35px; padding-top: 4px; padding-bottom: 4px; margin-bottom: 0px" class="alert alert-warning"><p><i class="icon fas fa-exclamation-triangle"></i> Belum ada komentar!</p></div>')
         }
       }
@@ -147,26 +145,27 @@
       success: function(res) {
         if (res.status) {
           $("#post_modal_edit").modal("toggle")
-          //NOTE : Set the data from formData to current page (Not get them from controller)
+
+          //NOTE : Update post's elements with new value (From prev "formData". Image names is from res)
           $("#post_deskripsi").text(formData.get('deskripsi'))
           $("#post_judul").text(formData.get('judul'))
 
-          //NOTE : If images change, (Get the names from controller)
           if (res.images_change) {
-            $("#post_images").empty() //NOTE : Clear prev images
-            if($.isEmptyObject(res.images)) {
-                $("#post_modal_edit_form #old_images").val(null)
-            }else {
-                $.each(res.images, function(index, value) {
-                  $("#post_images").append('<div class="col-2"><a href="<?= base_url('imageRender')  . '/' ?>'+ value +'" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery"><img src="<?= base_url('imageRender/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
-                })
+            $("#post_images").empty() //NOTE : Clear prev image from element
 
-                //NOTE DANGER : Set new value for old_images (Prev is from controller as object)
-                let res_images_string = (res.images).toString()
-                $("#post_modal_edit_form #old_images").val(res_images_string)
+            if($.isEmptyObject(res.images)) { //NOTE : Check if updated post has image
+              $("#post_modal_edit_form #old_images").val(null)
+            } else {
+              let res_images_string = (res.images).toString()
+              $("#post_modal_edit_form #old_images").val(res_images_string)
+
+              $.each(res.images, function(index, value) {
+                $("#post_images").append('<div class="col-2"><a href="<?= base_url('imageRender')  . '/' ?>'+ value +'" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery"><img src="<?= base_url('imageRender/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
+              })
             }
           }
         } else {
+          //COMMON VALIDATION
           $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
             $('[id="' + key + '"]').addClass('is-invalid')
             $('[id="' + key + '"]').next().text(value)
@@ -175,6 +174,7 @@
               $('[id="' + key + '"]').addClass('is-valid')
             }
           })
+          //COMMON VALIDATION
         }
       }
     })
@@ -191,39 +191,88 @@
       },
       success: function(res) {
         if (res.status) {
-          // $("#post_list_data").html(res.posts)
           get_comment_list()
         }
-        else
-        {
-          // $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
-        }
-      //   $(".overlay").hide()
       }
     })
   }
 
   // Main scripts
   $(document).ready(function() {
-    // Get comment list
+    // After loaded
     get_comment_list()
 
-    // Like a comment
-    $(document).on("click", ".btn-like-comment", function() {
-      let cid = $(this).data("cid")
-      submit_likeordis(cid, 'like')
+    // [Optional] Ekko Lightbox (For post's images)
+    <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault()
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      })
+    })
+    <?php } ?>
+
+    // Update post (Form modal with data)
+    $(document).on("click", "#btn-edit-post", function() {
+      //NOTE : Reset prev modal (If prev is closed)
+      $("#post_modal_edit_form textarea").removeClass('is-invalid is-valid')
+      $("#post_modal_edit_form input").removeClass('is-invalid is-valid')
+      $("#post_modal_edit_form #cb_update_image").prop("checked", false);
+      $("#images_input").hide();
+
+      let judul = $("#post_judul").text()
+      let deskripsi = $("#post_deskripsi").text()
+
+      $("#post_modal_edit").modal("toggle")
+
+      $("#post_modal_edit_form #judul").val(judul)
+      $("#post_modal_edit_form #deskripsi").val(deskripsi)
     })
 
-    // Dislike a comment
-    $(document).on("click", ".btn-dislike-comment", function() {
-      let cid = $(this).data("cid")
-      submit_likeordis(cid, 'dislike')
+    // Update post (Form submit)
+    $(document).on("submit", "#post_modal_edit_form", function(e) {
+      e.preventDefault()
+
+      let formData = new FormData(this);
+
+      let old_images = $("#post_judul").text(formData.get('old_images'))
+      
+      if (old_images != null) { //NOTE : Current post has image
+        if($("#cb_update_image").prop("checked") == true){ //NOTE : User req change image
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) { //NOTE : User agree to change image
+              submit_update_post_form(formData)
+            } else { //NOTE : User not agree to change image
+              $("#post_modal_edit_form #cb_update_image").prop("checked", false);
+              $("#images_input").hide();
+            }
+          })
+        } else { //NOTE : User not req change image
+          submit_update_post_form(formData)
+        }
+      } else { //NOTE : Current post has no image
+        submit_update_post_form(formData)
+      }
     })
 
-    // Delete post (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
-    $(document).on("click", ".btn-delete-post", function() {
+    // Show or hide images_input (On post update)
+    $("#cb_update_image").on("click", function() {
+      $("#images_input").toggle();
+    })
+
+    // Delete post (Fully using "sweetalert2")
+    $(document).on("click", "#btn-delete-post", function() {
       let pid = $(this).data("id")
-      let images = $("#post_modal_edit_form #old_images").val() //NOTE DANGER : Get the file names from this input value because it's dynamic (change after there is image post edit)
+      let images = $("#post_modal_edit_form #old_images").val()
+
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -251,7 +300,7 @@
                 confirmButtonText: 'OK'
               }).then((result) => {
                 if (result.isConfirmed) {
-                  window.location = "<?= base_url('group/' . $post->type) ?>" //NOTE : This is for redirect (since it's not working via Controller)
+                  window.location = "<?= base_url('group/' . $post->type) ?>"
                 }
               })
             }
@@ -260,38 +309,41 @@
       })
     })
 
-    // Ekko Lightbox (For post's images)
-    <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-      event.preventDefault()
-      $(this).ekkoLightbox({
-        alwaysShowClose: true
+
+
+
+
+    // Update comment (Put values to "comment_mixed_form")
+    $(document).on("click", "#btn-edit-comment", function() {
+      let cid = $(this).data("cid")
+      let comment_text = $("#comment" + cid + " " + "#comment_text").text()
+
+      $("#comment_mixed_form #cid").val(cid)
+      $("#comment_mixed_form #komentar").val(comment_text)
+      
+      $("#comment" + cid).hide()
+      
+      $("#btn-cancel-edit-comment").show()
+
+      // Cancel update comment. (NOTE : This function is nested!)
+      $(document).on("click", "#btn-cancel-edit-comment", function() {
+        //NOTE : Reset "comment_mixed_form"
+        $("#comment_mixed_form textarea").removeClass('is-invalid is-valid') //NOTE : Reset validation status (spesific for #comment_mixed_form)
+        $("#comment_mixed_form #cid").val('')
+        $("#comment_mixed_form #komentar").val('')
+
+        $("#comment" + cid).show()
+
+        $("#btn-cancel-edit-comment").hide()
       })
     })
-    <?php } ?>
 
-    // Update post (form modal with data)
-    $(document).on("click", ".btn-edit-post", function() {
-      //NOTE : Reset prev modal (if prev is canceled). TODO : More better syntax
-      $("#post_modal_edit_form textarea").removeClass('is-invalid is-valid')
-      $("#post_modal_edit_form input").removeClass('is-invalid is-valid')
-      $("#post_modal_edit_form #cb_update_image" ).prop( "checked", false );
-      $("#files_input").hide();
-
-      let judul = $("#post_judul").text()
-      let deskripsi = $("#post_deskripsi").text()
-
-      $("#post_modal_edit").modal("toggle")
-
-      $("#post_modal_edit_form #judul").val(judul)
-      $("#post_modal_edit_form #deskripsi").val(deskripsi)
-      //NOTE : old_images value is reset after submit based on res! (default : from controller)
-    })
-
-    // Create comment (form submit)
-    $(document).on("submit", "#comment_add_form", function(e) {
+    // Create / Update comment (Mixed - form submit)
+    $(document).on("submit", "#comment_mixed_form", function(e) {
       e.preventDefault()
+
       let formData = new FormData(this);
+      
       $.ajax({
         url: "<?= base_url('comment/save') ?>",
         type: "post",
@@ -302,11 +354,14 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            $("#comment_add_form #cid").val('') // NOTE : To reset prev input
-            $("#comment_add_form #komentar").val('') // NOTE : To reset prev input
-            $(".btn-cancel-edit-comment").hide() //NOTE : Related to edit comment
+            //NOTE : Reset "comment_mixed_form"
+            $("#comment_mixed_form #cid").val('')
+            $("#comment_mixed_form #komentar").val('')
+
+            $("#btn-cancel-edit-comment").hide()
             get_comment_list()
           } else {
+            //COMMON VALIDATION
             $.each(res.errors, function(key, value) { 
               $('[id="' + key + '"]').addClass('is-invalid')
               $('[id="' + key + '"]').next().text(value)
@@ -315,30 +370,16 @@
                 $('[id="' + key + '"]').addClass('is-valid')
               }
             })
+            //COMMON VALIDATION
           }
         }
       })
     })
 
-    // Update comment (Put value in "comment_add_form")
-    $(document).on("click", ".btn-edit-comment", function() {
+    // Delete comment (Fully using "sweetalert2")
+    $(document).on("click", "#btn-delete-comment", function() {
       let cid = $(this).data("cid")
-      let comment_text = $(this).data("comment_text")
-      $("#comment_add_form #cid").val(cid)
-      $("#comment_add_form #komentar").val(comment_text)
-      $("#comment" + cid).hide()
-      $(".btn-cancel-edit-comment").show()
 
-      $(document).on("click", ".btn-cancel-edit-comment", function() {
-        $("#comment_add_form textarea").removeClass('is-invalid is-valid') //NOTE : Reset validation status (spesific for #comment_add_form)
-        $("#comment" + cid).show()
-        $(".btn-cancel-edit-comment").hide()
-      })
-    })
-
-    // Delete comment (Fully using "sweetalert2" : A confirm dialog, with a function attached to the "Confirm"-button. https://sweetalert2.github.io/#examples)
-    $(document).on("click", ".btn-delete-comment", function() {
-      let cid = $(this).data("cid")
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -374,33 +415,23 @@
       })
     })
 
-    // Update post (form submit)
-    $(document).on("submit", "#post_modal_edit_form", function(e) {
-      e.preventDefault()
-      let formData = new FormData(this);
-
-      <?php if (!empty($post->img)){ ?> //NOTE : If post has image.
-      if($("#cb_update_image").prop("checked") == true){
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            submit_update_post_form(formData)
-          }
-        })
-      } else {
-        submit_update_post_form(formData)
-      }   
-      <?php } else { ?> //NOTE : If post has no image.
-      submit_update_post_form(formData)
-      <?php } ?>
+    // Like a comment
+    $(document).on("click", "#btn-like-comment", function() {
+      let cid = $(this).data("cid")
+      submit_likeordis(cid, 'like')
     })
+
+    // Dislike a comment
+    $(document).on("click", "#btn-dislike-comment", function() {
+      let cid = $(this).data("cid")
+      submit_likeordis(cid, 'dislike')
+    })
+    
+
+
+
+
+
 
     // Reset input valid status (All)
     $("textarea").on("click", function() {
@@ -411,10 +442,7 @@
       $(this).removeClass('is-invalid is-valid')
     })
 
-    // Show or hide file input (on update)
-    $("#cb_update_image").on("click", function() {
-      $("#files_input").toggle();
-    })
+    
   })
 </script>
 <?= $this->endSection() ?>

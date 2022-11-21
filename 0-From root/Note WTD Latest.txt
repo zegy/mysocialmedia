@@ -1,2 +1,3 @@
 small all "base url" links
 gallery's data-title (both post detail's page and it's script - update)
+e.preventDefault() WHAT FOR?

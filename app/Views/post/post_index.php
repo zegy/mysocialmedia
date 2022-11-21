@@ -134,9 +134,7 @@
       success: function(res) {
         if (res.status) {
           $("#post_list_data").html(res.posts)
-        }
-        else
-        {
+        } else {
           $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
         }
         $(".overlay").hide()

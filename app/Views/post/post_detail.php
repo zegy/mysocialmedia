@@ -115,6 +115,17 @@
 <?= $this->section('script') ?>
 <script>
   // Callable functions
+  function set_errors(errors) {
+    $.each(errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
+      $('[id="' + key + '"]').addClass('is-invalid')
+      $('[id="' + key + '"]').next().text(value)
+      if (value == "") {
+        $('[id="' + key + '"]').removeClass('is-invalid')
+        $('[id="' + key + '"]').addClass('is-valid')
+      }
+    })
+  }
+
   function get_comment_list() {
     $.ajax({
       url: "<?= base_url('comment/list') ?>",
@@ -165,16 +176,7 @@
             }
           }
         } else {
-          //COMMON VALIDATION
-          $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
-            $('[id="' + key + '"]').addClass('is-invalid')
-            $('[id="' + key + '"]').next().text(value)
-            if (value == "") {
-              $('[id="' + key + '"]').removeClass('is-invalid')
-              $('[id="' + key + '"]').addClass('is-valid')
-            }
-          })
-          //COMMON VALIDATION
+          set_errors(res.errors)
         }
       }
     })
@@ -360,16 +362,7 @@
             $("#btn-cancel-edit-comment").hide()
             get_comment_list()
           } else {
-            //COMMON VALIDATION
-            $.each(res.errors, function(key, value) { 
-              $('[id="' + key + '"]').addClass('is-invalid')
-              $('[id="' + key + '"]').next().text(value)
-              if (value == "") {
-                $('[id="' + key + '"]').removeClass('is-invalid')
-                $('[id="' + key + '"]').addClass('is-valid')
-              }
-            })
-            //COMMON VALIDATION
+            set_errors(res.errors)
           }
         }
       })

@@ -322,6 +322,8 @@
       let cid = $(this).data("cid")
       let comment_text = $("#comment" + cid + " " + "#comment_text").text()
 
+      $("#comment_mixed_form textarea").removeClass('is-invalid is-valid') //NOTE : Remove prev validation status of "comment_mixed_form"
+
       let editForm = $("#comment_mixed_form").html()
       $("#comment" + cid).append('<div class="card-footer" id="comment-edit-form' + cid + '"><form id="comment_mixed_form">' + editForm + '</form></div>')
       

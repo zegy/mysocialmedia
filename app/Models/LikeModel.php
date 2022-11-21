@@ -15,33 +15,7 @@ class LikeModel extends Model
         'like_fk_comment',
         'like_status'
     ];
-    protected $useTimestamps = true; //TODO : Need this for "like"?. Sync with DB and other if no!
-    protected $createdField  = 'like_date_time';
-    protected $updatedField; //NOTE It's needed by "useTimestamps" even if we not use it. https://codeigniter.com/user_guide/models/model.html?highlight=find#usetimestamps
-
-    // protected $select = '
-    //     like_pk     as cid,
-    //     user_pk     as uid,
-    //     comment_pk  as uid,
-    // ';
-
-    // public function getAllByPost($pid)
-    // {
-    //     return $this->select($this->select)
-    //                 ->join('t_post', 'post_pk = comment_fk_post')
-    //                 ->join('t_user', 'comment_fk_user = user_pk')
-    //                 ->where('post_pk', $pid)
-    //                 ->findAll();
-    // }
-
-    // public function getAllByKeyword($keyword)
-    // {
-    //     return $this->select($this->select . 'post_pk as pid')
-    //                 ->join('t_post', 'post_pk = comment_fk_post')
-    //                 ->join('t_user', 'comment_fk_user = user_pk')
-    //                 ->like('comment_text', $keyword)
-    //                 ->findAll();
-    // }
+    protected $useTimestamps = false;
 }
 
 /*NOTE

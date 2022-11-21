@@ -1,17 +1,16 @@
 <?= $this->extend('layout') ?>
+<!-- CONTENT -->
 <?= $this->section('content') ?> 
-
 <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
   <section class="content-header"><!-- Content Header (Page header) -->
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1>Profile</h1>
+          <h1><b>PROFIL</b></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
   </section>
-  
   <section class="content"><!-- Main content -->
     <div class="container-fluid">
       <div class="row">
@@ -19,9 +18,7 @@
           <div class="card card-primary card-outline"><!-- Profile Image -->
             <div class="card-body box-profile">
               <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle"
-                     src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>"
-                     alt="User profile picture">
+                <img class="profile-user-img img-fluid img-circle" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="User profile picture">
               </div>
               <h3 class="profile-username text-center">Nina Mcintire</h3>
               <p class="text-muted text-center">Software Engineer</p>
@@ -81,7 +78,7 @@
                     </div>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="submit" class="btn btn-success">Update</button>
                       </div>
                     </div>
                   </form>
@@ -100,5 +97,16 @@
     </div><!-- /.container-fluid -->
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+<?= $this->endSection() ?>
 
+<!-- SCRIPTS -->
+<?= $this->section('script') ?>
+<script>
+  // Callable functions
+  
+  // Main scripts
+  $(document).ready(function() {
+    
+  })
+</script>
 <?= $this->endSection() ?>

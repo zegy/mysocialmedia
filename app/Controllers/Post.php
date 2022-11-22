@@ -63,7 +63,10 @@ class Post extends BaseController
                 }
                 else
                 {
-                    echo json_encode(['status' => false]);
+                    echo json_encode([
+                        'status' => false,
+                        'nomatchpost' => true
+                    ]);
                 }
             }
         }

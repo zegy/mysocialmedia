@@ -21,26 +21,50 @@ class Post extends BaseController
     {
         if ($this->request->isAJAX())
         {
-            $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
-            $group = $this->request->getPost('group');
-            $posts = $this->postModel->getAllByGroup($group, $page);
-            $pager = $this->postModel->pager;
-            
-            if (!empty($posts))
+            $searchInputVal = $this->request->getPost('searchInputVal');
+            if (empty($searchInputVal))
             {
-                $dataView = [
-                    "posts" => $posts,
-                    "pager" => $pager,
-                ];
-                    
-                echo json_encode([
-                    'posts'  => view('post/post_list', $dataView),
-                    'status' => true
-                ]);
+                $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
+                $group = $this->request->getPost('group');
+                $posts = $this->postModel->getAllByGroup($group, $page);
+                $pager = $this->postModel->pager;
+                
+                if (!empty($posts))
+                {
+                    $dataView = [
+                        "posts" => $posts,
+                        "pager" => $pager,
+                    ];
+                        
+                    echo json_encode([
+                        'posts'  => view('post/post_list', $dataView),
+                        'status' => true
+                    ]);
+                }
+                else
+                {
+                    echo json_encode(['status' => false]);
+                }
             }
-            else
+            else //NOTE : The result is not paginated!
             {
-                echo json_encode(['status' => false]);
+                $posts = $this->postModel->getAllByKeyword($searchInputVal);
+                
+                if (!empty($posts))
+                {
+                    $dataView = [
+                        "posts" => $posts,
+                    ];
+                        
+                    echo json_encode([
+                        'posts'  => view('post/post_list', $dataView),
+                        'status' => true
+                    ]);
+                }
+                else
+                {
+                    echo json_encode(['status' => false]);
+                }
             }
         }
         else

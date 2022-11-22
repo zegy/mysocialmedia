@@ -126,14 +126,17 @@
 <?= $this->section('script') ?>
 <script>
   // Callable functions
-  function get_post_list(page_no) {
+  function get_post_list(page_no, searchInputVal) {
+    // searchInputVal = searchInputVal || null
+
     $.ajax({
       url: "<?= base_url('post/list') ?>",
       dataType: "json",
       type: "post",
       data: {
         group: "<?= $group ?>",
-        page: page_no
+        page: page_no,
+        searchInputVal : searchInputVal
       },
       success: function(res) {
         if (res.status) {
@@ -153,7 +156,7 @@
     
     // Refresh post list based on page number (pagination)
     $(document).on("click", ".btn-pagination", function(e) {
-      e.preventDefault()
+      e.preventDefault() //NOTE : Needed because "links" from pager has "link / href"
       $(".overlay").show();
       let page_no = $(this).attr('id')
       get_post_list(page_no)
@@ -163,6 +166,14 @@
     $(document).on("click", ".btn-refresh-post", function() {
       $(".overlay").show()
       get_post_list()
+    })
+
+    // Search post. NOTE (Pending) : The result is not paginated!
+    $(document).on("click", ".btn-search-post", function(e) {
+      e.preventDefault()
+      let searchInputVal = $("#search_post_form #input_searchpost").val()
+      let page_no = null
+      get_post_list(page_no, searchInputVal)
     })
     
     // Create post (form modal)

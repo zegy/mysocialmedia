@@ -193,7 +193,7 @@
     // Create post (form submit)
     $(document).on("submit", "#post_modal_add_form", function(e) {
       e.preventDefault()
-      let formData = new FormData(this);
+      let formData = new FormData(this)
       $.ajax({
         url: "<?= base_url('post/save') ?>",
         type: "post",

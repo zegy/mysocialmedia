@@ -9,8 +9,7 @@
   <!-- Font Awesome --><link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
   <!-- Theme style --><link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
   
-  <!-- OTC from ajax ci4 example -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.4/sweetalert2.min.css" integrity="sha512-Ls19wNglxCDcP78k23k5MygHFHAamARZWDggNovFF3XM4nFTgJz28wBM3m76/bqxvaGWvLKwsv/toFoLqhF8Gg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- SweetAlert2 --><link rel="stylesheet" href="<?= base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
 </head>
 
 <body class="hold-transition login-page">
@@ -21,7 +20,7 @@
       </div>
       <div class="card-body">
         <p class="login-box-msg">Sign in to start your session</p>
-        <?= form_open('login/signin', ['id' => 'form-data']) ?>
+        <form id="login_form">
           <div class="input-group mb-3">
             <input type="email" class="form-control" name="email" placeholder="Email" required>
             <div class="input-group-append">
@@ -51,7 +50,7 @@
               <button type="submit" class="btn btn-primary btn-block">Sign In</button>
             </div><!-- /.col -->
           </div><!-- /.row -->
-        <?= form_close() ?>
+        </form>
       </div><!-- /.card-body -->
     </div><!-- /.card -->
   </div><!-- /.login-box -->
@@ -61,8 +60,7 @@
   <!-- Bootstrap 4 --> <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
   <!-- AdminLTE App --> <script src="<?= base_url('assets/dist/js/adminlte.min.js') ?>"></script>
 
-  <!-- OTC from ajax ci4 example -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.4/sweetalert2.min.js" integrity="sha512-Lbwer45RtGISU+efaUoil1EFYFliqkKOaZhUMXG8RoZZ5fdjpK4S/2khwZynw8vyItDeaRZ+IE6XdKA6XCsyxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- SweetAlert2 --><script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
 
   <script>
     const Toast = Swal.mixin({
@@ -74,13 +72,16 @@
     })
 
     $(document).ready(function() {
-      $(document).on("submit", "#form-data", function(e) {
+      $(document).on("submit", "#login_form", function(e) {
         e.preventDefault()
-
+        let formData = new FormData(this)
         $.ajax({
-          url: $(this).attr("action"),
-          type: $(this).attr("method"),
-          data: $(this).serialize(),
+          url: "<?= base_url('login/signin') ?>",
+          type: "post",
+          data: formData,
+          contentType: false,
+          cache: false,
+          processData: false,
           dataType: "json",
           success: function(res) {
             if (res.status) {
@@ -88,12 +89,14 @@
                 icon: 'success',
                 title: 'Login berhasil!'
               })
-              window.location = "<?= base_url('/') ?>" //TODO this is for redirect (since it's not working via C. But is it the best way?
+
+              window.location = "<?= base_url('/') ?>"
             } else {
               Toast.fire({
                 icon: 'error',
                 title: 'Email or password not match'
               })
+
               $('[name="email"]').addClass('is-invalid')
               $('[name="password"]').addClass('is-invalid')
             }

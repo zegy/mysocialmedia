@@ -1,5 +1,5 @@
 <?= $this->extend('layout') ?>
-<!-- CONTENT -->
+<!-- [CONTENT] -->
 <?= $this->section('content') ?> 
 <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
   <section class="content-header"><!-- Content Header (Page header) -->
@@ -45,7 +45,8 @@
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-<!-- MODALS -->
+<!-- [MODALS] -->
+<!-- [MODALS] : Add post -->
 <form id="post_modal_add_form">
   <div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -79,6 +80,7 @@
   </div>
 </form>
 
+<!-- [MODALS] : User's summary -->
 <div class="modal fade" id="user_sum_modal" tabindex="-1" role="dialog" aria-labelledby="user_sum_modal_label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -118,7 +120,7 @@
 </div>
 <?= $this->endSection() ?>
 
-<!-- SCRIPTS -->
+<!-- [SCRIPTS] -->
 <?= $this->section('script') ?>
 <script>
   // Callable functions
@@ -183,7 +185,7 @@
             $("#post_modal_add").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
-            $.each(res.errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
+            $.each(res.errors, function(key, value) {
               $('[id="' + key + '"]').addClass('is-invalid')
               $('[id="' + key + '"]').next().text(value)
               if (value == "") {

@@ -7,7 +7,7 @@
         <div class="comment-text">
         <span class="username">
           Maria Gonzales
-          <span class="text-muted float-right">8:03 PM Today</span>
+          <span class="text-muted float-right"><?= $comment->data ?></span>
         </span><!-- /.username -->
         <div id="comment_text"><?= $comment->texto ?></div>
         </div><!-- /.comment-text -->

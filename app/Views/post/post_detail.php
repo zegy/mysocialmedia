@@ -1,5 +1,5 @@
 <?= $this->extend('layout') ?>
-<!-- CONTENT -->
+<!-- [CONTENT] -->
 <?= $this->section('content') ?> 
 <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
   <section class="content-header"><!-- Content Header (Page header) -->
@@ -70,7 +70,8 @@
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-<!-- MODALS -->
+<!-- [MODALS] -->
+<!-- [MODALS] : Edit post -->
 <form id="post_modal_edit_form">
   <div class="modal fade" id="post_modal_edit" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -110,7 +111,8 @@
   </div>
 </form>
 
-<!-- OTHER -->
+<!-- [OTHER] -->
+<!-- [OTHER] : Edit comment (Temp, values set on script)-->
 <div style="display: none">
   <form id="comment_edit_form">
     <div class="card-footer">
@@ -130,12 +132,12 @@
 </div>
 <?= $this->endSection() ?>
 
-<!-- SCRIPTS -->
+<!-- [SCRIPTS] -->
 <?= $this->section('script') ?>
 <script>
-  // Callable functions
+  //[A] Callable functions
   function set_errors(errors) {
-    $.each(errors, function(key, value) { //TODO (pending) : The image upload is optional, "valid status" is not needed if there is no image upload. 
+    $.each(errors, function(key, value) {
       $('[id="' + key + '"]').addClass('is-invalid')
       $('[id="' + key + '"]').next().text(value)
       if (value == "") {
@@ -212,13 +214,13 @@
       },
       success: function(res) {
         if (res.status) {
-          get_comment_list()
+          get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
         }
       }
     })
   }
 
-  // Main scripts
+  //[B] Main scripts
   $(document).ready(function() {
     // After loaded
     get_comment_list()
@@ -253,7 +255,6 @@
       e.preventDefault()
 
       let formData = new FormData(this);
-
       let old_images = $("#post_judul").text(formData.get('old_images'))
       
       if (old_images != null) { //NOTE : Current post has image
@@ -341,17 +342,16 @@
 
       let cid = $(this).data("cid")
       let comment_text = $("#comment" + cid + " " + "#comment_text").text()
-
       let editForm = $("#comment_edit_form").html()
-      $("#comment" + cid).append('<form id="temp_comment_edit_form">' + editForm + '</form>')
       
+      $("#comment" + cid).append('<form id="temp_comment_edit_form">' + editForm + '</form>')
       $("#temp_comment_edit_form #cid").val(cid)
       $("#temp_comment_edit_form #komentar").val(comment_text)
       $("#temp_comment_edit_form #btn-cancel-edit-comment").show()
 
       hasCommentEditForm = true
 
-      // Cancel update comment (Nested function)
+      // Cancel update comment (NOTE : Nested function)
       $(document).on("click", "#btn-cancel-edit-comment", function() {  
         $("#temp_comment_edit_form").remove()
         $("#comment" + cid + " " + ".btn-edit-comment").prop('disabled', false)
@@ -381,7 +381,7 @@
             $("#comment_add_form #komentar").val('')
 
             $("#btn-cancel-edit-comment").hide()
-            get_comment_list()
+            get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
           } else {
             set_errors(res.errors)
           }
@@ -405,14 +405,9 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            //NOTE : Reset "comment_add_form"
-            $("#comment_add_form #cid").val('')
-            $("#comment_add_form #komentar").val('')
-
-            $("#btn-cancel-edit-comment").hide()
-            get_comment_list()
+            get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
           } else {
-            set_errors(res.errors)
+            set_errors(res.errors) //NOTE (Pending) : Has the same field name with "add post", hence both field will show error
           }
         }
       })
@@ -468,12 +463,6 @@
       let cid = $(this).data("cid")
       submit_likeordis(cid, 'dislike')
     })
-    
-
-
-
-
-
 
     // Reset input valid status (All)
     $("textarea").on("click", function() {
@@ -483,8 +472,6 @@
     $("input").on("click", function() {
       $(this).removeClass('is-invalid is-valid')
     })
-
-    
   })
 </script>
 <?= $this->endSection() ?>

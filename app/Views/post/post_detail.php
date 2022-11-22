@@ -113,16 +113,18 @@
 <!-- OTHER -->
 <div style="display: none">
   <form id="comment_edit_form">
-    <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
-    <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
-      <div class="form-group">
-        <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>
-        <div class="invalid-feedback"></div>
+    <div class="card-footer">
+      <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
+      <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
+        <div class="form-group">
+          <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>
+          <div class="invalid-feedback"></div>
+        </div>
+        <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
+        <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
+        <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
+        <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-edit-comment">Batal</button>
       </div>
-      <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
-      <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
-      <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
-      <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-edit-comment">Batal</button>
     </div>
   </form>
 </div>
@@ -341,7 +343,7 @@
       let comment_text = $("#comment" + cid + " " + "#comment_text").text()
 
       let editForm = $("#comment_edit_form").html()
-      $("#comment" + cid).append('<div class="card-footer"><form id="temp_comment_edit_form">' + editForm + '</form></div>')
+      $("#comment" + cid).append('<form id="temp_comment_edit_form">' + editForm + '</form>')
       
       $("#temp_comment_edit_form #cid").val(cid)
       $("#temp_comment_edit_form #komentar").val(comment_text)

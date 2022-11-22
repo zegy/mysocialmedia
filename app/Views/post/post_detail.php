@@ -36,7 +36,7 @@
               <p id="post_deskripsi"><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs" id="btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
-              <span class="float-right text-muted">3 comments</span>
+              <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
         </div><!-- /.col -->
@@ -158,6 +158,7 @@
       success: function(res) {
         if (res.status) {
           $("#comment_list_data").html(res.comments)
+          $("#count_comments").text(res.comments_count + ' ' + 'Komentar')
         } else {
           $("#comment_list_data").html('<div style="height: 35px; padding-top: 4px; padding-bottom: 4px; margin-bottom: 0px" class="alert alert-warning"><p><i class="icon fas fa-exclamation-triangle"></i> Belum ada komentar!</p></div>')
         }

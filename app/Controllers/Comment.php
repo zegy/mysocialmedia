@@ -27,10 +27,12 @@ class Comment extends BaseController
             $comments = $this->commentModel->getAllByPost($pid);
             
             if (!empty($comments))
-            {     
+            {
+                $comments_count = $this->commentModel->getCountComment($pid);
                 echo json_encode([
                     'comments'  => view('comment/comment_list', ["comments" => $comments]),
-                    'status' => true
+                    'status' => true,
+                    'comments_count' => $comments_count
                 ]);
             }
             else

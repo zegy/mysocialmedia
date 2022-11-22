@@ -47,6 +47,12 @@ class CommentModel extends Model
                     ->like('comment_text', $keyword)
                     ->findAll();
     }
+
+    public function getCountComment($pid)
+    {
+        return $this->where('comment_fk_post', $pid)
+                    ->countAll();
+    }    
 }
 
 /*NOTE

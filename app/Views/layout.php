@@ -116,10 +116,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('group/test/') ?>" class="nav-link" id="test">
+              <a href="<?= base_url('group/dosen/') ?>" class="nav-link" id="dosen">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Test
+                  Dosen
                   <!-- <span class="right badge badge-danger">1</span> -->
                 </p>
               </a>

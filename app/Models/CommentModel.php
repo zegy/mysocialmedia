@@ -29,12 +29,11 @@ class CommentModel extends Model
         user_profile_picture as image,
         (SELECT COUNT(*) FROM t_like WHERE like_fk_comment = comment_pk AND like_status = 0) AS nolike,
         (SELECT COUNT(*) FROM t_like WHERE like_fk_comment = comment_pk AND like_status = 1) AS nodislike,
-        (SELECT like_status FROM t_like WHERE like_fk_user = user_pk AND like_fk_comment = comment_pk) AS like_status
     ';
 
     public function getAllByPost($pid)
     {
-        return $this->select($this->select)
+        return $this->select($this->select . '(SELECT like_status FROM t_like WHERE like_fk_user = ' . session('id') . ' AND like_fk_comment = comment_pk) AS like_status')
                     ->join('t_post', 'post_pk = comment_fk_post')
                     ->join('t_user', 'comment_fk_user = user_pk') //TODO : Werid syntax here (or others)
                     ->where('post_pk', $pid)

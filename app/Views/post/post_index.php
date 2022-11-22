@@ -177,7 +177,7 @@
       e.preventDefault()
         
       let keyword = $("#search_post_form #input_searchpost").val()
-      let page = null
+      let page = ''
       if (keyword == "") {
         get_post_list()
       } else {

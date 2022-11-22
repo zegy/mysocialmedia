@@ -188,7 +188,7 @@
             $("#post_images").empty() //NOTE : Clear prev image from element
 
             if($.isEmptyObject(res.images)) { //NOTE : Check if updated post has image
-              $("#post_modal_edit_form #old_images").val(null)
+              $("#post_modal_edit_form #old_images").val('')
             } else {
               let res_images_string = (res.images).toString()
               $("#post_modal_edit_form #old_images").val(res_images_string)
@@ -257,9 +257,9 @@
       e.preventDefault()
 
       let formData = new FormData(this);
-      let old_images = $("#post_judul").text(formData.get('old_images'))
+      let old_images = formData.get('old_images')
       
-      if (old_images != null) { //NOTE : Current post has image
+      if (old_images != '') { //NOTE : Current post has image
         if($("#cb_update_image").prop("checked") == true){ //NOTE : User req change image
           Swal.fire({
             title: 'Are you sure?',

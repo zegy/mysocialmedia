@@ -178,9 +178,9 @@
     $(document).ready(function() {
       //"Layout" script START
       //Decide "active sidebar" based on current page START
-      var seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
-      const ele = document.getElementById(seg[4]);
-      if (ele !== null) {
+      let seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
+      let ele = document.getElementById(seg[4]);
+      if (ele != '') {
         $(ele).addClass('active')
       }
       //Decide "active sidebar" based on current page END

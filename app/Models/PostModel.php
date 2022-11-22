@@ -72,7 +72,7 @@ class PostModel extends Model
     {   
         return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
-                    ->like('post_text', $keyword)
+                    ->like('post_title', $keyword)
                     ->get()
                     ->getResult();
     }

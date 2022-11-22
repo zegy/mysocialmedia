@@ -21,8 +21,8 @@ class Post extends BaseController
     {
         if ($this->request->isAJAX())
         {
-            $searchInputVal = $this->request->getPost('searchInputVal');
-            if (empty($searchInputVal))
+            $keyword = $this->request->getPost('keyword');
+            if (empty($keyword)) //NOTE : Show all group's posts
             {
                 $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
                 $group = $this->request->getPost('group');
@@ -46,9 +46,9 @@ class Post extends BaseController
                     echo json_encode(['status' => false]);
                 }
             }
-            else //NOTE : The result is not paginated!
+            else //NOTE : Show all group's posts based on user's search input. TODO : The result is not paginated!
             {
-                $posts = $this->postModel->getAllByKeyword($searchInputVal);
+                $posts = $this->postModel->getAllByKeyword($keyword);
                 
                 if (!empty($posts))
                 {

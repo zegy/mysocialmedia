@@ -27,7 +27,7 @@
                   <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
                     <input type="text" class="form-control float-right" name="input_searchpost" id="input_searchpost" placeholder="Cari Diskusi">
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-default btn-search-post">
+                      <button type="button" class="btn btn-default btn-search-post">
                         <i class="fas fa-search"></i>
                       </button>
                     </div>
@@ -125,18 +125,16 @@
 <!-- [SCRIPTS] -->
 <?= $this->section('script') ?>
 <script>
-  // Callable functions
-  function get_post_list(page_no, searchInputVal) {
-    // searchInputVal = searchInputVal || null
-
+  //[A] Callable functions
+  function get_post_list(page, keyword) {
     $.ajax({
       url: "<?= base_url('post/list') ?>",
       dataType: "json",
       type: "post",
       data: {
         group: "<?= $group ?>",
-        page: page_no,
-        searchInputVal : searchInputVal
+        page: page,
+        keyword : keyword
       },
       success: function(res) {
         if (res.status) {
@@ -149,17 +147,18 @@
     })
   }
 
-  // Main scripts
+  //[B] Main scripts
   $(document).ready(function() {
-    // Get post list
+    // After loaded
     get_post_list()
     
     // Refresh post list based on page number (pagination)
     $(document).on("click", ".btn-pagination", function(e) {
       e.preventDefault() //NOTE : Needed because "links" from pager has "link / href"
+
       $(".overlay").show();
-      let page_no = $(this).attr('id')
-      get_post_list(page_no)
+      let page = $(this).attr('id')
+      get_post_list(page)
     })
     
     // Refresh post list
@@ -169,11 +168,10 @@
     })
 
     // Search post. NOTE (Pending) : The result is not paginated!
-    $(document).on("click", ".btn-search-post", function(e) {
-      e.preventDefault()
-      let searchInputVal = $("#search_post_form #input_searchpost").val()
-      let page_no = null
-      get_post_list(page_no, searchInputVal)
+    $(document).on("click", ".btn-search-post", function() {      
+      let keyword = $("#search_post_form #input_searchpost").val()
+      let page = null
+      get_post_list(page, keyword)
     })
     
     // Create post (form modal)

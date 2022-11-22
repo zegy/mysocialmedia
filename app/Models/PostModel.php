@@ -59,14 +59,14 @@ class PostModel extends Model
                     ->paginate(5, 'default', $page);
     }
 
-    // public function getAllByUser($uid)
-    // {
-    //     return $this->select($this->selected)
-    //                 ->join('t_user', 'post_fk_user = user_pk')
-    //                 ->where('post_fk_user', $uid)
-    //                 ->orderBy('post_pk', 'DESC')
-    //                 ->paginate(5);
-    // }
+    public function getAllByUser($uid)
+    {
+        return $this->select($this->selected)
+                    ->join('t_user', 'post_fk_user = user_pk')
+                    ->where('post_fk_user', $uid)
+                    ->orderBy('post_pk', 'DESC')
+                    ->paginate(5);
+    }
 
     public function getAllByKeyword($keyword)
     {   

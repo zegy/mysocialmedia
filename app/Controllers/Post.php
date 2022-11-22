@@ -81,7 +81,15 @@ class Post extends BaseController
         if ($this->request->isAJAX())
         {
             $user = $this->request->getPost('user');
-            $posts = $this->postModel->getAllByUser($user);
+
+            if (session('role') == "mahasiswa")
+            {
+                $posts = $this->postModel->public_by_user($user);
+            }
+            else
+            {
+                $posts = $this->postModel->all_by_user($user);
+            }
             
             if (!empty($posts))
             {

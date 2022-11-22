@@ -59,11 +59,24 @@ class PostModel extends Model
                     ->paginate(5, 'default', $page);
     }
 
-    public function getAllByUser($user, $page = null)
+    public function all_by_user($user)
     {
         return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where('post_fk_user', $user)
+                    ->orderBy('post_pk', 'DESC')
+                    ->get()
+                    ->getResult();
+    }
+
+    public function public_by_user($user)
+    {
+        return $this->select($this->selected)
+                    ->join('t_user', 'post_fk_user = user_pk')
+                    ->where([
+                        'post_fk_user' => $user,
+                        'post_type ='  => 'umum'
+                      ])
                     ->orderBy('post_pk', 'DESC')
                     ->get()
                     ->getResult();

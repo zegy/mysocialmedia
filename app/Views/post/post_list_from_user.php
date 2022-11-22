@@ -5,6 +5,7 @@
       <tr>
         <th>No.</th>
         <th>Judul Diskusi</th>
+        <th>Jenis</th>
       </tr>
     </thead>
     <tbody>
@@ -12,6 +13,7 @@
       <tr>
         <td style="width: 50px; min-width: 50px"><?= $post->pid ?></td>
         <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/umum/detail/' . $post->pid) ?>"><?= $post->pttl ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
+        <td style="width: 50px; min-width: 50px" class="text-uppercase"><?= $post->type ?></td>
         <td class="project-actions text-right">
           <a class="btn btn-primary" href="<?= base_url('group/umum/detail/' . $post->pid) ?>"><i class="far fa-comments"></i></a>
         </td>

@@ -27,7 +27,7 @@
                   <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
                     <input type="text" class="form-control float-right" name="input_searchpost" id="input_searchpost" placeholder="Cari Diskusi">
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-default btn-search-post">
+                      <button type="submit" class="btn btn-default btn-search-post">
                         <i class="fas fa-search"></i>
                       </button>
                     </div>
@@ -173,7 +173,9 @@
     })
 
     // Search post. NOTE (Pending) : The result is not paginated!
-    $(document).on("click", ".btn-search-post", function() {      
+    $(document).on("submit", "#search_post_form", function(e) {
+      e.preventDefault()
+        
       let keyword = $("#search_post_form #input_searchpost").val()
       let page = null
       if (keyword == "") {

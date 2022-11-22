@@ -23,14 +23,16 @@
               <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i></button>
               <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
-                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                      <i class="fas fa-search"></i>
-                    </button>
+                <form id="search_post_form">
+                  <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
+                    <input type="text" class="form-control float-right" name="input_searchpost" id="input_searchpost" placeholder="Cari Diskusi">
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default btn-search-post">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div><!-- /.card-header -->
             <div id="post_list_data">

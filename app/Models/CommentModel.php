@@ -19,6 +19,7 @@ class CommentModel extends Model
     protected $createdField  = 'comment_date_time';
     protected $updatedField; //NOTE It's needed by "useTimestamps" even if we not use it. https://codeigniter.com/user_guide/models/model.html?highlight=find#usetimestamps
 
+    //NOTE (Pending): It has mixed format
     protected $select = '
         comment_pk           as cid,
         comment_text         as texto,
@@ -27,7 +28,8 @@ class CommentModel extends Model
         user_full_name       as nome,
         user_profile_picture as image,
         (SELECT COUNT(*) FROM t_like WHERE like_fk_comment = comment_pk AND like_status = 0) AS nolike,
-        (SELECT COUNT(*) FROM t_like WHERE like_fk_comment = comment_pk AND like_status = 1) AS nodislike
+        (SELECT COUNT(*) FROM t_like WHERE like_fk_comment = comment_pk AND like_status = 1) AS nodislike,
+        (SELECT like_status FROM t_like WHERE like_fk_user = user_pk AND like_fk_comment = comment_pk) AS like_status
     ';
 
     public function getAllByPost($pid)

@@ -16,10 +16,10 @@
     <div class="row">
       <div class="col-12">
         <div style="margin-top: 5px" class="float-right">
-          <button style="width: 50px" type="button" class="btn btn-outline-success btn-xs" id="btn-like-comment" data-cid="<?= $comment->cid ?>">
+          <button style="width: 50px" type="button" class="btn <?php if ($comment->like_status == "0"){echo('btn-success');} else {echo('btn-outline-success');} ?> btn-xs btn-like-comment" data-cid="<?= $comment->cid ?>">
             <i class="fas fa-thumbs-up"></i> <?= $comment->nolike ?>
           </button>
-          <button style="width: 50px" type="button" class="btn btn-outline-danger btn-xs" id="btn-dislike-comment" data-cid="<?= $comment->cid ?>">
+          <button style="width: 50px" type="button" class="btn <?php if ($comment->like_status == "1"){echo('btn-danger');} else {echo('btn-outline-danger');} ?> btn-xs btn-dislike-comment" data-cid="<?= $comment->cid ?>">
             <i class="fas fa-thumbs-down"></i> <?= $comment->nodislike ?>
           </button>
         </div>

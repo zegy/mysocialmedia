@@ -454,13 +454,13 @@
     })
 
     // Like a comment
-    $(document).on("click", "#btn-like-comment", function() {
+    $(document).on("click", ".btn-like-comment", function() {
       let cid = $(this).data("cid")
       submit_likeordis(cid, 'like')
     })
 
     // Dislike a comment
-    $(document).on("click", "#btn-dislike-comment", function() {
+    $(document).on("click", ".btn-dislike-comment", function() {
       let cid = $(this).data("cid")
       submit_likeordis(cid, 'dislike')
     })

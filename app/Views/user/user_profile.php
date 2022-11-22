@@ -1,5 +1,5 @@
 <?= $this->extend('layout') ?>
-<!-- CONTENT -->
+<!-- [CONTENT] -->
 <?= $this->section('content') ?> 
 <div class="content-wrapper"><!-- Content Wrapper. Contains page content -->
   <section class="content-header"><!-- Content Header (Page header) -->
@@ -20,8 +20,8 @@
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="User profile picture">
               </div>
-              <h3 class="profile-username text-center">Nina Mcintire</h3>
-              <p class="text-muted text-center">Software Engineer</p>
+              <h3 class="profile-username text-center"><?= $user->user_full_name ?></h3>
+              <p class="text-muted text-center text-uppercase"><?= $user->user_role ?></p>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
         </div><!-- /.col -->
@@ -99,12 +99,12 @@
 </div><!-- /.content-wrapper -->
 <?= $this->endSection() ?>
 
-<!-- SCRIPTS -->
+<!-- [SCRIPTS] -->
 <?= $this->section('script') ?>
 <script>
-  // Callable functions
+  //[A] Callable functions
   
-  // Main scripts
+  //[B] Main scripts
   $(document).ready(function() {
     
   })

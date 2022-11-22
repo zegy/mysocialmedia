@@ -46,7 +46,7 @@ class Comment extends BaseController
         }
     }
 
-    public function save () //NOTE : AJAX. Single create + update function
+    public function save () //NOTE : AJAX. Single create + update function. TODO : Check owner before update?
     {
         if ($this->request->isAJAX())
         {
@@ -102,7 +102,7 @@ class Comment extends BaseController
         }
     }
 
-    public function delete() //NOTE : AJAX
+    public function delete() //NOTE : AJAX. TODO : Check owner before delete
     {
         if ($this->request->isAJAX())
         {

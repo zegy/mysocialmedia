@@ -12,12 +12,23 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
-    public function index($group)
+    public function index($group) //TODO : Check user's role first
     {
-        return view('post/post_index', ["group" => $group]);
+        if ($group == "umum")
+        {
+            return view('post/post_index', ["group" => "umum"]);
+        }
+        else if ($group == "dosen")
+        {
+            return view('post/post_index', ["group" => "dosen"]);
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
     }
 
-    public function list() //NOTE : AJAX
+    public function list() //NOTE : AJAX. TODO : Check user's role first. Need to?
     {
         if ($this->request->isAJAX())
         {
@@ -111,11 +122,11 @@ class Post extends BaseController
         }
     }
 
-    public function delete() //NOTE : AJAX
+    public function delete() //NOTE : AJAX. TODO : Check owner before delete
     {
         if ($this->request->isAJAX())
         {
-            $pid   = $this->request->getPost('pid');
+            $pid = $this->request->getPost('pid');
             $images = $this->request->getPost('images');
 
             if (!empty($images))
@@ -137,9 +148,8 @@ class Post extends BaseController
         }
     }
 
-    public function detail($group, $pid)
+    public function detail($group, $pid) //TODO : Use $group to limit the user who can see the post later
     {
-        //TODO : Use $group to limit the user who can see the post later
         $post = $this->postModel->getOneById($pid);
         if (!empty($post))
         {
@@ -151,7 +161,7 @@ class Post extends BaseController
         }
     }
 
-    public function save () //NOTE : AJAX. Single create + update function
+    public function save () //NOTE : AJAX. Single create + update function. TODO : Check owner before update?
     {
         if ($this->request->isAJAX())
         {

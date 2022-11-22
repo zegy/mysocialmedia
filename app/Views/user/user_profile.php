@@ -84,7 +84,7 @@
                   </form>
                   <div class="form-group row">
                     <div class="col" >
-                      <button style="margin-top: 25px" type="button" class="btn btn-danger float-right">Sign Out</button>
+                      <button style="margin-top: 25px" type="button" class="btn btn-danger float-right btn-sign-out">Sign Out</button>
                     </div>
                   </div>
                 </div><!-- /.tab-pane -->
@@ -135,6 +135,13 @@
       e.preventDefault()
       let link = $(this).data('link')
       window.location = link
+    })
+
+    // Sign out
+    $(document).on("click", ".btn-sign-out", function(e) {
+      e.preventDefault()
+
+      window.location = "<?php echo base_url('login/signout') ?>"
     })
   })
 </script>

@@ -161,6 +161,7 @@
           $("#count_comments").text(res.comments_count + ' ' + 'Komentar')
         } else {
           $("#comment_list_data").html('<div style="height: 35px; padding-top: 4px; padding-bottom: 4px; margin-bottom: 0px" class="alert alert-warning"><p><i class="icon fas fa-exclamation-triangle"></i> Belum ada komentar!</p></div>')
+          $("#count_comments").text('0 Komentar')
         }
       }
     })

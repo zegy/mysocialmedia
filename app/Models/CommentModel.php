@@ -52,7 +52,7 @@ class CommentModel extends Model
     public function getCountComment($pid)
     {
         return $this->where('comment_fk_post', $pid)
-                    ->countAll();
+                    ->countAllResults();
     }    
 }
 

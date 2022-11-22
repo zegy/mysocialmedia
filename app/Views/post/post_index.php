@@ -164,6 +164,7 @@
     // Refresh post list
     $(document).on("click", ".btn-refresh-post", function() {
       $(".overlay").show()
+      $("#search_post_form #input_searchpost").val('')
       get_post_list()
     })
 
@@ -171,7 +172,11 @@
     $(document).on("click", ".btn-search-post", function() {      
       let keyword = $("#search_post_form #input_searchpost").val()
       let page = null
-      get_post_list(page, keyword)
+      if (keyword == "") {
+        get_post_list()
+      } else {
+        get_post_list(page, keyword)
+      }
     })
     
     // Create post (form modal)

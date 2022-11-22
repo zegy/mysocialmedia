@@ -29,8 +29,8 @@
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" href="#informasi" data-toggle="tab">Informasi</a></li>
-                <li class="nav-item"><a class="nav-link" href="#diskusi" data-toggle="tab">Diskusi</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#informasi" data-toggle="tab">Informasi Pengguna</a></li>
+                <li class="nav-item"><a class="nav-link" href="#diskusi" data-toggle="tab">Daftar Diskusi Pengguna</a></li>
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -82,12 +82,16 @@
                       </div>
                     </div>
                   </form>
-                  <div class="offset-sm-2 col-sm-10">
-                    <a href="<?php echo base_url('login/signout') ?>" class="btn btn-danger float-right">Sign Out</a>
+                  <div class="form-group row">
+                    <div class="col" >
+                      <button style="margin-top: 25px" type="button" class="btn btn-danger float-right">Sign Out</button>
+                    </div>
                   </div>
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="diskusi">
-                  <!-- TODO : user's posts -->
+                  <div id="post_list_data">
+                    <!-- NOTE : Get data using AJAX (Replace anything inside this "post_list_data" after request) -->
+                  </div>
                 </div><!-- /.tab-pane -->
               </div><!-- /.tab-content -->
             </div><!-- /.card-body -->
@@ -103,10 +107,35 @@
 <?= $this->section('script') ?>
 <script>
   //[A] Callable functions
+  function get_post_list_from_user() {
+    $.ajax({
+      url: "<?= base_url('post/list_from_user') ?>",
+      dataType: "json",
+      type: "post",
+      data: {
+        user: "<?= $user->user_pk ?>"
+      },
+      success: function(res) {
+        if (res.status) {
+          $("#post_list_data").html(res.posts)
+        } else {
+          $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Pengguna belum pernah membuat diskusi!</h3></div>')
+        }
+      }
+    })
+  }
   
   //[B] Main scripts
   $(document).ready(function() {
-    
+    // After loaded
+    get_post_list_from_user()
+
+    // Redirect to post_detail after click post_text's area (The table's td)
+    $(document).on("click", ".post_td_text", function(e) {
+      e.preventDefault()
+      let link = $(this).data('link')
+      window.location = link
+    })
   })
 </script>
 <?= $this->endSection() ?>

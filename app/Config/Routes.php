@@ -57,14 +57,16 @@ $routes->add('post/list',   'Post::list');
 $routes->add('post/delete', 'Post::delete');
 $routes->add('post/save',   'Post::save');
 
+$routes->add('post/list_from_user',   'Post::listFromUser');
+
 $routes->add('comment/list',   'Comment::list');
 $routes->add('comment/save',   'Comment::save');
 $routes->add('comment/delete', 'Comment::delete');
 
 $routes->add('comment/like', 'Comment::like');
 
-$routes->add('group_lists', 'Group::index');
-$routes->add('group_list',  'Group::list');
+// $routes->add('group_lists', 'Group::index');
+// $routes->add('group_list',  'Group::list');
 
 
 

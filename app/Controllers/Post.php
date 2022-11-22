@@ -46,7 +46,7 @@ class Post extends BaseController
                     echo json_encode(['status' => false]);
                 }
             }
-            else //NOTE : Show all group's posts based on user's search input. TODO : The result is not paginated!
+            else //NOTE : Show all group's posts based on user's search input. TODO (Pending) : The result is not paginated!
             {
                 $posts = $this->postModel->getAllByKeyword($keyword);
                 
@@ -68,6 +68,33 @@ class Post extends BaseController
                         'nomatchpost' => true
                     ]);
                 }
+            }
+        }
+        else
+        {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    public function listFromUser() //NOTE : AJAX. TODO (Pending) : The result is not paginated!
+    {
+        if ($this->request->isAJAX())
+        {
+            $user = $this->request->getPost('user');
+            $posts = $this->postModel->getAllByUser($user);
+            
+            if (!empty($posts))
+            {
+                $dataView = ["posts" => $posts];
+                    
+                echo json_encode([
+                    'posts'  => view('post/post_list_from_user', $dataView),
+                    'status' => true
+                ]);
+            }
+            else
+            {
+                echo json_encode(['status' => false]);
             }
         }
         else

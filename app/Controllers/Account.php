@@ -18,35 +18,35 @@ class Account extends BaseController
 		return view('account/signup');
 	}
 
-    public function createAccount()
-	{
-        $data = $this->request->getPost();
-        // dd($data);
+    // public function createAccount() //Latest form old (working?)
+	// {
+    //     $data = $this->request->getPost();
+    //     // dd($data);
 
-        $validation = \Config\Services::validation(); // Loading the Library (The library is loaded as a service named validation). https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#loading-the-library
+    //     $validation = \Config\Services::validation(); // Loading the Library (The library is loaded as a service named validation). https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#loading-the-library
 
-        $isValid = $validation->run($data, 'createAccount'); // From "app\Config\Validation.php". https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#how-to-save-your-rules
+    //     $isValid = $validation->run($data, 'createAccount'); // From "app\Config\Validation.php". https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#how-to-save-your-rules
 
-        if (!$isValid)
-        {
-            return redirect()->back()->withInput(); // "withInput" used for "old" function in view. https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html?highlight=redirect#redirect
-        }
-        else
-        {
-            $dataToSave =
-            [
-                'user_full_name'       => $data['nama_lengkap'],
-                'user_name'            => $data['username'],
-                'user_email'           => $data['email'],
-                'user_tel'             => $data['nomor_handphone'],
-                'user_password'        => password_hash($data['password'], PASSWORD_DEFAULT),
-                'user_sex'             => $data['jenis_kelamin'],
-            ];
+    //     if (!$isValid)
+    //     {
+    //         return redirect()->back()->withInput(); // "withInput" used for "old" function in view. https://codeigniter4.github.io/CodeIgniter4/general/common_functions.html?highlight=redirect#redirect
+    //     }
+    //     else
+    //     {
+    //         $dataToSave =
+    //         [
+    //             'user_full_name'       => $data['nama_lengkap'],
+    //             'user_name'            => $data['username'],
+    //             'user_email'           => $data['email'],
+    //             'user_tel'             => $data['nomor_handphone'],
+    //             'user_password'        => password_hash($data['password'], PASSWORD_DEFAULT),
+    //             'user_sex'             => $data['jenis_kelamin'],
+    //         ];
 
-            $result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"
-            return view('account/sucessful_created');
-        }
-    }
+    //         $result = $this->userModel->save($dataToSave); // method "save" dari "BaseModel"
+    //         return view('account/sucessful_created');
+    //     }
+    // }
 
 	// public function createAccount()
 	// {

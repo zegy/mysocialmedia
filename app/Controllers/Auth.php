@@ -24,6 +24,11 @@ class Auth extends BaseController
         }
     }
 
+    public function signUp() //Return with view only, "create user" is in user controller via AJAX
+	{
+		return view('user/user_signup');
+	}
+
     public function signIn() //NOTE Using AJAX
     {
         $userData = $this->userModel->where('user_email', $this->request->getPost('email'))->first();

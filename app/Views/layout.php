@@ -161,7 +161,7 @@
     </footer>
   </div><!-- ./wrapper -->
 
-  <!-- ================================================ SCRIPTS ================================================ -->
+  <!-- ================================================ LOAD SCRIPTS ================================================ -->
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery --><script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
   <!-- Bootstrap --><script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
@@ -173,18 +173,15 @@
   <!-- OPTIONAL SCRIPTS -->
   <!-- AdminLTE for demo purposes --><script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
   
-  <!-- MY CUSTOM SCRIPTS -->    
+  <!-- ================================================ MAIN SCRIPTS ================================================ -->
   <script>
     $(document).ready(function() {
-      //"Layout" script START
-      //Decide "active sidebar" based on current page START
+      // Active sidebar
       let seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
       let ele = document.getElementById(seg[4]);
       if (ele != '') {
         $(ele).addClass('active')
       }
-      //Decide "active sidebar" based on current page END
-      //"Layout" script END
 
       //TODO Delete later, "Layout" script (Dev-only, Admin_tools) START
       $(document).on("click", ".btn-add-posts-batch", function() {
@@ -236,6 +233,7 @@
       //TODO Delete later, "Layout" script (Dev-only, Admin_tools) END
     })
   </script>
+  <!-- Spesific page's scripts -->
   <?= $this->renderSection('script') ?>
 </body>
 </html>

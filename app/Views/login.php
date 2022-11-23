@@ -55,26 +55,22 @@
     </div><!-- /.card -->
   </div><!-- /.login-box -->
   
-  <!-- ================================================ SCRIPTS ================================================ -->
+  <!-- ================================================ LOAD SCRIPTS ================================================ -->
   <!-- jQuery --> <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
   <!-- Bootstrap 4 --> <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
   <!-- AdminLTE App --> <script src="<?= base_url('assets/dist/js/adminlte.min.js') ?>"></script>
 
   <!-- SweetAlert2 --><script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
 
+  <!-- ================================================ MAIN SCRIPTS ================================================ -->
   <script>
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top',
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: true,
-    })
-
     $(document).ready(function() {
+      // login (form submit)
       $(document).on("submit", "#login_form", function(e) {
         e.preventDefault()
+
         let formData = new FormData(this)
+
         $.ajax({
           url: "<?= base_url('login/signin') ?>",
           type: "post",
@@ -85,27 +81,19 @@
           dataType: "json",
           success: function(res) {
             if (res.status) {
-              Toast.fire({
-                icon: 'success',
-                title: 'Login berhasil!'
-              })
-
               window.location = "<?= base_url('/') ?>"
             } else {
-              Toast.fire({
-                icon: 'error',
-                title: 'Email or password not match'
-              })
-
+              //TODO : Error "animation"
               $('[name="email"]').addClass('is-invalid')
               $('[name="password"]').addClass('is-invalid')
             }
           }
         })
-        
-        $("#form-data input").on("click", function() {
-          $(this).removeClass('is-invalid')
-        })
+      })
+
+      // Reset input valid status on click
+      $("input").on("click", function() {
+        $(this).removeClass('is-invalid is-valid')
       })
     })
   </script>

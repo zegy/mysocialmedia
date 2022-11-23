@@ -466,7 +466,7 @@
       submit_likeordis(cid, 'dislike')
     })
 
-    // Reset input valid status (All)
+    // Reset input valid status on click
     $("textarea").on("click", function() {
       $(this).removeClass('is-invalid is-valid')
     })

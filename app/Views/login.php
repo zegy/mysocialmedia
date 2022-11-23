@@ -1,3 +1,5 @@
+<!-- NOTE : NOT USING LAYOUT -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +45,7 @@
                 <a href="forgot-password.html">I forgot my password</a>
               </p>
               <p class="mb-0">
-                <a href="register.html" class="text-center">Register a new membership</a>
+                <a href="" class="text-center a-signup">Register a new membership</a> <!-- NOTE : has "href" for better view (mouse cursor). use "prevent default" on script! -->
               </p>
             </div><!-- /.col -->
             <div class="col-4">
@@ -89,6 +91,14 @@
             }
           }
         })
+      })
+
+      // Sign up (form modal)
+      $(document).on("click", ".a-signup", function(e) {
+        e.preventDefault()
+
+        // $("#post_modal_add").modal("toggle")
+        alert('x')
       })
 
       // Reset input valid status on click

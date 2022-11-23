@@ -52,6 +52,7 @@ $routes->add('/', 'Auth::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultControlle
 $routes->add('auth', 'Auth::index');
 $routes->add('auth/signin', 'Auth::signIn');
 $routes->add('auth/signout', 'Auth::signOut');
+$routes->add('auth/signup', 'Auth::signUp');
 
 $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');

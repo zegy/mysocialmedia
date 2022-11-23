@@ -102,7 +102,7 @@
         </div>
         <div class="modal-footer">
           <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
-          <input type="hidden" name="group" id="group" value="<?= $post->type ?>">
+          <input type="hidden" name="group" id="group" value="<?= $post->group ?>">
           <input type="hidden" name="old_images" id="old_images" value="<?= $post->img ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
@@ -322,7 +322,7 @@
                 confirmButtonText: 'OK'
               }).then((result) => {
                 if (result.isConfirmed) {
-                  window.location = "<?= base_url('group/' . $post->type) ?>"
+                  window.location = "<?= base_url('group/' . $post->group) ?>"
                 }
               })
             }

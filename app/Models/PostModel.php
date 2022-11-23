@@ -14,7 +14,7 @@ class PostModel extends Model
         'post_fk_user',
         'post_title',
         'post_text',
-        'post_type',
+        'post_group',
         'post_img'
     ];
     protected $useTimestamps = true;
@@ -27,7 +27,7 @@ class PostModel extends Model
         post_title           AS pttl,
         post_text            AS texto,
         post_date_time       AS data,
-        post_type            AS type,
+        post_group           AS group,
         post_img             AS img,
         user_pk              AS uid,
         user_full_name       AS nome,
@@ -54,7 +54,7 @@ class PostModel extends Model
     {
         return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
-                    ->where('post_type', $group)
+                    ->where('post_group', $group)
                     ->orderBy('post_pk', 'DESC')
                     ->paginate(5, 'default', $page);
     }
@@ -75,7 +75,7 @@ class PostModel extends Model
                     ->join('t_user', 'post_fk_user = user_pk')
                     ->where([
                         'post_fk_user' => $user,
-                        'post_type ='  => 'umum'
+                        'post_group ='  => 'umum'
                       ])
                     ->orderBy('post_pk', 'DESC')
                     ->get()

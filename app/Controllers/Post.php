@@ -200,7 +200,7 @@ class Post extends BaseController
                         "post_fk_user" => session('id'),
                         "post_title"   => $this->request->getPost('judul'),
                         "post_text"    => $this->request->getPost('deskripsi'),
-                        "post_type"    => $this->request->getPost('group'),
+                        "post_group"    => $this->request->getPost('group'),
                     ];
 
                     $images = $this->request->getFileMultiple('images');
@@ -243,7 +243,7 @@ class Post extends BaseController
                         "post_fk_user" => session('id'),
                         "post_title"   => $this->request->getPost('judul'),
                         "post_text"    => $this->request->getPost('deskripsi'),
-                        "post_type"    => $this->request->getPost('group'),
+                        "post_group"    => $this->request->getPost('group'),
                     ];
                     
                     $update_image = $this->request->getPost('cb_update_image');

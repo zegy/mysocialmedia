@@ -56,6 +56,41 @@
       </div><!-- /.card-body -->
     </div><!-- /.card -->
   </div><!-- /.login-box -->
+
+  <!-- [MODALS] -->
+  <!-- [MODALS] : Add post -->
+  <form id="user_signup_form">
+    <div class="modal fade" id="user_signup" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add new Item</h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="text" class="form-control" name="judul" id="judul">
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <label for="images">File</label>
+              <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="group" id="group" value="">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
   
   <!-- ================================================ LOAD SCRIPTS ================================================ -->
   <!-- jQuery --> <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
@@ -97,11 +132,44 @@
       $(document).on("click", ".a-signup", function(e) {
         e.preventDefault()
 
-        // $("#post_modal_add").modal("toggle")
-        alert('x')
+        $("#user_signup").modal("toggle")
+      })
+
+      // Sign up (form submit)
+      $(document).on("submit", "#user_signup_form", function(e) {
+        e.preventDefault()
+        let formData = new FormData(this)
+        $.ajax({
+          url: "<?= base_url('auth/signup') ?>",
+          type: "post",
+          data: formData,
+          contentType: false,
+          cache: false,
+          processData: false,
+          dataType: "json",
+          success: function(res) {
+            if (res.status) {
+              $("#user_signup").modal("toggle")
+            //   window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+            } else {
+              $.each(res.errors, function(key, value) {
+                $('[id="' + key + '"]').addClass('is-invalid')
+                $('[id="' + key + '"]').next().text(value)
+                if (value == "") {
+                  $('[id="' + key + '"]').removeClass('is-invalid')
+                  $('[id="' + key + '"]').addClass('is-valid')
+                }
+              })
+            }
+          }
+        })
       })
 
       // Reset input valid status on click
+      $("input").on("click", function() {
+        $(this).removeClass('is-invalid is-valid')
+      })
+
       $("input").on("click", function() {
         $(this).removeClass('is-invalid is-valid')
       })

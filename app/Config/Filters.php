@@ -40,10 +40,10 @@ class Filters extends BaseConfig
             // 'invalidchars',
         ],
         'after' => [
-            'toolbar',
+            // 'toolbar', // NOTE : Default is on, but bug on "forbidden" status
             // 'honeypot',
             // 'secureheaders',
-            'auth' => [ 'except' => ['login','login/signin']], //TODO
+            'auth' => ['except' => ['login','login/signin']], //TODO
         ],
     ];
 

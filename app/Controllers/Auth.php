@@ -70,6 +70,7 @@ class Auth extends BaseController
                 $email = $this->request->getPost('email');
                 $username = $this->request->getPost('username');
 
+                // TODO : Replace the below syntax. Use validation's "is_unique" and "matches"
                 $userSameEmail = $this->userModel->where('user_email', $email)->find(); //NOTE : Get any user with the same email
                 $userSameUsername = $this->userModel->where('user_name', $username)->find(); //NOTE : Get any user with the same username
 

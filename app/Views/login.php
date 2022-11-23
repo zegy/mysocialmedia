@@ -79,6 +79,11 @@
               <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
+              <label for="conf_user_password">conf_user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="password" class="form-control" name="conf_user_password" id="conf_user_password">
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
               <label for="user_full_name">user_full_name <i class="fas fa-exclamation-circle text-danger"></i></label>
               <input type="text" class="form-control" name="user_full_name" id="user_full_name">
               <div class="invalid-feedback"></div>

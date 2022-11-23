@@ -45,7 +45,7 @@ class Auth extends BaseController
                 'user_tel'       => ['required'],
                 'user_sex'       => ['required'],
                 'user_bio'       => ['required'],
-                'user_role'      => ['required'],
+                // 'user_role'      => ['required'], // NOTE : Only used if register via admin ()
                 'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the "uploaded"!)
                     'mime_in[images,image/jpg,image/jpeg,image/gif,image/png]',
                     'max_size[images,4096]',
@@ -55,9 +55,7 @@ class Auth extends BaseController
             if (!$validated) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
             {
                 $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
-                    'judul'     => $this->validation->getError('judul'),
-                    'deskripsi' => $this->validation->getError('deskripsi'),
-                    'images'    => $this->validation->getError('images') //TODO (pending) : individual "error" for each image
+                    // 'judul'     => $this->validation->getError('judul'),
                 ];
 
                 $output = [

@@ -58,33 +58,55 @@
   </div><!-- /.login-box -->
 
   <!-- [MODALS] -->
-  <!-- [MODALS] : Add post -->
-  <form id="user_signup_form">
-    <div class="modal fade" id="user_signup" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+  <!-- [MODALS] : Sign up -->
+  <form id="user_mahasiswa_signup_form">
+    <div class="modal fade" id="user_mahasiswa_signup" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Add new Item</h5>
           </div>
           <div class="modal-body">
+            <!-- TODO : OTC END -->
             <div class="form-group">
-              <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
-              <input type="text" class="form-control" name="judul" id="judul">
+              <label for="user_name">user_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="text" class="form-control" name="user_name" id="user_name">
               <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-              <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
-              <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
+              <label for="user_password">user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="password" class="form-control" name="user_password" id="user_password">
               <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">
-              <label for="images">File</label>
-              <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
+              <label for="user_full_name">user_full_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="text" class="form-control" name="user_full_name" id="user_full_name">
               <div class="invalid-feedback"></div>
             </div>
+            <div class="form-group">
+              <label for="user_email">user_email <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="email" class="form-control" name="user_email" id="user_email">
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <label for="user_tel">user_tel <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="number" class="form-control" name="user_tel" id="user_tel">
+              <div class="invalid-feedback"></div>
+            </div>
+            <!-- TODO : "user_sex" field (select) -->
+            <div class="form-group">
+              <label for="user_bio">user_bio <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <textarea class="form-control" name="user_bio" id="user_bio" rows="5"></textarea>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <label for="profile_pic">profile_pic </label>
+              <input style="height: 45px" type="file" class="form-control" name="profile_pic" id="profile_pic">
+              <div class="invalid-feedback"></div>
+            </div>
+            <!-- TODO : OTC END -->
           </div>
           <div class="modal-footer">
-            <input type="hidden" name="group" id="group" value="">
             <button type="submit" class="btn btn-primary">Save</button>
           </div>
         </div>
@@ -132,11 +154,11 @@
       $(document).on("click", ".a-signup", function(e) {
         e.preventDefault()
 
-        $("#user_signup").modal("toggle")
+        $("#user_mahasiswa_signup").modal("toggle")
       })
 
       // Sign up (form submit)
-      $(document).on("submit", "#user_signup_form", function(e) {
+      $(document).on("submit", "#user_mahasiswa_signup_form", function(e) {
         e.preventDefault()
         let formData = new FormData(this)
         $.ajax({
@@ -149,7 +171,7 @@
           dataType: "json",
           success: function(res) {
             if (res.status) {
-              $("#user_signup").modal("toggle")
+              $("#user_mahasiswa_signup_form").modal("toggle")
             //   window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
             } else {
               $.each(res.errors, function(key, value) {

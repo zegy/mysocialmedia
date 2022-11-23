@@ -59,7 +59,7 @@
 
   <!-- [MODALS] -->
   <!-- [MODALS] : Sign up -->
-  <form id="user_mahasiswa_signup_form">
+  <form id="user_mahasiswa_signup_form"> <!-- TODO (Pending): Disable google chrome's auto-fill on this from (Because it's not in the right field, even with dif name). https://github.com/terrylinooo/disableautofill.js -->
     <div class="modal fade" id="user_mahasiswa_signup" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -98,7 +98,15 @@
               <input type="number" class="form-control" name="user_tel" id="user_tel">
               <div class="invalid-feedback"></div>
             </div>
-            <!-- TODO : "user_sex" field (select) -->
+            <div class="form-group">
+              <label>user_sex <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <select class="form-control" name="user_sex" id="user_sex">
+                <option value="" selected>Select</option>
+                <option value="0">Laki-laki</option>
+                <option value="1">Perempuan</option>
+              </select>
+              <div class="invalid-feedback"></div>
+            </div>
             <div class="form-group">
               <label for="user_bio">user_bio <i class="fas fa-exclamation-circle text-danger"></i></label>
               <textarea class="form-control" name="user_bio" id="user_bio" rows="5"></textarea>

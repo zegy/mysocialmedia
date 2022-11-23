@@ -141,7 +141,7 @@
     $(document).on("click", ".btn-sign-out", function(e) {
       e.preventDefault()
 
-      window.location = "<?php echo base_url('login/signout') ?>"
+      window.location = "<?php echo base_url('auth/signout') ?>"
     })
   })
 </script>

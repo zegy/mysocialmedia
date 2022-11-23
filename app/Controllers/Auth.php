@@ -5,11 +5,11 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 
-class Login extends BaseController
+class Auth extends BaseController
 {
     function __construct()
     {
-        helper('form');
+        $this->userModel = new UserModel();
     }
 
     public function index()
@@ -26,8 +26,7 @@ class Login extends BaseController
 
     public function signIn() //NOTE Using AJAX
     {
-        $userModel = new UserModel();
-        $userData = $userModel->where('user_email', $this->request->getPost('email'))->first();
+        $userData = $this->userModel->where('user_email', $this->request->getPost('email'))->first();
 
         if (!empty($userData))
         {
@@ -57,6 +56,6 @@ class Login extends BaseController
     public function signOut()
     {
         session()->destroy();
-        return redirect()->to('/login');
+        return redirect()->to('auth');
     }
 }

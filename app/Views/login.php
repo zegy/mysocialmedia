@@ -72,7 +72,7 @@
         let formData = new FormData(this)
 
         $.ajax({
-          url: "<?= base_url('login/signin') ?>",
+          url: "<?= base_url('auth/signin') ?>",
           type: "post",
           data: formData,
           contentType: false,
@@ -81,7 +81,7 @@
           dataType: "json",
           success: function(res) {
             if (res.status) {
-              window.location = "<?= base_url('/') ?>"
+              window.location = "<?= base_url() ?>"
             } else {
               //TODO : Error "animation"
               $('[name="email"]').addClass('is-invalid')

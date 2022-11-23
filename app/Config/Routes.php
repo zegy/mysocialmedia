@@ -48,7 +48,11 @@ $routes->set404Override();
 // });
 
 // Fixed START
-$routes->add('/', 'Login::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
+$routes->add('/', 'Auth::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
+$routes->add('auth', 'Auth::index');
+$routes->add('auth/signin', 'Auth::signIn');
+$routes->add('auth/signout', 'Auth::signOut');
+
 $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
 
@@ -106,9 +110,7 @@ $routes->add('searchresult/(:any)', 'Search::searchResult/$1');
 $routes->add('account/signup', 'Account::signUp');
 $routes->add('account/createaccount', 'Account::createAccount');
 
-$routes->add('login', 'Login::index');
-$routes->add('login/signin', 'Login::signIn');
-$routes->add('login/signout', 'Login::signOut');
+
 
 $routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
 

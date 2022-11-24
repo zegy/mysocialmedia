@@ -78,7 +78,7 @@ class Admin_tools extends BaseController
                     'post_fk_user' => $user,
                     'post_title' => 'title',
                     'post_text' => 'text',
-                    'post_type' => $group,
+                    'post_group' => $group,
                 ];
             };
 

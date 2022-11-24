@@ -57,7 +57,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="user_name">user_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_name">user_name</label>
             <input type="text" class="form-control" name="user_name" id="user_name">
             <div class="invalid-feedback"></div>
           </div>
@@ -72,7 +72,7 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_full_name">user_full_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_full_name">user_full_name</i></label>
             <input type="text" class="form-control" name="user_full_name" id="user_full_name">
             <div class="invalid-feedback"></div>
           </div>
@@ -82,12 +82,12 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_tel">user_tel <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_tel">user_tel</label>
             <input type="number" class="form-control" name="user_tel" id="user_tel">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label>user_sex <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label>user_sex</label>
             <select class="form-control" name="user_sex" id="user_sex">
               <option value="" selected>Select</option>
               <option value="0">Laki-laki</option>
@@ -96,7 +96,7 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_bio">user_bio <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_bio">user_bio</i></label>
             <textarea class="form-control" name="user_bio" id="user_bio" rows="5"></textarea>
             <div class="invalid-feedback"></div>
           </div>

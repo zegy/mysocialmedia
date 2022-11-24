@@ -141,7 +141,9 @@ class User extends BaseController
                     // 'user_profile_picture' => 
                 ];
 
-                $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
+                $this->userModel->save($data);
+                $user_pk = $this->userModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
+
 
                 $user_profile_picture = $this->request->getFile('user_profile_picture');
                 if (file_exists($user_profile_picture))
@@ -149,10 +151,12 @@ class User extends BaseController
                     if($user_profile_picture->isValid() && !$user_profile_picture->hasMoved())
                     {
                         // Saving image
-                        $name = $user_profile_picture->getRandomName();
+                        // $name = $user_profile_picture->getRandomName();
+                        $name = $user_pk . '.' . $user_profile_picture->getClientExtension();
                         $user_profile_picture->move(WRITEPATH . 'uploads/users', $name);
 
                         // Thumbnail Creation
+                        $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
                         $image_man
                             ->withFile(WRITEPATH . 'uploads/users/' . $name)
                             ->fit(100, 100, 'center')
@@ -162,9 +166,6 @@ class User extends BaseController
                     $data["user_profile_picture"] = $name;
                 }
                 
-                $this->userModel->save($data);
-                // $pid = $this->postModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
-
                 echo json_encode([
                     // 'group'  => $this->request->getPost('group'),
                     // 'pid'    => $pid,

@@ -36,7 +36,7 @@
             <div class="card-body">
               <div class="tab-content">
                 <div class="active tab-pane" id="informasi">
-                  <form class="form-horizontal">
+                  <form class="form-horizontal"> <!-- TODO DANGER : invalid feedback! --> 
                     
                     <!-- <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -81,7 +81,6 @@
                         <input type="tel" class="form-control" name="user_tel" id="user_tel"><!-- TODO : "type=tel"... Use pattern? -->
                       </div>
                     </div>
-
                     <div class="form-group row">
                       <label for="user_sex" class="col-sm-2 col-form-label">user_sex</label>
                       <div class="col-sm-10">
@@ -91,16 +90,27 @@
                           <option value="f">Perempuan</option>
                         </select>
                       </div>
-
-
-                      <!-- <label>user_sex</label>
-                      <select class="form-control" name="user_sex" id="user_sex">
-                        <option value="" selected>Select</option>
-                        <option value="m">Laki-laki</option>
-                        <option value="f">Perempuan</option>
-                      </select> -->
+                    </div>
+                    <div class="form-group row">
+                      <label for="user_bio" class="col-sm-2 col-form-label">user_bio</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" name="user_bio" id="user_bio"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group row"><!-- NOTE : Experimental! because using "Horizontal form". Need to find the file input format -->
+                      <label for="user_profile_picture" class="col-sm-2 col-form-label">user_profile_picture</label>
+                      <div class="col-sm-10">
+                        <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
+                      </div>
                     </div>
 
+
+
+
+
+                    <!-- DANGER User role -->
+
+                    
 
                     
 

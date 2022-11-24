@@ -53,16 +53,16 @@ class User extends BaseController
 
             else //NOTE : Show all group's posts based on user's search input. TODO (Pending) : The result is not paginated!
             {
-                $posts = $this->postModel->getAllByKeyword($keyword);
+                $users = $this->userModel->getAllByKeyword($keyword);
                 
-                if (!empty($posts))
+                if (!empty($users))
                 {
                     $dataView = [
-                        "posts" => $posts,
+                        "users" => $users,
                     ];
                         
                     echo json_encode([
-                        'posts'  => view('post/post_list', $dataView),
+                        'users'  => view('user/user_list', $dataView),
                         'status' => true
                     ]);
                 }
@@ -70,7 +70,7 @@ class User extends BaseController
                 {
                     echo json_encode([
                         'status' => false,
-                        'nomatchpost' => true
+                        'nomatchuser' => true
                     ]);
                 }
             }

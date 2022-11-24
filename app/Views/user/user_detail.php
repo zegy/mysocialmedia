@@ -36,7 +36,7 @@
             <div class="card-body">
               <div class="tab-content">
                 <div class="active tab-pane" id="informasi">
-                  <form class="form-horizontal"> <!-- TODO DANGER : invalid feedback! --> 
+                  <form class="form-horizontal">
                     
                     <!-- <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -49,36 +49,42 @@
                       <label for="user_name" class="col-sm-2 col-form-label">user_name</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="user_name" id="user_name">
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row"><!-- NOTE DANGER : Check later -->
                       <label for="user_password" class="col-sm-2 col-form-label">user_password</label>
                       <div class="col-sm-10">
                         <input type="password" class="form-control" name="user_password" id="user_password">
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row"><!-- NOTE DANGER : Check later -->
                       <label for="conf_user_password" class="col-sm-2 col-form-label">conf_user_password</label>
                       <div class="col-sm-10">
                         <input type="password" class="form-control" name="conf_user_password" id="conf_user_password">
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="user_full_name" class="col-sm-2 col-form-label">user_full_name</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="user_full_name" id="user_full_name">
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="user_email" class="col-sm-2 col-form-label">user_email</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" name="user_email" id="user_email">
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="user_tel" class="col-sm-2 col-form-label">user_tel</label>
                       <div class="col-sm-10">
                         <input type="tel" class="form-control" name="user_tel" id="user_tel"><!-- TODO : "type=tel"... Use pattern? -->
+                        <div class="invalid-feedback"></div> 
                       </div>
                     </div>
                     <div class="form-group row">
@@ -89,18 +95,21 @@
                           <option value="m">Laki-laki</option>
                           <option value="f">Perempuan</option>
                         </select>
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="user_bio" class="col-sm-2 col-form-label">user_bio</label>
                       <div class="col-sm-10">
                         <textarea class="form-control" name="user_bio" id="user_bio"></textarea>
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row"><!-- NOTE : Experimental! because using "Horizontal form". Need to find the file input format -->
                       <label for="user_profile_picture" class="col-sm-2 col-form-label">user_profile_picture</label>
                       <div class="col-sm-10">
                         <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
+                        <div class="invalid-feedback"></div>
                       </div>
                     </div>
 

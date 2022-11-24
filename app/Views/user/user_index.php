@@ -20,13 +20,13 @@
               <i class="fas fa-2x fa-sync fa-spin"></i>
             </div>
             <div class="card-header">
-              <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-primary btn-sm btn-add-user"><i class="fa fa-plus"></i></button>
               <div class="card-tools">
-                <form id="search_post_form">
+                <form id="search_user_form">
                   <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
-                    <input type="text" class="form-control float-right" name="input_searchpost" id="input_searchpost" placeholder="Cari Diskusi">
+                    <input type="text" class="form-control float-right" name="input_searchuser" id="input_searchuser" placeholder="Cari Diskusi">
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-default btn-search-post">
+                      <button type="submit" class="btn btn-default btn-search-user">
                         <i class="fas fa-search"></i>
                       </button>
                     </div>
@@ -34,8 +34,8 @@
                 </form>
               </div>
             </div><!-- /.card-header -->
-            <div id="post_list_data">
-              <!-- NOTE : Get data using AJAX (Replace anything inside this "post_list_data" after request) -->
+            <div id="user_list_data">
+              <!-- NOTE : Get data using AJAX (Replace anything inside this "user_list_data" after request) -->
               <div class="card-body" style="height: 355px;"><!-- NOTE : As "empty table" so "loading" overlay animation will be at the center of the card -->
               </div><!-- /.card-body -->
             </div>
@@ -47,9 +47,9 @@
 </div><!-- /.content-wrapper -->
 
 <!-- [MODALS] -->
-<!-- [MODALS] : Add post -->
-<form id="post_modal_add_form">
-  <div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+<!-- [MODALS] : Add user -->
+<form id="user_modal_add_form">
+  <div class="modal fade" id="user_modal_add" tabindex="-1" role="dialog" aria-labelledby="user_modal_add_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -85,7 +85,7 @@
 <?= $this->section('script') ?>
 <script>
   //[A] Callable functions
-  function get_post_list(page, keyword) {
+  function get_user_list(page, keyword) {
     $.ajax({
       url: "<?= base_url('user/list') ?>",
       dataType: "json",
@@ -96,12 +96,12 @@
       },
       success: function(res) {
         if (res.status) {
-          $("#post_list_data").html(res.users)
+          $("#user_list_data").html(res.users)
         } else {
-          if (res.nomatchpost) { //NOTE : No post found on this group based on search
-            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
-          } else { //NOTE : No any post found on this group
-            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
+          if (res.nomatchuser) { //NOTE : No user found on this group based on search
+            $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
+          } else { //NOTE : No any user found on this group
+            $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
           }
         }
         $(".overlay").hide()
@@ -112,41 +112,41 @@
   //[B] Main scripts
   $(document).ready(function() {
     // After loaded
-    get_post_list()
+    get_user_list()
     
-    // Refresh post list based on page number (pagination)
+    // Refresh user list based on page number (pagination)
     $(document).on("click", ".btn-pagination", function(e) {
       e.preventDefault() //NOTE : Needed because "links" from pager has "link / href"
 
       $(".overlay").show();
       let page = $(this).attr('id')
-      get_post_list(page)
+      get_user_list(page)
     })
     
-    // Search post. NOTE (Pending) : The result is not paginated!
-    $(document).on("submit", "#search_post_form", function(e) {
+    // Search user. NOTE (Pending) : The result is not paginated!
+    $(document).on("submit", "#search_user_form", function(e) {
       e.preventDefault()
         
-      let keyword = $("#search_post_form #input_searchpost").val()
+      let keyword = $("#search_user_form #input_searchuser").val()
       let page = ''
       if (keyword == "") {
-        get_post_list()
+        get_user_list()
       } else {
-        get_post_list(page, keyword)
+        get_user_list(page, keyword)
       }
     })
     
-    // Create post (form modal)
-    $(document).on("click", ".btn-add-post", function() {
-      $("#post_modal_add").modal("toggle")
+    // Create user (form modal)
+    $(document).on("click", ".btn-add-user", function() {
+      $("#user_modal_add").modal("toggle")
     })
     
-    // Create post (form submit)
-    $(document).on("submit", "#post_modal_add_form", function(e) {
+    // Create user (form submit)
+    $(document).on("submit", "#user_modal_add_form", function(e) {
       e.preventDefault()
       let formData = new FormData(this)
       $.ajax({
-        url: "<?= base_url('post/save') ?>",
+        url: "<?= base_url('user/save') ?>",
         type: "post",
         data: formData,
         contentType: false,
@@ -155,7 +155,7 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            $("#post_modal_add").modal("toggle")
+            $("#user_modal_add").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
             $.each(res.errors, function(key, value) {

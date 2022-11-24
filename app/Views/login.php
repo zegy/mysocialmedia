@@ -59,7 +59,7 @@
 
   <!-- [MODALS] -->
   <!-- [MODALS] : Sign up -->
-  <form id="user_mahasiswa_signup_form"> <!-- TODO (Pending): Disable google chrome's auto-fill on this from (Because it's not in the right field, even with dif name). https://github.com/terrylinooo/disableautofill.js -->
+  <form id="user_mahasiswa_signup_form"><!-- TODO (Pending): Disable google chrome's auto-fill on this from (Because it's not in the right field, even with dif name). https://github.com/terrylinooo/disableautofill.js -->
     <div class="modal fade" id="user_mahasiswa_signup" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">

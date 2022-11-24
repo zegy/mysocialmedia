@@ -48,7 +48,7 @@
 
 <!-- [MODALS] -->
 <!-- [MODALS] : Add user -->
-<form id="user_modal_add_form">
+<form id="user_modal_add_form"><!-- TODO (Pending): Disable google chrome's auto-fill on this from (Because it's not in the right field, even with dif name). https://github.com/terrylinooo/disableautofill.js -->
   <div class="modal fade" id="user_modal_add" tabindex="-1" role="dialog" aria-labelledby="user_modal_add_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

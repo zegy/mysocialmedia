@@ -25,7 +25,7 @@
               <div class="card-tools">
                 <form id="search_post_form">
                   <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
-                    <input type="text" class="form-control float-right" name="input_searchpost" id="input_searchpost" placeholder="Cari Diskusi">
+                    <input type="search" class="form-control float-right" name="input_searchpost" id="input_searchpost" placeholder="Cari Diskusi">
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default btn-search-post">
                         <i class="fas fa-search"></i>

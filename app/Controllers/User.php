@@ -45,13 +45,7 @@ class User extends BaseController
                     echo json_encode(['status' => false]);
                 }
             }
-
-
-
-
-
-
-            else //NOTE : Show all group's posts based on user's search input. TODO (Pending) : The result is not paginated!
+            else //NOTE : Show users based on user's search input. TODO (Pending) : The result is not paginated!
             {
                 $users = $this->userModel->getAllByKeyword($keyword);
                 
@@ -80,11 +74,6 @@ class User extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
-
-
-
-
-
 
     public function detail($uid)
     {

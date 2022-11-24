@@ -49,18 +49,6 @@ class UserModel extends Model
                     ->get()
                     ->getResult();
     }
-        
-    // public function getAllByKeyword($keyword)
-    // {
-    //     return $this->select('
-    //                             user_pk              as uid,
-    //                             user_full_name       as nome,
-    //                             user_profile_picture as img,
-    //                             user_bio             as bio
-    //                         ')
-    //                 ->like('user_full_name', $keyword)
-    //                 ->findAll();
-    // }
 }
 
 /*NOTE

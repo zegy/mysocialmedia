@@ -57,7 +57,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="user_name">user_name</label>
+            <label for="user_name">user_name <i class="fas fa-exclamation-circle text-danger"></i></label>
             <input type="text" class="form-control" name="user_name" id="user_name">
             <div class="invalid-feedback"></div>
           </div>
@@ -83,15 +83,15 @@
           </div>
           <div class="form-group">
             <label for="user_tel">user_tel</label>
-            <input type="number" class="form-control" name="user_tel" id="user_tel">
+            <input type="tel" class="form-control" name="user_tel" id="user_tel"><!-- TODO : "type=tel"... Use pattern? -->
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label>user_sex</label>
+            <label for="user_sex">user_sex</label>
             <select class="form-control" name="user_sex" id="user_sex">
               <option value="" selected>Select</option>
-              <option value="0">Laki-laki</option>
-              <option value="1">Perempuan</option>
+              <option value="m">Laki-laki</option>
+              <option value="f">Perempuan</option>
             </select>
             <div class="invalid-feedback"></div>
           </div>
@@ -101,8 +101,18 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="profile_pic">profile_pic </label>
-            <input style="height: 45px" type="file" class="form-control" name="profile_pic" id="profile_pic">
+            <label for="user_profile_picture">user_profile_picture </label>
+            <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group"><!-- NOTE DANGER : Only use if register via admin! -->
+            <label for="user_role">user_role <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <select class="form-control" name="user_role" id="user_role">
+              <option value="" selected>Select</option>
+              <option value="admin">Admin</option>
+              <option value="dosen">Dosen</option>
+              <option value="mahasiswa">Mahasiswa</option>
+            </select>
             <div class="invalid-feedback"></div>
           </div>
         </div>
@@ -132,8 +142,9 @@
         if (res.status) {
           $("#user_list_data").html(res.users)
         } else {
-          if (res.nomatchuser) { //NOTE : No user found on this group based on search
-            $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
+          if (res.nomatchuser) { //NOTE : No user found on this group based on search.
+            // TODO : Better empty "search" text! 
+            $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada user ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
           } else { //NOTE : No any user found on this group
             $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
           }
@@ -190,7 +201,7 @@
         success: function(res) {
           if (res.status) {
             $("#user_modal_add").modal("toggle")
-            window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+            // window.location = "base url'group'" + "/" + res.group + "/detail/" + res.pid
           } else {
             $.each(res.errors, function(key, value) {
               $('[id="' + key + '"]').addClass('is-invalid')

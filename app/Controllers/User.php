@@ -96,17 +96,25 @@ class User extends BaseController
                 'user_tel'       => ['required'],
                 'user_sex'       => ['required'],
                 'user_bio'       => ['required'],
-                // 'user_role'      => ['required'], // NOTE : Only used if register via admin ()
+                'user_role'      => ['required'], // NOTE DANGER : Only use if register via admin!
                 'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the "uploaded"!)
-                    'mime_in[images,image/jpg,image/jpeg,image/gif,image/png]',
-                    'max_size[images,4096]',
+                    'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
+                    'max_size[user_profile_picture,4096]',
                 ],
             ]);
 
             if (!$validated) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
             {
                 $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
-                    'user_name'     => $this->validation->getError('user_name'),
+                    'user_name'      => $this->validation->getError('user_name'),
+                    'user_password'  => $this->validation->getError('user_password'),
+                    'user_full_name' => $this->validation->getError('user_full_name'),
+                    'user_email'     => $this->validation->getError('user_email'),
+                    'user_tel'       => $this->validation->getError('user_tel'),
+                    'user_sex'       => $this->validation->getError('user_sex'),
+                    'user_bio'       => $this->validation->getError('user_bio'),
+                    'user_role'      => $this->validation->getError('user_role'),
+                    'user_profile_picture' => $this->validation->getError('user_profile_picture'),
                 ];
 
                 $output = [
@@ -118,62 +126,50 @@ class User extends BaseController
             }
             else //NOTE : IF VALID
             {
-                $email = $this->request->getPost('email');
-                $username = $this->request->getPost('username');
+                $data = [
+                    // "user_pk"        => session('id'), //DANGER
 
-                // TODO : Replace the below syntax. Use validation's "is_unique" and "matches"
-                $userSameEmail = $this->userModel->where('user_email', $email)->find(); //NOTE : Get any user with the same email
-                $userSameUsername = $this->userModel->where('user_name', $username)->find(); //NOTE : Get any user with the same username
+                    'user_name'      => $this->request->getPost('user_name'),
+                    'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the "Important" note!). https://www.php.net/manual/en/function.password-hash.php
+                    'user_full_name' => $this->request->getPost('user_full_name'),
+                    'user_email'     => $this->request->getPost('user_email'),
+                    'user_tel'       => $this->request->getPost('user_tel'),
+                    'user_sex'       => $this->request->getPost('user_sex'),
+                    'user_bio'       => $this->request->getPost('user_bio'),
+                    'user_role'      => $this->request->getPost('user_role'),
 
-                if (!empty($userSameEmail) || !empty($userSameUsername))
+                    // 'user_profile_picture' => 
+                ];
+
+                $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
+
+                $user_profile_picture = $this->request->getFile('user_profile_picture');
+                if (file_exists($user_profile_picture))
                 {
-                    //TODO : Error - User with same email or username exist!
-                }
-                else
-                {
-                    $data = [
-                        "post_fk_user" => session('id'),
-                        "post_title"   => $this->request->getPost('judul'),
-                        "post_text"    => $this->request->getPost('deskripsi'),
-                        "post_type"    => $this->request->getPost('group'),
-                    ];
-
-                    $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
-
-
-                    $images = $this->request->getFileMultiple('images');
-                    if (file_exists($images[0]))
+                    if($user_profile_picture->isValid() && !$user_profile_picture->hasMoved())
                     {
-                        $count = 0;
-                        foreach($images as $image)
-                        {
-                            if($image->isValid() && !$image->hasMoved())
-                            {
-                                // Saving image
-                                $name = $image->getRandomName();
-                                $imageNames[$count] = $name; 
-                                $image->move(WRITEPATH . 'uploads/posts', $name);
+                        // Saving image
+                        $name = $user_profile_picture->getRandomName();
+                        $user_profile_picture->move(WRITEPATH . 'uploads/users', $name);
 
-                                // Thumbnail Creation
-                                $image_man
-                                    ->withFile(WRITEPATH . 'uploads/posts/' . $name)
-                                    ->fit(100, 100, 'center')
-                                    ->save(WRITEPATH . 'uploads/posts/thumb' . $name);
-
-                                $count++;
-                            }        
-                        }
-                        $data["post_img"] = implode(",", $imageNames);
-                    }
-                    $this->postModel->save($data);
-                    $pid = $this->postModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
-
-                    echo json_encode([
-                        'group'  => $this->request->getPost('group'),
-                        'pid'    => $pid,
-                        'status' => true
-                    ]);
+                        // Thumbnail Creation
+                        $image_man
+                            ->withFile(WRITEPATH . 'uploads/users/' . $name)
+                            ->fit(100, 100, 'center')
+                            ->save(WRITEPATH . 'uploads/users/thumb' . $name);
+                    }        
+                    
+                    $data["user_profile_picture"] = $name;
                 }
+                
+                $this->userModel->save($data);
+                // $pid = $this->postModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
+
+                echo json_encode([
+                    // 'group'  => $this->request->getPost('group'),
+                    // 'pid'    => $pid,
+                    'status' => true
+                ]);
             }
         }
         else

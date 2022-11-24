@@ -57,18 +57,52 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
-            <textarea class="form-control" name="judul" id="judul" rows="2"></textarea>
+            <label for="user_name">user_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="text" class="form-control" name="user_name" id="user_name">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
-            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
+            <label for="user_password">user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="password" class="form-control" name="user_password" id="user_password">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="images">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
+            <label for="conf_user_password">conf_user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="password" class="form-control" name="conf_user_password" id="conf_user_password">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_full_name">user_full_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="text" class="form-control" name="user_full_name" id="user_full_name">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_email">user_email <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="email" class="form-control" name="user_email" id="user_email">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_tel">user_tel <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="number" class="form-control" name="user_tel" id="user_tel">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>user_sex <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <select class="form-control" name="user_sex" id="user_sex">
+              <option value="" selected>Select</option>
+              <option value="0">Laki-laki</option>
+              <option value="1">Perempuan</option>
+            </select>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_bio">user_bio <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <textarea class="form-control" name="user_bio" id="user_bio" rows="5"></textarea>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="profile_pic">profile_pic </label>
+            <input style="height: 45px" type="file" class="form-control" name="profile_pic" id="profile_pic">
             <div class="invalid-feedback"></div>
           </div>
         </div>

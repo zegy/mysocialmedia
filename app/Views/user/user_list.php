@@ -12,15 +12,16 @@
     </thead>
     <tbody>
       <?php foreach ($users as $user) { ?>
-      <tr>
+      <tr> <!-- TODO : Styles -->
         <td style="width: 150px; min-width: 150px">
-          <img alt="Avatar" class="table-avatar <?='circle-role-' . $user->user_role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" data-uid="<?= $user->user_pk ?>" data-user_full_name="<?= $user->user_full_name ?>" data-user_role="<?= $user->user_role ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
+          <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
         </td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_name ?></td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_full_name ?></td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_role ?></td>
         <td class="project-actions text-right">
-          <a class="btn btn-primary" href="<?= base_url('group/umum/detail/' . $user->user_pk) ?>"><i class="far fa-comments"></i></a>
+          <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-info-circle"></i></a>
+          <a class="btn btn-danger btn-sm" href="#"><i class="far fa-trash-alt"></i></a>
         </td>
       </tr>
       <?php } ?>

@@ -21,7 +21,6 @@
             </div>
             <div class="card-header">
               <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i></button>
-              <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_post_form">
                   <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
@@ -80,45 +79,6 @@
     </div>
   </div>
 </form>
-
-<!-- [MODALS] : User's summary -->
-<div class="modal fade" id="user_sum_modal" tabindex="-1" role="dialog" aria-labelledby="user_sum_modal_label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="card bg-light d-flex flex-fill">
-          <div class="card-header text-muted border-bottom-0">
-            Digital Strategist
-          </div>
-          <div class="card-body pt-0">
-            <div class="row">
-              <div class="col-7">
-                <h2 class="lead"><b>Nicole Pearson</b></h2>
-                <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
-                <ul class="ml-4 mb-0 fa-ul text-muted">
-                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
-                </ul>
-              </div>
-              <div class="col-5 text-center">
-                <img src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="user-avatar" class="img-circle img-fluid">
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="text-right">
-              <a href="#" class="btn btn-sm bg-teal">
-                <i class="fas fa-comments"></i>
-              </a>
-              <a href="#" class="btn btn-sm btn-primary">
-                <i class="fas fa-user"></i> View Profile
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <?= $this->endSection() ?>
 
 <!-- [SCRIPTS] -->
@@ -163,13 +123,6 @@
       get_post_list(page)
     })
     
-    // Refresh post list
-    $(document).on("click", ".btn-refresh-post", function() {
-      $(".overlay").show()
-      $("#search_post_form #input_searchpost").val('')
-      get_post_list()
-    })
-
     // Search post. NOTE (Pending) : The result is not paginated!
     $(document).on("submit", "#search_post_form", function(e) {
       e.preventDefault()
@@ -225,25 +178,6 @@
 
     $("input").on("click", function() {
       $(this).removeClass('is-invalid is-valid')
-    })
-
-    // Show post's user modal
-    $(document).on("click", ".table-avatar", function(e) {
-      e.preventDefault()
-      //NOTE : Using "data()" so no need to request the same data again (from post_list)
-      let uid = $(this).data('uid')
-      let ufn = $(this).data('user_full_name')
-      let role = $(this).data('user_role')
-      $("#user_sum_modal .lead").html('<b>'+ ufn + '</b>')
-      $("#user_sum_modal .card-header").text(role)
-      $("#user_sum_modal").modal("toggle")
-    })
-
-    // Redirect to post_detail after click post_text's area (The table's td)
-    $(document).on("click", ".post_td_text", function(e) {
-      e.preventDefault()
-      let link = $(this).data('link')
-      window.location = link
     })
   })
 </script>

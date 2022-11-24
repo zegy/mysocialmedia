@@ -20,8 +20,8 @@
         <td style="width: 50px; min-width: 50px"><?= $user->user_full_name ?></td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_role ?></td>
         <td class="project-actions text-right">
-          <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-info-circle"></i></a>
-          <a class="btn btn-danger btn-sm" href="#"><i class="far fa-trash-alt"></i></a>
+          <a class="btn btn-primary btn-sm" href="<?= base_url('user/detail/' . $user->user_pk) ?>"><i class="fas fa-info-circle"></i> Detail</a>
+          <a class="btn btn-danger btn-sm" href="#"><i class="far fa-trash-alt"></i> Hapus</a>
         </td>
       </tr>
       <?php } ?>

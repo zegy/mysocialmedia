@@ -86,13 +86,13 @@ class User extends BaseController
 
 
 
-    public function showProfile($uid)
+    public function detail($uid)
     {
         $user = $this->userModel->find($uid);
 
         if (!empty($user))
         {
-            return view('user/user_profile', ["user" => $user]);
+            return view('user/user_detail', ["user" => $user]);
         }
         else
         {

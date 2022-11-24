@@ -76,6 +76,7 @@ $routes->add('comment/like', 'Comment::like');
 $routes->add('data/user', 'User::index'); //TODO : Better! sync with view
 $routes->add('user/list', 'User::list'); //TODO : Better! sync with view
 
+$routes->add('user/detail/(:num)', 'User::detail/$1');
 
 
 
@@ -117,7 +118,6 @@ $routes->add('account/createaccount', 'Account::createAccount');
 
 
 
-$routes->add('user/showprofile/(:num)', 'User::showProfile/$1');
 
 $routes->add('comment/save', 'Comment::save');
 

@@ -31,7 +31,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-          <a href="<?php echo base_url('user/showprofile/' . session('id')) ?>" class="nav-link">Profile</a>
+          <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="nav-link">Profile</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto"><!-- Right navbar links -->      

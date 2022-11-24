@@ -112,22 +112,20 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
+                    <div class="form-group row"><!-- DANGER User role -->
+                      <label for="user_role" class="col-sm-2 col-form-label">user_role</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="user_role" id="user_role">
+                          <option value="" selected>Select</option>
+                          <option value="admin">Admin</option>
+                          <option value="dosen">Dosen</option>
+                          <option value="mahasiswa">Mahasiswa</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                      </div>
+                    </div>
 
-
-
-
-
-                    <!-- DANGER User role -->
-
-                    
-
-                    
-
-
-
-
-
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                       <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" id="inputEmail" placeholder="Email">
@@ -139,7 +137,7 @@
                       <div class="col-sm-10">
                         <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
                       </div>
-                    </div>
+                    </div> -->
                     
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">

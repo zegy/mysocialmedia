@@ -180,9 +180,16 @@ class User extends BaseController
     }
 
     public function detail($uid)
-    {
-        $user = $this->userModel->find($uid);
-
+    {   
+        if (session('id') == $uid)
+        {
+            $user = $this->userModel->find($uid); // Get all data row
+        }
+        else
+        {
+            $user = $this->userModel->getOneReadOnly($uid); // Get all data row (read only ones)
+        }
+        
         if (!empty($user))
         {
             return view('user/user_detail', ["user" => $user]);

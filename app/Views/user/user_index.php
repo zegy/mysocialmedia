@@ -63,7 +63,7 @@
           </div>
           <div class="form-group">
             <label for="user_password">user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
-            <input type="password" class="form-control" name="user_password" id="user_password">
+            <input type="password" class="form-control" name="user_password" id="user_password" autocomplete="new-password"> <!-- TODO : The "autocomplete="new-password" is experimental. Re-check later!. https://developer.mozilla.org/en-US/docs/Web/Security/Securing_your_site/Turning_off_form_autocompletion -->
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">

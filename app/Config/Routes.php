@@ -77,6 +77,7 @@ $routes->add('data/user', 'User::index'); //TODO : Better! sync with view
 $routes->add('user/list', 'User::list'); //TODO : Better! sync with view
 
 $routes->add('user/detail/(:num)', 'User::detail/$1');
+$routes->add('user/save',   'User::save');
 
 
 

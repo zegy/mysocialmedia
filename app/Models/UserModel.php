@@ -29,6 +29,7 @@ class UserModel extends Model
     //NOTE Custom var with "standard query" string (instead of CI's Model and Query Builder)
     protected $selected = '
         user_pk,
+        user_name,
         user_full_name,
         user_profile_picture,
         user_role

@@ -3,17 +3,22 @@
   <table style="text-align: center" class="table table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
     <thead>
       <tr>
-        <th>No.</th>
-        <th>Pembuat</th>
+        <th>user_profile_picture</th>
+        <th>user_name</th>
+        <th>user_full_name</th>
+        <th>user_role</th>
+        <th>"Action"</th>
       </tr>
     </thead>
     <tbody>
       <?php foreach ($users as $user) { ?>
       <tr>
-        <td style="width: 50px; min-width: 50px"><?= $user->user_pk ?></td>
         <td style="width: 150px; min-width: 150px">
           <img alt="Avatar" class="table-avatar <?='circle-role-' . $user->user_role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" data-uid="<?= $user->user_pk ?>" data-user_full_name="<?= $user->user_full_name ?>" data-user_role="<?= $user->user_role ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
         </td>
+        <td style="width: 50px; min-width: 50px"><?= $user->user_name ?></td>
+        <td style="width: 50px; min-width: 50px"><?= $user->user_full_name ?></td>
+        <td style="width: 50px; min-width: 50px"><?= $user->user_role ?></td>
         <td class="project-actions text-right">
           <a class="btn btn-primary" href="<?= base_url('group/umum/detail/' . $user->user_pk) ?>"><i class="far fa-comments"></i></a>
         </td>

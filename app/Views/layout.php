@@ -124,6 +124,16 @@
                 </p>
               </a>
             </li>
+            <li class="nav-header">DATA :</li>
+            <li class="nav-item">
+              <a href="<?= base_url('data/user/') ?>" class="nav-link" id="user">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  User
+                  <!-- <span class="right badge badge-danger">1</span> -->
+                </p>
+              </a>
+            </li>
             <!-- TODO Delete later, "Layout" script (Dev-only, Admin_tools) START -->
             <li class="nav-header">ADMIN TOOLS :</li>
             <li class="nav-item">

@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1><b>FORUM DISKUSI :</b> <?= $group ?></h1>
+          <h1><b>DAFTAR PENGGUNA</b></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -74,7 +74,6 @@
           </div>
         </div>
         <div class="modal-footer">
-          <input type="hidden" name="group" id="group" value="<?= $group ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
@@ -128,17 +127,16 @@
   //[A] Callable functions
   function get_post_list(page, keyword) {
     $.ajax({
-      url: "<?= base_url('post/list') ?>",
+      url: "<?= base_url('user/list') ?>",
       dataType: "json",
       type: "post",
       data: {
-        group: "<?= $group ?>",
         page: page,
         keyword : keyword
       },
       success: function(res) {
         if (res.status) {
-          $("#post_list_data").html(res.posts)
+          $("#post_list_data").html(res.users)
         } else {
           if (res.nomatchpost) { //NOTE : No post found on this group based on search
             $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')

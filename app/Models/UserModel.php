@@ -26,17 +26,32 @@ class UserModel extends Model
     protected $createdField  = 'user_regis_date_time';
     protected $updatedField; //NOTE It's needed by "useTimestamps" even if we not use it. https://codeigniter.com/user_guide/models/model.html?highlight=find#usetimestamps
 
-    public function getAllByKeyword($keyword)
+    //NOTE Custom var with "standard query" string (instead of CI's Model and Query Builder)
+    protected $selected = '
+        user_pk,
+        user_full_name,
+        user_profile_picture,
+        user_role
+    ';
+
+    public function getAll($page = null)
     {
-        return $this->select('
-                                user_pk              as uid,
-                                user_full_name       as nome,
-                                user_profile_picture as img,
-                                user_bio             as bio
-                            ')
-                    ->like('user_full_name', $keyword)
-                    ->findAll();
+        return $this->select($this->selected)
+                    ->orderBy('user_pk', 'DESC')
+                    ->paginate(5, 'default', $page);
     }
+        
+    // public function getAllByKeyword($keyword)
+    // {
+    //     return $this->select('
+    //                             user_pk              as uid,
+    //                             user_full_name       as nome,
+    //                             user_profile_picture as img,
+    //                             user_bio             as bio
+    //                         ')
+    //                 ->like('user_full_name', $keyword)
+    //                 ->findAll();
+    // }
 }
 
 /*NOTE

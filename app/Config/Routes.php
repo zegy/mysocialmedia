@@ -73,6 +73,10 @@ $routes->add('comment/like', 'Comment::like');
 // $routes->add('group_lists', 'Group::index');
 // $routes->add('group_list',  'Group::list');
 
+$routes->add('data/user', 'User::index'); //TODO : Better! sync with view
+$routes->add('user/list', 'User::list'); //TODO : Better! sync with view
+
+
 
 
 

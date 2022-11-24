@@ -5,23 +5,17 @@
       <tr>
         <th>No.</th>
         <th>Pembuat</th>
-        <th>Judul Diskusi</th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($posts as $post) { ?>
+      <?php foreach ($users as $user) { ?>
       <tr>
-        <td style="width: 50px; min-width: 50px"><?= $post->pid ?></td>
+        <td style="width: 50px; min-width: 50px"><?= $user->user_pk ?></td>
         <td style="width: 150px; min-width: 150px">
-          <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" data-uid="<?= $post->uid ?>" data-user_full_name="<?= $post->nome ?>" data-user_role="<?= $post->role ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
-          <br/>
-          <small>Pada : 
-            <?= $post->data ?>
-          </small>
+          <img alt="Avatar" class="table-avatar <?='circle-role-' . $user->user_role ?>" src="<?= base_url('assets/dist/img/avatar.png') ?>" data-uid="<?= $user->user_pk ?>" data-user_full_name="<?= $user->user_full_name ?>" data-user_role="<?= $user->user_role ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
         </td>
-        <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/umum/detail/' . $post->pid) ?>"><?= $post->pttl ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
         <td class="project-actions text-right">
-          <a class="btn btn-primary" href="<?= base_url('group/umum/detail/' . $post->pid) ?>"><i class="far fa-comments"></i></a>
+          <a class="btn btn-primary" href="<?= base_url('group/umum/detail/' . $user->user_pk) ?>"><i class="far fa-comments"></i></a>
         </td>
       </tr>
       <?php } ?>

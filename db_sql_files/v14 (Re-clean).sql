@@ -93,7 +93,7 @@ CREATE TABLE `t_user` (
 -- Dumping data for table `t_user`
 --
 
-INSERT INTO `t_user` (`user_pk`, `user_name`, `user_password`, `user_full_name`, `user_email`, `user_tel`, `user_profile_picture`, `user_regis_date_time`, `user_sex`, `user_bio`, `user_token`, `user_role`) VALUES
+INSERT INTO `t_user` (`user_pk`, `user_name`, `user_password`, `user_full_name`, `user_email`, `user_tel`, `user_profile_picture`, `user_regis_date_time`, `user_sex`, `user_bio`, `user_role`, `user_token`) VALUES
 (
     1,
     'un_admin',

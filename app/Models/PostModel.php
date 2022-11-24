@@ -30,6 +30,7 @@ class PostModel extends Model
         post_group           AS group,
         post_img             AS img,
         user_pk              AS uid,
+        user_name            AS user_name,
         user_full_name       AS nome,
         user_profile_picture AS image,
         user_role            AS role,

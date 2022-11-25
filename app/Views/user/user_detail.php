@@ -48,7 +48,7 @@
                     <div class="form-group row">
                       <label for="user_name" class="col-sm-2 col-form-label">user_name</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="user_name" id="user_name">
+                        <input type="text" class="form-control" name="user_name" id="user_name" value="<?= $user->user_name ?>">
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
@@ -69,21 +69,21 @@
                     <div class="form-group row">
                       <label for="user_full_name" class="col-sm-2 col-form-label">user_full_name</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="user_full_name" id="user_full_name">
+                        <input type="text" class="form-control" name="user_full_name" id="user_full_name" value="<?= $user->user_full_name ?>">
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="user_email" class="col-sm-2 col-form-label">user_email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" name="user_email" id="user_email">
+                        <input type="email" class="form-control" name="user_email" id="user_email" value="<?= $user->user_email ?>">
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="user_tel" class="col-sm-2 col-form-label">user_tel</label>
                       <div class="col-sm-10">
-                        <input type="tel" class="form-control" name="user_tel" id="user_tel"><!-- TODO : "type=tel"... Use pattern? -->
+                        <input type="tel" class="form-control" name="user_tel" id="user_tel" value="<?= $user->user_tel ?>"><!-- TODO : "type=tel"... Use pattern? -->
                         <div class="invalid-feedback"></div> 
                       </div>
                     </div>
@@ -91,7 +91,6 @@
                       <label for="user_sex" class="col-sm-2 col-form-label">user_sex</label>
                       <div class="col-sm-10">
                         <select class="form-control" name="user_sex" id="user_sex">
-                          <option value="" selected>Select</option>
                           <option value="m">Laki-laki</option>
                           <option value="f">Perempuan</option>
                         </select>
@@ -115,8 +114,7 @@
                     <div class="form-group row"><!-- DANGER User role -->
                       <label for="user_role" class="col-sm-2 col-form-label">user_role</label>
                       <div class="col-sm-10">
-                        <select class="form-control" name="user_role" id="user_role">
-                          <option value="" selected>Select</option>
+                        <select class="form-control" name="user_role" id="user_role"> <!-- TODO : There is dedicated class for "select". Check later! -->
                           <option value="admin">Admin</option>
                           <option value="dosen">Dosen</option>
                           <option value="mahasiswa">Mahasiswa</option>
@@ -203,6 +201,9 @@
   $(document).ready(function() {
     // After loaded
     get_post_list_from_user()
+    $('#user_sex option[value=f]').attr('selected','selected'); // Set "selected" values for user_sex
+    $('#user_role option[value=admin]').attr('selected','selected'); // Set "selected" values user_role
+
 
     // Redirect to post_detail after click post_text's area (The table's td)
     $(document).on("click", ".post_td_text", function(e) {

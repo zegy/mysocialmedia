@@ -219,7 +219,7 @@
       e.preventDefault()
       let formData = new FormData(this)
       $.ajax({
-        url: "<?= base_url('post/save') ?>",
+        url: "<?= base_url('post/create') ?>",
         type: "post",
         data: formData,
         contentType: false,

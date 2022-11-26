@@ -70,7 +70,7 @@ class PostModel extends Model
                     ->paginate(5, 'default', $page);
     }
 
-    public function all_by_user($user)
+    public function getAllByUser($user)
     {
         return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')
@@ -80,7 +80,7 @@ class PostModel extends Model
                     ->getResult();
     }
 
-    public function public_by_user($user)
+    public function getUmumByUser($user)
     {
         return $this->select($this->selected)
                     ->join('t_user', 'post_fk_user = user_pk')

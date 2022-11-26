@@ -169,7 +169,7 @@
 
   function submit_update_post_form(formData) {
     $.ajax({
-      url: "<?= base_url('post/save') ?>",
+      url: "<?= base_url('post/update') ?>",
       type: "post",
       data: formData,
       contentType: false,
@@ -314,17 +314,21 @@
               images : images
             },
             success: function(res) {
-              Swal.fire({
-                title: 'Deleted!',
-                text: "Your file has been deleted.",
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location = "<?= base_url('group/' . $post->group) ?>"
-                }
-              })
+              if (res.status) {
+                Swal.fire({
+                  title: 'Deleted!',
+                  text: "Your file has been deleted.",
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location = "<?= base_url('group/' . $post->group) ?>"
+                  }
+                })
+              } else {
+                // FATAL ERROR
+              }
             }
           })
         }

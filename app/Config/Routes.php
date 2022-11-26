@@ -63,7 +63,8 @@ $routes->add('post/list_default',   'Post::list_default');
 $routes->add('post/list_search',   'Post::list_search');
 
 $routes->add('post/delete', 'Post::delete');
-$routes->add('post/save',   'Post::save');
+$routes->add('post/create',   'Post::create');
+$routes->add('post/update',   'Post::update');
 
 $routes->add('post/list_from_user',   'Post::listFromUser');
 

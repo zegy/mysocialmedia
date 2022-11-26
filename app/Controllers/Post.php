@@ -84,65 +84,37 @@ class Post extends BaseController
         }
     }
         
-
-
-
-
-
-
-        // else { //NOTE : Show all group's posts based on user's search input. TODO (Pending) : The result is not paginated!
-        //     $posts = $this->postModel->getAllByKeyword($keyword);
-        //     if (!empty($posts)) {
-        //         $dataView = [
-        //             'posts' => $posts,
-        //         ];
-                    
-        //         echo json_encode([
-        //             'posts'  => view('post/post_list', $dataView),
-        //             'status' => true
-        //         ]);
-        //     }
-        //     else {
-        //         echo json_encode([
-        //             'status' => false,
-        //             'nomatchpost' => true
-        //         ]);
-        //     }
-        // }
-
     public function listFromUser() //NOTE : AJAX. TODO (Pending) : The result is not paginated!
     {
-        if ($this->request->isAJAX())
-        {
-            $user = $this->request->getPost('user');
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+        
+        $user = $this->request->getPost('user');
 
-            if (session('role') == 'mahasiswa')
-            {
-                $posts = $this->postModel->public_by_user($user);
-            }
-            else
-            {
-                $posts = $this->postModel->all_by_user($user);
-            }
-            
-            if (!empty($posts))
-            {
-                $dataView = ['posts' => $posts];
-                    
-                echo json_encode([
-                    'posts'  => view('post/post_list_from_user', $dataView),
-                    'status' => true
-                ]);
-            }
-            else
-            {
-                echo json_encode(['status' => false]);
-            }
+        if (session('role') == 'mahasiswa')
+        {
+            $posts = $this->postModel->public_by_user($user);
         }
         else
         {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            $posts = $this->postModel->all_by_user($user);
         }
+        
+        if (!empty($posts))
+        {
+            $dataView = ['posts' => $posts];
+                
+            echo json_encode([
+                'posts'  => view('post/post_list_from_user', $dataView),
+                'status' => true
+            ]);
+        }
+        else
+        {
+            echo json_encode(['status' => false]);
+        }
+        
     }
 
     public function delete() //NOTE : AJAX. TODO : Check owner before delete

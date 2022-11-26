@@ -138,11 +138,7 @@
         if (res.status) {
           $("#post_list_data").html(res.posts)
         } else {
-          if (res.nomatchpost) { //NOTE : No post found on this group based on search
-            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
-          } else { //NOTE : No any post found on this group
-            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
-          }
+          $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
         }
         $(".overlay").hide()
       }
@@ -163,11 +159,7 @@
         if (res.status) {
           $("#post_list_data").html(res.posts)
         } else {
-          if (res.nomatchpost) { //NOTE : No post found on this group based on search
-            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
-          } else { //NOTE : No any post found on this group
-            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
-          }
+          $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
         }
         $(".overlay").hide()
       }

@@ -28,7 +28,6 @@
     </tbody>
   </table>
 </div><!-- /.card-body -->
-<?php if (!empty($pager)) { ?>
 <div class="card-footer clearfix">
   <ul class="pagination pagination-sm m-0 float-right">
     <li class="page-item"><a class="page-link btn-pagination" href="#" id="1">&laquo;</a></li>
@@ -36,4 +35,3 @@
     <li class="page-item"><a class="page-link btn-pagination" href="#" id="<?= $pager->getPageCount() ?>">&raquo;</a></li> <!-- NOTE : The getLastPageNumber and getPageCount not working properly in "template". Hence why it's here -->
   </ul>
 </div>
-<?php } ?>

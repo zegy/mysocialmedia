@@ -125,9 +125,33 @@
 <?= $this->section('script') ?>
 <script>
   //[A] Callable functions
-  function get_post_list(page, keyword) {
+  function get_post_list(page) {
     $.ajax({
-      url: "<?= base_url('post/list') ?>",
+      url: "<?= base_url('post/list_default') ?>",
+      dataType: "json",
+      type: "post",
+      data: {
+        group: "<?= $group ?>",
+        page: page,
+      },
+      success: function(res) {
+        if (res.status) {
+          $("#post_list_data").html(res.posts)
+        } else {
+          if (res.nomatchpost) { //NOTE : No post found on this group based on search
+            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
+          } else { //NOTE : No any post found on this group
+            $("#post_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
+          }
+        }
+        $(".overlay").hide()
+      }
+    })
+  }
+
+  function get_post_list_search(page, keyword) {
+    $.ajax({
+      url: "<?= base_url('post/list_search') ?>",
       dataType: "json",
       type: "post",
       data: {
@@ -161,7 +185,15 @@
 
       $(".overlay").show();
       let page = $(this).attr('id')
-      get_post_list(page)
+
+      let keyword = $("#search_post_form #input_searchpost").val()
+      
+      if (keyword == "") {  
+        get_post_list(page)
+      } else {
+        let keyword = $("#search_post_form #input_searchpost").val()
+        get_post_list_search(page, keyword)
+      }
     })
     
     // Refresh post list
@@ -171,16 +203,17 @@
       get_post_list()
     })
 
-    // Search post. NOTE (Pending) : The result is not paginated!
+    // Search post
     $(document).on("submit", "#search_post_form", function(e) {
       e.preventDefault()
         
       let keyword = $("#search_post_form #input_searchpost").val()
-      let page = ''
+      let page = 1
+
       if (keyword == "") {
         get_post_list()
       } else {
-        get_post_list(page, keyword)
+        get_post_list_search(page, keyword)
       }
     })
     

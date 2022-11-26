@@ -25,64 +25,90 @@ class Post extends BaseController
         }
     }
 
-    public function list() //NOTE : AJAX. TODO : Check user's role first. Need to?
+    public function list_default()
     {
-        if ($this->request->isAJAX())
-        {
-            $keyword = $this->request->getPost('keyword');
-            if (empty($keyword)) //NOTE : Show all group's posts
-            {
-                $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
-                $group = $this->request->getPost('group');
-                $posts = $this->postModel->getAllByGroup($group, $page);
-                $pager = $this->postModel->pager;
-                
-                if (!empty($posts))
-                {
-                    $dataView = [
-                        'posts' => $posts,
-                        'pager' => $pager,
-                    ];
-                        
-                    echo json_encode([
-                        'posts'  => view('post/post_list', $dataView),
-                        'status' => true
-                    ]);
-                }
-                else
-                {
-                    echo json_encode(['status' => false]);
-                }
-            }
-            else //NOTE : Show all group's posts based on user's search input. TODO (Pending) : The result is not paginated!
-            {
-                $posts = $this->postModel->getAllByKeyword($keyword);
-                
-                if (!empty($posts))
-                {
-                    $dataView = [
-                        'posts' => $posts,
-                    ];
-                        
-                    echo json_encode([
-                        'posts'  => view('post/post_list', $dataView),
-                        'status' => true
-                    ]);
-                }
-                else
-                {
-                    echo json_encode([
-                        'status' => false,
-                        'nomatchpost' => true
-                    ]);
-                }
-            }
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+
+        $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
+        $group = $this->request->getPost('group');
+        $posts = $this->postModel->getAllByGroup($group, $page);
+        $pager = $this->postModel->pager;
+
+        if (!empty($posts)) {
+            $dataView = [
+                'posts' => $posts,
+                'pager' => $pager,
+            ];
+                
+            echo json_encode([
+                'posts'  => view('post/post_list', $dataView),
+                'status' => true
+            ]);
+        }
+        else {
+            echo json_encode([
+                'status' => false,
+            ]);
         }
     }
+
+    public function list_search()
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+
+        $keyword = $this->request->getPost('keyword');
+        $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
+        $group = $this->request->getPost('group');
+        $posts = $this->postModel->getAllByGroupAndKeyword($keyword, $group, $page);
+        $pager = $this->postModel->pager;
+
+        if (!empty($posts)) {
+            $dataView = [
+                'posts' => $posts,
+                'pager' => $pager,
+            ];
+                
+            echo json_encode([
+                'posts'  => view('post/post_list', $dataView),
+                'status' => true
+            ]);
+        }
+        else {
+            echo json_encode([
+                'status' => false,
+            ]);
+        }
+    }
+        
+
+
+
+
+
+
+        // else { //NOTE : Show all group's posts based on user's search input. TODO (Pending) : The result is not paginated!
+        //     $posts = $this->postModel->getAllByKeyword($keyword);
+        //     if (!empty($posts)) {
+        //         $dataView = [
+        //             'posts' => $posts,
+        //         ];
+                    
+        //         echo json_encode([
+        //             'posts'  => view('post/post_list', $dataView),
+        //             'status' => true
+        //         ]);
+        //     }
+        //     else {
+        //         echo json_encode([
+        //             'status' => false,
+        //             'nomatchpost' => true
+        //         ]);
+        //     }
+        // }
 
     public function listFromUser() //NOTE : AJAX. TODO (Pending) : The result is not paginated!
     {

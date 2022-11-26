@@ -60,6 +60,16 @@ class PostModel extends Model
                     ->paginate(5, 'default', $page);
     }
 
+    public function getAllByGroupAndKeyword($keyword, $group, $page = null)
+    {
+        return $this->select($this->selected)
+                    ->join('t_user', 'post_fk_user = user_pk')
+                    ->where('post_group', $group)
+                    ->like('post_title', $keyword)
+                    ->orderBy('post_pk', 'DESC')
+                    ->paginate(5, 'default', $page);
+    }
+
     public function all_by_user($user)
     {
         return $this->select($this->selected)

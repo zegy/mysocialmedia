@@ -58,7 +58,10 @@ $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
 
 // AJAX
-$routes->add('post/list',   'Post::list');
+// $routes->add('post/list',   'Post::list');
+$routes->add('post/list_default',   'Post::list_default');
+$routes->add('post/list_search',   'Post::list_search');
+
 $routes->add('post/delete', 'Post::delete');
 $routes->add('post/save',   'Post::save');
 

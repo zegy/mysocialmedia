@@ -36,7 +36,7 @@
             <div class="card-body">
               <div class="tab-content">
                 <div class="active tab-pane" id="informasi">
-                  <form class="form-horizontal">
+                  <form class="form-horizontal" id="user_edit_form">
                     
                     <!-- <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -52,20 +52,22 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
+                    <?php if ($editable) { ?>
                     <div class="form-group row"><!-- NOTE DANGER : Check later -->
                       <label for="user_password" class="col-sm-2 col-form-label">user_password</label>
                       <div class="col-sm-10">
-                        <input type="password" class="form-control" name="user_password" id="user_password">
+                        <input type="password" class="form-control" name="user_password" id="user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row"><!-- NOTE DANGER : Check later -->
                       <label for="conf_user_password" class="col-sm-2 col-form-label">conf_user_password</label>
                       <div class="col-sm-10">
-                        <input type="password" class="form-control" name="conf_user_password" id="conf_user_password">
+                        <input type="password" class="form-control" name="conf_user_password" id="conf_user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
+                    <?php } ?>
                     <div class="form-group row">
                       <label for="user_full_name" class="col-sm-2 col-form-label">user_full_name</label>
                       <div class="col-sm-10">
@@ -100,7 +102,7 @@
                     <div class="form-group row">
                       <label for="user_bio" class="col-sm-2 col-form-label">user_bio</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="user_bio" id="user_bio"></textarea>
+                        <textarea class="form-control" name="user_bio" id="user_bio"><?= $user->user_bio ?></textarea>
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
@@ -111,6 +113,8 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
+
+                    <?php if ($editable && session('role') == 'admin') { ?>
                     <div class="form-group row"><!-- DANGER User role -->
                       <label for="user_role" class="col-sm-2 col-form-label">user_role</label>
                       <div class="col-sm-10">
@@ -122,6 +126,7 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
+                    <?php } ?>
 
                     <!-- <div class="form-group row">
                       <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
@@ -136,7 +141,7 @@
                         <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
                       </div>
                     </div> -->
-                    
+                    <?php if ($editable && session('id') == $user->user_pk) { ?>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <div class="checkbox">
@@ -146,19 +151,23 @@
                         </div>
                       </div>
                     </div>
+                    <?php } ?>
 
+                    <?php if ($editable) { ?>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
+                        <input type="hidden" name="uid" id="uid" value="<?= $user->user_pk ?>">
                         <button type="submit" class="btn btn-success">Update</button>
                       </div>
                     </div>
-                    
+                    <?php } ?>
+
                   </form>
-                  <div class="form-group row">
-                    <div class="col" >
-                      <button style="margin-top: 25px" type="button" class="btn btn-danger float-right btn-sign-out">Sign Out</button>
-                    </div>
-                  </div>
+
+                  <?php if (session('id') == $user->user_pk) { ?>
+                  <button style="margin-top: 25px" type="button" class="btn btn-danger float-right btn-sign-out">Sign Out</button>
+                  <?php } ?>
+
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="diskusi">
                   <div id="post_list_data">
@@ -201,8 +210,9 @@
   $(document).ready(function() {
     // After loaded
     get_post_list_from_user()
-    $('#user_sex option[value=f]').attr('selected','selected'); // Set "selected" values for user_sex
-    $('#user_role option[value=admin]').attr('selected','selected'); // Set "selected" values user_role
+    // TODO : better method! because rn is selected="selected". What about prop?
+    $('#user_sex option[value=<?= $user->user_sex ?>]').attr('selected','selected'); // Set "selected" values for user_sex
+    $('#user_role option[value=<?= $user->user_role ?>]').attr('selected','selected'); // Set "selected" values user_role
 
 
     // Redirect to post_detail after click post_text's area (The table's td)
@@ -217,6 +227,36 @@
       e.preventDefault()
 
       window.location = "<?php echo base_url('auth/signout') ?>"
+    })
+
+    // Update user (form submit)
+    $(document).on("submit", "#user_edit_form", function(e) {
+      e.preventDefault()
+      let formData = new FormData(this)
+      $.ajax({
+        url: "<?= base_url('user/save') ?>",
+        type: "post",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        dataType: "json",
+        success: function(res) {
+          if (res.status) {
+            // $("#user_modal_add").modal("toggle")
+            // window.location = "base url'group'" + "/" + res.group + "/detail/" + res.pid
+          } else {
+            $.each(res.errors, function(key, value) {
+              $('[id="' + key + '"]').addClass('is-invalid')
+              $('[id="' + key + '"]').next().text(value)
+              if (value == "") {
+                $('[id="' + key + '"]').removeClass('is-invalid')
+                $('[id="' + key + '"]').addClass('is-valid')
+              }
+            })
+          }
+        }
+      })
     })
   })
 </script>

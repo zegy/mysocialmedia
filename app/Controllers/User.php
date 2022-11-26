@@ -75,6 +75,7 @@ class User extends BaseController
         }
     }
 
+    // TODO DANGER BROKEN IF ELSE. RULES FOR CREATE AND UPDATE IS DIF!
     public function save () //NOTE : Based on post's save. TODO : Clean this note later after complete!
     {
         if ($this->request->isAJAX())
@@ -126,51 +127,96 @@ class User extends BaseController
             }
             else //NOTE : IF VALID
             {
-                $data = [
-                    // "user_pk"        => session('id'), //DANGER
-
-                    'user_name'      => $this->request->getPost('user_name'),
-                    'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the "Important" note!). https://www.php.net/manual/en/function.password-hash.php
-                    'user_full_name' => $this->request->getPost('user_full_name'),
-                    'user_email'     => $this->request->getPost('user_email'),
-                    'user_tel'       => $this->request->getPost('user_tel'),
-                    'user_sex'       => $this->request->getPost('user_sex'),
-                    'user_bio'       => $this->request->getPost('user_bio'),
-                    'user_role'      => $this->request->getPost('user_role'),
-
-                    // 'user_profile_picture' => 
-                ];
-
-                $this->userModel->save($data);
-                $user_pk = $this->userModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
-
-
-                $user_profile_picture = $this->request->getFile('user_profile_picture');
-                if (file_exists($user_profile_picture))
+                $uid = $this->request->getPost('uid'); //NOTE : To decide if it's create or update user. If no uid (null) = create user. Otherwise it's update user
+                if (empty($uid)) //NOTE : Create
                 {
-                    if($user_profile_picture->isValid() && !$user_profile_picture->hasMoved())
-                    {
-                        // Saving image
-                        // $name = $user_profile_picture->getRandomName();
-                        $name = $user_pk . '.' . $user_profile_picture->getClientExtension();
-                        $user_profile_picture->move(WRITEPATH . 'uploads/users', $name);
+                    $data = [
+                        'user_name'      => $this->request->getPost('user_name'),
+                        'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the "Important" note!). https://www.php.net/manual/en/function.password-hash.php
+                        'user_full_name' => $this->request->getPost('user_full_name'),
+                        'user_email'     => $this->request->getPost('user_email'),
+                        'user_tel'       => $this->request->getPost('user_tel'),
+                        'user_sex'       => $this->request->getPost('user_sex'),
+                        'user_bio'       => $this->request->getPost('user_bio'),
+                        'user_role'      => $this->request->getPost('user_role'),
+                    ];
 
-                        // Thumbnail Creation
-                        $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
-                        $image_man
-                            ->withFile(WRITEPATH . 'uploads/users/' . $name)
-                            ->fit(100, 100, 'center')
-                            ->save(WRITEPATH . 'uploads/users/thumb' . $name);
-                    }        
+                    $this->userModel->save($data);
+                    $user_pk = $this->userModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
+
+
+                    $user_profile_picture = $this->request->getFile('user_profile_picture');
+                    if (file_exists($user_profile_picture))
+                    {
+                        if($user_profile_picture->isValid() && !$user_profile_picture->hasMoved())
+                        {
+                            // Saving image
+                            // $name = $user_profile_picture->getRandomName();
+                            $name = $user_pk . '.' . $user_profile_picture->getClientExtension();
+                            $user_profile_picture->move(WRITEPATH . 'uploads/users', $name);
+
+                            // Thumbnail Creation
+                            $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
+                            $image_man
+                                ->withFile(WRITEPATH . 'uploads/users/' . $name)
+                                ->fit(100, 100, 'center')
+                                ->save(WRITEPATH . 'uploads/users/thumb' . $name);
+                        }        
+                        
+                        $data["user_profile_picture"] = $name;
+                    }
                     
-                    $data["user_profile_picture"] = $name;
+                    echo json_encode([
+                        // 'group'  => $this->request->getPost('group'),
+                        // 'pid'    => $pid,
+                        'status' => true
+                    ]);
                 }
-                
-                echo json_encode([
-                    // 'group'  => $this->request->getPost('group'),
-                    // 'pid'    => $pid,
-                    'status' => true
-                ]);
+                else //NOTE : Update
+                {
+                    $data = [
+                         'user_pk'       => $uid,
+                        'user_name'      => $this->request->getPost('user_name'),
+                        'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the "Important" note!). https://www.php.net/manual/en/function.password-hash.php
+                        'user_full_name' => $this->request->getPost('user_full_name'),
+                        'user_email'     => $this->request->getPost('user_email'),
+                        'user_tel'       => $this->request->getPost('user_tel'),
+                        'user_sex'       => $this->request->getPost('user_sex'),
+                        'user_bio'       => $this->request->getPost('user_bio'),
+                        'user_role'      => $this->request->getPost('user_role'),
+                    ];
+
+                    $this->userModel->save($data);
+                    $user_pk = $this->userModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
+
+
+                    $user_profile_picture = $this->request->getFile('user_profile_picture');
+                    if (file_exists($user_profile_picture))
+                    {
+                        if($user_profile_picture->isValid() && !$user_profile_picture->hasMoved())
+                        {
+                            // Saving image
+                            // $name = $user_profile_picture->getRandomName();
+                            $name = $user_pk . '.' . $user_profile_picture->getClientExtension();
+                            $user_profile_picture->move(WRITEPATH . 'uploads/users', $name);
+
+                            // Thumbnail Creation
+                            $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
+                            $image_man
+                                ->withFile(WRITEPATH . 'uploads/users/' . $name)
+                                ->fit(100, 100, 'center')
+                                ->save(WRITEPATH . 'uploads/users/thumb' . $name);
+                        }        
+                        
+                        $data["user_profile_picture"] = $name;
+                    }
+                    
+                    echo json_encode([
+                        // 'group'  => $this->request->getPost('group'),
+                        // 'pid'    => $pid,
+                        'status' => true
+                    ]);
+                }
             }
         }
         else
@@ -181,18 +227,20 @@ class User extends BaseController
 
     public function detail($uid)
     {   
-        if (session('id') == $uid)
+        if (session('id') == $uid || session('role') == 'admin')
         {
             $user = $this->userModel->find($uid); // Get all data row
+            $editable = true;
         }
         else
         {
             $user = $this->userModel->getOneReadOnly($uid); // Get all data row (read only ones)
+            $editable = false;
         }
         
         if (!empty($user))
         {
-            return view('user/user_detail', ["user" => $user]);
+            return view('user/user_detail', ["user" => $user, "editable" => $editable]);
         }
         else
         {

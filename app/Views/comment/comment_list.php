@@ -1,5 +1,5 @@
 <?php foreach ($comments as $comment) { ?>
-<div id="<?= 'comment' . $comment->cid ?>">
+<div id="<?= 'comment_' . $comment->cid ?>">
   <div class="card-comment">
     <div class="row">
       <div class="col-12">
@@ -26,7 +26,7 @@
         <?php if ($comment->uid == session('id')) { ?>
         <div style="margin-top: 5px; margin-left: 40px" class="float-left">
           <button type="button" class="btn btn-danger btn-xs btn-delete-comment" data-cid="<?= $comment->cid ?>"><i class="far fa-trash-alt"></i></button>
-          <button type="button" class="btn btn-secondary btn-xs btn-edit-comment" data-cid="<?= $comment->cid ?>"><i class="far fa-edit"></i></button>
+          <button type="button" class="btn btn-secondary btn-xs btn-update-comment" data-cid="<?= $comment->cid ?>"><i class="far fa-edit"></i></button>
         </div>
         <?php } ?>
       </div><!-- /.col -->

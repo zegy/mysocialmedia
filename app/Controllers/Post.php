@@ -21,17 +21,17 @@ class Post extends BaseController
             return view('post/post_index', ['group' => 'dosen']);
         }
         else {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
     }
 
-    public function list_default()
+    public function list_default() // AJAX
     {
         if (!$this->request->isAJAX()) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
-        $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
+        $page  = $this->request->getPost('page'); // Optional, can be null
         $group = $this->request->getPost('group');
         $posts = $this->postModel->getAllByGroup($group, $page);
         $pager = $this->postModel->pager;
@@ -54,14 +54,14 @@ class Post extends BaseController
         }
     }
 
-    public function list_search()
+    public function list_search() //AJAX
     {
         if (!$this->request->isAJAX()) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
         $keyword = $this->request->getPost('keyword');
-        $page  = $this->request->getPost('page'); //NOTE : Optional, can be null
+        $page  = $this->request->getPost('page'); // Optional, can be null
         $group = $this->request->getPost('group');
         $posts = $this->postModel->getAllByGroupAndKeyword($keyword, $group, $page);
         $pager = $this->postModel->pager;
@@ -84,10 +84,10 @@ class Post extends BaseController
         }
     }
         
-    public function list_from_user() //NOTE : No pagination
+    public function list_from_user() // AJAX. No pagination!
     {
         if (!$this->request->isAJAX()) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         
         $user = $this->request->getPost('user');
@@ -112,10 +112,10 @@ class Post extends BaseController
         }
     }
 
-    public function delete()
+    public function delete() // AJAX
     {
         if (!$this->request->isAJAX()) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         
         $pid  = $this->request->getPost('pid');
@@ -125,14 +125,9 @@ class Post extends BaseController
             echo json_encode(['status' => false]);
         }
         else {
-            $images = $this->request->getPost('images');
-
-            if (!empty($images)) {
-                $imgs = explode(',', $images);
-                foreach ($imgs as $img) {
-                    unlink(WRITEPATH . 'uploads/posts/' . $img);
-                    unlink(WRITEPATH . 'uploads/posts/thumb' . $img);
-                }
+            if (!empty($post->post_img)) {
+                $images = explode(',', $post->post_img);
+                $this->delete_post_images($images); // Remove images
             }
             
             $this->postModel->delete($post->post_pk);
@@ -144,17 +139,17 @@ class Post extends BaseController
     {
         $post = $this->postModel->getOneById($pid);
         if ( (empty($post)) || ($post->group != 'umum' && session('role') == 'mahasiswa') ) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         else {
             return view('post/post_detail', ['post' => $post]);
         }
     }
 
-    public function create()
+    public function create() // AJAX
     {
         if (!$this->request->isAJAX()) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
         $rules = [
@@ -189,7 +184,7 @@ class Post extends BaseController
             $images = $this->request->getFileMultiple('images');
             
             if (file_exists($images[0])) {
-                $imageNames = $this->save_post_images($images);
+                $imageNames = $this->save_post_images($images); // Save images
                 $data['post_img'] = implode(',', $imageNames);
             }
 
@@ -197,7 +192,7 @@ class Post extends BaseController
 
             $output = [
                 'group'  => $this->request->getPost('group'),
-                'pid'    => $this->postModel->insertID(), //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
+                'pid'    => $this->postModel->insertID(), // Get ID from the last insert. TODO : What if other user do the insert?
                 'status' => true
             ];
         }
@@ -205,41 +200,10 @@ class Post extends BaseController
         echo json_encode($output);
     }
 
-    public function save_post_images($images)
-    {
-        $image_man = \Config\Services::image();
-        $count = 0;
-        foreach($images as $image) {
-            if($image->isValid() && !$image->hasMoved()) {
-                // Saving image
-                $name = $image->getRandomName();
-                $imageNames[$count] = $name; 
-                $image->move(WRITEPATH . 'uploads/posts', $name);
-
-                // Thumbnail Creation
-                $image_man
-                    ->withFile(WRITEPATH . 'uploads/posts/' . $name)
-                    ->fit(100, 100, 'center')
-                    ->save(WRITEPATH . 'uploads/posts/thumb' . $name);
-                $count++;
-            }        
-        }
-        return $imageNames;
-    }
-
-    public function delete_post_images($old_images)
-    {
-        $old_images_to_remove = explode(',', $old_images);
-        foreach ($old_images_to_remove as $old_image_to_remove) {
-            unlink(WRITEPATH . 'uploads/posts/' . $old_image_to_remove);
-            unlink(WRITEPATH . 'uploads/posts/thumb' . $old_image_to_remove);
-        }
-    }
-
-    public function update()
+    public function update() // AJAX
     {
         if (!$this->request->isAJAX()) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); //NOTE : This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
         $rules = [
@@ -273,17 +237,19 @@ class Post extends BaseController
             ];
             
             $isUpdateImg = $this->request->getPost('cb_update_image');
-            if ($isUpdateImg == true) {
-                //NOTE : Remove old images
-                $old_images = $this->request->getPost('old_images'); //NOTE : String    
+
+            if ($isUpdateImg == true) {    
+                $old_images = $this->request->getPost('old_images');
+
                 if (!empty($old_images)) {
-                    $this->delete_post_images($old_images);
+                    $images = explode(',', $old_images);
+                    $this->delete_post_images($images); // Remove images
                 }
                 
-                //NOTE : Get new images (if exists)            
                 $images = $this->request->getFileMultiple('images');
+                
                 if (file_exists($images[0])) {
-                    $imageNames = $this->save_post_images($images);
+                    $imageNames = $this->save_post_images($images); // Save images
                     $data['post_img'] = implode(',', $imageNames);
                 }
                 else {
@@ -304,5 +270,35 @@ class Post extends BaseController
         } 
 
         echo json_encode($output);
+    }
+
+    public function save_post_images($images)
+    {
+        $image_man = \Config\Services::image();
+        $count = 0;
+        foreach($images as $image) {
+            if($image->isValid() && !$image->hasMoved()) {
+                // Saving image
+                $name = $image->getRandomName();
+                $imageNames[$count] = $name; 
+                $image->move(WRITEPATH . 'uploads/posts', $name);
+
+                // Thumbnail Creation
+                $image_man
+                    ->withFile(WRITEPATH . 'uploads/posts/' . $name)
+                    ->fit(100, 100, 'center')
+                    ->save(WRITEPATH . 'uploads/posts/thumb' . $name);
+                $count++;
+            }        
+        }
+        return $imageNames;
+    }
+
+    public function delete_post_images($images)
+    {
+        foreach ($old_images as $old_image) {
+            unlink(WRITEPATH . 'uploads/posts/' . $old_image);
+            unlink(WRITEPATH . 'uploads/posts/thumb' . $old_image);
+        }
     }
 }

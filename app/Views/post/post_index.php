@@ -20,7 +20,7 @@
               <i class="fas fa-2x fa-sync fa-spin"></i>
             </div>
             <div class="card-header">
-              <button class="btn btn-primary btn-sm btn-add-post"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-primary btn-sm btn-create-post"><i class="fa fa-plus"></i></button>
               <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_post_form">
@@ -48,9 +48,9 @@
 </div><!-- /.content-wrapper -->
 
 <!-- [MODALS] -->
-<!-- [MODALS] : Add post -->
-<form id="post_modal_add_form">
-  <div class="modal fade" id="post_modal_add" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+<!-- [MODALS] : Create post -->
+<form id="post_modal_create_form">
+  <div class="modal fade" id="post_modal_create" tabindex="-1" role="dialog" aria-labelledby="post_modal_create_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -210,12 +210,12 @@
     })
     
     // Create post (form modal)
-    $(document).on("click", ".btn-add-post", function() {
-      $("#post_modal_add").modal("toggle")
+    $(document).on("click", ".btn-create-post", function() {
+      $("#post_modal_create").modal("toggle")
     })
     
     // Create post (form submit)
-    $(document).on("submit", "#post_modal_add_form", function(e) {
+    $(document).on("submit", "#post_modal_create_form", function(e) {
       e.preventDefault()
       let formData = new FormData(this)
       $.ajax({
@@ -228,7 +228,7 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            $("#post_modal_add").modal("toggle")
+            $("#post_modal_create").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
             $.each(res.errors, function(key, value) {

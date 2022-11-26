@@ -35,7 +35,7 @@
               </div>
               <p id="post_deskripsi"><?= $post->texto ?></p>
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-              <button type="button" class="btn btn-secondary btn-xs" id="btn-edit-post"><i class="far fa-edit"></i> Ubah</button>
+              <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>
               <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
@@ -49,7 +49,7 @@
               <!-- NOTE : Get data using AJAX (Replace anything inside this "comment_list_data" after request) -->
             </div><!-- /.card-footer -->
             <div class="card-footer">
-              <form id="comment_add_form">
+              <form id="comment_create_form">
                 <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
                 <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="form-group">
@@ -57,9 +57,9 @@
                     <div class="invalid-feedback"></div>
                   </div>
                   <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
-                  <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
+                  <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment update)-->
                   <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
-                  <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-edit-comment">Batal</button>
+                  <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
                 </div>
               </form>
             </div><!-- /.card-footer -->
@@ -71,9 +71,9 @@
 </div><!-- /.content-wrapper -->
 
 <!-- [MODALS] -->
-<!-- [MODALS] : Edit post -->
-<form id="post_modal_edit_form">
-  <div class="modal fade" id="post_modal_edit" tabindex="-1" role="dialog" aria-labelledby="post_modal_add_label" aria-hidden="true">
+<!-- [MODALS] : Update post -->
+<form id="post_modal_update_form">
+  <div class="modal fade" id="post_modal_update" tabindex="-1" role="dialog" aria-labelledby="post_modal_update_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -112,9 +112,9 @@
 </form>
 
 <!-- [OTHER] -->
-<!-- [OTHER] : Edit comment (Temp, values set on script)-->
+<!-- [OTHER] : Update comment (Temp, values set on script)-->
 <div style="display: none">
-  <form id="comment_edit_form">
+  <form id="comment_update_form">
     <div class="card-footer">
       <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
       <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
@@ -123,9 +123,9 @@
           <div class="invalid-feedback"></div>
         </div>
         <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
-        <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment edit)-->
+        <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment update)-->
         <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
-        <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-edit-comment">Batal</button>
+        <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
       </div>
     </div>
   </form>
@@ -178,7 +178,7 @@
       dataType: "json",
       success: function(res) {
         if (res.status) {
-          $("#post_modal_edit").modal("toggle")
+          $("#post_modal_update").modal("toggle")
 
           //NOTE : Update post's elements with new value (From prev "formData". Image names is from res)
           $("#post_deskripsi").text(formData.get('deskripsi'))
@@ -188,10 +188,10 @@
             $("#post_images").empty() //NOTE : Clear prev image from element
 
             if($.isEmptyObject(res.images)) { //NOTE : Check if updated post has image
-              $("#post_modal_edit_form #old_images").val('')
+              $("#post_modal_update_form #old_images").val('')
             } else {
               let res_images_string = (res.images).toString()
-              $("#post_modal_edit_form #old_images").val(res_images_string)
+              $("#post_modal_update_form #old_images").val(res_images_string)
 
               $.each(res.images, function(index, value) {
                 $("#post_images").append('<div class="col-2"><a href="<?= base_url('imageRender')  . '/' ?>'+ value +'" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery"><img src="<?= base_url('imageRender/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
@@ -236,24 +236,24 @@
     })
 
     // Update post (Form modal with data)
-    $(document).on("click", "#btn-edit-post", function() {
+    $(document).on("click", "#btn-update-post", function() {
       //NOTE : Reset prev modal (If prev is closed)
-      $("#post_modal_edit_form textarea").removeClass('is-invalid is-valid')
-      $("#post_modal_edit_form input").removeClass('is-invalid is-valid')
-      $("#post_modal_edit_form #cb_update_image").prop("checked", false);
+      $("#post_modal_update_form textarea").removeClass('is-invalid is-valid')
+      $("#post_modal_update_form input").removeClass('is-invalid is-valid')
+      $("#post_modal_update_form #cb_update_image").prop("checked", false);
       $("#images_input").hide();
 
       let judul = $("#post_judul").text()
       let deskripsi = $("#post_deskripsi").text()
 
-      $("#post_modal_edit").modal("toggle")
+      $("#post_modal_update").modal("toggle")
 
-      $("#post_modal_edit_form #judul").val(judul)
-      $("#post_modal_edit_form #deskripsi").val(deskripsi)
+      $("#post_modal_update_form #judul").val(judul)
+      $("#post_modal_update_form #deskripsi").val(deskripsi)
     })
 
     // Update post (Form submit)
-    $(document).on("submit", "#post_modal_edit_form", function(e) {
+    $(document).on("submit", "#post_modal_update_form", function(e) {
       e.preventDefault()
 
       let formData = new FormData(this);
@@ -273,7 +273,7 @@
             if (result.isConfirmed) { //NOTE : User agree to change image
               submit_update_post_form(formData)
             } else { //NOTE : User not agree to change image
-              $("#post_modal_edit_form #cb_update_image").prop("checked", false);
+              $("#post_modal_update_form #cb_update_image").prop("checked", false);
               $("#images_input").hide();
             }
           })
@@ -293,7 +293,6 @@
     // Delete post (Fully using "sweetalert2")
     $(document).on("click", "#btn-delete-post", function() {
       let pid = $(this).data("id")
-      let images = $("#post_modal_edit_form #old_images").val()
 
       Swal.fire({
         title: 'Are you sure?',
@@ -310,8 +309,7 @@
             dataType: "json",
             type: "post",
             data: {
-              pid: pid,
-              images : images
+              pid: pid
             },
             success: function(res) {
               if (res.status) {
@@ -335,39 +333,39 @@
       })
     })
 
-    // Update comment (Get the "comment_edit_form" and set it as temp)
-    let hasCommentEditForm = false // NOTE : Global var (Not inside function)
-    $(document).on("click", ".btn-edit-comment", function() {
-      if (hasCommentEditForm) { //NOTE : Check if already has "temp_comment_edit_form"
-        $("#temp_comment_edit_form").remove()
-        $(".btn-edit-comment").prop('disabled', false)
-        hasCommentEditForm = false
+    // Update comment (Get the "comment_update_form" and set it as temp)
+    let hasCommentUpdateForm = false // NOTE : Global var (Not inside function)
+    $(document).on("click", ".btn-update-comment", function() {
+      if (hasCommentUpdateForm) { //NOTE : Check if already has "temp_comment_update_form"
+        $("#temp_comment_update_form").remove()
+        $(".btn-update-comment").prop('disabled', false)
+        hasCommentUpdateForm = false
       }
       
       $(this).prop('disabled', true);
 
       let cid = $(this).data("cid")
-      let comment_text = $("#comment" + cid + " " + "#comment_text").text()
-      let editForm = $("#comment_edit_form").html()
+      let comment_text = $("#comment_" + cid + " " + "#comment_text").text()
+      let updateForm = $("#comment_update_form").html()
       
-      $("#comment" + cid).append('<form id="temp_comment_edit_form">' + editForm + '</form>')
-      $("#temp_comment_edit_form #cid").val(cid)
-      $("#temp_comment_edit_form #komentar").val(comment_text)
-      $("#temp_comment_edit_form #btn-cancel-edit-comment").show()
+      $("#comment_" + cid).append('<form id="temp_comment_update_form">' + updateForm + '</form>')
+      $("#temp_comment_update_form #cid").val(cid)
+      $("#temp_comment_update_form #komentar").val(comment_text)
+      $("#temp_comment_update_form #btn-cancel-update-comment").show()
 
-      hasCommentEditForm = true
+      hasCommentUpdateForm = true
 
       // Cancel update comment (NOTE : Nested function)
-      $(document).on("click", "#btn-cancel-edit-comment", function() {  
-        $("#temp_comment_edit_form").remove()
-        $("#comment" + cid + " " + ".btn-edit-comment").prop('disabled', false)
+      $(document).on("click", "#btn-cancel-update-comment", function() {  
+        $("#temp_comment_update_form").remove()
+        $("#comment_" + cid + " " + ".btn-update-comment").prop('disabled', false)
   
-        hasCommentEditForm = false
+        hasCommentUpdateForm = false
       })
     })
 
     // Create comment (Form submit)
-    $(document).on("submit", "#comment_add_form", function(e) {
+    $(document).on("submit", "#comment_create_form", function(e) {
       e.preventDefault()
 
       let formData = new FormData(this);
@@ -382,11 +380,11 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            //NOTE : Reset "comment_add_form"
-            $("#comment_add_form #cid").val('')
-            $("#comment_add_form #komentar").val('')
+            //NOTE : Reset "comment_create_form"
+            $("#comment_create_form #cid").val('')
+            $("#comment_create_form #komentar").val('')
 
-            $("#btn-cancel-edit-comment").hide()
+            $("#btn-cancel-update-comment").hide()
             get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
           } else {
             set_errors(res.errors)
@@ -396,7 +394,7 @@
     })
 
     // Update comment (Form submit)
-    $(document).on("submit", "#temp_comment_edit_form", function(e) {
+    $(document).on("submit", "#temp_comment_update_form", function(e) {
       e.preventDefault()
 
       let formData = new FormData(this);
@@ -413,7 +411,7 @@
           if (res.status) {
             get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
           } else {
-            set_errors(res.errors) //NOTE (Pending) : Has the same field name with "add post", hence both field will show error
+            set_errors(res.errors) //NOTE (Pending) : Has the same field name with "create post", hence both field will show error
           }
         }
       })

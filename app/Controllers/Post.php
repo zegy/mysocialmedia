@@ -12,18 +12,15 @@ class Post extends BaseController
         $this->postModel = new PostModel();
     }
 
-    public function index($group) //TODO : Check user's role first
+    public function index($group)
     {
-        if ($group == "umum")
-        {
-            return view('post/post_index', ["group" => "umum"]);
+        if ($group == 'umum') {
+            return view('post/post_index', ['group' => 'umum']);
         }
-        else if ($group == "dosen")
-        {
-            return view('post/post_index', ["group" => "dosen"]);
+        else if ($group == 'dosen' && session('role') != 'mahasiswa') {
+            return view('post/post_index', ['group' => 'dosen']);
         }
-        else
-        {
+        else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }
@@ -43,8 +40,8 @@ class Post extends BaseController
                 if (!empty($posts))
                 {
                     $dataView = [
-                        "posts" => $posts,
-                        "pager" => $pager,
+                        'posts' => $posts,
+                        'pager' => $pager,
                     ];
                         
                     echo json_encode([
@@ -64,7 +61,7 @@ class Post extends BaseController
                 if (!empty($posts))
                 {
                     $dataView = [
-                        "posts" => $posts,
+                        'posts' => $posts,
                     ];
                         
                     echo json_encode([
@@ -93,7 +90,7 @@ class Post extends BaseController
         {
             $user = $this->request->getPost('user');
 
-            if (session('role') == "mahasiswa")
+            if (session('role') == 'mahasiswa')
             {
                 $posts = $this->postModel->public_by_user($user);
             }
@@ -104,7 +101,7 @@ class Post extends BaseController
             
             if (!empty($posts))
             {
-                $dataView = ["posts" => $posts];
+                $dataView = ['posts' => $posts];
                     
                 echo json_encode([
                     'posts'  => view('post/post_list_from_user', $dataView),
@@ -131,7 +128,7 @@ class Post extends BaseController
 
             if (!empty($images))
             { 
-                $imgs = explode(",", $images);
+                $imgs = explode(',', $images);
                 foreach ($imgs as $img)
                 {
                     unlink(WRITEPATH . 'uploads/posts/' . $img);
@@ -153,7 +150,7 @@ class Post extends BaseController
         $post = $this->postModel->getOneById($pid);
         if (!empty($post))
         {
-            return view('post/post_detail', ["post" => $post]);
+            return view('post/post_detail', ['post' => $post]);
         }
         else
         {
@@ -176,10 +173,10 @@ class Post extends BaseController
 
             if (!$validated) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
             {
-                $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
+                $errors = [ //NOTE : 'getErrors()' did not return input field that 'valid', hence the 'Getting a Single Error' used instead.
                     'judul'     => $this->validation->getError('judul'),
                     'deskripsi' => $this->validation->getError('deskripsi'),
-                    'images'     => $this->validation->getError('images') //TODO (pending) : individual "error" for each image
+                    'images'     => $this->validation->getError('images') //TODO (pending) : individual 'error' for each image
                 ];
 
                 $output = [
@@ -197,10 +194,10 @@ class Post extends BaseController
                 if (empty($pid)) //NOTE : Create
                 {
                     $data = [
-                        "post_fk_user" => session('id'),
-                        "post_title"   => $this->request->getPost('judul'),
-                        "post_text"    => $this->request->getPost('deskripsi'),
-                        "post_group"    => $this->request->getPost('group'),
+                        'post_fk_user' => session('id'),
+                        'post_title'   => $this->request->getPost('judul'),
+                        'post_text'    => $this->request->getPost('deskripsi'),
+                        'post_group'    => $this->request->getPost('group'),
                     ];
 
                     $images = $this->request->getFileMultiple('images');
@@ -225,7 +222,7 @@ class Post extends BaseController
                                 $count++;
                             }        
                         }
-                        $data["post_img"] = implode(",", $imageNames);
+                        $data['post_img'] = implode(',', $imageNames);
                     }
                     $this->postModel->save($data);
                     $pid = $this->postModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
@@ -239,11 +236,11 @@ class Post extends BaseController
                 else //NOTE : Update
                 {
                     $data = [
-                        "post_pk"      => $pid,
-                        "post_fk_user" => session('id'),
-                        "post_title"   => $this->request->getPost('judul'),
-                        "post_text"    => $this->request->getPost('deskripsi'),
-                        "post_group"    => $this->request->getPost('group'),
+                        'post_pk'      => $pid,
+                        'post_fk_user' => session('id'),
+                        'post_title'   => $this->request->getPost('judul'),
+                        'post_text'    => $this->request->getPost('deskripsi'),
+                        'post_group'    => $this->request->getPost('group'),
                     ];
                     
                     $update_image = $this->request->getPost('cb_update_image');
@@ -253,7 +250,7 @@ class Post extends BaseController
                         $old_images = $this->request->getPost('old_images'); //NOTE : String    
                         if (!empty($old_images))
                         {
-                            $old_images_to_remove = explode(",", $old_images);
+                            $old_images_to_remove = explode(',', $old_images);
                             foreach ($old_images_to_remove as $old_image_to_remove)
                             {
                                 unlink(WRITEPATH . 'uploads/posts/' . $old_image_to_remove);
@@ -284,11 +281,11 @@ class Post extends BaseController
                                     $count++;
                                 } 
                             }
-                            $data["post_img"] = implode(",", $imageNames);
+                            $data['post_img'] = implode(',', $imageNames);
                         }
                         else
                         {
-                            $data["post_img"] = null;
+                            $data['post_img'] = null;
                         }
                     
                         $this->postModel->save($data);

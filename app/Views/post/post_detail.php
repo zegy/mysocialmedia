@@ -206,6 +206,9 @@
   }
   
   function submit_likeordis(cid, type) {
+    let likeCount = $("#comment_" + cid + " " + ".like-count").text()
+    let dislikeCount = $("#comment_" + cid + " " + ".dislike-count").text()
+
     $.ajax({
       url: "<?= base_url('comment/like') ?>",
       dataType: "json",
@@ -216,7 +219,20 @@
       },
       success: function(res) {
         if (res.status) {
-          get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
+          $("#comment_" + cid + " " + ".btn-like-comment").removeClass('btn-success btn-outline-success')
+          $("#comment_" + cid + " " + ".btn-dislike-comment").removeClass('btn-danger btn-outline-danger')
+
+          if (res.like_status == 0) { // liked
+            $("#comment_" + cid + " " + ".btn-like-comment").addClass('btn-success')
+            $("#comment_" + cid + " " + ".btn-dislike-comment").addClass('btn-outline-danger')
+          } else if (res.like_status == 1) { // disliked
+            $("#comment_" + cid + " " + ".btn-like-comment").addClass('btn-outline-success')
+            $("#comment_" + cid + " " + ".btn-dislike-comment").addClass('btn-danger')
+          } else if (res.like_status == 2) {
+            $("#comment_" + cid + " " + ".btn-like-comment").addClass('btn-outline-success')
+            $("#comment_" + cid + " " + ".btn-dislike-comment").addClass('btn-outline-danger')
+          }
+
         }
       }
     })

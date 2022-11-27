@@ -66,7 +66,7 @@ $routes->add('post/delete', 'Post::delete');
 $routes->add('post/create',   'Post::create');
 $routes->add('post/update',   'Post::update');
 
-$routes->add('post/list_from_user',   'Post::listFromUser');
+$routes->add('post/list_from_user',   'Post::list_from_user');
 
 $routes->add('comment/list',   'Comment::list');
 // $routes->add('comment/save',   'Comment::save');

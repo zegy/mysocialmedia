@@ -39,6 +39,7 @@ class Post extends BaseController
         if (!empty($posts)) {
             $dataView = [
                 'posts' => $posts,
+                'group' => $group,
                 'pager' => $pager,
             ];
                 

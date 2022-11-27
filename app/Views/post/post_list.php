@@ -7,6 +7,7 @@
         <th>Pembuat</th>
         <th>Judul Diskusi</th>
         <th>Tanggal</th>
+        <th>"Action"</th> <!-- TODO -->
       </tr>
     </thead>
     <tbody>
@@ -18,10 +19,10 @@
           <br/>
           <small><?= $post->user_name ?></small>
         </td>
-        <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/umum/detail/' . $post->pid) ?>"><?= $post->pttl ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
+        <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/' . $group . '/' . 'detail/' . $post->pid) ?>"><?= $post->pttl ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
         <td style="width: 50px; min-width: 50px"><?= $post->data ?></td> <!-- TODO : Fix the format later! -->
         <td class="project-actions text-center">
-          <a class="btn btn-primary" href="<?= base_url('group/umum/detail/' . $post->pid) ?>"><i class="far fa-comments"></i></a>
+          <a class="btn btn-primary" href="<?= base_url('group/' . $group . '/' . 'detail/' . $post->pid) ?>"><i class="far fa-comments"></i></a>
         </td>
       </tr>
       <?php } ?>

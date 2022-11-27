@@ -227,44 +227,52 @@ class Post extends BaseController
                 'errors' => $errors
             ];
         }
-        else {            
-            $data = [
-                'post_pk'      => $this->request->getPost('pid'),
-                'post_title'   => $this->request->getPost('judul'),
-                'post_text'    => $this->request->getPost('deskripsi'),
-            ];
-            
-            $isUpdateImg = $this->request->getPost('cb_update_image');
+        else {
+            $pid = $this->request->getPost('pid');
+            $post = $this->postModel->find($pid);
 
-            if ($isUpdateImg == true) {    
-                $old_images = $this->request->getPost('old_images');
-
-                if (!empty($old_images)) {
-                    $images = explode(',', $old_images);
-                    $this->delete_post_images($images); // Remove images
-                }
-                
-                $images = $this->request->getFileMultiple('images');
-                
-                if (file_exists($images[0])) {
-                    $imageNames = $this->save_post_images($images); // Save images
-                    $data['post_img'] = implode(',', $imageNames);
-                }
-                else {
-                    $data['post_img'] = null;
-                }
-            
-                $output = [
-                    'images' => $imageNames ?? null,
-                    'images_change' => true,
-                    'status' => true,
-                ];
+            if ($post->post_fk_user != session('id') && session('role') != 'admin') {
+                $output = ['status' => false];
             }
             else {
-                $output = ['status' => true];
+                $data = [
+                    'post_pk'      => $this->request->getPost('pid'),
+                    'post_title'   => $this->request->getPost('judul'),
+                    'post_text'    => $this->request->getPost('deskripsi'),
+                ];
+                
+                $isUpdateImg = $this->request->getPost('cb_update_image');
+    
+                if ($isUpdateImg == true) {    
+                    $old_images = $this->request->getPost('old_images');
+    
+                    if (!empty($old_images)) {
+                        $images = explode(',', $old_images);
+                        $this->delete_post_images($images); // Remove images
+                    }
+                    
+                    $images = $this->request->getFileMultiple('images');
+                    
+                    if (file_exists($images[0])) {
+                        $imageNames = $this->save_post_images($images); // Save images
+                        $data['post_img'] = implode(',', $imageNames);
+                    }
+                    else {
+                        $data['post_img'] = null;
+                    }
+                
+                    $output = [
+                        'images' => $imageNames ?? null,
+                        'images_change' => true,
+                        'status' => true,
+                    ];
+                }
+                else {
+                    $output = ['status' => true];
+                }
+    
+                $this->postModel->save($data);
             }
-
-            $this->postModel->save($data);
         } 
 
         echo json_encode($output);

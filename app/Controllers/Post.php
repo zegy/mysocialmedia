@@ -54,7 +54,7 @@ class Post extends BaseController
         }
     }
 
-    public function list_search() //AJAX
+    public function list_search() // AJAX
     {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
@@ -109,40 +109,6 @@ class Post extends BaseController
         }
         else {
             echo json_encode(['status' => false]);
-        }
-    }
-
-    public function delete() // AJAX
-    {
-        if (!$this->request->isAJAX()) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
-        }
-        
-        $pid  = $this->request->getPost('pid');
-        $post = $this->postModel->find($pid);
-
-        if ($post->post_fk_user != session('id') && session('role') != 'admin') {
-            echo json_encode(['status' => false]);
-        }
-        else {
-            if (!empty($post->post_img)) {
-                $images = explode(',', $post->post_img);
-                $this->delete_post_images($images); // Remove images
-            }
-            
-            $this->postModel->delete($post->post_pk);
-            echo json_encode(['status' => true]);
-        }
-    }
-
-    public function detail($group, $pid) //TODO : $group(from route) is not used, only needed for "active menu".
-    {
-        $post = $this->postModel->getOneById($pid);
-        if ( (empty($post)) || ($post->group != 'umum' && session('role') == 'mahasiswa') ) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
-        }
-        else {
-            return view('post/post_detail', ['post' => $post]);
         }
     }
 
@@ -278,7 +244,41 @@ class Post extends BaseController
         echo json_encode($output);
     }
 
-    public function save_post_images($images)
+    public function delete() // AJAX
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+        
+        $pid  = $this->request->getPost('pid');
+        $post = $this->postModel->find($pid);
+
+        if ($post->post_fk_user != session('id') && session('role') != 'admin') {
+            echo json_encode(['status' => false]);
+        }
+        else {
+            if (!empty($post->post_img)) {
+                $images = explode(',', $post->post_img);
+                $this->delete_post_images($images); // Remove images
+            }
+            
+            $this->postModel->delete($post->post_pk);
+            echo json_encode(['status' => true]);
+        }
+    }
+
+    public function detail($group, $pid) //TODO : $group(from route) is not used, only needed for "active menu".
+    {
+        $post = $this->postModel->getOneById($pid);
+        if ( (empty($post)) || ($post->group != 'umum' && session('role') == 'mahasiswa') ) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+        else {
+            return view('post/post_detail', ['post' => $post]);
+        }
+    }
+
+    public function save_post_images($images) // Return image names (array)
     {
         $image_man = \Config\Services::image();
         $count = 0;

@@ -25,7 +25,7 @@
               <div class="card-tools">
                 <form id="search_post_form">
                   <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
-                    <input type="search" class="form-control float-right" name="input_searchpost" id="input_searchpost" placeholder="Cari Diskusi">
+                    <input type="search" class="form-control float-right" name="input_search_post" id="input_search_post" placeholder="Cari Diskusi">
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default btn-search-post">
                         <i class="fas fa-search"></i>
@@ -132,7 +132,7 @@
       type: "post",
       data: {
         group: "<?= $group ?>",
-        page: page,
+        page: page
       },
       success: function(res) {
         if (res.status) {
@@ -178,12 +178,11 @@
       $(".overlay").show();
       let page = $(this).attr('id')
 
-      let keyword = $("#search_post_form #input_searchpost").val()
+      let keyword = $("#search_post_form #input_search_post").val()
       
       if (keyword == "") {  
         get_post_list(page)
       } else {
-        let keyword = $("#search_post_form #input_searchpost").val()
         get_post_list_search(page, keyword)
       }
     })
@@ -191,7 +190,7 @@
     // Refresh post list
     $(document).on("click", ".btn-refresh-post", function() {
       $(".overlay").show()
-      $("#search_post_form #input_searchpost").val('')
+      $("#search_post_form #input_search_post").val('')
       get_post_list()
     })
 
@@ -199,7 +198,7 @@
     $(document).on("submit", "#search_post_form", function(e) {
       e.preventDefault()
         
-      let keyword = $("#search_post_form #input_searchpost").val()
+      let keyword = $("#search_post_form #input_search_post").val()
       let page = 1
 
       if (keyword == "") {

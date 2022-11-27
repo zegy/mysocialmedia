@@ -58,13 +58,21 @@ class UserModel extends Model
                     ->paginate(5, 'default', $page);
     }
 
-    public function getAllByKeyword($keyword)
+    public function getAllByKeyword($keyword, $page = null)
     {
         return $this->select($this->selected)
                     ->like('user_full_name', $keyword)
-                    ->get()
-                    ->getResult();
+                    ->orderBy('user_pk', 'DESC')
+                    ->paginate(5, 'default', $page);
     }
+
+    // public function getAllByKeyword($keyword)
+    // {
+    //     return $this->select($this->selected)
+    //                 ->like('user_full_name', $keyword)
+    //                 ->get()
+    //                 ->getResult();
+    // }
 }
 
 /*NOTE

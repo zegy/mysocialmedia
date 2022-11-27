@@ -81,7 +81,9 @@ $routes->add('comment/like', 'Comment::like');
 // $routes->add('group_list',  'Group::list');
 
 $routes->add('data/user', 'User::index'); //TODO : Better! sync with view
-$routes->add('user/list', 'User::list'); //TODO : Better! sync with view
+// $routes->add('user/list', 'User::list'); //TODO : Better! sync with view
+$routes->add('user/list_default', 'User::list_default'); //TODO : Better! sync with view
+$routes->add('user/list_search', 'User::list_search'); //TODO : Better! sync with view
 
 $routes->add('user/detail/(:num)', 'User::detail/$1');
 $routes->add('user/save',   'User::save');

@@ -23,17 +23,17 @@ class PostModel extends Model
 
     //NOTE Custom var with "standard query" string (instead of CI's Model and Query Builder)
     protected $selected = '
-        post_pk              AS pid,
-        post_title           AS pttl,
-        post_text            AS texto,
-        post_date_time       AS data,
-        post_group           AS group,
-        post_img             AS img,
-        user_pk              AS uid,
-        user_name            AS user_name,
-        user_full_name       AS nome,
-        user_profile_picture AS image,
-        user_role            AS role,
+        post_pk,
+        post_title,
+        post_text,
+        post_date_time,
+        post_group,
+        post_img,
+        user_pk,
+        user_name,
+        user_full_name,
+        user_profile_picture,
+        user_role,
         (SELECT COUNT(*) FROM t_comment WHERE comment_fk_post = post_pk) AS qtdcom
     ';
     

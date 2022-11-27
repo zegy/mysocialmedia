@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h4><b>Judul Diskusi : </b><span id="post_judul"><?= $post->pttl ?></span></h4>
+          <h4><b>Judul Diskusi : </b><span id="post_judul"><?= $post->post_title ?></span></h4>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -19,13 +19,13 @@
             <div style="height: 60px" class="card-header">
               <div class="user-block">
                 <img class="img-circle" src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="User Image">
-                <span class="username"><a href="#"><?= $post->nome ?></a></span>
-                <span class="description">Dibuat pada : <?= $post->data ?></span>
+                <span class="username"><a href="#"><?= $post->user_full_name ?></a></span>
+                <span class="description">Dibuat pada : <?= $post->post_date_time ?></span>
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div class="card-body">
               <div class="row" id="post_images">
-              <?php if (!empty($post->img)){ $imgs = explode(",", $post->img); foreach ($imgs as $img) {?>
+              <?php if (!empty($post->post_img)){ $imgs = explode(",", $post->post_img); foreach ($imgs as $img) {?>
                 <div class="col-2">
                   <a href="<?= base_url('imageRender/' . $img) ?>" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
                     <img src="<?= base_url('imageRender/thumb' . $img) ?>" class="img-fluid mb-2" alt="white sample"/>
@@ -33,8 +33,8 @@
                 </div>
               <?php } } ?>
               </div>
-              <p id="post_deskripsi"><?= $post->texto ?></p>
-              <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->pid ?>"><i class="far fa-trash-alt"></i> Hapus</button>
+              <p id="post_deskripsi"><?= $post->post_text ?></p>
+              <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->post_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>
               <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
@@ -56,7 +56,7 @@
                     <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>
                     <div class="invalid-feedback"></div>
                   </div>
-                  <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
+                  <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
                   <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
                   <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
                 </div>
@@ -100,8 +100,8 @@
           <label class="form-check-label" for="cb_update_image">Hapus / Ganti Foto</label>
         </div>
         <div class="modal-footer">
-          <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
-          <input type="hidden" name="old_images" id="old_images" value="<?= $post->img ?>">
+          <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
+          <input type="hidden" name="old_images" id="old_images" value="<?= $post->post_img ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
@@ -150,7 +150,7 @@
       dataType: "json",
       type: "post",
       data: {
-        pid: "<?= $post->pid ?>",
+        pid: "<?= $post->post_pk ?>",
       },
       success: function(res) {
         if (res.status) {
@@ -318,7 +318,7 @@
                   confirmButtonText: 'OK'
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    window.location = "<?= base_url('group/' . $post->group) ?>"
+                    window.location = "<?= base_url('group/' . $post->post_group) ?>"
                   }
                 })
               } else {

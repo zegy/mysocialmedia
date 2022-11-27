@@ -271,7 +271,7 @@ class Post extends BaseController
     public function detail($group, $pid) //TODO : $group(from route) is not used, only needed for "active menu".
     {
         $post = $this->postModel->getOneById($pid);
-        if ( (empty($post)) || ($post->group != 'umum' && session('role') == 'mahasiswa') ) {
+        if ( (empty($post)) || ($post->post_group != 'umum' && session('role') == 'mahasiswa') ) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         else {

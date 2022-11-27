@@ -102,7 +102,6 @@
         </div>
         <div class="modal-footer">
           <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
-          <input type="hidden" name="group" id="group" value="<?= $post->group ?>">
           <input type="hidden" name="old_images" id="old_images" value="<?= $post->img ?>">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>

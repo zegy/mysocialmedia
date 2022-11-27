@@ -230,10 +230,8 @@ class Post extends BaseController
         else {            
             $data = [
                 'post_pk'      => $this->request->getPost('pid'),
-                // 'post_fk_user' => session('id'),
                 'post_title'   => $this->request->getPost('judul'),
                 'post_text'    => $this->request->getPost('deskripsi'),
-                // 'post_group'   => $this->request->getPost('group'),
             ];
             
             $isUpdateImg = $this->request->getPost('cb_update_image');

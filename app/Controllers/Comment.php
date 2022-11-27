@@ -170,11 +170,6 @@ class Comment extends BaseController
             }
         }
 
-        $output = [
-            'like_status' => $data['like_status'] ?? '2', // 2 = No like or dislike, used in script to reset button style
-            'status'      => true
-        ];
-
-        echo json_encode($output);
+        echo json_encode(['status' => true]);
     }
 }

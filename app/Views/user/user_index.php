@@ -136,7 +136,8 @@
         if (res.status) {
           $("#user_list_data").html(res.users)
         } else {
-          $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
+        //   NOTE : CAN'T BE EMPTY!
+        //   $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Belum ada diskusi di forum ini</h3>Silahkan buat diskusi perdana dari anda!</div>')
         }
         $(".overlay").hide()
       }
@@ -156,7 +157,7 @@
         if (res.status) {
           $("#user_list_data").html(res.users)
         } else {
-          $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada diskusi ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
+          $("#user_list_data").html('<div class="card-body" style="height: 355px;"><h3>Tidak ada user ditemukan</h3>Silahkan coba kata kunci yang lain</div>')
         }
         $(".overlay").hide()
       }
@@ -249,24 +250,24 @@
       $(this).removeClass('is-invalid is-valid')
     })
 
-    // Show user's user modal
-    $(document).on("click", ".table-avatar", function(e) {
-      e.preventDefault()
-      //NOTE : Using "data()" so no need to request the same data again (from user_list)
-      let uid = $(this).data('uid')
-      let ufn = $(this).data('user_full_name')
-      let role = $(this).data('user_role')
-      $("#user_sum_modal .lead").html('<b>'+ ufn + '</b>')
-      $("#user_sum_modal .card-header").text(role)
-      $("#user_sum_modal").modal("toggle")
-    })
+    // // Show user's user modal
+    // $(document).on("click", ".table-avatar", function(e) {
+    //   e.preventDefault()
+    //   //NOTE : Using "data()" so no need to request the same data again (from user_list)
+    //   let uid = $(this).data('uid')
+    //   let ufn = $(this).data('user_full_name')
+    //   let role = $(this).data('user_role')
+    //   $("#user_sum_modal .lead").html('<b>'+ ufn + '</b>')
+    //   $("#user_sum_modal .card-header").text(role)
+    //   $("#user_sum_modal").modal("toggle")
+    // })
 
     // Redirect to user_detail after click user_text's area (The table's td)
-    $(document).on("click", ".user_td_text", function(e) {
-      e.preventDefault()
-      let link = $(this).data('link')
-      window.location = link
-    })
+    // $(document).on("click", ".user_td_text", function(e) {
+    //   e.preventDefault()
+    //   let link = $(this).data('link')
+    //   window.location = link
+    // })
   })
 </script>
 <?= $this->endSection() ?>

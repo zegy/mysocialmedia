@@ -81,7 +81,7 @@ class Comment extends BaseController
             'komentar' => ['required']
         ]);
 
-        if (!$this->validate($rules)) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
+        if (!$this->validate($rules))
         {
             $errors = [
                 'komentar' => $this->validation->getError('komentar')
@@ -132,7 +132,7 @@ class Comment extends BaseController
         }
     }
 
-    public function like() // AJAX. NOTE : 0 = liked and 1 = disliked
+    public function like() // AJAX. (0 = liked and 1 = disliked)
     {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions

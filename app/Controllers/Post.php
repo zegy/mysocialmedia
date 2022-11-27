@@ -268,7 +268,7 @@ class Post extends BaseController
         }
     }
 
-    public function detail($group, $pid) //TODO : $group(from route) is not used, only needed for "active menu".
+    public function detail($group, $pid) //TODO : $group(from route) is not used, only needed for 'active menu'.
     {
         $post = $this->postModel->getOneById($pid);
         if ( (empty($post)) || ($post->post_group != 'umum' && session('role') == 'mahasiswa') ) {

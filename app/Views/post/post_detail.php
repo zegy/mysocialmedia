@@ -57,7 +57,6 @@
                     <div class="invalid-feedback"></div>
                   </div>
                   <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
-                  <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment update)-->
                   <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
                   <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
                 </div>
@@ -121,7 +120,6 @@
           <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>
           <div class="invalid-feedback"></div>
         </div>
-        <input type="hidden" name="pid" id="pid" value="<?= $post->pid ?>">
         <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment update)-->
         <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
         <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>

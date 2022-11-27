@@ -69,7 +69,7 @@ class Comment extends BaseController
         echo json_encode($output);
     }
 
-    public function update() //NOTE : AJAX. Single create + update function. TODO : Check owner before update?
+    public function update() // AJAX
     {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
@@ -93,14 +93,22 @@ class Comment extends BaseController
             ];
         }
         else {
-            $data = [
-                'comment_pk'   => $this->request->getPost('cid'),
-                'comment_text' => $this->request->getPost('komentar'),
-            ];
-            
-            $this->commentModel->save($data);
+            $cid = $this->request->getPost('cid');
+            $comment = $this->commentModel->find($cid);
 
-            $output = ['status' => true];
+            if ($comment->comment_fk_user != session('id') && session('role') != 'admin') {
+                $output = ['status' => false];
+            }
+            else {
+                $data = [
+                    'comment_pk'   => $comment->comment_pk,
+                    'comment_text' => $this->request->getPost('komentar'),
+                ];
+                
+                $this->commentModel->save($data);
+    
+                $output = ['status' => true];
+            }
         }
 
         echo json_encode($output);        

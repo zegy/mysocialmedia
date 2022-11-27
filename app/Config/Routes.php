@@ -69,7 +69,10 @@ $routes->add('post/update',   'Post::update');
 $routes->add('post/list_from_user',   'Post::listFromUser');
 
 $routes->add('comment/list',   'Comment::list');
-$routes->add('comment/save',   'Comment::save');
+// $routes->add('comment/save',   'Comment::save');
+$routes->add('comment/create',   'Comment::create');
+$routes->add('comment/update',   'Comment::update');
+
 $routes->add('comment/delete', 'Comment::delete');
 
 $routes->add('comment/like', 'Comment::like');

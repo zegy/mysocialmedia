@@ -370,7 +370,7 @@
       let formData = new FormData(this);
       
       $.ajax({
-        url: "<?= base_url('comment/save') ?>",
+        url: "<?= base_url('comment/create') ?>",
         type: "post",
         data: formData,
         contentType: false,
@@ -399,7 +399,7 @@
       let formData = new FormData(this);
       
       $.ajax({
-        url: "<?= base_url('comment/save') ?>",
+        url: "<?= base_url('comment/update') ?>",
         type: "post",
         data: formData,
         contentType: false,

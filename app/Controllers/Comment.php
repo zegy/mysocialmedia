@@ -35,60 +35,75 @@ class Comment extends BaseController
         }
     }
 
-    public function save () //NOTE : AJAX. Single create + update function. TODO : Check owner before update?
+    public function create() // AJAX
     {
-        if ($this->request->isAJAX())
-        {
-            $validated = $this->validate([
-                'komentar' => ['required']
-            ]);
-
-            if (!$validated) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
-            {
-                $errors = [ //NOTE : 'getErrors()' did not return input field that 'valid', hence the 'Getting a Single Error' used instead.
-                    'komentar' => $this->validation->getError('komentar')
-                ];
-
-                $output = [
-                    'errors' => $errors,
-                    'status' => false
-                ];
-
-                echo json_encode($output);
-            }
-            else //NOTE : IF VALID
-            {
-                $cid = $this->request->getPost('cid'); //NOTE : To decide if it's create or update comment. If no cid (null) = create comment. Otherwise it's update comment
-                if (empty($cid)) //NOTE : Create
-                {
-                    $data = [
-                        'comment_fk_user'   => session('id'),
-                        'comment_fk_post'   => $this->request->getPost('pid'),
-                        'comment_text'      => $this->request->getPost('komentar'),
-                    ];
-
-                    $this->commentModel->save($data);
-                    $pid = $this->commentModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
-                }
-                else //NOTE : Update
-                {
-                    $data = [
-                        'comment_pk'   => $cid,
-                        'comment_text' => $this->request->getPost('komentar'),
-                    ];
-                    
-                    $this->commentModel->save($data);
-                }
-                
-                echo json_encode([
-                    'status' => true
-                ]);
-            }
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
-        else
+
+        $rules = ['komentar' => ['required']];
+
+        if (!$this->validate($rules))
         {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            $errors = [
+                'komentar' => $this->validation->getError('komentar')
+            ];
+
+            $output = [
+                'errors' => $errors,
+                'status' => false
+            ];
         }
+        else {            
+            $data = [
+                'comment_fk_user' => session('id'),
+                'comment_fk_post' => $this->request->getPost('pid'),
+                'comment_text'    => $this->request->getPost('komentar'),
+            ];
+
+            $this->commentModel->save($data);
+            
+            $output = ['status' => true];
+        }
+
+        echo json_encode($output);
+    }
+
+    public function update() //NOTE : AJAX. Single create + update function. TODO : Check owner before update?
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+
+        $rules = ['komentar' => ['required']];
+        
+        $validated = $this->validate([
+            'komentar' => ['required']
+        ]);
+
+        if (!$this->validate($rules)) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
+        {
+            $errors = [
+                'komentar' => $this->validation->getError('komentar')
+            ];
+
+            $output = [
+                'errors' => $errors,
+                'status' => false
+            ];
+        }
+        else {
+            $data = [
+                'comment_pk'   => $this->request->getPost('cid'),
+                'comment_text' => $this->request->getPost('komentar'),
+            ];
+            
+            $this->commentModel->save($data);
+
+            $output = ['status' => true];
+        }
+
+        echo json_encode($output);        
     }
 
     public function delete() // AJAX

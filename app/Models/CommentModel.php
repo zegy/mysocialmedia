@@ -21,12 +21,12 @@ class CommentModel extends Model
 
     //NOTE (Pending): It has mixed format
     protected $select = '
-        comment_pk           as cid,
-        comment_text         as texto,
-        comment_date_time    as data,
-        user_pk              as uid,
-        user_full_name       as nome,
-        user_profile_picture as image,
+        comment_pk,
+        comment_text,
+        comment_date_time,
+        user_pk,
+        user_full_name,
+        user_profile_picture,
         (SELECT COUNT(*) FROM t_like WHERE like_fk_comment = comment_pk AND like_status = 0) AS nolike,
         (SELECT COUNT(*) FROM t_like WHERE like_fk_comment = comment_pk AND like_status = 1) AS nodislike,
     ';

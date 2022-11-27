@@ -14,35 +14,24 @@ class Comment extends BaseController
         $this->likeModel = new LikeModel(); //TODO : Not need to create spesific controller?
     }
 
-    // public function index($pid)
-    // {
-    //     return view('post/comment_index', ["pid" => $pid]);
-    // }
-
-    public function list() //NOTE : AJAX
+    public function list() // AJAX
     {
-        if ($this->request->isAJAX())
-        {
-            $pid = $this->request->getPost('pid');
-            $comments = $this->commentModel->getAllByPost($pid);
-            
-            if (!empty($comments))
-            {
-                $comments_count = $this->commentModel->getCountComment($pid);
-                echo json_encode([
-                    'comments'  => view('comment/comment_list', ["comments" => $comments]),
-                    'status' => true,
-                    'comments_count' => $comments_count
-                ]);
-            }
-            else
-            {
-                echo json_encode(['status' => false]);
-            }
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        
+        $pid = $this->request->getPost('pid');
+        $comments = $this->commentModel->getAllByPost($pid);
+        
+        if (!empty($comments)) {
+            echo json_encode([
+                'status'         => true,
+                'comments'       => view('comment/comment_list', ['comments' => $comments]),
+                'comments_count' => $this->commentModel->getCountComment($pid)
+            ]);
+        }
+        else {
+            echo json_encode(['status' => false]);
         }
     }
 
@@ -56,7 +45,7 @@ class Comment extends BaseController
 
             if (!$validated) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
             {
-                $errors = [ //NOTE : "getErrors()" did not return input field that "valid", hence the "Getting a Single Error" used instead.
+                $errors = [ //NOTE : 'getErrors()' did not return input field that 'valid', hence the 'Getting a Single Error' used instead.
                     'komentar' => $this->validation->getError('komentar')
                 ];
 
@@ -73,9 +62,9 @@ class Comment extends BaseController
                 if (empty($cid)) //NOTE : Create
                 {
                     $data = [
-                        "comment_fk_user"   => session('id'),
-                        "comment_fk_post"   => $this->request->getPost('pid'),
-                        "comment_text"      => $this->request->getPost('komentar'),
+                        'comment_fk_user'   => session('id'),
+                        'comment_fk_post'   => $this->request->getPost('pid'),
+                        'comment_text'      => $this->request->getPost('komentar'),
                     ];
 
                     $this->commentModel->save($data);
@@ -84,8 +73,8 @@ class Comment extends BaseController
                 else //NOTE : Update
                 {
                     $data = [
-                        "comment_pk"   => $cid,
-                        "comment_text" => $this->request->getPost('komentar'),
+                        'comment_pk'   => $cid,
+                        'comment_text' => $this->request->getPost('komentar'),
                     ];
                     
                     $this->commentModel->save($data);
@@ -102,99 +91,85 @@ class Comment extends BaseController
         }
     }
 
-    public function delete() //NOTE : AJAX. TODO : Check owner before delete
+    public function delete() // AJAX
     {
-        if ($this->request->isAJAX())
-        {
-            $cid = $this->request->getPost('cid');            
-            $this->commentModel->delete($cid);
-            echo json_encode(['status' => true]);
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+
+        $cid = $this->request->getPost('cid');
+        $comment = $this->commentModel->find($cid);
+
+        if ($comment->comment_fk_user != session('id') && session('role') != 'admin') {
+            echo json_encode(['status' => false]);
+        }
+        else {
+            $this->commentModel->delete($comment->comment_pk);
+            echo json_encode(['status' => true]);
         }
     }
 
-    public function like() //NOTE : AJAX (0 = liked, 1 = disliked)
+    public function like() // AJAX. NOTE : 0 = liked and 1 = disliked
     {
-        if ($this->request->isAJAX())
-        {
-            $cid = $this->request->getPost('cid');
-
-            $dataLike = [
-                "like_fk_user"    => session('id'),
-                "like_fk_comment" => $cid,
-            ];
-            
-            $like = $this->likeModel->where($dataLike)->find();
-            
-            $type = $this->request->getPost('type');
-            
-            if ($type == 'like')
-            {
-                if (!empty($like))
-                {
-                    if ($like[0]->like_status == 1)
-                    {
-                        $data = [
-                            "like_pk"     => $like[0]->like_pk,
-                            "like_status" => 0,
-                        ];
-
-                        $this->likeModel->save($data);
-                    }
-                    else
-                    {
-                        $this->likeModel->delete($like[0]->like_pk);   
-                    }
-                }
-                else
-                {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+        
+        $cid = $this->request->getPost('cid');
+        
+        $like = $this->likeModel->where(['like_fk_user' => session('id'), 'like_fk_comment' => $cid])->find();
+        
+        $type = $this->request->getPost('type');
+        
+        if ($type == 'like') { // User like a comment
+            if (!empty($like)) {
+                if ($like[0]->like_status == 1) { // User like a disliked comment = Change dislike -> like
                     $data = [
-                        "like_fk_user"    => session('id'),
-                        "like_fk_comment" => $cid,
-                        "like_status"     => 0,
+                        'like_pk'     => $like[0]->like_pk,
+                        'like_status' => 0,
                     ];
 
                     $this->likeModel->save($data);
                 }
-            }
-            else //NOTE : Type = "dislike"
-            {
-                if (!empty($like))
-                {
-                    if ($like[0]->like_status == 0)
-                    {
-                        $data = [
-                            "like_pk"     => $like[0]->like_pk,
-                            "like_status" => 1,
-                        ];
-
-                        $this->likeModel->save($data);
-                    }
-                    else
-                    {
-                        $this->likeModel->delete($like[0]->like_pk);   
-                    }
+                else { // User like a comment that already liked = Delete
+                    $this->likeModel->delete($like[0]->like_pk);   
                 }
-                else
-                {
+            }
+            else { // New (Like)
+                $data = [
+                    'like_fk_user'    => session('id'),
+                    'like_fk_comment' => $cid,
+                    'like_status'     => 0,
+                ];
+
+                $this->likeModel->save($data);
+            }
+        }
+        else { // User dislike a comment
+            if (!empty($like)) {
+                if ($like[0]->like_status == 0) { // User dislike a liked comment = Change like -> dislike
                     $data = [
-                        "like_fk_user"    => session('id'),
-                        "like_fk_comment" => $cid,
-                        "like_status"     => 1,
+                        'like_pk'     => $like[0]->like_pk,
+                        'like_status' => 1,
                     ];
 
                     $this->likeModel->save($data);
                 }
+                else { // User dislike a comment that already disliked = Delete
+                    $this->likeModel->delete($like[0]->like_pk);   
+                }
             }
+            else { // New (Dislike)
+                $data = [
+                    'like_fk_user'    => session('id'),
+                    'like_fk_comment' => $cid,
+                    'like_status'     => 1,
+                ];
 
-            echo json_encode(['status' => true]);
+                $this->likeModel->save($data);
+            }
         }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+
+        echo json_encode(['status' => true]);
     }
 }

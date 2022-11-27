@@ -36,13 +36,7 @@ class PostModel extends Model
         user_role            AS role,
         (SELECT COUNT(*) FROM t_comment WHERE comment_fk_post = post_pk) AS qtdcom
     ';
-
-    // public function getNewPostNo($latestShowedPost)
-    // {
-    //     return $this->where('post_pk >', $latestShowedPost) //NOTE https://codeigniter.com/user_guide/database/query_builder.html#custom-key-value-method
-    //                 ->countAllResults(); //NOTE https://codeigniter.com/user_guide/database/query_builder.html#builder-countallresults
-    // }
-
+    
     public function getOneById($pid) //TODO "qtdcom" not used in the view, need to add later?
     {
         return $this->select($this->selected)
@@ -93,15 +87,6 @@ class PostModel extends Model
                     ->getResult();
     }
 
-    // public function getAllByUser($uid)
-    // {
-    //     return $this->select($this->selected)
-    //                 ->join('t_user', 'post_fk_user = user_pk')
-    //                 ->where('post_fk_user', $uid)
-    //                 ->orderBy('post_pk', 'DESC')
-    //                 ->paginate(5);
-    // }
-
     public function getAllByKeyword($keyword)
     {   
         return $this->select($this->selected)
@@ -111,8 +96,6 @@ class PostModel extends Model
                     ->getResult();
     }
 }
-
-//TODO New feature "edited"?
 
 /*NOTE
     The Model does not provide a perfect interface to the Query Builder.

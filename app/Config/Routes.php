@@ -52,94 +52,33 @@ $routes->add('/', 'Auth::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultControlle
 $routes->add('auth', 'Auth::index');
 $routes->add('auth/signin', 'Auth::signIn');
 $routes->add('auth/signout', 'Auth::signOut');
-$routes->add('auth/signup', 'Auth::signUp');
+// $routes->add('auth/signup', 'Auth::signUp');
 
 $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
 
-// AJAX
-// $routes->add('post/list',   'Post::list');
 $routes->add('post/list_default',   'Post::list_default');
 $routes->add('post/list_search',   'Post::list_search');
+$routes->add('post/list_from_user',   'Post::list_from_user');
 
 $routes->add('post/delete', 'Post::delete');
 $routes->add('post/create',   'Post::create');
 $routes->add('post/update',   'Post::update');
 
-$routes->add('post/list_from_user',   'Post::list_from_user');
-
 $routes->add('comment/list',   'Comment::list');
-// $routes->add('comment/save',   'Comment::save');
 $routes->add('comment/create',   'Comment::create');
 $routes->add('comment/update',   'Comment::update');
-
 $routes->add('comment/delete', 'Comment::delete');
-
 $routes->add('comment/like', 'Comment::like');
 
-// $routes->add('group_lists', 'Group::index');
-// $routes->add('group_list',  'Group::list');
-
 $routes->add('data/user', 'User::index'); //TODO : Better! sync with view
-// $routes->add('user/list', 'User::list'); //TODO : Better! sync with view
-$routes->add('user/list_default', 'User::list_default'); //TODO : Better! sync with view
-$routes->add('user/list_search', 'User::list_search'); //TODO : Better! sync with view
+$routes->add('user/list_default', 'User::list_default');
+$routes->add('user/list_search', 'User::list_search');
 
 $routes->add('user/detail/(:num)', 'User::detail/$1');
 $routes->add('user/save',   'User::save');
 
-
-
-
 $routes->match(['get', 'post'], 'imageRender/(:segment)', 'RenderImage::index/$1');
-// Fixed END
-
-
-
-
-
-
-
-
-
-
-
-// $routes->add('fordis/umum/posts_table', 'Post::posts_table');
-// $routes->add('posts/(:any)', 'Post::showAll/$1');
-
-$routes->add('group', 'Group::index');
-
-
-$routes->add('fordis_khusus/create', 'Group::create');
-
-$routes->add('post/create', 'Post::create');
-$routes->add('post/update', 'Post::update');
-// $routes->add('post/delete', 'Post::delete');
-$routes->add('post/userposts/(:num)', 'Post::userPosts/$1');
-
-
-
-
-$routes->add('search', 'Search::index'); 
-$routes->add('searchresult/(:any)', 'Search::searchResult/$1'); 
-
-$routes->add('account/signup', 'Account::signUp');
-$routes->add('account/createaccount', 'Account::createAccount');
-
-
-
-
-$routes->add('comment/save', 'Comment::save');
-
-$routes->add('comment/edit/(:num)', 'Comment::edit/$1');
-$routes->add('comment/delete/(:num)', 'Comment::delete/$1');
-
-$routes->add('notification/onfcm', 'Notification::onFCM');
-
-// =================================== ZEGY DEVELOPMENT ONLY ===================================
-$routes->add('admin_tools/get_add_posts_modal', 'Admin_tools::get_add_posts_modal');
-$routes->add('admin_tools/create_posts', 'Admin_tools::create_posts');
-$routes->add('admin_tools/delete_all_posts', 'Admin_tools::delete_all_posts');
 
 /*
  * --------------------------------------------------------------------

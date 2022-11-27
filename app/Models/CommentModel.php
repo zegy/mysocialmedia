@@ -40,15 +40,6 @@ class CommentModel extends Model
                     ->findAll();
     }
 
-    public function getAllByKeyword($keyword)
-    {
-        return $this->select($this->select . 'post_pk as pid')
-                    ->join('t_post', 'post_pk = comment_fk_post')
-                    ->join('t_user', 'comment_fk_user = user_pk')
-                    ->like('comment_text', $keyword)
-                    ->findAll();
-    }
-
     public function getCountComment($pid)
     {
         return $this->where('comment_fk_post', $pid)

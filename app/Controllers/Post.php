@@ -303,9 +303,9 @@ class Post extends BaseController
 
     public function delete_post_images($images)
     {
-        foreach ($old_images as $old_image) {
-            unlink(WRITEPATH . 'uploads/posts/' . $old_image);
-            unlink(WRITEPATH . 'uploads/posts/thumb' . $old_image);
+        foreach ($images as $image) {
+            unlink(WRITEPATH . 'uploads/posts/' . $image);
+            unlink(WRITEPATH . 'uploads/posts/thumb' . $image);
         }
     }
 }

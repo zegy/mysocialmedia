@@ -78,7 +78,7 @@ $routes->add('user/list_search', 'User::list_search');
 $routes->add('user/detail/(:num)', 'User::detail/$1');
 $routes->add('user/save',   'User::save');
 
-$routes->match(['get', 'post'], 'imageRender/(:segment)', 'RenderImage::index/$1');
+$routes->match(['get', 'post'], 'resource/(:segment)/(:segment)', 'Resource::index/$1/$2');
 
 /*
  * --------------------------------------------------------------------

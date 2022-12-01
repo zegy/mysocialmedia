@@ -58,18 +58,60 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="judul">Judul <i class="fas fa-exclamation-circle text-danger"></i></label>
-            <textarea class="form-control" name="judul" id="judul" rows="2"></textarea>
+            <label for="user_name">user_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="text" class="form-control" name="user_name" id="user_name">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="deskripsi">Deskripsi <i class="fas fa-exclamation-circle text-danger"></i></label>
-            <textarea class="form-control" name="deskripsi" id="deskripsi" rows="5"></textarea>
+            <label for="user_password">user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="password" class="form-control" name="user_password" id="user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="images">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
+            <label for="conf_user_password">conf_user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="password" class="form-control" name="conf_user_password" id="conf_user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_full_name">user_full_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="text" class="form-control" name="user_full_name" id="user_full_name">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_email">user_email <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="email" class="form-control" name="user_email" id="user_email">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_tel">user_tel <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input type="tel" class="form-control" name="user_tel" id="user_tel"><!-- TODO : "type=tel"... Use pattern? -->
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_sex">user_sex <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <select class="form-control" name="user_sex" id="user_sex">
+              <option value="m">Laki-laki</option>
+              <option value="f">Perempuan</option>
+            </select>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_bio">user_bio <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <textarea class="form-control" name="user_bio" id="user_bio"></textarea>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_profile_picture">user_profile_picture <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label for="user_role">user_role <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <select class="form-control" name="user_role" id="user_role">
+              <option value="admin">Admin</option>
+              <option value="dosen">Dosen</option>
+              <option value="mahasiswa">Mahasiswa</option>
+            </select>
             <div class="invalid-feedback"></div>
           </div>
         </div>
@@ -80,44 +122,6 @@
     </div>
   </div>
 </form>
-
-<!-- [MODALS] : User's summary -->
-<div class="modal fade" id="user_sum_modal" tabindex="-1" role="dialog" aria-labelledby="user_sum_modal_label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="card bg-light d-flex flex-fill">
-        <div class="card-header text-muted border-bottom-0">
-          Digital Strategist
-        </div>
-        <div class="card-body pt-0">
-          <div class="row">
-            <div class="col-7">
-              <h2 class="lead"><b>Nicole Pearson</b></h2>
-              <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
-              <ul class="ml-4 mb-0 fa-ul text-muted">
-                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
-              </ul>
-            </div>
-            <div class="col-5 text-center">
-              <img src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="user-avatar" class="img-circle img-fluid">
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="text-right">
-            <a href="#" class="btn btn-sm bg-teal">
-              <i class="fas fa-comments"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-primary">
-              <i class="fas fa-user"></i> View Profile
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <?= $this->endSection() ?>
 
 <!-- [SCRIPTS] -->
@@ -249,25 +253,6 @@
     $("input").on("click", function() {
       $(this).removeClass('is-invalid is-valid')
     })
-
-    // // Show user's user modal
-    // $(document).on("click", ".table-avatar", function(e) {
-    //   e.preventDefault()
-    //   //NOTE : Using "data()" so no need to request the same data again (from user_list)
-    //   let uid = $(this).data('uid')
-    //   let ufn = $(this).data('user_full_name')
-    //   let role = $(this).data('user_role')
-    //   $("#user_sum_modal .lead").html('<b>'+ ufn + '</b>')
-    //   $("#user_sum_modal .card-header").text(role)
-    //   $("#user_sum_modal").modal("toggle")
-    // })
-
-    // Redirect to user_detail after click user_text's area (The table's td)
-    // $(document).on("click", ".user_td_text", function(e) {
-    //   e.preventDefault()
-    //   let link = $(this).data('link')
-    //   window.location = link
-    // })
   })
 </script>
 <?= $this->endSection() ?>

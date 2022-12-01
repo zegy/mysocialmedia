@@ -76,7 +76,8 @@ $routes->add('user/list_default', 'User::list_default');
 $routes->add('user/list_search', 'User::list_search');
 
 $routes->add('user/detail/(:num)', 'User::detail/$1');
-$routes->add('user/save',   'User::save');
+// $routes->add('user/save',   'User::save');
+$routes->add('user/create',   'User::create');
 
 $routes->match(['get', 'post'], 'resource/(:segment)/(:segment)', 'Resource::index/$1/$2');
 

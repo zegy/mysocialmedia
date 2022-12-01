@@ -74,6 +74,102 @@ class User extends BaseController
         }
     }
 
+    public function create() // AJAX
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+
+        $rules = [
+            'user_name'      => ['required'],
+            'user_password'  => ['required'],
+            'user_full_name' => ['required'],
+            'user_email'     => ['required'],
+            'user_tel'       => ['required'],
+            'user_sex'       => ['required'],
+            'user_bio'       => ['required'],
+            'user_role'      => ['required'], // NOTE DANGER : Only use if register via admin!
+            'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
+                'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
+                'max_size[user_profile_picture,4096]',
+            ]
+        ];
+
+        if (!$this->validate($rules)) {
+            $errors = [
+                'user_name'      => $this->validation->getError('user_name'),
+                'user_password'  => $this->validation->getError('user_password'),
+                'user_full_name' => $this->validation->getError('user_full_name'),
+                'user_email'     => $this->validation->getError('user_email'),
+                'user_tel'       => $this->validation->getError('user_tel'),
+                'user_sex'       => $this->validation->getError('user_sex'),
+                'user_bio'       => $this->validation->getError('user_bio'),
+                'user_role'      => $this->validation->getError('user_role'),
+                'user_profile_picture' => $this->validation->getError('user_profile_picture'),
+            ];
+
+            $output = [
+                'status' => false,
+                'errors' => $errors
+            ];
+        }
+        else {
+            $data = [
+                'user_name'      => $this->request->getPost('user_name'),
+                'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
+                'user_full_name' => $this->request->getPost('user_full_name'),
+                'user_email'     => $this->request->getPost('user_email'),
+                'user_tel'       => $this->request->getPost('user_tel'),
+                'user_sex'       => $this->request->getPost('user_sex'),
+                'user_bio'       => $this->request->getPost('user_bio'),
+                'user_role'      => $this->request->getPost('user_role'),
+            ];
+
+            $image = $this->request->getFile('user_profile_picture');
+            
+            if (file_exists($image)) {
+                $imageName = $this->save_user_image($image); // Save image
+                $data['user_profile_picture'] = $imageName;
+            }
+
+            $this->userModel->save($data);
+
+            $output = [
+                // 'group'  => $this->request->getPost('group'),
+                'uid'    => $this->userModel->insertID(), // Get ID from the last insert. TODO : What if other user do the insert?
+                'status' => true
+            ];
+        }
+
+        echo json_encode($output);
+    }
+
+    public function save_user_image($image) // Return image name (string)
+    {
+        $image_man = \Config\Services::image();
+        
+        if($image->isValid() && !$image->hasMoved()) {
+            // Saving image
+            $name = $image->getRandomName();
+            $image->move(WRITEPATH . 'uploads/users', $name);
+
+            // Thumbnail Creation
+            $image_man
+                ->withFile(WRITEPATH . 'uploads/users/' . $name)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . 'uploads/users/thumb' . $name);
+        }     
+    
+        return $name;
+    }
+
+
+
+
+
+
+
+
     // TODO DANGER BROKEN IF ELSE. RULES FOR CREATE AND UPDATE IS DIF!
     public function save () //NOTE : Based on post's save. TODO : Clean this note later after complete!
     {

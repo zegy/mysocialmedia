@@ -64,12 +64,12 @@
           </div>
           <div class="form-group">
             <label for="user_password">user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
-            <input type="password" class="form-control" name="user_password" id="user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
+            <input type="password" class="form-control" name="user_password" id="user_password">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
             <label for="conf_user_password">conf_user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
-            <input type="password" class="form-control" name="conf_user_password" id="conf_user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
+            <input type="password" class="form-control" name="conf_user_password" id="conf_user_password">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">

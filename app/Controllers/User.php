@@ -173,6 +173,9 @@ class User extends BaseController
         if (session('role') == 'admin') {
             $rules['user_email'] = 'required';
             $rules['user_role'] = 'required';
+
+            // Extra code
+            $isLastAdmin = ($this->userModel->where('user_role', 'admin')->countAllResults()) == 1;
         }
 
         if (!$this->validate($rules)) {
@@ -202,6 +205,12 @@ class User extends BaseController
             $output = [
                 'status' => false,
                 'errors' => $errors
+            ];
+        }
+        else if ($isLastAdmin && $this->request->getPost('user_role') != 'admin') { // Prevent the last admin to change role
+            $output = [
+                'status' => false,
+                'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'
             ];
         }
         else {

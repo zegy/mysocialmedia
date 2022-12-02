@@ -253,7 +253,12 @@
               $(".profile-user-img").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
             }
           } else {
+            $(".overlay").hide()
+
             set_errors(res.errors)
+            if (typeof res.custom_error !== 'undefined') {
+                alert(res.custom_error)
+            }
           }
         }
       })

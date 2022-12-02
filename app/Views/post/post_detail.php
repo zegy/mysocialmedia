@@ -77,6 +77,9 @@
   <div class="modal fade" id="post_modal_update" tabindex="-1" role="dialog" aria-labelledby="post_modal_update_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
+        <div style="display: none" class="overlay">
+          <i class="fas fa-2x fa-sync fa-spin"></i>
+        </div>
         <div class="modal-header">
           <h5 class="modal-title">Add new Item</h5>
         </div>
@@ -167,6 +170,8 @@
   }
 
   function submit_update_post_form(formData) {
+    $("#post_modal_update .overlay").show()
+
     $.ajax({
       url: "<?= base_url('post/update') ?>",
       type: "post",
@@ -474,6 +479,11 @@
 
     $("input").on("click", function() {
       $(this).removeClass('is-invalid is-valid')
+    })
+
+    // Reset / hide any modal overlay after modal close
+    $('.modal').on('hidden.bs.modal', function () {
+      $(".overlay").hide()
     })
   })
 </script>

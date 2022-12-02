@@ -20,7 +20,7 @@
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="User profile picture">
               </div>
-              <h3 class="profile-username text-center"><?= $user->user_full_name ?></h3>
+              <h3 class="profile-username text-center text-capitalize"><?= $user->user_full_name ?></h3>
               <p class="text-muted text-center text-uppercase"><?= $user->user_role ?></p>
             </div><!-- /.card-body -->
           </div><!-- /.card -->

@@ -33,7 +33,8 @@ class Auth extends BaseController
                     'isLoggedIn' => true,
                     'id'         => $userData->user_pk,
                     'role'       => $userData->user_role,
-                    'picture'    => $userData->user_profile_picture
+                    'picture'    => $userData->user_profile_picture,
+                    'full_name'  => $userData->user_full_name
                 ];
                 session()->set($sessionData);
                 echo json_encode(['status' => true]);

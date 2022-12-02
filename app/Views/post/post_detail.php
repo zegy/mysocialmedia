@@ -50,7 +50,7 @@
             </div><!-- /.card-footer -->
             <div class="card-footer">
               <form id="comment_create_form">
-                <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
+                <img class="img-fluid img-circle img-sm" src="<?= base_url('resource/users/thumb' . session('picture')) ?>" alt="Alt Text">
                 <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="form-group">
                     <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>

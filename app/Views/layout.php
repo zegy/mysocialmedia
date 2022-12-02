@@ -95,10 +95,10 @@
       <div class="sidebar"><!-- Sidebar -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex"><!-- Sidebar user panel (optional) -->
           <div class="image">
-            <img src="<?= base_url('resource/users/thumb' . session('picture')) ?>" class="img-circle elevation-2" alt="User Image">
+            <img src="<?= base_url('resource/users/thumb' . session('picture')) ?>" class="img-circle elevation-2 user-profile-picture" alt="User Image">
           </div>
           <div class="info">
-            <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="d-block text-capitalize"><?= session('full_name') ?></a>
+            <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="d-block text-capitalize user-full-name"><?= session('full_name') ?></a>
           </div>
         </div>
         <nav class="mt-2"><!-- Sidebar Menu -->

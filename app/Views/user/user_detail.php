@@ -18,15 +18,18 @@
           <div class="card card-primary card-outline"><!-- Profile Image -->
             <div class="card-body box-profile">
               <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="User profile picture">
+                <img class="profile-user-img img-fluid img-circle" src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="User profile picture">
               </div>
-              <h3 class="profile-username text-center text-capitalize"><?= $user->user_full_name ?></h3>
-              <p class="text-muted text-center text-uppercase"><?= $user->user_role ?></p>
+              <h3 class="text-center text-capitalize profile-username"><?= $user->user_full_name ?></h3>
+              <p class="text-muted text-center text-uppercase profile-role"><?= $user->user_role ?></p>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
         </div><!-- /.col -->
         <div class="col-md-9">
           <div class="card">
+            <div style="display: none" class="overlay">
+              <i class="fas fa-2x fa-sync fa-spin"></i>
+            </div>
             <div class="card-header p-2">
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#informasi" data-toggle="tab">Informasi</a></li>
@@ -106,11 +109,20 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
-                    <div class="form-group row"><!-- NOTE : Experimental! because using "Horizontal form". Need to find the file input format -->
+                    <div style="display: none" class="form-group row" id="image_input"><!-- NOTE : Experimental! because using "Horizontal form". Need to find the file input format -->
                       <label for="user_profile_picture" class="col-sm-2 col-form-label">user_profile_picture</label>
                       <div class="col-sm-10">
                         <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
                         <div class="invalid-feedback"></div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="cb_update_image" id="cb_update_image"> Hapus / Ganti Foto
+                          </label>
+                        </div>
                       </div>
                     </div>
 
@@ -243,6 +255,9 @@
     // Update user (form submit)
     $(document).on("submit", "#user_update_form", function(e) {
       e.preventDefault()
+
+      $(".overlay").show()
+
       let formData = new FormData(this)
       $.ajax({
         url: "<?= base_url('user/update') ?>",
@@ -254,12 +269,26 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            // TODO HANDLE VALUE CHANGE!
+            $(".overlay").hide()
+            
+            // Update other related elements (The form is set-as-is, no need to update)
+            $(".user-panel .user-full-name").text(formData.get('user_full_name'))
+            $(".profile-username").text(formData.get('user_full_name'))
+            $(".profile-role").text(formData.get('user_role'))
+            if (res.image_change) {
+              $(".user-panel .user-profile-picture").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
+              $(".profile-user-img").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
+            }
           } else {
             set_errors(res.errors)
           }
         }
       })
+    })
+
+    // Show or hide image_input (On user update)
+    $("#cb_update_image").on("click", function() {
+      $("#image_input").toggle();
     })
   })
 </script>

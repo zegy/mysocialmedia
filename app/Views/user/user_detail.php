@@ -40,14 +40,6 @@
               <div class="tab-content">
                 <div class="active tab-pane" id="informasi">
                   <form class="form-horizontal" id="user_update_form">
-                    
-                    <!-- <div class="form-group row">
-                      <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" placeholder="Name">
-                      </div>
-                    </div> -->
-
                     <div class="form-group row">
                       <label for="user_name" class="col-sm-2 col-form-label">user_name</label>
                       <div class="col-sm-10">
@@ -55,15 +47,15 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
-                    <?php if ($editable) { ?>
-                    <div class="form-group row"><!-- NOTE DANGER : Check later -->
+                    <?php if (session('id') == $user->user_pk || session('role') == 'admin') { ?>
+                    <div class="form-group row">
                       <label for="user_password" class="col-sm-2 col-form-label">user_password</label>
                       <div class="col-sm-10">
                         <input type="password" class="form-control" name="user_password" id="user_password"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
-                    <div class="form-group row"><!-- NOTE DANGER : Check later -->
+                    <div class="form-group row">
                       <label for="conf_user_password" class="col-sm-2 col-form-label">conf_user_password</label>
                       <div class="col-sm-10">
                         <input type="password" class="form-control" name="conf_user_password" id="conf_user_password"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
@@ -125,9 +117,8 @@
                         </div>
                       </div>
                     </div>
-
-                    <?php if ($editable && session('role') == 'admin') { ?>
-                    <div class="form-group row"><!-- DANGER User role -->
+                    <?php if (session('role') == 'admin') { ?>
+                    <div class="form-group row">
                       <label for="user_role" class="col-sm-2 col-form-label">user_role</label>
                       <div class="col-sm-10">
                         <select class="form-control" name="user_role" id="user_role"> <!-- TODO : There is dedicated class for "select". Check later! -->
@@ -139,21 +130,7 @@
                       </div>
                     </div>
                     <?php } ?>
-
-                    <!-- <div class="form-group row">
-                      <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                      </div>
-                    </div> -->
-                    <?php if ($editable && session('id') == $user->user_pk) { ?>
+                    <?php if (session('id') == $user->user_pk) { ?>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <div class="checkbox">
@@ -164,8 +141,7 @@
                       </div>
                     </div>
                     <?php } ?>
-
-                    <?php if ($editable) { ?>
+                    <?php if (session('id') == $user->user_pk || session('role') == 'admin') { ?>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <input type="hidden" name="uid" id="uid" value="<?= $user->user_pk ?>">
@@ -173,13 +149,10 @@
                       </div>
                     </div>
                     <?php } ?>
-
                   </form>
-
                   <?php if (session('id') == $user->user_pk) { ?>
                   <button style="margin-top: 25px" type="button" class="btn btn-danger float-right btn-sign-out">Sign Out</button>
                   <?php } ?>
-
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="diskusi">
                   <div id="post_list_data">

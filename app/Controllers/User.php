@@ -286,23 +286,12 @@ class User extends BaseController
 
     public function detail($uid)
     {   
-        if (session('id') == $uid || session('role') == 'admin')
-        {
-            $user = $this->userModel->find($uid); // Get all data row
-            $editable = true;
-        }
-        else
-        {
-            $user = $this->userModel->getOneReadOnly($uid); // Get all data row (read only ones)
-            $editable = false;
-        }
+        $user = $this->userModel->find($uid);
         
-        if (!empty($user))
-        {
-            return view('user/user_detail', ['user' => $user, 'editable' => $editable]);
+        if (!empty($user)) {
+            return view('user/user_detail', ['user' => $user]);
         }
-        else
-        {
+        else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
     }

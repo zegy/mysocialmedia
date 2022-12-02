@@ -35,22 +35,6 @@ class UserModel extends Model
         user_role
     ';
 
-    public function getOneReadOnly($uid)
-    {
-        return $this->select([
-                        'user_pk',
-                        'user_name',
-                        'user_full_name',
-                        'user_email',
-                        'user_tel',
-                        'user_profile_picture',
-                        'user_sex',
-                        'user_bio',
-                        'user_role'
-                    ])
-                    ->find($uid);
-    }
-
     public function getAll($page = null)
     {
         return $this->select($this->selected)

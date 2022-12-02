@@ -204,6 +204,7 @@
           }
         } else {
           set_errors(res.errors)
+          $("#post_modal_update .overlay").hide()
         }
       }
     })

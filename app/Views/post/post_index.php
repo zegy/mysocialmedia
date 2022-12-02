@@ -53,6 +53,9 @@
   <div class="modal fade" id="post_modal_create" tabindex="-1" role="dialog" aria-labelledby="post_modal_create_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
+        <div style="display: none" class="overlay">
+          <i class="fas fa-2x fa-sync fa-spin"></i>
+        </div>
         <div class="modal-header">
           <h5 class="modal-title">Add new Item</h5>
         </div>
@@ -125,6 +128,17 @@
 <?= $this->section('script') ?>
 <script>
   //[A] Callable functions
+  function set_errors(errors) {
+    $.each(errors, function(key, value) {
+      $('[id="' + key + '"]').addClass('is-invalid')
+      $('[id="' + key + '"]').next().text(value)
+      if (value == "") {
+        $('[id="' + key + '"]').removeClass('is-invalid')
+        $('[id="' + key + '"]').addClass('is-valid')
+      }
+    })
+  }
+
   function get_post_list(page) {
     $.ajax({
       url: "<?= base_url('post/list_default') ?>",
@@ -216,6 +230,9 @@
     // Create post (form submit)
     $(document).on("submit", "#post_modal_create_form", function(e) {
       e.preventDefault()
+
+      $("#post_modal_create .overlay").show()
+
       let formData = new FormData(this)
       $.ajax({
         url: "<?= base_url('post/create') ?>",
@@ -230,14 +247,8 @@
             $("#post_modal_create").modal("toggle")
             window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
           } else {
-            $.each(res.errors, function(key, value) {
-              $('[id="' + key + '"]').addClass('is-invalid')
-              $('[id="' + key + '"]').next().text(value)
-              if (value == "") {
-                $('[id="' + key + '"]').removeClass('is-invalid')
-                $('[id="' + key + '"]').addClass('is-valid')
-              }
-            })
+            set_errors(res.errors)
+            $("#post_modal_create .overlay").hide()
           }
         }
       })
@@ -250,6 +261,11 @@
 
     $("input").on("click", function() {
       $(this).removeClass('is-invalid is-valid')
+    })
+
+    // Reset / hide any modal overlay after modal close
+    $('.modal').on('hidden.bs.modal', function () {
+      $(".overlay").hide()
     })
 
     // Show post's user modal

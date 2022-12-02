@@ -101,7 +101,7 @@ class Comment extends BaseController
             }
             else {
                 $data = [
-                    'comment_pk'   => $comment->comment_pk,
+                    'comment_pk'   => $cid,
                     'comment_text' => $this->request->getPost('komentar'),
                 ];
                 

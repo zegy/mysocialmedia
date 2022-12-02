@@ -135,8 +135,6 @@ class User extends BaseController
             $this->userModel->save($data);
 
             $output = [
-                // 'group'  => $this->request->getPost('group'),
-                'uid'    => $this->userModel->insertID(), // Get ID from the last insert. TODO : What if other user do the insert?
                 'status' => true
             ];
         }
@@ -144,180 +142,110 @@ class User extends BaseController
         echo json_encode($output);
     }
 
-    public function save_user_image($image) // Return image name (string)
+    public function update() // AJAX
     {
-        $image_man = \Config\Services::image();
-        
-        if($image->isValid() && !$image->hasMoved()) {
-            // Saving image
-            $name = $image->getRandomName();
-            $image->move(WRITEPATH . 'uploads/users', $name);
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
 
-            // Thumbnail Creation
-            $image_man
-                ->withFile(WRITEPATH . 'uploads/users/' . $name)
-                ->fit(100, 100, 'center')
-                ->save(WRITEPATH . 'uploads/users/thumb' . $name);
-        }     
+        $rules = [
+            'user_name'      => ['required'],
+            // 'user_password'  => ['required'],
+            'user_full_name' => ['required'],
+            // 'user_email'     => ['required'],
+            'user_tel'       => ['required'],
+            'user_sex'       => ['required'],
+            'user_bio'       => ['required'],
+            // 'user_role'      => ['required'], // NOTE DANGER : Only use if register via admin!
+            'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
+                'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
+                'max_size[user_profile_picture,4096]',
+            ]
+        ];
+
+        // Optional updateable data
+        $new_password = $this->request->getPost('user_password');
+        if (!empty($new_password)) {
+            $rules['user_password'] = 'required'; // TODO LATER! USELESS REQ!
+        }
+
+        // Admin-only updateable data
+        if (session('role') == 'admin') {
+            $rules['user_email'] = 'required';
+            $rules['user_role'] = 'required';
+        }
+
+        if (!$this->validate($rules)) {
+            $errors = [
+                'user_name'      => $this->validation->getError('user_name'),
+                // 'user_password'  => $this->validation->getError('user_password'),
+                'user_full_name' => $this->validation->getError('user_full_name'),
+                // 'user_email'     => $this->validation->getError('user_email'),
+                'user_tel'       => $this->validation->getError('user_tel'),
+                'user_sex'       => $this->validation->getError('user_sex'),
+                'user_bio'       => $this->validation->getError('user_bio'),
+                // 'user_role'      => $this->validation->getError('user_role'),
+                'user_profile_picture' => $this->validation->getError('user_profile_picture'),
+            ];
+
+            // Optional updateable data
+            if (!empty($new_password)) {
+                $errors['user_password'] = $this->validation->getError('user_password');
+            }
+
+            // Admin-only updateable data
+            if (session('role') == 'admin') {
+                $errors['user_email'] = $this->validation->getError('user_email');
+                $errors['user_role'] = $this->validation->getError('user_role');
+            }
+
+            $output = [
+                'status' => false,
+                'errors' => $errors
+            ];
+        }
+        else {
+            $uid = $this->request->getPost('uid');
+            $user = $this->userModel->find($uid);
+
+            if ($user->user_pk != session('id') && session('role') != 'admin') {
+                $output = ['status' => false];
+            }
+            else {
+                $data = [
+                    'user_pk'        => $uid,
+                    'user_name'      => $this->request->getPost('user_name'),
+                    'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
+                    'user_full_name' => $this->request->getPost('user_full_name'),
+                    // 'user_email'     => $this->request->getPost('user_email'),
+                    'user_tel'       => $this->request->getPost('user_tel'),
+                    'user_sex'       => $this->request->getPost('user_sex'),
+                    'user_bio'       => $this->request->getPost('user_bio'),
+                    // 'user_role'      => $this->request->getPost('user_role'),
+                ];
+
+                // Admin-only updateable data
+                if (session('role') == 'admin') {
+                    $data['user_email'] = $this->request->getPost('user_email');
+                    $data['user_role'] = $this->request->getPost('user_role');
+                }
     
-        return $name;
-    }
-
-
-
-
-
-
-
-
-    // TODO DANGER BROKEN IF ELSE. RULES FOR CREATE AND UPDATE IS DIF!
-    public function save () //NOTE : Based on post's save. TODO : Clean this note later after complete!
-    {
-        if ($this->request->isAJAX())
-        {
-            // $validated = $this->validate([
-            //     'judul'     => ['required'],
-            //     'deskripsi' => ['required'],
-            //     'images'     => [ //TODO : set max 5! Problem with image names in SQL
-            //         'mime_in[images,image/jpg,image/jpeg,image/gif,image/png]',
-            //         'max_size[images,4096]',
-            //     ]
-            // ]);
-
-            $validated = $this->validate([
-                'user_name'      => ['required'],
-                'user_password'  => ['required'],
-                'user_full_name' => ['required'],
-                'user_email'     => ['required'],
-                'user_tel'       => ['required'],
-                'user_sex'       => ['required'],
-                'user_bio'       => ['required'],
-                'user_role'      => ['required'], // NOTE DANGER : Only use if register via admin!
-                'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
-                    'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
-                    'max_size[user_profile_picture,4096]',
-                ],
-            ]);
-
-            if (!$validated) //NOTE : IF NOT VALID = return error array with the key and value for each input (only key with empty value for input with no error)
-            {
-                $errors = [ //NOTE : 'getErrors()' did not return input field that 'valid', hence the 'Getting a Single Error' used instead.
-                    'user_name'      => $this->validation->getError('user_name'),
-                    'user_password'  => $this->validation->getError('user_password'),
-                    'user_full_name' => $this->validation->getError('user_full_name'),
-                    'user_email'     => $this->validation->getError('user_email'),
-                    'user_tel'       => $this->validation->getError('user_tel'),
-                    'user_sex'       => $this->validation->getError('user_sex'),
-                    'user_bio'       => $this->validation->getError('user_bio'),
-                    'user_role'      => $this->validation->getError('user_role'),
-                    'user_profile_picture' => $this->validation->getError('user_profile_picture'),
-                ];
-
+                $image = $this->request->getFile('user_profile_picture');
+                
+                if (file_exists($image)) {
+                    $imageName = $this->save_user_image($image); // Save image
+                    $data['user_profile_picture'] = $imageName;
+                }
+    
+                $this->userModel->save($data);
+    
                 $output = [
-                    'errors' => $errors,
-                    'status' => false
+                    'status' => true
                 ];
-
-                echo json_encode($output);
-            }
-            else //NOTE : IF VALID
-            {
-                $uid = $this->request->getPost('uid'); //NOTE : To decide if it's create or update user. If no uid (null) = create user. Otherwise it's update user
-                if (empty($uid)) //NOTE : Create
-                {
-                    $data = [
-                        'user_name'      => $this->request->getPost('user_name'),
-                        'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
-                        'user_full_name' => $this->request->getPost('user_full_name'),
-                        'user_email'     => $this->request->getPost('user_email'),
-                        'user_tel'       => $this->request->getPost('user_tel'),
-                        'user_sex'       => $this->request->getPost('user_sex'),
-                        'user_bio'       => $this->request->getPost('user_bio'),
-                        'user_role'      => $this->request->getPost('user_role'),
-                    ];
-
-                    $this->userModel->save($data);
-                    $user_pk = $this->userModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
-
-
-                    $user_profile_picture = $this->request->getFile('user_profile_picture');
-                    if (file_exists($user_profile_picture))
-                    {
-                        if($user_profile_picture->isValid() && !$user_profile_picture->hasMoved())
-                        {
-                            // Saving image
-                            // $name = $user_profile_picture->getRandomName();
-                            $name = $user_pk . '.' . $user_profile_picture->getClientExtension();
-                            $user_profile_picture->move(WRITEPATH . 'uploads/users', $name);
-
-                            // Thumbnail Creation
-                            $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
-                            $image_man
-                                ->withFile(WRITEPATH . 'uploads/users/' . $name)
-                                ->fit(100, 100, 'center')
-                                ->save(WRITEPATH . 'uploads/users/thumb' . $name);
-                        }        
-                        
-                        $data['user_profile_picture'] = $name;
-                    }
-                    
-                    echo json_encode([
-                        // 'group'  => $this->request->getPost('group'),
-                        // 'pid'    => $pid,
-                        'status' => true
-                    ]);
-                }
-                else //NOTE : Update
-                {
-                    $data = [
-                         'user_pk'       => $uid,
-                        'user_name'      => $this->request->getPost('user_name'),
-                        'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
-                        'user_full_name' => $this->request->getPost('user_full_name'),
-                        'user_email'     => $this->request->getPost('user_email'),
-                        'user_tel'       => $this->request->getPost('user_tel'),
-                        'user_sex'       => $this->request->getPost('user_sex'),
-                        'user_bio'       => $this->request->getPost('user_bio'),
-                        'user_role'      => $this->request->getPost('user_role'),
-                    ];
-
-                    $this->userModel->save($data);
-                    $user_pk = $this->userModel->insertID(); //NOTE : Get ID from the last insert. TODO : What if other user do the insert?
-
-
-                    $user_profile_picture = $this->request->getFile('user_profile_picture');
-                    if (file_exists($user_profile_picture))
-                    {
-                        if($user_profile_picture->isValid() && !$user_profile_picture->hasMoved())
-                        {
-                            // Saving image
-                            // $name = $user_profile_picture->getRandomName();
-                            $name = $user_pk . '.' . $user_profile_picture->getClientExtension();
-                            $user_profile_picture->move(WRITEPATH . 'uploads/users', $name);
-
-                            // Thumbnail Creation
-                            $image_man = \Config\Services::image(); //NOTE : Image Manipulation Class (TODO : Best syntax?)
-                            $image_man
-                                ->withFile(WRITEPATH . 'uploads/users/' . $name)
-                                ->fit(100, 100, 'center')
-                                ->save(WRITEPATH . 'uploads/users/thumb' . $name);
-                        }        
-                        
-                        $data['user_profile_picture'] = $name;
-                    }
-                    
-                    echo json_encode([
-                        // 'group'  => $this->request->getPost('group'),
-                        // 'pid'    => $pid,
-                        'status' => true
-                    ]);
-                }
             }
         }
-        else
-        {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+
+        echo json_encode($output);
     }
 
     public function detail($uid)
@@ -341,5 +269,24 @@ class User extends BaseController
         {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+    }
+
+    public function save_user_image($image) // Return image name (string)
+    {
+        $image_man = \Config\Services::image();
+        
+        if($image->isValid() && !$image->hasMoved()) {
+            // Saving image
+            $name = $image->getRandomName();
+            $image->move(WRITEPATH . 'uploads/users', $name);
+
+            // Thumbnail Creation
+            $image_man
+                ->withFile(WRITEPATH . 'uploads/users/' . $name)
+                ->fit(100, 100, 'center')
+                ->save(WRITEPATH . 'uploads/users/thumb' . $name);
+        }     
+    
+        return $name;
     }
 }

@@ -203,7 +203,7 @@ class Post extends BaseController
             }
             else {
                 $data = [
-                    'post_pk'      => $this->request->getPost('pid'),
+                    'post_pk'      => $pid,
                     'post_title'   => $this->request->getPost('judul'),
                     'post_text'    => $this->request->getPost('deskripsi'),
                 ];

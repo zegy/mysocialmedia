@@ -36,7 +36,7 @@
             <div class="card-body">
               <div class="tab-content">
                 <div class="active tab-pane" id="informasi">
-                  <form class="form-horizontal" id="user_edit_form">
+                  <form class="form-horizontal" id="user_update_form">
                     
                     <!-- <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -56,14 +56,14 @@
                     <div class="form-group row"><!-- NOTE DANGER : Check later -->
                       <label for="user_password" class="col-sm-2 col-form-label">user_password</label>
                       <div class="col-sm-10">
-                        <input type="password" class="form-control" name="user_password" id="user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
+                        <input type="password" class="form-control" name="user_password" id="user_password"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row"><!-- NOTE DANGER : Check later -->
                       <label for="conf_user_password" class="col-sm-2 col-form-label">conf_user_password</label>
                       <div class="col-sm-10">
-                        <input type="password" class="form-control" name="conf_user_password" id="conf_user_password" placeholder="*******"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
+                        <input type="password" class="form-control" name="conf_user_password" id="conf_user_password"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
@@ -78,7 +78,7 @@
                     <div class="form-group row">
                       <label for="user_email" class="col-sm-2 col-form-label">user_email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" name="user_email" id="user_email" value="<?= $user->user_email ?>">
+                        <input type="email" class="form-control" name="user_email" id="user_email" value="<?= $user->user_email ?>" <?php if (session('role') != 'admin') { ?> readonly <?php } ?>>
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
@@ -188,6 +188,17 @@
 <?= $this->section('script') ?>
 <script>
   //[A] Callable functions
+  function set_errors(errors) {
+    $.each(errors, function(key, value) {
+      $('[id="' + key + '"]').addClass('is-invalid')
+      $('[id="' + key + '"]').next().text(value)
+      if (value == "") {
+        $('[id="' + key + '"]').removeClass('is-invalid')
+        $('[id="' + key + '"]').addClass('is-valid')
+      }
+    })
+  }
+
   function get_post_list_from_user() {
     $.ajax({
       url: "<?= base_url('post/list_from_user') ?>",
@@ -230,11 +241,11 @@
     })
 
     // Update user (form submit)
-    $(document).on("submit", "#user_edit_form", function(e) {
+    $(document).on("submit", "#user_update_form", function(e) {
       e.preventDefault()
       let formData = new FormData(this)
       $.ajax({
-        url: "<?= base_url('user/save') ?>",
+        url: "<?= base_url('user/update') ?>",
         type: "post",
         data: formData,
         contentType: false,
@@ -243,17 +254,9 @@
         dataType: "json",
         success: function(res) {
           if (res.status) {
-            // $("#user_modal_add").modal("toggle")
-            // window.location = "base url'group'" + "/" + res.group + "/detail/" + res.pid
+            // TODO HANDLE VALUE CHANGE!
           } else {
-            $.each(res.errors, function(key, value) {
-              $('[id="' + key + '"]').addClass('is-invalid')
-              $('[id="' + key + '"]').next().text(value)
-              if (value == "") {
-                $('[id="' + key + '"]').removeClass('is-invalid')
-                $('[id="' + key + '"]').addClass('is-valid')
-              }
-            })
+            set_errors(res.errors)
           }
         }
       })

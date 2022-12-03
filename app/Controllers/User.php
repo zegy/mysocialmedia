@@ -207,7 +207,7 @@ class User extends BaseController
                 'errors' => $errors
             ];
         }
-        else if ($isLastAdmin && $this->request->getPost('user_role') != 'admin') { // Prevent the last admin to change role
+        else if ($this->request->getPost('uid') == session('id') && $isLastAdmin && $this->request->getPost('user_role') != 'admin') { // Prevent the last admin to change role
             $output = [
                 'status' => false,
                 'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'

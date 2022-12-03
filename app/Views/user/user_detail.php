@@ -252,6 +252,11 @@
               $(".user-panel .user-profile-picture").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
               $(".profile-user-img").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
             }
+
+            // Reset prev validation
+            $("#user_update_form textarea").removeClass('is-invalid is-valid')
+            $("#user_update_form input").removeClass('is-invalid is-valid')
+            $("#user_update_form select").removeClass('is-invalid is-valid')
           } else {
             $(".overlay").hide()
 

@@ -75,16 +75,12 @@ class Comment extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
-        $rules = ['komentar' => ['required']];
-        
-        $validated = $this->validate([
-            'komentar' => ['required']
-        ]);
+        $rules = ['update_komentar' => ['required']];
 
         if (!$this->validate($rules))
         {
             $errors = [
-                'komentar' => $this->validation->getError('komentar')
+                'update_komentar' => $this->validation->getError('update_komentar')
             ];
 
             $output = [
@@ -102,7 +98,7 @@ class Comment extends BaseController
             else {
                 $data = [
                     'comment_pk'   => $cid,
-                    'comment_text' => $this->request->getPost('komentar'),
+                    'comment_text' => $this->request->getPost('update_komentar'),
                 ];
                 
                 $this->commentModel->save($data);

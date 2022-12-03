@@ -119,10 +119,10 @@
 <div style="display: none">
   <form id="comment_update_form">
     <div class="card-footer">
-      <img class="img-fluid img-circle img-sm" src="<?= base_url('assets/dist/img/user4-128x128.jpg') ?>" alt="Alt Text">
+      <img class="img-fluid img-circle img-sm" src="<?= base_url('resource/users/thumb' . session('picture')) ?>" alt="Alt Text">
       <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
         <div class="form-group">
-          <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>
+          <textarea class="form-control" name="update_komentar" id="update_komentar" rows="3"></textarea>
           <div class="invalid-feedback"></div>
         </div>
         <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment update)-->
@@ -474,11 +474,11 @@
     })
 
     // Reset input valid status on click
-    $("textarea").on("click", function() {
+    $(document).on("click", "textarea", function() {
       $(this).removeClass('is-invalid is-valid')
     })
 
-    $("input").on("click", function() {
+    $(document).on("click", "input", function() {
       $(this).removeClass('is-invalid is-valid')
     })
 

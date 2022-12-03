@@ -257,11 +257,11 @@
     })
 
     // Reset input valid status on click
-    $("textarea").on("click", function() {
+    $(document).on("click", "textarea", function() {
       $(this).removeClass('is-invalid is-valid')
     })
 
-    $("input").on("click", function() {
+    $(document).on("click", "input", function() {
       $(this).removeClass('is-invalid is-valid')
     })
 

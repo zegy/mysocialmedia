@@ -201,11 +201,7 @@
       })
 
       // Reset input valid status on click
-      $("input").on("click", function() {
-        $(this).removeClass('is-invalid is-valid')
-      })
-
-      $("input").on("click", function() {
+      $(document).on("click", "input", function() {
         $(this).removeClass('is-invalid is-valid')
       })
     })

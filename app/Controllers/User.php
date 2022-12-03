@@ -16,7 +16,12 @@ class User extends BaseController
 
     public function index() //TODO : Check user's role first
     {
-        return view('user/user_index');
+        if (session('role') == 'admin') {
+            return view('user/user_index');
+        }
+        else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
     }
 
     public function list_default() // AJAX

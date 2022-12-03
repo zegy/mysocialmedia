@@ -129,6 +129,8 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
+                    <?php } else { ?>
+                    <input type="hidden" name="user_role" id="user_role" value="<?= $user->user_role ?>"> <!-- Needed for update element on update user -->
                     <?php } ?>
                     <?php if (session('id') == $user->user_pk) { ?>
                     <div class="form-group row">
@@ -145,8 +147,10 @@
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <input type="hidden" name="uid" id="uid" value="<?= $user->user_pk ?>">
+                        <?php if (session('role') == 'admin') { ?>
                         <button type="button" class="btn btn-danger btn-delete-user" data-uid="<?= $user->user_pk ?>">Delete</button>
-                        <span><button type="submit" class="btn btn-success">Update</button></span>
+                        <?php } ?>
+                        <button type="submit" class="btn btn-success">Update</button>
                       </div>
                     </div>
                     <?php } ?>

@@ -325,24 +325,59 @@ class User extends BaseController
         $user = $this->userModel->find($uid);
 
         if (session('role') != 'admin') {
-            echo json_encode(['status' => false]);
+            $output = ['status' => false];
         }
         else {
-            $this->delete_user_image($user->user_profile_picture); // Remove image (profile picture)
+            if ($user->user_role == 'admin') {
+                $isLastAdmin = $this->userModel->where('user_role', 'admin')->countAllResults() == 1;
+                if ($isLastAdmin) { // Prevent the last admin to self delete
+                    $output = [
+                        'status' => false,
+                        'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'
+                    ];
 
-            //Remove images (posts)
-            $user_posts = $this->postsModel->where('post_fk_user', $uid)->findAll();
-            foreach ($user_posts as $user_post) {
-                $images = explode(',', $user_post->post_img);
-                foreach ($images as $image) {
-                    unlink(WRITEPATH . 'uploads/posts/' . $image);
-                    unlink(WRITEPATH . 'uploads/posts/thumb' . $image);
+                    $updatable = false;
                 }
+                else if (session('id') == $user->user_pk) { // Prevent any admin delete themself
+                    $output = [
+                        'status' => false,
+                        'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'
+                    ];
+
+                    $updatable = false;
+                }
+                else {
+                    $updatable = true;
+                } 
             }
-            
-            $this->userModel->delete($user->user_pk);
-            echo json_encode(['status' => true]);
+            else {
+                $updatable = true;
+            }
+
+
+
+            if ($updatable) {
+                $this->delete_user_image($user->user_profile_picture); // Remove image (profile picture)
+
+                //Remove images (posts)
+                $user_posts = $this->postsModel->where('post_fk_user', $uid)->findAll();
+                foreach ($user_posts as $user_post) {
+                    $images = explode(',', $user_post->post_img);
+                    foreach ($images as $image) {
+                        unlink(WRITEPATH . 'uploads/posts/' . $image);
+                        unlink(WRITEPATH . 'uploads/posts/thumb' . $image);
+                    }
+                }
+                
+                $this->userModel->delete($user->user_pk);
+                $output = ['status' => true];
+            }
+            else {
+                // "output" already set above!
+            }
         }
+
+        echo json_encode($output);
     }
 
     public function detail($uid)

@@ -301,18 +301,21 @@
               uid: uid,
             },
             success: function(res) {
-              Swal.fire({
-                title: 'Deleted!',
-                text: "Your file has been deleted.",
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                //   get_comment_list()
-                window.location = "<?= base_url('data/user') ?>"
+                if (res.status) {
+                  Swal.fire({
+                    title: 'Deleted!',
+                    text: "Your file has been deleted.",
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                    window.location = "<?= base_url('data/user') ?>"
+                    }
+                  })
+                } else {
+                    alert('error') //TODO
                 }
-              })
             }
           })
         }

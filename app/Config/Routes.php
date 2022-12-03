@@ -79,6 +79,7 @@ $routes->add('user/detail/(:num)', 'User::detail/$1');
 // $routes->add('user/save',   'User::save');
 $routes->add('user/create',   'User::create');
 $routes->add('user/update',   'User::update');
+$routes->add('user/delete',   'User::delete');
 
 $routes->match(['get', 'post'], 'resource/(:segment)/(:segment)', 'Resource::index/$1/$2');
 

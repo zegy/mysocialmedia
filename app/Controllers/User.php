@@ -293,25 +293,22 @@ class User extends BaseController
         echo json_encode($output);
     }
 
-    public function delete() // AJAX
+    public function delete() // AJAX. TODO BROKEN. Maybe related to DB?
     {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         
-        $pid  = $this->request->getPost('pid');
-        $post = $this->postModel->find($pid);
+        $uid  = $this->request->getPost('uid');
+        $user = $this->userModel->find($uid);
 
-        if ($post->post_fk_user != session('id') && session('role') != 'admin') {
+        if (session('role') != 'admin') {
             echo json_encode(['status' => false]);
         }
         else {
-            if (!empty($post->post_img)) {
-                $images = explode(',', $post->post_img);
-                $this->delete_post_images($images); // Remove images
-            }
+            $this->delete_user_image($user->user_profile_picture); // Remove image
             
-            $this->postModel->delete($post->post_pk);
+            $this->userModel->delete($user->user_pk);
             echo json_encode(['status' => true]);
         }
     }

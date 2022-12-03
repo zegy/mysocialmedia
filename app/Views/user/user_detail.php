@@ -145,7 +145,7 @@
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <input type="hidden" name="uid" id="uid" value="<?= $user->user_pk ?>">
-                        <button type="button" class="btn btn-danger btn-delete-user">Delete</button>
+                        <button type="button" class="btn btn-danger btn-delete-user" data-uid="<?= $user->user_pk ?>">Delete</button>
                         <span><button type="submit" class="btn btn-success">Update</button></span>
                       </div>
                     </div>
@@ -277,7 +277,7 @@
 
     // Delete User (Fully using "sweetalert2")
     $(document).on("click", ".btn-delete-user", function() {
-      let cid = $(this).data("uid")
+      let uid = $(this).data("uid")
 
       Swal.fire({
         title: 'Are you sure?',
@@ -294,7 +294,7 @@
             dataType: "json",
             type: "post",
             data: {
-              cid: cid,
+              uid: uid,
             },
             success: function(res) {
               Swal.fire({

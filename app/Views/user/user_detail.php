@@ -145,7 +145,8 @@
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <input type="hidden" name="uid" id="uid" value="<?= $user->user_pk ?>">
-                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-danger btn-delete-user">Delete</button>
+                        <span><button type="submit" class="btn btn-success">Update</button></span>
                       </div>
                     </div>
                     <?php } ?>
@@ -272,6 +273,46 @@
     // Show or hide image_input (On user update)
     $("#cb_update_image").on("click", function() {
       $("#image_input").toggle();
+    })
+
+    // Delete User (Fully using "sweetalert2")
+    $(document).on("click", ".btn-delete-user", function() {
+      let cid = $(this).data("uid")
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "<?= base_url('user/delete') ?>",
+            dataType: "json",
+            type: "post",
+            data: {
+              cid: cid,
+            },
+            success: function(res) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: "Your file has been deleted.",
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                //   get_comment_list()
+                window.location = "<?= base_url('data/user') ?>"
+                }
+              })
+            }
+          })
+        }
+      })
     })
   })
 </script>

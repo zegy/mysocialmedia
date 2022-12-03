@@ -293,6 +293,29 @@ class User extends BaseController
         echo json_encode($output);
     }
 
+    public function delete() // AJAX
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+        
+        $pid  = $this->request->getPost('pid');
+        $post = $this->postModel->find($pid);
+
+        if ($post->post_fk_user != session('id') && session('role') != 'admin') {
+            echo json_encode(['status' => false]);
+        }
+        else {
+            if (!empty($post->post_img)) {
+                $images = explode(',', $post->post_img);
+                $this->delete_post_images($images); // Remove images
+            }
+            
+            $this->postModel->delete($post->post_pk);
+            echo json_encode(['status' => true]);
+        }
+    }
+
     public function detail($uid)
     {   
         $user = $this->userModel->find($uid);

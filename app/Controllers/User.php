@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\PostModel; // Only needed to delete post images (on user delete)
 
 class User extends BaseController
 {
     function __construct()
     {
         $this->userModel = new UserModel();
+        $this->postsModel = new PostModel(); // Only needed to delete post images (on user delete)
     }
 
     public function index() //TODO : Check user's role first
@@ -293,7 +295,7 @@ class User extends BaseController
         echo json_encode($output);
     }
 
-    public function delete() // AJAX. TODO BROKEN. Maybe related to DB?
+    public function delete() // AJAX. TODO (pending) : Destroy deleted user's session
     {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
@@ -306,7 +308,17 @@ class User extends BaseController
             echo json_encode(['status' => false]);
         }
         else {
-            $this->delete_user_image($user->user_profile_picture); // Remove image
+            $this->delete_user_image($user->user_profile_picture); // Remove image (profile picture)
+
+            //Remove images (posts)
+            $user_posts = $this->postsModel->where('post_fk_user', $uid)->findAll();
+            foreach ($user_posts as $user_post) {
+                $images = explode(',', $user_post->post_img);
+                foreach ($images as $image) {
+                    unlink(WRITEPATH . 'uploads/posts/' . $image);
+                    unlink(WRITEPATH . 'uploads/posts/thumb' . $image);
+                }
+            }
             
             $this->userModel->delete($user->user_pk);
             echo json_encode(['status' => true]);

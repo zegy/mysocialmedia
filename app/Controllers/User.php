@@ -180,9 +180,6 @@ class User extends BaseController
         if (session('role') == 'admin') {
             $rules['user_email'] = 'required';
             $rules['user_role'] = 'required';
-
-            // Extra code
-            $isLastAdmin = ($this->userModel->where('user_role', 'admin')->countAllResults()) == 1;
         }
 
         if (!$this->validate($rules)) {
@@ -214,86 +211,104 @@ class User extends BaseController
                 'errors' => $errors
             ];
         }
-        else if ($this->request->getPost('uid') == session('id') && $isLastAdmin && $this->request->getPost('user_role') != 'admin') { // Prevent the last admin to change role
-            $output = [
-                'status' => false,
-                'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'
-            ];
-        }
         else {
             $uid = $this->request->getPost('uid');
             $user = $this->userModel->find($uid);
 
-            if ($user->user_pk != session('id') && session('role') != 'admin') {
-                $output = ['status' => false];
-            }
-            else {
-                $data = [
-                    'user_pk'        => $uid,
-                    'user_name'      => $this->request->getPost('user_name'),
-                    // 'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
-                    'user_full_name' => $this->request->getPost('user_full_name'),
-                    // 'user_email'     => $this->request->getPost('user_email'),
-                    'user_tel'       => $this->request->getPost('user_tel'),
-                    'user_sex'       => $this->request->getPost('user_sex'),
-                    'user_bio'       => $this->request->getPost('user_bio'),
-                    // 'user_role'      => $this->request->getPost('user_role'),
-                ];
-
-                // Optional updateable data
-                if (!empty($new_password)) {
-                    $data['user_password'] = password_hash($new_password, PASSWORD_DEFAULT); //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
-                }
-
-                // Admin-only updateable data
-                if (session('role') == 'admin') {
-                    $data['user_email'] = $this->request->getPost('user_email');
-                    $data['user_role'] = $this->request->getPost('user_role');
-                }
-
-                $isUpdateImg = $this->request->getPost('cb_update_image');
-
-                if ($isUpdateImg == true) {
-                    $old_image = $user->user_profile_picture;
-    
-                    if (!empty($old_image)) {
-                        $this->delete_user_image($old_image); // Remove image
-                    }
-
-                    $image = $this->request->getFile('user_profile_picture');
-                    
-                    if (file_exists($image)) {
-                        $imageName = $this->save_user_image($image); // Save image
-                        $data['user_profile_picture'] = $imageName;
-                    }
-                    else {
-                        $data['user_profile_picture'] = 'default.png'; // Can't be "empty" use default image
-                    }
-
-                    // Update session data : picture (if owner)
-                    if (session('id') == $uid) {
-                        session()->remove('picture');
-                        session()->set('picture', $data['user_profile_picture']);
-                    }
-
+            // Prevent the last admin to change role
+            if ($user->user_role == 'admin' && $this->request->getPost('user_role') != 'admin') {
+                $isLastAdmin = $this->userModel->where('user_role', 'admin')->countAllResults() == 1;
+                if ($isLastAdmin) {
                     $output = [
-                        'image' => $data['user_profile_picture'],
-                        'image_change' => true,
-                        'status' => true
+                        'status' => false,
+                        'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'
                     ];
 
+                    $updatable = false;
                 }
                 else {
-                    $output = ['status' => true];
+                    $updatable = true;
+                } 
+            }
+            else {
+                $updatable = true;
+            }
+        
+            if ($updatable) {
+                if ($user->user_pk != session('id') && session('role') != 'admin') {
+                    $output = ['status' => false];
                 }
-                
-                // Update session data : full_name (if owner)
-                if (session('id') == $uid) {
-                    session()->remove('full_name');
-                    session()->set('full_name', $data['user_full_name']);
+                else {
+                    $data = [
+                        'user_pk'        => $uid,
+                        'user_name'      => $this->request->getPost('user_name'),
+                        // 'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
+                        'user_full_name' => $this->request->getPost('user_full_name'),
+                        // 'user_email'     => $this->request->getPost('user_email'),
+                        'user_tel'       => $this->request->getPost('user_tel'),
+                        'user_sex'       => $this->request->getPost('user_sex'),
+                        'user_bio'       => $this->request->getPost('user_bio'),
+                        // 'user_role'      => $this->request->getPost('user_role'),
+                    ];
+    
+                    // Optional updateable data
+                    if (!empty($new_password)) {
+                        $data['user_password'] = password_hash($new_password, PASSWORD_DEFAULT); //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
+                    }
+    
+                    // Admin-only updateable data
+                    if (session('role') == 'admin') {
+                        $data['user_email'] = $this->request->getPost('user_email');
+                        $data['user_role'] = $this->request->getPost('user_role');
+                    }
+    
+                    $isUpdateImg = $this->request->getPost('cb_update_image');
+    
+                    if ($isUpdateImg == true) {
+                        $old_image = $user->user_profile_picture;
+        
+                        if (!empty($old_image)) {
+                            $this->delete_user_image($old_image); // Remove image
+                        }
+    
+                        $image = $this->request->getFile('user_profile_picture');
+                        
+                        if (file_exists($image)) {
+                            $imageName = $this->save_user_image($image); // Save image
+                            $data['user_profile_picture'] = $imageName;
+                        }
+                        else {
+                            $data['user_profile_picture'] = 'default.png'; // Can't be "empty" use default image
+                        }
+    
+                        // Update session data : picture (if owner)
+                        if (session('id') == $uid) {
+                            session()->remove('picture');
+                            session()->set('picture', $data['user_profile_picture']);
+                        }
+    
+                        $output = [
+                            'image' => $data['user_profile_picture'],
+                            'image_change' => true,
+                            'status' => true
+                        ];
+    
+                    }
+                    else {
+                        $output = ['status' => true];
+                    }
+                    
+                    // Update session data : full_name (if owner)
+                    if (session('id') == $uid) {
+                        session()->remove('full_name');
+                        session()->set('full_name', $data['user_full_name']);
+                    }
+    
+                    $this->userModel->save($data);
                 }
-
-                $this->userModel->save($data);
+            }
+            else {
+                // "output" already set above!
             }
         }
 

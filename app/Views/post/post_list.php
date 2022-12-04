@@ -19,10 +19,10 @@
           <br/>
           <small><?= $post->user_id_mix ?></small>
         </td>
-        <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/' . $group . '/' . 'detail/' . $post->post_pk) ?>"><?= $post->post_title ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
+        <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/' . $post->post_group . '/' . 'detail/' . $post->post_pk) ?>"><?= $post->post_title ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
         <td style="width: 50px; min-width: 50px"><?= $post->post_date_time ?></td> <!-- TODO : Fix the format later! -->
         <td class="project-actions text-center">
-          <a class="btn btn-primary" href="<?= base_url('group/' . $group . '/' . 'detail/' . $post->post_pk) ?>"><i class="far fa-comments"></i></a>
+          <a class="btn btn-primary" href="<?= base_url('group/' . $post->post_group . '/' . 'detail/' . $post->post_pk) ?>"><i class="far fa-comments"></i></a>
         </td>
       </tr>
       <?php } ?>

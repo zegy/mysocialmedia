@@ -51,7 +51,7 @@ class Validation extends BaseConfig
     //     ],
     //     'username' => [
     //         'label' => 'username',
-    //         'rules' => 'required|min_length[5]|alpha_dash|is_unique[t_user.user_name]'
+    //         'rules' => 'required|min_length[5]|alpha_dash|is_unique[t_user.user_id_mix]'
     //     ],
     //     'email' => [
     //         'label' => 'email',
@@ -90,7 +90,7 @@ class Validation extends BaseConfig
     //     ],
     //     'username' => [
     //         'label' => 'username',
-    //         'rules' => 'required|min_length[5]|alpha_dash|is_unique[t_user.user_name]'
+    //         'rules' => 'required|min_length[5]|alpha_dash|is_unique[t_user.user_id_mix]'
     //     ],
     //     'email' => [
     //         'label' => 'email',

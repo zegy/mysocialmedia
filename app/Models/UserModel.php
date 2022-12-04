@@ -11,7 +11,7 @@ class UserModel extends Model
     protected $returnType    = 'object';
     protected $allowedFields =
     [
-        'user_name',
+        'user_id_mix',
         'user_password',
         'user_full_name',
         'user_email',
@@ -29,7 +29,7 @@ class UserModel extends Model
     //NOTE Custom var with "standard query" string (instead of CI's Model and Query Builder)
     protected $selected = '
         user_pk,
-        user_name,
+        user_id_mix,
         user_full_name,
         user_profile_picture,
         user_role

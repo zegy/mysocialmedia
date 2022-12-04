@@ -30,7 +30,7 @@ class PostModel extends Model
         post_group,
         post_img,
         user_pk,
-        user_name,
+        user_id_mix,
         user_full_name,
         user_profile_picture,
         user_role,

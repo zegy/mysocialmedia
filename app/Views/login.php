@@ -69,8 +69,8 @@
           <div class="modal-body">
             <!-- TODO : OTC END -->
             <div class="form-group">
-              <label for="user_name">user_name <i class="fas fa-exclamation-circle text-danger"></i></label>
-              <input type="text" class="form-control" name="user_name" id="user_name">
+              <label for="user_id_mix">user_id_mix <i class="fas fa-exclamation-circle text-danger"></i></label>
+              <input type="text" class="form-control" name="user_id_mix" id="user_id_mix">
               <div class="invalid-feedback"></div>
             </div>
             <div class="form-group">

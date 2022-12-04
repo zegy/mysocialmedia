@@ -4,7 +4,7 @@
     <thead>
       <tr>
         <th>user_profile_picture</th>
-        <th>user_name</th>
+        <th>user_id_mix</th>
         <th>user_full_name</th>
         <th>user_role</th>
         <th>"Action"</th> <!-- TODO -->
@@ -16,7 +16,7 @@
         <td style="width: 150px; min-width: 150px">
           <img alt="Avatar" class="table-avatar" src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>">
         </td>
-        <td style="width: 50px; min-width: 50px"><?= $user->user_name ?></td>
+        <td style="width: 50px; min-width: 50px"><?= $user->user_id_mix ?></td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_full_name ?></td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_role ?></td>
         <td class="project-actions text-right">

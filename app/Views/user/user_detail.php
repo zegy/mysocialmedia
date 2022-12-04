@@ -41,9 +41,9 @@
                 <div class="active tab-pane" id="informasi">
                   <form class="form-horizontal" id="user_update_form">
                     <div class="form-group row">
-                      <label for="user_name" class="col-sm-2 col-form-label">user_name</label>
+                      <label for="user_id_mix" class="col-sm-2 col-form-label"><?php if ($user->user_role == 'mahasiswa') { echo('NIM');} else if ($user->user_role == 'dosen') {echo('NIP');} else {echo('ID_Admin');}?></label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="user_name" id="user_name" value="<?= $user->user_name ?>">
+                        <input type="text" class="form-control" name="user_id_mix" id="user_id_mix" value="<?= $user->user_id_mix ?>">
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
@@ -250,6 +250,7 @@
             $(".overlay").hide()
             
             // Update other related elements (The form is set-as-is, no need to update)
+            // TODO DANGER : Only update "layout" elements if updated user = current user/session
             $(".user-panel .user-full-name").text(formData.get('user_full_name'))
             $(".profile-username").text(formData.get('user_full_name'))
             $(".profile-role").text(formData.get('user_role'))

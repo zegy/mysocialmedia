@@ -88,7 +88,7 @@ class User extends BaseController
         }
 
         $rules = [
-            'user_name'      => ['required'],
+            'user_id_mix'      => ['required'],
             'user_password'  => ['required'],
             'user_full_name' => ['required'],
             'user_email'     => ['required'],
@@ -104,7 +104,7 @@ class User extends BaseController
 
         if (!$this->validate($rules)) {
             $errors = [
-                'user_name'      => $this->validation->getError('user_name'),
+                'user_id_mix'      => $this->validation->getError('user_id_mix'),
                 'user_password'  => $this->validation->getError('user_password'),
                 'user_full_name' => $this->validation->getError('user_full_name'),
                 'user_email'     => $this->validation->getError('user_email'),
@@ -122,7 +122,7 @@ class User extends BaseController
         }
         else {
             $data = [
-                'user_name'      => $this->request->getPost('user_name'),
+                'user_id_mix'      => $this->request->getPost('user_id_mix'),
                 'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
                 'user_full_name' => $this->request->getPost('user_full_name'),
                 'user_email'     => $this->request->getPost('user_email'),
@@ -159,7 +159,7 @@ class User extends BaseController
         }
 
         $rules = [
-            'user_name'      => ['required'],
+            'user_id_mix'      => ['required'],
             // 'user_password'  => ['required'],
             'user_full_name' => ['required'],
             // 'user_email'     => ['required'],
@@ -187,7 +187,7 @@ class User extends BaseController
 
         if (!$this->validate($rules)) {
             $errors = [
-                'user_name'      => $this->validation->getError('user_name'),
+                'user_id_mix'      => $this->validation->getError('user_id_mix'),
                 // 'user_password'  => $this->validation->getError('user_password'),
                 'user_full_name' => $this->validation->getError('user_full_name'),
                 // 'user_email'     => $this->validation->getError('user_email'),
@@ -244,7 +244,7 @@ class User extends BaseController
                 else {
                     $data = [
                         'user_pk'        => $uid,
-                        'user_name'      => $this->request->getPost('user_name'),
+                        'user_id_mix'      => $this->request->getPost('user_id_mix'),
                         // 'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
                         'user_full_name' => $this->request->getPost('user_full_name'),
                         // 'user_email'     => $this->request->getPost('user_email'),

@@ -14,14 +14,13 @@
       <?php foreach ($users as $user) { ?>
       <tr> <!-- TODO : Styles -->
         <td style="width: 150px; min-width: 150px">
-          <img alt="Avatar" class="table-avatar" src="<?= base_url('assets/dist/img/avatar.png') ?>">
+          <img alt="Avatar" class="table-avatar" src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>">
         </td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_name ?></td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_full_name ?></td>
         <td style="width: 50px; min-width: 50px"><?= $user->user_role ?></td>
         <td class="project-actions text-right">
           <a class="btn btn-primary btn-sm" href="<?= base_url('user/detail/' . $user->user_pk) ?>"><i class="fas fa-info-circle"></i> Detail</a>
-          <a class="btn btn-danger btn-sm" href="#"><i class="far fa-trash-alt"></i> Hapus</a>
         </td>
       </tr>
       <?php } ?>

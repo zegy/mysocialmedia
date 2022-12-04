@@ -18,7 +18,7 @@
           <div class="card card-widget"><!-- Box Comment -->
             <div style="height: 60px" class="card-header">
               <div class="user-block">
-                <img class="img-circle" src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="User Image">
+                <img class="img-circle" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" alt="User Image">
                 <span class="username"><a href="#"><?= $post->user_full_name ?></a></span>
                 <span class="description">Dibuat pada : <?= $post->post_date_time ?></span>
               </div><!-- /.user-block -->

@@ -3,7 +3,7 @@
   <div class="card-comment">
     <div class="row">
       <div class="col-12">
-        <img class="img-circle img-sm" src="<?= base_url('assets/dist/img/user3-128x128.jpg') ?>" alt="User Image"><!-- User image -->
+        <img class="img-circle img-sm" src="<?= base_url('resource/users/thumb' . $comment->user_profile_picture) ?>" alt="User Image"><!-- User image -->
         <div class="comment-text">
         <span class="username">
           Maria Gonzales

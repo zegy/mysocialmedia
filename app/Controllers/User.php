@@ -329,21 +329,10 @@ class User extends BaseController
         }
         else {
             if ($user->user_role == 'admin') {
-                $isLastAdmin = $this->userModel->where('user_role', 'admin')->countAllResults() == 1;
-                if ($isLastAdmin) { // Prevent the last admin to self delete
-                    $output = [
-                        'status' => false,
-                        'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'
-                    ];
-
-                    $updatable = false;
-                }
-                else if (session('id') == $user->user_pk) { // Prevent any admin delete themself
-                    $output = [
-                        'status' => false,
-                        'custom_error' => 'Sistem harus memiliki setidaknya satu admin!'
-                    ];
-
+                // Prevent any user (admins) delete themself. Delete button is disabled in view.
+                // "isLastAdmin" is not needed.
+                if (session('id') == $user->user_pk) {
+                    $output = ['status' => false];
                     $updatable = false;
                 }
                 else {

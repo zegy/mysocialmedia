@@ -147,7 +147,7 @@
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <input type="hidden" name="uid" id="uid" value="<?= $user->user_pk ?>">
-                        <?php if (session('role') == 'admin') { ?>
+                        <?php if (session('role') == 'admin' && session('id') != $user->user_pk) { ?>
                         <button type="button" class="btn btn-danger btn-delete-user" data-uid="<?= $user->user_pk ?>">Delete</button>
                         <?php } ?>
                         <button type="submit" class="btn btn-success">Update</button>
@@ -314,7 +314,7 @@
                     }
                   })
                 } else {
-                    alert('error') //TODO
+                  alert('error') // FATAL ERROR
                 }
             }
           })

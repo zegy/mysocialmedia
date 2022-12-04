@@ -247,7 +247,7 @@
         success: function(res) {
           if (res.status) {
             $("#user_modal_create").modal("toggle")
-            window.location = "<?= base_url('group') ?>" + "/" + res.group + "/detail/" + res.pid
+            window.location = "<?= base_url('data/user') ?>"
           } else {
             set_errors(res.errors)
             $("#user_modal_create .overlay").hide()

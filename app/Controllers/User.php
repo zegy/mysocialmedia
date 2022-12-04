@@ -138,6 +138,9 @@ class User extends BaseController
                 $imageName = $this->save_user_image($image); // Save image
                 $data['user_profile_picture'] = $imageName;
             }
+            else {
+                $data['user_profile_picture'] = 'default.png';
+            }
 
             $this->userModel->save($data);
 

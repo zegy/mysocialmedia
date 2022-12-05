@@ -15,8 +15,7 @@
       <tr>
         <td style="width: 50px; min-width: 50px"><?= $post->post_pk ?></td>
         <td style="width: 150px; min-width: 150px">
-          <!-- TODO (Pending) : Below is very inefficient use of "data()" -->
-          <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->user_role ?>" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" data-uid="<?= $post->user_pk ?>" data-user_full_name="<?= $post->user_full_name ?>" data-user_role="<?= $post->user_role ?>" data-user_bio="<?= $post->user_bio ?>" data-user_id_mix="<?= $post->user_id_mix ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
+          <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->user_role ?>" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" data-uid="<?= $post->user_pk ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
           <br/>
           <small><?= $post->user_id_mix ?></small>
         </td>

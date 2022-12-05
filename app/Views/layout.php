@@ -135,7 +135,7 @@
     <aside class="control-sidebar control-sidebar-dark"><!-- Control Sidebar -->
       <!-- Control sidebar content goes here -->
     </aside><!-- /.control-sidebar -->
-    <aside class="view-modal"></aside><!-- TODO Delete later, "Layout" script (Dev-only, Admin_tools) END -->
+    <aside id="layout-modal"></aside><!-- NOTE : Custom element for common modal called via AJAX -->
     <footer class="main-footer"><!-- Main Footer -->
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.

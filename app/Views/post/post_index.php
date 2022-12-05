@@ -84,44 +84,6 @@
     </div>
   </div>
 </form>
-
-<!-- [MODALS] : User's summary -->
-<div class="modal fade" id="user_sum_modal" tabindex="-1" role="dialog" aria-labelledby="user_sum_modal_label" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="card bg-light d-flex flex-fill">
-        <div class="card-header text-muted border-bottom-0 text-uppercase">
-          <!-- user_role -->
-        </div>
-        <div class="card-body pt-0">
-          <div class="row">
-            <div class="col-7">
-              <h2 class="lead"><!-- user_full_name --></h2>
-              <p class="text-muted text-sm user-bio"><b>user_bio: </b> <!-- user_bio --> </p>
-              <ul class="ml-4 mb-0 fa-ul text-muted">
-                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-id-badge"></i></span><div class="user-id-mix"><!-- user_id_mix --></div></li>
-                <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> -->
-              </ul>
-            </div>
-            <div class="col-5 text-center">
-              <img src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="user-avatar" class="img-circle img-fluid">
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="text-right">
-            <a href="#" class="btn btn-sm bg-teal">
-              <i class="fas fa-comments"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-primary">
-              <i class="fas fa-user"></i> View Profile
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <?= $this->endSection() ?>
 
 <!-- [SCRIPTS] -->
@@ -268,30 +230,27 @@
       $(".overlay").hide()
     })
 
-    // Show post's user modal. TODO (Pending) : Very inefficient use of "data()" from post_list
+    // Show post's user modal.
     $(document).on("click", ".table-avatar", function(e) {
       e.preventDefault()
-      //NOTE : Using "data()" so no need to request the same data again (from post_list)
+
       let uid = $(this).data('uid')
-      let ufn = $(this).data('user_full_name')
-      let role = $(this).data('user_role')
-      let user_bio = $(this).data('user_bio')
-      let user_id_mix = $(this).data('user_id_mix')
-      $("#user_sum_modal .lead").html('<b>'+ ufn + '</b>')
-      $("#user_sum_modal .card-header").html('<b>'+ role + '</b>')
-      $("#user_sum_modal .user-bio").html('<b>user_bio: </b>' + user_bio)
+      
+      $.ajax({
+        url: "<?= base_url('user/sum_modal') ?>",
+        dataType: "json",
+        type: "post",
+        data: {
+          uid: uid
+        },
+        success: function(res) {
+          if (res.status) {
+            $("#layout-modal").html(res.user_sum_modal)
+            $("#user_sum_modal").modal("toggle")
+          }
+        }
+      })
 
-      //TODO (Pending) : "let" / "const" is not working but "var" is. Why?
-      if (role == "admin") {
-        var id_role = "ID_Admin : "
-      } else if (role == "dosen") {
-        var id_role = "NIP : "
-      } else { // Mahasiswa
-        var id_role = "NIM : "
-      }
-      $("#user_sum_modal .user-id-mix").text(id_role + user_id_mix)
-
-      $("#user_sum_modal").modal("toggle")
     })
 
     // Redirect to post_detail after click post_text's area (The table's td)

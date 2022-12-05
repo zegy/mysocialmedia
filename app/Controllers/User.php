@@ -384,6 +384,21 @@ class User extends BaseController
         }
     }
 
+    public function sum_modal() // AJAX
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+
+        $uid = $this->request->getPost('uid');
+        $user = $this->userModel->find($uid);
+            
+        echo json_encode([
+            'user_sum_modal' => view('user/user_sum_modal', ['user' => $user]),
+            'status' => true
+        ]);
+    }
+
     public function save_user_image($image) // Return image name (string)
     {
         $image_man = \Config\Services::image();

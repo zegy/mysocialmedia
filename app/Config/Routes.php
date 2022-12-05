@@ -65,6 +65,7 @@ $routes->add('user/detail/(:num)',  'User::detail/$1');
 $routes->add('user/create',         'User::create', ['filter' => 'admin']);
 $routes->add('user/update',         'User::update');
 $routes->add('user/delete',         'User::delete');
+$routes->add('user/sum_modal',      'User::sum_modal');
 
 $routes->add('notif/list', 'Notif::list');
 $routes->add('notif/delete_all', 'Notif::delete_all');

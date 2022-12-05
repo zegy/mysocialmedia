@@ -37,41 +37,34 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index'); // NOTE : Original CI (updated version)
 
-// ZEGY OTC CLEAN ROUTES (NEED TO FILTER!)
-// $routes->add('home/home_umum', 'Home::homeUmum', ['filter' => 'auth']);
-
-// Fixed START
-$routes->add('/', 'Auth::index');
-$routes->add('auth', 'Auth::index');
-$routes->add('auth/signin', 'Auth::signIn');
-$routes->add('auth/signout', 'Auth::signOut');
+$routes->add('/',               'Auth::index');
+$routes->add('auth',            'Auth::index');
+$routes->add('auth/signin',     'Auth::signIn');
+$routes->add('auth/signout',    'Auth::signOut');
 
 $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
+$routes->add('post/list_default',               'Post::list_default');
+$routes->add('post/list_search',                'Post::list_search');
+$routes->add('post/list_from_user',             'Post::list_from_user');
 
-$routes->add('post/list_default',   'Post::list_default');
-$routes->add('post/list_search',   'Post::list_search');
-$routes->add('post/list_from_user',   'Post::list_from_user');
+$routes->add('post/delete',     'Post::delete');
+$routes->add('post/create',     'Post::create');
+$routes->add('post/update',     'Post::update');
 
-$routes->add('post/delete', 'Post::delete');
-$routes->add('post/create',   'Post::create');
-$routes->add('post/update',   'Post::update');
+$routes->add('comment/list',    'Comment::list');
+$routes->add('comment/create',  'Comment::create');
+$routes->add('comment/update',  'Comment::update');
+$routes->add('comment/delete',  'Comment::delete');
+$routes->add('comment/like',    'Comment::like');
 
-$routes->add('comment/list',   'Comment::list');
-$routes->add('comment/create',   'Comment::create');
-$routes->add('comment/update',   'Comment::update');
-$routes->add('comment/delete', 'Comment::delete');
-$routes->add('comment/like', 'Comment::like');
-
-$routes->add('data/user', 'User::index'); //TODO : Better! sync with view
-$routes->add('user/list_default', 'User::list_default');
-$routes->add('user/list_search', 'User::list_search');
-
-$routes->add('user/detail/(:num)', 'User::detail/$1');
-// $routes->add('user/save',   'User::save');
-$routes->add('user/create',   'User::create', ['filter' => 'admin']);
-$routes->add('user/update',   'User::update');
-$routes->add('user/delete',   'User::delete');
+$routes->add('user',                'User::index');
+$routes->add('user/list_default',   'User::list_default');
+$routes->add('user/list_search',    'User::list_search');
+$routes->add('user/detail/(:num)',  'User::detail/$1');
+$routes->add('user/create',         'User::create', ['filter' => 'admin']);
+$routes->add('user/update',         'User::update');
+$routes->add('user/delete',         'User::delete');
 
 $routes->match(['get', 'post'], 'resource/(:segment)/(:segment)', 'Resource::index/$1/$2');
 

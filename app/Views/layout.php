@@ -105,12 +105,12 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-            <li class="nav-header">FORUM DISKUSI :</li>
+            <!-- <li class="nav-header">FORUM DISKUSI :</li> -->
             <li class="nav-item">
               <a href="<?= base_url('group/umum/') ?>" class="nav-link" id="umum">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Umum
+                  Daftar Diskusi Umum
                   <!-- <span class="right badge badge-danger">1</span> -->
                 </p>
               </a>
@@ -120,18 +120,18 @@
               <a href="<?= base_url('group/dosen/') ?>" class="nav-link" id="dosen">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Dosen
+                  Daftar Diskusi Dosen
                   <!-- <span class="right badge badge-danger">1</span> -->
                 </p>
               </a>
             </li>
             <?php } ?>
-            <li class="nav-header">DATA :</li>
+            <!-- <li class="nav-header">DATA :</li> -->
             <li class="nav-item">
-              <a href="<?= base_url('data/user/') ?>" class="nav-link" id="user">
+              <a href="<?= base_url('user') ?>" class="nav-link" id="user">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  User
+                  Daftar Pengguna
                   <!-- <span class="right badge badge-danger">1</span> -->
                 </p>
               </a>
@@ -171,9 +171,13 @@
     $(document).ready(function() {
       // Active sidebar
       let seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
-      let ele = document.getElementById(seg[4]);
-      if (ele != '') {
-        $(ele).addClass('active')
+      let ele1 = document.getElementById(seg[3]); // 1st parameter
+      let ele2 = document.getElementById(seg[4]); // 2nd parameter
+      if (ele1 != '') {
+        $(ele1).addClass('active')
+      }
+      if (ele2 != '') {
+        $(ele2).addClass('active')
       }
     })
   </script>

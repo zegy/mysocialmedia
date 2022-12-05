@@ -41,22 +41,13 @@
             <span class="badge badge-danger navbar-badge">3</span>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
-              <div class="media"><!-- Message Start -->
-                <img src="<?= base_url('assets/dist/img/user1-128x128.jpg') ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                <div class="media-body">
-                  <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <!-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> NOTE Original!-->
-                    <span class="float-right text-sm text-danger">Comment</span> <!-- NOTE The custom -->
-                  </h3>
-                  <p class="text-sm">Call me whenever you can...</p>
-                  <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                </div>
-              </div><!-- Message End -->
-            </a>
+            <div id="notif_list_data">
+              <!-- NOTE : Get data using AJAX (Replace anything inside this "notif_list_data" after request) -->
+            </div>
+            <!-- <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a> -->
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+            <a href="#" class="dropdown-item dropdown-footer btn-delete-all-notif">Tandai semua telah terbaca</a>
           </div>
         </li>
         <li class="nav-item"><!-- Navbar Search -->
@@ -277,7 +268,27 @@
   
   <!-- ================================================ MAIN SCRIPTS ================================================ -->
   <script>
+    function get_notif_list() {
+      $.ajax({
+        url: "<?= base_url('notif/list') ?>",
+        dataType: "json",
+        type: "post",
+        success: function(res) {
+          if (res.status) {
+            $("#notif_list_data").html(res.notifs)
+            // $("#count_comments").text(res.comments_count + ' ' + 'Komentar')
+          } else {
+            $("#notif_list_data").html('Belum ada notifikasi')
+            // $("#count_comments").text('0 Komentar')
+          }
+        }
+      })
+    }
+
     $(document).ready(function() {
+      // After loaded
+      get_notif_list()
+
       // Active sidebar
       let seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
       let ele1 = document.getElementById(seg[3]); // 1st parameter
@@ -288,6 +299,42 @@
       if (ele2 != '') {
         $(ele2).addClass('active')
       }
+
+      // Delete all notif ("tandai semua telah terbaca") (Fully using "sweetalert2")
+      $(document).on("click", ".btn-delete-all-notif", function(e) {
+        e.preventDefault() //NOTE : Needed because it's a link (a)!
+        
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: "<?= base_url('notif/delete_all') ?>",
+              dataType: "json",
+              type: "post",
+              success: function(res) {
+                Swal.fire({
+                  title: 'Deleted!',
+                  text: "Your file has been deleted.",
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: 'OK'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    get_notif_list()
+                  }
+                })
+              }
+            })
+          }
+        })
+      })
     })
   </script>
   <!-- Spesific page's scripts -->

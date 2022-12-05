@@ -86,6 +86,7 @@ class Comment extends BaseController
         // FCM START
         // Using PHP's "cURL Functions". Failed to use CI's "CURLRequest" Class. Ref : part-1-experimental AND https://shareurcodes.com/blog/send%20push%20notification%20to%20users%20using%20firebase%20messaging%20service%20in%20php
         $fields = [
+            "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
             "notification" => [
                 "body"         => 'Ada yang mengomentari postingan anda!',
                 "title"        => 'DIPSI',

@@ -37,6 +37,7 @@ class CommentModel extends Model
                     ->join('t_post', 'post_pk = comment_fk_post')
                     ->join('t_user', 'comment_fk_user = user_pk') //TODO : Werid syntax here (or others)
                     ->where('post_pk', $pid)
+                    ->orderBy('comment_pk', 'ASC')
                     ->findAll();
     }
 

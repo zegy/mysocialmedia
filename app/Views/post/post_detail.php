@@ -373,6 +373,8 @@
     $(document).on("submit", "#comment_create_form", function(e) {
       e.preventDefault()
 
+      $("#comment_create_form button[type='submit']").prop('disabled', true)
+
       let formData = new FormData(this);
       
       $.ajax({
@@ -391,8 +393,11 @@
 
             $("#btn-cancel-update-comment").hide()
             get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
+            $("#comment_create_form button[type='submit']").prop('disabled', false)
+
           } else {
             set_errors(res.errors)
+            $("#comment_create_form button[type='submit']").prop('disabled', false)
           }
         }
       })

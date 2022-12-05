@@ -6,7 +6,7 @@
         <img class="img-circle img-sm" src="<?= base_url('resource/users/thumb' . $comment->user_profile_picture) ?>" alt="User Image"><!-- User image -->
         <div class="comment-text">
         <span class="username">
-          Maria Gonzales
+          <?= $comment->user_full_name ?>
           <span class="text-muted float-right"><?= $comment->comment_date_time ?></span>
         </span><!-- /.username -->
         <div id="comment_text"><?= $comment->comment_text ?></div>

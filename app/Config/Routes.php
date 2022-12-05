@@ -66,6 +66,9 @@ $routes->add('user/create',         'User::create', ['filter' => 'admin']);
 $routes->add('user/update',         'User::update');
 $routes->add('user/delete',         'User::delete');
 
+$routes->add('notif/list', 'Notif::list');
+$routes->add('notif/delete_all', 'Notif::delete_all');
+
 $routes->match(['get', 'post'], 'resource/(:segment)/(:segment)', 'Resource::index/$1/$2');
 
 /*

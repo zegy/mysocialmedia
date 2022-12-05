@@ -14,14 +14,10 @@ class User extends BaseController
         $this->postsModel = new PostModel(); // Only needed to delete post images (on user delete)
     }
 
-    public function index() //TODO : Check user's role first
+    public function index()
     {
-        if (session('role') == 'admin') {
-            return view('user/user_index');
-        }
-        else {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
-        }
+        //NOTE : Role check in "routes" using filter
+        return view('user/user_index');
     }
 
     public function list_default() // AJAX

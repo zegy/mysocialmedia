@@ -17,10 +17,8 @@ if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-// $routes->setDefaultController('Home'); // NOTE : Original CI (updated version)
-// $routes->setDefaultMethod('index'); // NOTE : Original CI (updated version)
-$routes->setDefaultController('Post'); // TODO : FIX LATER!
-$routes->setDefaultMethod('publicPosts'); // NOTE : FIX LATER!
+$routes->setDefaultController('Auth'); // NOTE (pending) : Not work because auto route is disabled? It only call the '/'
+$routes->setDefaultMethod('index'); // NOTE (pending) : Not work because auto route is disabled? It only call the '/'
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
@@ -42,17 +40,11 @@ $routes->set404Override();
 // ZEGY OTC CLEAN ROUTES (NEED TO FILTER!)
 // $routes->add('home/home_umum', 'Home::homeUmum', ['filter' => 'auth']);
 
-// $routes->group('admin', static function ($routes) {
-//     $routes->get('users', 'Admin\Users::index');
-//     $routes->get('blog', 'Admin\Blog::index');
-// });
-
 // Fixed START
-$routes->add('/', 'Auth::index'); //TODO UNKNOWN TEMP ONLY. "setDefaultController" didn't work!
+$routes->add('/', 'Auth::index');
 $routes->add('auth', 'Auth::index');
 $routes->add('auth/signin', 'Auth::signIn');
 $routes->add('auth/signout', 'Auth::signOut');
-// $routes->add('auth/signup', 'Auth::signUp');
 
 $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
@@ -71,7 +63,7 @@ $routes->add('comment/update',   'Comment::update');
 $routes->add('comment/delete', 'Comment::delete');
 $routes->add('comment/like', 'Comment::like');
 
-$routes->add('data/user', 'User::index'); //TODO : Better! sync with view
+$routes->add('data/user', 'User::index', ['filter' => 'admin']); //TODO : Better! sync with view
 $routes->add('user/list_default', 'User::list_default');
 $routes->add('user/list_search', 'User::list_search');
 

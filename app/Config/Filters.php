@@ -23,8 +23,8 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'auth'          => \App\Filters\Auth::class, //TODO
-        'admin'         => \App\Filters\Admin::class, //TODO
+        'auth'          => \App\Filters\Auth::class, //NOTE : Custom
+        'admin'         => \App\Filters\Admin::class, //NOTE : Custom (Used in routes)
     ];
 
     /**
@@ -38,12 +38,12 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            'auth' => ['except' => ['/', 'auth', 'auth/*']], //NOTE : Custom
         ],
         'after' => [
             // 'toolbar', // NOTE : Default is on, but bug on "forbidden" status
             // 'honeypot',
             // 'secureheaders',
-            'auth' => ['except' => ['login','login/signin']], //TODO
         ],
     ];
 

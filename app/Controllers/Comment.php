@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CommentModel;
 use App\Models\LikeModel; //TODO : Not need to create spesific controller?
+use App\Models\NotifModel; //TODO : Not need to create spesific controller?
+use App\Models\PostModel; //TODO : Right to do so?
 
 class Comment extends BaseController
 {
@@ -12,6 +14,8 @@ class Comment extends BaseController
     {
         $this->commentModel = new CommentModel();
         $this->likeModel = new LikeModel(); //TODO : Not need to create spesific controller?
+        $this->notifModel = new NotifModel(); //TODO : Not need to create spesific controller?
+        $this->postModel = new PostModel(); //TODO : Right to do so?
     }
 
     public function list() // AJAX
@@ -65,6 +69,19 @@ class Comment extends BaseController
             
             $output = ['status' => true];
         }
+
+
+
+        $post = $this->postModel->find($this->request->getPost('pid'));
+        $post_owner = $post->post_fk_user;
+
+        $data_notif = [
+            'notif_to_fk_user'   => $post_owner,
+            'notif_from_fk_user' => session('id'),
+            'notif_type'         => 'comment',
+        ];
+
+        $this->notifModel->save($data_notif);
 
         // FCM START
         // Using PHP's "cURL Functions". Failed to use CI's "CURLRequest" Class. Ref : part-1-experimental AND https://shareurcodes.com/blog/send%20push%20notification%20to%20users%20using%20firebase%20messaging%20service%20in%20php

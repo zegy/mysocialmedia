@@ -34,6 +34,7 @@ class PostModel extends Model
         user_full_name,
         user_profile_picture,
         user_role,
+        user_bio,
         (SELECT COUNT(*) FROM t_comment WHERE comment_fk_post = post_pk) AS qtdcom
     ';
     

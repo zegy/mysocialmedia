@@ -90,17 +90,17 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="card bg-light d-flex flex-fill">
-        <div class="card-header text-muted border-bottom-0">
-          Digital Strategist
+        <div class="card-header text-muted border-bottom-0 text-uppercase">
+          <!-- user_role -->
         </div>
         <div class="card-body pt-0">
           <div class="row">
             <div class="col-7">
-              <h2 class="lead"><b>Nicole Pearson</b></h2>
-              <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+              <h2 class="lead"><!-- user_full_name --></h2>
+              <p class="text-muted text-sm user-bio"><b>user_bio: </b> <!-- user_bio --> </p>
               <ul class="ml-4 mb-0 fa-ul text-muted">
-                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-id-badge"></i></span><div class="user-id-mix"><!-- user_id_mix --></div></li>
+                <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> -->
               </ul>
             </div>
             <div class="col-5 text-center">
@@ -268,15 +268,29 @@
       $(".overlay").hide()
     })
 
-    // Show post's user modal
+    // Show post's user modal. TODO (Pending) : Very inefficient use of "data()" from post_list
     $(document).on("click", ".table-avatar", function(e) {
       e.preventDefault()
       //NOTE : Using "data()" so no need to request the same data again (from post_list)
       let uid = $(this).data('uid')
       let ufn = $(this).data('user_full_name')
       let role = $(this).data('user_role')
+      let user_bio = $(this).data('user_bio')
+      let user_id_mix = $(this).data('user_id_mix')
       $("#user_sum_modal .lead").html('<b>'+ ufn + '</b>')
-      $("#user_sum_modal .card-header").text(role)
+      $("#user_sum_modal .card-header").html('<b>'+ role + '</b>')
+      $("#user_sum_modal .user-bio").html('<b>user_bio: </b>' + user_bio)
+
+      //TODO (Pending) : "let" / "const" is not working but "var" is. Why?
+      if (role == "admin") {
+        var id_role = "ID_Admin : "
+      } else if (role == "dosen") {
+        var id_role = "NIP : "
+      } else { // Mahasiswa
+        var id_role = "NIM : "
+      }
+      $("#user_sum_modal .user-id-mix").text(id_role + user_id_mix)
+
       $("#user_sum_modal").modal("toggle")
     })
 

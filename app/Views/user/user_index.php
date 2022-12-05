@@ -20,7 +20,9 @@
               <i class="fas fa-2x fa-sync fa-spin"></i>
             </div>
             <div class="card-header">
+              <?php if (session('role') == 'admin') { ?>
               <button class="btn btn-primary btn-sm btn-create-user"><i class="fa fa-plus"></i></button>
+              <?php } ?>
               <button class="btn btn-success btn-sm btn-refresh-user"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_user_form">

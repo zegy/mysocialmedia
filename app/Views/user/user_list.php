@@ -1,32 +1,39 @@
-<div class="card-body" style="height: auto;">
-  <!-- <table class="table table-head-fixed text-nowrap projects"> -->
-  <table style="text-align: center" class="table table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
-    <thead>
-      <tr>
-        <th>user_profile_picture</th>
-        <th>user_id_mix</th>
-        <th>user_full_name</th>
-        <th>user_role</th>
-        <th>"Action"</th> <!-- TODO -->
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($users as $user) { ?>
-      <tr> <!-- TODO : Styles -->
-        <td style="width: 150px; min-width: 150px">
-          <img alt="Avatar" class="table-avatar" src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>">
-        </td>
-        <td style="width: 50px; min-width: 50px"><?= $user->user_id_mix ?></td>
-        <td style="width: 50px; min-width: 50px"><?= $user->user_full_name ?></td>
-        <td style="width: 50px; min-width: 50px"><?= $user->user_role ?></td>
-        <td class="project-actions text-right">
-          <a class="btn btn-primary btn-sm" href="<?= base_url('user/detail/' . $user->user_pk) ?>"><i class="fas fa-info-circle"></i> Detail</a>
-        </td>
-      </tr>
-      <?php } ?>
-    </tbody>
-  </table>
-</div><!-- /.card-body -->
+<div class="card-body pb-0">
+  <div class="row">
+    <?php foreach ($users as $user) { ?>
+    <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+      <div class="card bg-light d-flex flex-fill">
+        <div class="card-header text-muted border-bottom-0 text-uppercase">
+          <b><?= $user->user_role ?></b>
+        </div>
+        <div class="card-body pt-0">
+          <div class="row">
+            <div class="col-7">
+              <h2 class="lead"><b><?= $user->user_full_name ?></b></h2>
+              <p class="text-muted text-sm"><b>user_bio: </b> <?= $user->user_bio ?> </p>
+              <ul class="ml-4 mb-0 fa-ul text-muted">
+                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-id-badge"></i></span> <?php if ($user->user_role == 'mahasiswa') { echo('NIM :');} else if ($user->user_role == 'dosen') {echo('NIP : ');} else {echo('ID_Admin : ');}?> <?= $user->user_id_mix ?></li>
+                <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> -->
+              </ul>
+            </div>
+            <div class="col-5 text-center">
+              <img src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="user-avatar" class="img-circle img-fluid">
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="text-right">
+            <a href="<?= base_url('user/detail/' . $user->user_pk) ?>" class="btn btn-sm btn-primary">
+              <i class="fas fa-user"></i> View Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php } ?>
+  </div>
+</div>
+<!-- /.card-body -->
 <div class="card-footer clearfix">
   <ul class="pagination pagination-sm m-0 float-right">
     <li class="page-item"><a class="page-link btn-pagination" href="#" id="1">&laquo;</a></li>
@@ -34,3 +41,4 @@
     <li class="page-item"><a class="page-link btn-pagination" href="#" id="<?= $pager->getPageCount() ?>">&raquo;</a></li> <!-- NOTE : The getLastPageNumber and getPageCount not working properly in "template". Hence why it's here -->
   </ul>
 </div>
+<!-- /.card-footer -->

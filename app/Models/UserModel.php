@@ -32,7 +32,8 @@ class UserModel extends Model
         user_id_mix,
         user_full_name,
         user_profile_picture,
-        user_role
+        user_role,
+        user_bio
     ';
 
     public function getAll($page = null)

@@ -126,7 +126,6 @@
               </a>
             </li>
             <?php } ?>
-            <?php if (session('role') == 'admin') { ?>
             <li class="nav-header">DATA :</li>
             <li class="nav-item">
               <a href="<?= base_url('data/user/') ?>" class="nav-link" id="user">
@@ -137,7 +136,6 @@
                 </p>
               </a>
             </li>
-            <?php } ?>
           </ul>
         </nav><!-- /.sidebar-menu -->
       </div><!-- /.sidebar -->

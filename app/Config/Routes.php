@@ -63,13 +63,13 @@ $routes->add('comment/update',   'Comment::update');
 $routes->add('comment/delete', 'Comment::delete');
 $routes->add('comment/like', 'Comment::like');
 
-$routes->add('data/user', 'User::index', ['filter' => 'admin']); //TODO : Better! sync with view
+$routes->add('data/user', 'User::index'); //TODO : Better! sync with view
 $routes->add('user/list_default', 'User::list_default');
 $routes->add('user/list_search', 'User::list_search');
 
 $routes->add('user/detail/(:num)', 'User::detail/$1');
 // $routes->add('user/save',   'User::save');
-$routes->add('user/create',   'User::create');
+$routes->add('user/create',   'User::create', ['filter' => 'admin']);
 $routes->add('user/update',   'User::update');
 $routes->add('user/delete',   'User::delete');
 

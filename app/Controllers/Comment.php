@@ -6,7 +6,6 @@ use App\Controllers\BaseController;
 use App\Models\CommentModel;
 use App\Models\LikeModel; //TODO : Not need to create spesific controller?
 use App\Models\NotifModel; //TODO : Not need to create spesific controller?
-use App\Models\PostModel; //TODO : Right to do so?
 
 class Comment extends BaseController
 {
@@ -15,7 +14,6 @@ class Comment extends BaseController
         $this->commentModel = new CommentModel();
         $this->likeModel = new LikeModel(); //TODO : Not need to create spesific controller?
         $this->notifModel = new NotifModel(); //TODO : Not need to create spesific controller?
-        $this->postModel = new PostModel(); //TODO : Right to do so?
     }
 
     public function list() // AJAX
@@ -72,8 +70,7 @@ class Comment extends BaseController
 
 
         // Check post owner. Send notif if not owner
-        $post = $this->postModel->find($this->request->getPost('pid'));
-        $post_owner = $post->post_fk_user;
+        $post_owner = $this->request->getPost('uid');
         if ($post_owner != session('id')) {
             $data_notif = [
                 'notif_to_fk_user'   => $post_owner,

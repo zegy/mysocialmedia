@@ -16,7 +16,6 @@ class User extends BaseController
 
     public function index()
     {
-        //NOTE : Role check in "routes" using filter
         return view('user/user_index');
     }
 
@@ -84,7 +83,7 @@ class User extends BaseController
         }
 
         $rules = [
-            'user_id_mix'      => ['required'],
+            'user_id_mix'    => ['required'],
             'user_password'  => ['required'],
             'user_full_name' => ['required'],
             'user_email'     => ['required'],
@@ -100,7 +99,7 @@ class User extends BaseController
 
         if (!$this->validate($rules)) {
             $errors = [
-                'user_id_mix'      => $this->validation->getError('user_id_mix'),
+                'user_id_mix'    => $this->validation->getError('user_id_mix'),
                 'user_password'  => $this->validation->getError('user_password'),
                 'user_full_name' => $this->validation->getError('user_full_name'),
                 'user_email'     => $this->validation->getError('user_email'),
@@ -117,32 +116,37 @@ class User extends BaseController
             ];
         }
         else {
-            $data = [
-                'user_id_mix'      => $this->request->getPost('user_id_mix'),
-                'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
-                'user_full_name' => $this->request->getPost('user_full_name'),
-                'user_email'     => $this->request->getPost('user_email'),
-                'user_tel'       => $this->request->getPost('user_tel'),
-                'user_sex'       => $this->request->getPost('user_sex'),
-                'user_bio'       => $this->request->getPost('user_bio'),
-                'user_role'      => $this->request->getPost('user_role'),
-            ];
-
-            $image = $this->request->getFile('user_profile_picture');
-            
-            if (file_exists($image)) {
-                $imageName = $this->save_user_image($image); // Save image
-                $data['user_profile_picture'] = $imageName;
+            if (session('role') != 'admin') {
+                $output = ['status' => false];
             }
             else {
-                $data['user_profile_picture'] = 'default.png';
+                $data = [
+                    'user_id_mix'      => $this->request->getPost('user_id_mix'),
+                    'user_password'  => password_hash($this->request->getPost('user_password'), PASSWORD_DEFAULT), //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
+                    'user_full_name' => $this->request->getPost('user_full_name'),
+                    'user_email'     => $this->request->getPost('user_email'),
+                    'user_tel'       => $this->request->getPost('user_tel'),
+                    'user_sex'       => $this->request->getPost('user_sex'),
+                    'user_bio'       => $this->request->getPost('user_bio'),
+                    'user_role'      => $this->request->getPost('user_role'),
+                ];
+    
+                $image = $this->request->getFile('user_profile_picture');
+                
+                if (file_exists($image)) {
+                    $imageName = $this->save_user_image($image); // Save image
+                    $data['user_profile_picture'] = $imageName;
+                }
+                else {
+                    $data['user_profile_picture'] = 'default.png';
+                }
+    
+                $this->userModel->save($data);
+    
+                $output = [
+                    'status' => true
+                ];
             }
-
-            $this->userModel->save($data);
-
-            $output = [
-                'status' => true
-            ];
         }
 
         echo json_encode($output);

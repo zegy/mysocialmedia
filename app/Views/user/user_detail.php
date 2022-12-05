@@ -311,7 +311,7 @@
                     confirmButtonText: 'OK'
                   }).then((result) => {
                     if (result.isConfirmed) {
-                    window.location = "<?= base_url('data/user') ?>"
+                    window.location = "<?= base_url('user') ?>"
                     }
                   })
                 } else {

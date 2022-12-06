@@ -18,17 +18,21 @@ class Notif extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         
-        $notifs = $this->notifModel->where('notif_to_fk_user', session('id'))->findAll();
+        $notifs = $this->notifModel->getAllByCurrentUser(session('id'));
+        $notif_count = $this->notifModel->countAllByCurrentUser(session('id'));
         
         if (!empty($notifs)) {
-            echo json_encode([
-                'status' => true,
+            $output = [
                 'notifs' => view('notif/notif_list', ['notifs' => $notifs]),
-            ]);
+                'status' => true
+            ];
         }
         else {
-            echo json_encode(['status' => false]);
+            $output = ['status' => false];
         }
+
+        $output['notif_count'] = $notif_count;
+        echo json_encode($output);
     }
 
     public function delete_all() // AJAX

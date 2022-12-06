@@ -38,7 +38,7 @@
         <li class="nav-item dropdown"><!-- Messages Dropdown Menu -->
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
-            <span class="badge badge-danger navbar-badge">3</span>
+            <span class="badge badge-danger navbar-badge notif-button"><!-- "notif_count" --></span>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <div id="notif_list_data">
@@ -191,11 +191,6 @@
   
   <!-- ================================================ MAIN SCRIPTS ================================================ -->
   <script>
-    function notif_count() {
-      let notif_count = $(".notif-item").length
-      return notif_count
-    }
-
     function get_notif_list() {
       $.ajax({
         url: "<?= base_url('notif/list') ?>",
@@ -204,16 +199,18 @@
         success: function(res) {
           if (res.status) {
             $("#notif_list_data").html(res.notifs)
-            // $("#count_comments").text(res.comments_count + ' ' + 'Komentar')
+            // alert(res.notif_count)
           } else {
             $("#notif_list_data").html('Belum ada notifikasi')
-            // $("#count_comments").text('0 Komentar')
+          }
+
+          if (res.notif_count != '0') {
+            $(".notif-button").text(res.notif_count)
+          } else {
+            $(".notif-button").text('')
           }
         }
       })
-
-      let count = notif_count()
-      alert (count)
     }
 
     $(document).ready(function() {

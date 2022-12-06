@@ -78,6 +78,7 @@ class Comment extends BaseController
                 'notif_to_fk_user'   => $uid,
                 'notif_from_fk_user' => session('id'),
                 'notif_type'         => 'comment',
+                'notif_fk_post'      => $this->request->getPost('pid'),
             ];
     
             $this->notifModel->save($data_notif);

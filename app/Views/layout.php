@@ -182,14 +182,20 @@
     // - the user clicks on an app notification created by a service worker
     //   `messaging.onBackgroundMessage` handler.
     messaging.onMessage((payload) => {
-      console.log('Message received. ', payload);
+    //   console.log('Message received. ', payload);
       // Update the UI to include the received message.
     //   appendMessage(payload);
+      get_notif_list()
     });
   </script>
   
   <!-- ================================================ MAIN SCRIPTS ================================================ -->
   <script>
+    function notif_count() {
+      let notif_count = $(".notif-item").length
+      return notif_count
+    }
+
     function get_notif_list() {
       $.ajax({
         url: "<?= base_url('notif/list') ?>",
@@ -205,6 +211,9 @@
           }
         }
       })
+
+      let count = notif_count()
+      alert (count)
     }
 
     $(document).ready(function() {

@@ -50,6 +50,14 @@ class Auth extends BaseController
 
     public function signOut()
     {
+        // Remove user's token (FCM)
+        $data = [
+            'user_pk' => session('id'),
+            'user_token' => null,
+        ];
+
+        $this->userModel->save($data);
+
         session()->destroy();
         return redirect()->to('auth');
     }

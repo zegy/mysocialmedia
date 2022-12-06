@@ -44,8 +44,8 @@ class Post extends BaseController
             ];
                 
             echo json_encode([
-                'posts'  => view('post/post_list', $dataView),
-                'status' => true
+                'status' => true,
+                'posts'  => view('post/post_list', $dataView)
             ]);
         }
         else {
@@ -62,10 +62,10 @@ class Post extends BaseController
         }
 
         $keyword = $this->request->getPost('keyword');
-        $page  = $this->request->getPost('page'); // Optional, can be null
-        $group = $this->request->getPost('group');
-        $posts = $this->postModel->getAllByGroupAndKeyword($keyword, $group, $page);
-        $pager = $this->postModel->pager;
+        $page    = $this->request->getPost('page'); // Optional, can be null
+        $group   = $this->request->getPost('group');
+        $posts   = $this->postModel->getAllByGroupAndKeyword($keyword, $group, $page);
+        $pager   = $this->postModel->pager;
 
         if (!empty($posts)) {
             $dataView = [
@@ -74,8 +74,8 @@ class Post extends BaseController
             ];
                 
             echo json_encode([
-                'posts'  => view('post/post_list', $dataView),
-                'status' => true
+                'status' => true,
+                'posts'  => view('post/post_list', $dataView)
             ]);
         }
         else {
@@ -101,11 +101,9 @@ class Post extends BaseController
         }
         
         if (!empty($posts)) {
-            $dataView = ['posts' => $posts];
-                
             echo json_encode([
-                'posts'  => view('post/post_list_from_user', $dataView),
-                'status' => true
+                'status' => true,
+                'posts'  => view('post/post_list_from_user', ['posts' => $posts])
             ]);
         }
         else {
@@ -129,11 +127,9 @@ class Post extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            $errors = [
-                'judul'     => $this->validation->getError('judul'),
-                'deskripsi' => $this->validation->getError('deskripsi'),
-                'images'    => $this->validation->getError('images') //TODO (pending) : individual 'error' for each image
-            ];
+            foreach ($rules as $key => $value) {
+                $errors[$key] = $this->validation->getError($key);
+            }
 
             $output = [
                 'status' => false,
@@ -145,7 +141,7 @@ class Post extends BaseController
                 'post_fk_user' => session('id'),
                 'post_title'   => $this->request->getPost('judul'),
                 'post_text'    => $this->request->getPost('deskripsi'),
-                'post_group'   => $this->request->getPost('group'),
+                'post_group'   => $this->request->getPost('group')
             ];
 
             $images = $this->request->getFileMultiple('images');
@@ -158,12 +154,11 @@ class Post extends BaseController
             $this->postModel->save($data);
 
             $output = [
+                'status' => true,
                 'group'  => $this->request->getPost('group'),
-                'pid'    => $this->postModel->insertID(), // Get ID from the last insert. TODO : What if other user do the insert?
-                'status' => true
+                'pid'    => $this->postModel->insertID() // Get ID from the last insert. TODO : What if other user do the insert?
             ];
         }
-
         echo json_encode($output);
     }
 
@@ -183,11 +178,9 @@ class Post extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            $errors = [
-                'judul'     => $this->validation->getError('judul'),
-                'deskripsi' => $this->validation->getError('deskripsi'),
-                'images'    => $this->validation->getError('images') //TODO (pending) : individual 'error' for each image
-            ];
+            foreach ($rules as $key => $value) {
+                $errors[$key] = $this->validation->getError($key);
+            }
 
             $output = [
                 'status' => false,
@@ -205,7 +198,7 @@ class Post extends BaseController
                 $data = [
                     'post_pk'      => $pid,
                     'post_title'   => $this->request->getPost('judul'),
-                    'post_text'    => $this->request->getPost('deskripsi'),
+                    'post_text'    => $this->request->getPost('deskripsi')
                 ];
                 
                 $isUpdateImg = $this->request->getPost('cb_update_image');
@@ -222,26 +215,22 @@ class Post extends BaseController
                     
                     if (file_exists($images[0])) {
                         $imageNames = $this->save_post_images($images); // Save images
-                        $data['post_img'] = implode(',', $imageNames);
+                        $imageNames_string = implode(',', $imageNames);
                     }
-                    else {
-                        $data['post_img'] = null;
-                    }
+                    
+                    $data['post_img'] = $imageNames_string ?? null;   
                 
                     $output = [
-                        'images' => $imageNames ?? null,
                         'images_change' => true,
-                        'status' => true,
+                        'images' => $imageNames ?? null
                     ];
                 }
-                else {
-                    $output = ['status' => true];
-                }
+                
+                $output['status'] = true;
     
                 $this->postModel->save($data);
             }
         } 
-
         echo json_encode($output);
     }
 
@@ -254,7 +243,7 @@ class Post extends BaseController
         $pid  = $this->request->getPost('pid');
         $post = $this->postModel->find($pid);
 
-        if ($post->post_fk_user != session('id') && session('role') != 'admin') {
+        if (session('role') != 'admin' || $post->post_fk_user == session('id')) {
             echo json_encode(['status' => false]);
         }
         else {
@@ -268,10 +257,10 @@ class Post extends BaseController
         }
     }
 
-    public function detail($group, $pid) //TODO : $group(from route) is not used, only needed for 'active menu'.
+    public function detail($group, $pid) // TODO : The $group (from route) is not used in here, only needed for 'active menu'.
     {
         $post = $this->postModel->getOneById($pid);
-        if ( (empty($post)) || ($post->post_group != 'umum' && session('role') == 'mahasiswa') ) {
+        if ( (empty($post)) || (session('role') == 'mahasiswa' && $post->post_group != 'umum') ) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         else {

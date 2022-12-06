@@ -43,7 +43,7 @@ $routes->add('auth/signin',     'Auth::signIn');
 $routes->add('auth/signout',    'Auth::signOut');
 
 $routes->add('group/(:segment)',                'Post::index/$1');
-$routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2');
+$routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2'); // TODO : The "$1" / "$group" is not used anywhere. Only needed for 'active menu'. 
 $routes->add('post/list_default',               'Post::list_default');
 $routes->add('post/list_search',                'Post::list_search');
 $routes->add('post/list_from_user',             'Post::list_from_user');

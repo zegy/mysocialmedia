@@ -34,7 +34,7 @@
           <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="nav-link">Profile</a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto"><!-- Right navbar links -->      
+      <ul style="margin-right: 15px" class="navbar-nav ml-auto"><!-- Right navbar links -->      
         <li class="nav-item dropdown"><!-- Messages Dropdown Menu -->
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
@@ -50,7 +50,8 @@
             <a href="#" class="dropdown-item dropdown-footer btn-delete-all-notif">Tandai semua telah terbaca</a>
           </div>
         </li>
-        <li class="nav-item"><!-- Navbar Search -->
+        <!-- Navbar Search -->
+        <!-- <li class="nav-item">
           <a class="nav-link" data-widget="navbar-search" href="#" role="button">
             <i class="fas fa-search"></i>
           </a>
@@ -69,7 +70,7 @@
               </div>
             </form>
           </div>
-        </li> 
+        </li>  -->
         <!-- NOTE Below is CI's "settings" button -->
         <!-- <li class="nav-item">
           <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">

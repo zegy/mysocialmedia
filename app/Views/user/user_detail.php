@@ -137,8 +137,8 @@
                       <div class="offset-sm-2 col-sm-10">
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox"> Terima <a href="#">Push Notification</a>
-                          </label>
+                            <input type="checkbox" name="cb_fcm_status" id="cb_fcm_status"> Terima <a href="#">Push Notification</a>
+                          </label>                          
                         </div>
                       </div>
                     </div>
@@ -174,8 +174,10 @@
 </div><!-- /.content-wrapper -->
 <?= $this->endSection() ?>
 
-<!-- [FCM SCRIPTS] -->
+<!-- [SCRIPTS] -->
+<?= $this->section('script') ?>
 <script>
+  //[0] FCM
   function resetUI() {
     // Get registration token. Initially this makes a network call, once retrieved
     // subsequent calls to getToken will return from cache.
@@ -202,6 +204,22 @@
     if (!isTokenSentToServer()) {
       console.log('Sending token to server...');
       // TODO(developer): Send the current token to your server.
+      // NOTE : Custom START
+      $.ajax({
+        url: "<?= base_url('user/create_token') ?>",
+        dataType: "json",
+        type: "post",
+        data: {
+          token: currentToken 
+        },
+        success: function(res) {
+          if (res.status) {
+            console.log('Custom log : token saved')
+          }
+        }
+      })
+      // NOTE : Custom END
+
       setTokenSentToServer(true);
     } else {
       console.log('Token already sent to server so won\'t send it again ' +
@@ -228,33 +246,32 @@
         resetUI();
       } else {
         console.log('Unable to get permission to notify.');
+        alert('Izin notifikasi ditolak, silahkan izinkan untuk dapat menerima notifikasi')
       }
     });
   }
 
   function deleteToken() {
-    // Delete registration token.
-    messaging.getToken().then((currentToken) => {
-      messaging.deleteToken(currentToken).then(() => {
-        console.log('Token deleted.');
-        setTokenSentToServer(false);
-        // Once token is deleted update UI.
-        resetUI();
+    if (isTokenSentToServer()){ //NOTE : Custom
+      // Delete registration token.
+      messaging.getToken({vapidKey: 'BHZtAg-u53KvMH6h_Q9p9pg87-ihoOXJZbbvSbQkXZ0uVpmB1_JkIu5H-dDzTE-LIrIFTbA9lj48BTKfuxsUbZg'}).then((currentToken) => {
+        messaging.deleteToken(currentToken).then(() => {
+          console.log('Token deleted.');
+          setTokenSentToServer(false);
+          // Once token is deleted update UI.
+          // resetUI();
+        }).catch((err) => {
+          console.log('Unable to delete token. ', err);
+        });
       }).catch((err) => {
-        console.log('Unable to delete token. ', err);
+        console.log('Error retrieving registration token. ', err);
       });
-    }).catch((err) => {
-      console.log('Error retrieving registration token. ', err);
-    });
+    }
   }
 
-  resetUI();
-</script>
+  // resetUI();
 
 
-<!-- [SCRIPTS] -->
-<?= $this->section('script') ?>
-<script>
   //[A] Callable functions
   function set_errors(errors) {
     $.each(errors, function(key, value) {
@@ -293,6 +310,10 @@
     $('#user_sex option[value=<?= $user->user_sex ?>]').attr('selected','selected'); // Set "selected" values for user_sex
     $('#user_role option[value=<?= $user->user_role ?>]').attr('selected','selected'); // Set "selected" values user_role
 
+    //FCM : Set "checked" recieve notif
+    if (isTokenSentToServer()) {
+      $("#cb_fcm_status").attr('checked','checked') // TODO : better method! because rn is selected="selected". What about prop?
+    }
 
     // Redirect to post_detail after click post_text's area (The table's td)
     $(document).on("click", ".post_td_text", function(e) {
@@ -315,6 +336,16 @@
       $(".overlay").show()
 
       let formData = new FormData(this)
+    
+      // FCM
+      if ($("#cb_fcm_status").prop("checked") == true) {
+        // console.log("Checkbox is checked.")
+        resetUI()
+      } else if($("#cb_fcm_status").prop("checked") == false){
+        // console.log("Checkbox is unchecked.")
+        deleteToken()
+      }
+
       $.ajax({
         url: "<?= base_url('user/update') ?>",
         type: "post",

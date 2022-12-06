@@ -252,20 +252,22 @@
   }
 
   function deleteToken() {
-    if (isTokenSentToServer()){ //NOTE : Custom
+    if (isTokenSentToServer()){ // Custom
       // Delete registration token.
       messaging.getToken({vapidKey: 'BHZtAg-u53KvMH6h_Q9p9pg87-ihoOXJZbbvSbQkXZ0uVpmB1_JkIu5H-dDzTE-LIrIFTbA9lj48BTKfuxsUbZg'}).then((currentToken) => {
         messaging.deleteToken(currentToken).then(() => {
           console.log('Token deleted.');
-          setTokenSentToServer(false);
+          // setTokenSentToServer(false); // Ori
           // Once token is deleted update UI.
-          // resetUI();
+          // resetUI(); // Ori
         }).catch((err) => {
           console.log('Unable to delete token. ', err);
         });
       }).catch((err) => {
         console.log('Error retrieving registration token. ', err);
       });
+
+      setTokenSentToServer(false); // Custom
     }
   }
 

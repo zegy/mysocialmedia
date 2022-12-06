@@ -60,8 +60,9 @@
                   </div>
                   <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
                   <input type="hidden" name="uid" id="uid" value="<?= $post->user_pk ?>">
+                  <input type="hidden" name="group" id="group" value="<?= $post->post_group ?>">
                   <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
-                  <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
+                  <!-- <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button> -->
                 </div>
               </form>
             </div><!-- /.card-footer -->

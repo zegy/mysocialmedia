@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\CommentModel;
 use App\Models\LikeModel; //TODO : Not need to create spesific controller?
 use App\Models\NotifModel; //TODO : Not need to create spesific controller?
+use App\Models\UserModel;
 
 class Comment extends BaseController
 {
@@ -14,6 +15,7 @@ class Comment extends BaseController
         $this->commentModel = new CommentModel();
         $this->likeModel = new LikeModel(); //TODO : Not need to create spesific controller?
         $this->notifModel = new NotifModel(); //TODO : Not need to create spesific controller?
+        $this->userModel = new UserModel();
     }
 
     public function list() // AJAX
@@ -69,44 +71,51 @@ class Comment extends BaseController
         }
 
 
-        // Check post owner. Send notif if not owner
-        $post_owner = $this->request->getPost('uid');
-        if ($post_owner != session('id')) {
+        // Check post owner Send notif if not owner
+        $uid = $this->request->getPost('uid');
+        if ($uid != session('id')) {
             $data_notif = [
-                'notif_to_fk_user'   => $post_owner,
+                'notif_to_fk_user'   => $uid,
                 'notif_from_fk_user' => session('id'),
                 'notif_type'         => 'comment',
             ];
     
             $this->notifModel->save($data_notif);
-    
-            // FCM START
-            // Using PHP's "cURL Functions". Failed to use CI's "CURLRequest" Class. Ref : part-1-experimental AND https://shareurcodes.com/blog/send%20push%20notification%20to%20users%20using%20firebase%20messaging%20service%20in%20php
-            $fields = [
-                "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
-                "notification" => [
-                    "body"         => 'Ada yang mengomentari postingan anda!',
-                    "title"        => 'DIPSI',
-                    "icon"         => 'icon',
-                    "click_action" => base_url('group/umum')
-                ],
-                "to" => "eU-gPExR5cIfiVFV4Jwie4:APA91bHfXkAYjxRww2dGhDxGkQlGjL5yqdhpBe4aofHTQ2Vm5lpo9utrk-s4NOlqtuojIKH3yMPNRmGCMO_BqxM_axH2MBY8NWzbFL8GQBnRsBK5e_8Hs39JA06qkofeyvb98M4dSKI9"
-            ];
-    
-            $headers = [ // Danger! Notice it's not an associative array!
-                'Authorization: key=AAAArTff7d4:APA91bFQArT9HUGgZtPk7EDV3pFKX3DozsU4_qy8mSLZ1VYzgufVrTJN_h627bVzhm4Izq4Bu8PLpllmg8CCW-EjU8XKzoW_LvoypqFi7I_jUyUGk3gwnh_CwPapF-_oa_FKRZQ9Mlxn',
-                'Content-Type: application/json'
-            ];
-    
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL,'https://fcm.googleapis.com/fcm/send');
-            curl_setopt($ch,CURLOPT_POST,true);
-            curl_setopt($ch,CURLOPT_HTTPHEADER,$headers);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-            curl_setopt($ch,CURLOPT_POSTFIELDS,json_encode($fields));
-            curl_exec($ch);
-            curl_close($ch);
-            // FCM END
+
+            // Send FCM if post owner has FCM token.
+            $post_owner = $this->userModel->find($uid);
+            if (!empty($post_owner->user_token)) {
+                // FCM START
+                // Using PHP's "cURL Functions". Failed to use CI's "CURLRequest" Class. Ref : part-1-experimental AND https://shareurcodes.com/blog/send%20push%20notification%20to%20users%20using%20firebase%20messaging%20service%20in%20php
+                
+                $group = $this->request->getPost('group');
+
+                $fields = [
+                    // "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
+                    "notification" => [
+                        "body"         => session('full_name') . ' mengomentari postingan anda!',
+                        "title"        => 'DIPSI',
+                        "icon"         => 'icon',
+                        "click_action" => base_url('group' . '/' . $group . '/detail' . '/' . $this->request->getPost('pid'))
+                    ],
+                    "to" => "$post_owner->user_token"
+                ];
+        
+                $headers = [ // Danger! Notice it's not an associative array!
+                    'Authorization: key=AAAArTff7d4:APA91bFQArT9HUGgZtPk7EDV3pFKX3DozsU4_qy8mSLZ1VYzgufVrTJN_h627bVzhm4Izq4Bu8PLpllmg8CCW-EjU8XKzoW_LvoypqFi7I_jUyUGk3gwnh_CwPapF-_oa_FKRZQ9Mlxn',
+                    'Content-Type: application/json'
+                ];
+        
+                $ch = curl_init();
+                curl_setopt($ch,CURLOPT_URL,'https://fcm.googleapis.com/fcm/send');
+                curl_setopt($ch,CURLOPT_POST,true);
+                curl_setopt($ch,CURLOPT_HTTPHEADER,$headers);
+                curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+                curl_setopt($ch,CURLOPT_POSTFIELDS,json_encode($fields));
+                curl_exec($ch);
+                curl_close($ch);
+                // FCM END
+            }
         }
 
         echo json_encode($output);

@@ -254,9 +254,12 @@
             $(".user-panel .user-full-name").text(formData.get('user_full_name'))
             $(".profile-username").text(formData.get('user_full_name'))
             $(".profile-role").text(formData.get('user_role'))
-            if (res.image_change) {
-              $(".user-panel .user-profile-picture").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
+            if (res.image_change_in_profile) {
               $(".profile-user-img").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
+            }
+
+            if (res.image_change_in_layout) {
+              $(".user-panel .user-profile-picture").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
             }
 
             // Reset prev validation

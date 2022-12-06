@@ -284,18 +284,19 @@ class User extends BaseController
                             $data['user_profile_picture'] = 'default.png'; // Can't be "empty" use default image
                         }
     
+                        $output = [
+                            'image' => $data['user_profile_picture'],
+                            'image_change_in_profile' => true,
+                            'status' => true
+                        ];
+
                         // Update session data : picture (if owner)
                         if (session('id') == $uid) {
                             session()->remove('picture');
                             session()->set('picture', $data['user_profile_picture']);
+
+                            $output['image_change_in_layout'] = true;
                         }
-    
-                        $output = [
-                            'image' => $data['user_profile_picture'],
-                            'image_change' => true,
-                            'status' => true
-                        ];
-    
                     }
                     else {
                         $output = ['status' => true];

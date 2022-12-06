@@ -1,5 +1,5 @@
 <?php foreach ($notifs as $notif) { ?>
-<a href="<?= base_url('group/' . $notif->post_group . '/' . 'detail/' . $notif->post_pk) ?>" class="dropdown-item notif-item">
+<a href="#" class="dropdown-item notif-item" data-nid="<?= $notif->notif_pk ?>" data-group="<?= $notif->post_group ?>" data-pid="<?= $notif->post_pk ?>">
   <div class="media"><!-- Message Start -->
     <img src="<?= base_url('resource/users/thumb' . $notif->from_user_profile_picture) ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
     <div class="media-body">

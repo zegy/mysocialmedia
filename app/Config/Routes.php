@@ -70,6 +70,7 @@ $routes->add('user/create_token',      'User::create_token');
 
 $routes->add('notif/list', 'Notif::list');
 $routes->add('notif/delete_all', 'Notif::delete_all');
+$routes->add('notif/delete', 'Notif::delete');
 
 $routes->match(['get', 'post'], 'resource/(:segment)/(:segment)', 'Resource::index/$1/$2');
 

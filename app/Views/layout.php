@@ -229,6 +229,31 @@
         $(ele2).addClass('active')
       }
 
+      // Go to post based on notif's link (Also delete the notif)
+      $(document).on("click", ".notif-item", function(e) {
+        e.preventDefault()
+
+        let nid = $(this).data('nid')
+
+        let pid = $(this).data('pid')
+        let group = $(this).data('group')
+        
+        $.ajax({
+          url: "<?= base_url('notif/delete') ?>",
+          dataType: "json",
+          type: "post",
+          data: {
+            nid: nid
+          },
+          success: function(res) {
+            if (res.status) {
+              window.location = "<?= base_url() ?>" + "/group/" + group + '/detail/' + pid
+            }
+          }
+        })
+  
+      })
+
       // Delete all notif ("tandai semua telah terbaca") (Fully using "sweetalert2")
       $(document).on("click", ".btn-delete-all-notif", function(e) {
         e.preventDefault() //NOTE : Needed because it's a link (a)!

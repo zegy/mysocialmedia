@@ -46,6 +46,23 @@ class Notif extends BaseController
         echo json_encode(['status' => true]);
     }
 
+    public function delete() // AJAX
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+
+        $nid = $this->request->getPost('nid');
+        $notif = $this->notifModel->find($nid);
+
+        if ($notif->notif_to_fk_user != session('id')) {
+            echo json_encode(['status' => false]);
+        }
+        else {
+            $this->notifModel->delete($notif->notif_pk);
+            echo json_encode(['status' => true]);
+        }
+    }
 
     // "create notif" is inside comment's create function. Right to do?
 }

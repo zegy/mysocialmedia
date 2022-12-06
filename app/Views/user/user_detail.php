@@ -108,6 +108,7 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
+                    <?php if (session('id') == $user->user_pk || session('role') == 'admin') { ?>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <div class="checkbox">
@@ -117,6 +118,7 @@
                         </div>
                       </div>
                     </div>
+                    <?php } ?>
                     <?php if (session('role') == 'admin') { ?>
                     <div class="form-group row">
                       <label for="user_role" class="col-sm-2 col-form-label">user_role</label>
@@ -312,10 +314,17 @@
     $('#user_sex option[value=<?= $user->user_sex ?>]').attr('selected','selected'); // Set "selected" values for user_sex
     $('#user_role option[value=<?= $user->user_role ?>]').attr('selected','selected'); // Set "selected" values user_role
 
-    //FCM : Set "checked" recieve notif
+    // FCM : Set "checked" recieve notif
     if (isTokenSentToServer()) {
       $("#cb_fcm_status").attr('checked','checked') // TODO : better method! because rn is selected="selected". What about prop?
     }
+
+    // Disable user_update_form "inputs" if not owner or admin
+    <?php if (session('id') != $user->user_pk) { ?>
+      $("input").prop("readonly", true)
+      $("textarea").prop("readonly", true)
+      $("select").prop("disabled", true)
+    <?php } ?>
 
     // Redirect to post_detail after click post_text's area (The table's td)
     $(document).on("click", ".post_td_text", function(e) {

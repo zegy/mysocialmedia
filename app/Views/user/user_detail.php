@@ -326,6 +326,8 @@
     $(document).on("click", ".btn-sign-out", function(e) {
       e.preventDefault()
 
+      deleteToken() //FCM
+      
       window.location = "<?php echo base_url('auth/signout') ?>"
     })
 

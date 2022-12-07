@@ -320,7 +320,7 @@
     }
 
     // Disable user_update_form "inputs" if not owner or admin
-    <?php if (session('id') != $user->user_pk) { ?>
+    <?php if ($user->user_pk != session('id') && session('role') != 'admin') { ?>
       $("input").prop("readonly", true)
       $("textarea").prop("readonly", true)
       $("select").prop("disabled", true)

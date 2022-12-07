@@ -200,9 +200,10 @@
         success: function(res) {
           if (res.status) {
             $("#notif_list_data").html(res.notifs)
-            // alert(res.notif_count)
+            $(".btn-delete-all-notif").show()
           } else {
-            $("#notif_list_data").html('Belum ada notifikasi')
+            $("#notif_list_data").html('<span class="dropdown-item dropdown-header">Belum ada notifikasi!</span>')
+            $(".btn-delete-all-notif").hide()
           }
 
           if (res.notif_count != '0') {

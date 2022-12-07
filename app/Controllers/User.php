@@ -360,7 +360,23 @@ class User extends BaseController
 
         $data = [
             'user_pk'    => session('id'),
-            'user_token' => $this->request->getPost('token'),
+            'user_token' => $this->request->getPost('token')
+        ];
+
+        $this->userModel->save($data);
+    
+        echo json_encode(['status' => true]);
+    }
+
+    public function delete_token() // AJAX
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+
+        $data = [
+            'user_pk'    => session('id'),
+            'user_token' => null
         ];
 
         $this->userModel->save($data);

@@ -259,6 +259,20 @@
       messaging.getToken({vapidKey: 'BHZtAg-u53KvMH6h_Q9p9pg87-ihoOXJZbbvSbQkXZ0uVpmB1_JkIu5H-dDzTE-LIrIFTbA9lj48BTKfuxsUbZg'}).then((currentToken) => {
         messaging.deleteToken(currentToken).then(() => {
           console.log('Token deleted.');
+
+          // NOTE : Custom START
+          $.ajax({
+            url: "<?= base_url('user/delete_token') ?>",
+            dataType: "json",
+            type: "post",
+            success: function(res) {
+              if (res.status) {
+                console.log('Token also deleted in DB.')
+              }
+            }
+          })
+          // NOTE : Custom END
+
           // setTokenSentToServer(false); // Ori
           // Once token is deleted update UI.
           // resetUI(); // Ori

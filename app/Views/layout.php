@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3</title>
+  <title>DIPSI</title>
   <!-- Google Font: Source Sans Pro --><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons --><link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
   <!-- IonIcons --><link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -31,7 +31,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-          <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="nav-link">Profile</a>
+          <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="nav-link">Profil</a>
         </li>
       </ul>
       <ul style="margin-right: 15px" class="navbar-nav ml-auto"><!-- Right navbar links -->      
@@ -100,7 +100,7 @@
             <!-- <li class="nav-header">FORUM DISKUSI :</li> -->
             <li class="nav-item">
               <a href="<?= base_url('group/umum/') ?>" class="nav-link" id="umum">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon far fa-list-alt"></i>
                 <p>
                   Daftar Diskusi Umum
                   <!-- <span class="right badge badge-danger">1</span> -->
@@ -110,7 +110,7 @@
             <?php if (session('role') != 'mahasiswa') { ?>
             <li class="nav-item">
               <a href="<?= base_url('group/dosen/') ?>" class="nav-link" id="dosen">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-list-alt"></i>
                 <p>
                   Daftar Diskusi Dosen
                   <!-- <span class="right badge badge-danger">1</span> -->
@@ -121,7 +121,7 @@
             <!-- <li class="nav-header">DATA :</li> -->
             <li class="nav-item">
               <a href="<?= base_url('user') ?>" class="nav-link" id="user">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-users"></i>
                 <p>
                   Daftar Pengguna
                   <!-- <span class="right badge badge-danger">1</span> -->

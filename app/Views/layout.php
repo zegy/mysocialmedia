@@ -80,9 +80,9 @@
       </ul>
     </nav><!-- /.navbar -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4"><!-- Main Sidebar Container -->
-      <a href="index3.html" class="brand-link"><!-- Brand Logo -->
-        <img src="<?= base_url('assets/dist/img/AdminLTELogo.png') ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <a href="<?= base_url() ?>" class="brand-link"><!-- Brand Logo -->
+        <img src="<?= base_url('assets/custom/img/DIPSILogo.png') ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-bold">DIPSI</span>
       </a>
       <div class="sidebar"><!-- Sidebar -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex"><!-- Sidebar user panel (optional) -->

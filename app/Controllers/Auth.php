@@ -24,28 +24,24 @@ class Auth extends BaseController
 
     public function signIn() // AJAX
     {
-        $userData = $this->userModel->where('user_email', $this->request->getPost('email'))->first();
+        $user = $this->userModel->where('user_email', $this->request->getPost('email'))->first();
 
-        if (!empty($userData)) {
-            if (password_verify($this->request->getPost('password'), $userData->user_password)) { // Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-verify.php
+        $output['status'] = false; // Default value (Changeable with below code)
+        if (!empty($user)) {
+            if (password_verify($this->request->getPost('password'), $user->user_password)) { // Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-verify.php
                 $sessionData =
                 [
                     'isLoggedIn' => true,
-                    'id'         => $userData->user_pk,
-                    'role'       => $userData->user_role,
-                    'picture'    => $userData->user_profile_picture,
-                    'full_name'  => $userData->user_full_name
+                    'id'         => $user->user_pk,
+                    'role'       => $user->user_role,
+                    'picture'    => $user->user_profile_picture,
+                    'full_name'  => $user->user_full_name
                 ];
                 session()->set($sessionData);
-                echo json_encode(['status' => true]);
-            }
-            else {
-                echo json_encode(['status' => false]);
+                $output['status'] = true;
             }
         }
-        else {
-            echo json_encode(['status' => false]);
-        }
+        echo json_encode($output);
     }
 
     public function signOut()

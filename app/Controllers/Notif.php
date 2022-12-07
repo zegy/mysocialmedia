@@ -23,15 +23,16 @@ class Notif extends BaseController
         
         if (!empty($notifs)) {
             $output = [
-                'notifs' => view('notif/notif_list', ['notifs' => $notifs]),
-                'status' => true
+                'status' => true,
+                'notifs' => view('notif/notif_list', ['notifs' => $notifs])
             ];
         }
         else {
-            $output = ['status' => false];
+            $output['status'] = false;
         }
 
         $output['notif_count'] = $notif_count;
+
         echo json_encode($output);
     }
 
@@ -52,7 +53,7 @@ class Notif extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
-        $nid = $this->request->getPost('nid');
+        $nid   = $this->request->getPost('nid');
         $notif = $this->notifModel->find($nid);
 
         if ($notif->notif_to_fk_user != session('id')) {
@@ -64,5 +65,5 @@ class Notif extends BaseController
         }
     }
 
-    // "create notif" is inside comment's create function. Right to do?
+    // TODO : "create notif" is inside comment's create function! Is okay to do so?
 }

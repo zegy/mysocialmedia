@@ -6,6 +6,12 @@ use CodeIgniter\Controller;
 
 class Resource extends Controller
 {
+    public function index($file_group, $file_name) // Experimental! my simple version
+    {
+        return file_get_contents(WRITEPATH . 'uploads/'. $file_group . '/' . $file_name); // Read a file into a string. https://www.w3schools.com/Php/func_filesystem_file_get_contents.asp
+    }
+
+    // OTHER FORMAT
     // public function index($imageName) // https://stackoverflow.com/a/64696591
     // {
     //     if(($image = file_get_contents(WRITEPATH.'uploads/posts/' . $imageName)) === FALSE)
@@ -34,9 +40,4 @@ class Resource extends Controller
     //     exit();
 
     // }
-
-    public function index($file_group, $file_name) // Experimental! my simple version
-    {
-        return file_get_contents(WRITEPATH . 'uploads/'. $file_group . '/' . $file_name); // Read a file into a string. https://www.w3schools.com/Php/func_filesystem_file_get_contents.asp
-    }
 }

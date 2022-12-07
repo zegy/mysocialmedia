@@ -275,7 +275,7 @@ class User extends BaseController
         $uid  = $this->request->getPost('uid');
         $user = $this->userModel->find($uid);
 
-        if (session('role') != 'admin' || $user->user_pk == session('id')) { // + Prevent any user (admins) delete themself. Delete button is disabled in view.
+        if (session('role') != 'admin' || $user->user_pk == session('id')) { // Notice it's uncommon "if". Read : "Not an admin" OR "Self delete". Delete button is disabled in view.
             $output['status'] = false;
         }
         else {

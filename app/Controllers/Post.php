@@ -243,7 +243,7 @@ class Post extends BaseController
         $pid  = $this->request->getPost('pid');
         $post = $this->postModel->find($pid);
 
-        if (session('role') != 'admin' || $post->post_fk_user == session('id')) { // Notice it's uncommon "if". Read : "Not an admin" OR "Self delete"
+        if ($post->post_fk_user != session('id') && session('role') != 'admin') {
             echo json_encode(['status' => false]);
         }
         else {

@@ -71,12 +71,6 @@
             </form>
           </div>
         </li>  -->
-        <!-- NOTE Below is CI's "settings" button -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
-          </a>
-        </li>
       </ul>
     </nav><!-- /.navbar -->
     <aside class="main-sidebar sidebar-light-info elevation-4"><!-- Main Sidebar Container -->
@@ -133,9 +127,6 @@
       </div><!-- /.sidebar -->
     </aside>
     <?= $this->renderSection('content') ?><!-- Content -->
-    <aside class="control-sidebar control-sidebar-dark"><!-- Control Sidebar -->
-      <!-- Control sidebar content goes here -->
-    </aside><!-- /.control-sidebar -->
     <aside id="layout-modal"></aside><!-- NOTE : Custom element for common modal called via AJAX -->
     <footer class="main-footer text-sm"><!-- Main Footer -->
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
@@ -154,9 +145,6 @@
   
   <!-- SweetAlert2 --><script src="<?= base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
   <!-- Ekko Lightbox --><script src="<?= base_url('assets/plugins/ekko-lightbox/ekko-lightbox.min.js') ?>"></script>
-
-  <!-- OPTIONAL SCRIPTS -->
-  <!-- AdminLTE for demo purposes --><script src="<?= base_url('assets/dist/js/demo.js') ?>"></script>
 
   <!-- ================================================ FCM SCRIPTS ================================================ -->
   <!-- Import and configure the Firebase SDK -->

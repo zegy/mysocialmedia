@@ -23,7 +23,8 @@
                 <span class="description">Dibuat pada : <?= $post->post_date_time ?></span>
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
-            <div class="card-body">
+            <div style="background-color: #f8f9fa" class="card-body"><!-- Custom style to match the comments card (background-color) -->
+              <p id="post_deskripsi"><b>Judul : </b><?= $post->post_title ?></p>
               <div class="row" id="post_images">
               <?php if (!empty($post->post_img)){ $imgs = explode(",", $post->post_img); foreach ($imgs as $img) {?>
                 <div class="col-2">

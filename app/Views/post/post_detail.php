@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h4><b>Judul Diskusi : </b><span id="post_judul"><?= $post->post_title ?></span></h4>
+          <h1><b>FORUM DISKUSI : </b><span class="text-uppercase"><?= $post->post_group ?></span></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -24,7 +24,7 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div style="background-color: #f8f9fa" class="card-body"><!-- Custom style to match the comments card (background-color) -->
-              <p id="post_deskripsi"><b>Judul : </b><?= $post->post_title ?></p>
+              <p><b>Judul : </b><span id="post_judul"><?= $post->post_title ?></span></p>
               <div class="row" id="post_images">
               <?php if (!empty($post->post_img)){ $imgs = explode(",", $post->post_img); foreach ($imgs as $img) {?>
                 <div class="col-2">
@@ -34,7 +34,7 @@
                 </div>
               <?php } } ?>
               </div>
-              <p id="post_deskripsi"><?= $post->post_text ?></p>
+              <p><b>Detail : </b><span id="post_deskripsi"><?= $post->post_text ?></span></p>
               <?php if (session('id') == $post->user_pk || session('role') == 'admin') { ?>
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->post_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>

@@ -70,7 +70,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $defaultLocale = 'id';
+    public $defaultLocale = 'id'; // “Official” translation (v4.2.7). https://codeigniter4.github.io/CodeIgniter4/outgoing/localization.html?highlight=defaultlocale#message-translations
 
     /**
      * --------------------------------------------------------------------------

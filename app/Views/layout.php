@@ -19,6 +19,9 @@
       .circle-role-admin{border:2px solid #bc4b4b;margin:0 auto;padding:3px;width:100px}
       .circle-role-dosen{border:2px solid #e8df5d;margin:0 auto;padding:3px;width:100px}
       .circle-role-mahasiswa{border:2px solid #5de8df;margin:0 auto;padding:3px;width:100px}
+
+      /* user_detail's active tab link*/
+      .nav-pills .nav-link.active{color: #fff; background-color: #17a2b8}
   </style>  
 </head>
 

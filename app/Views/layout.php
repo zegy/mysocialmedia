@@ -72,11 +72,11 @@
           </div>
         </li>  -->
         <!-- NOTE Below is CI's "settings" button -->
-        <!-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
             <i class="fas fa-th-large"></i>
           </a>
-        </li> -->
+        </li>
       </ul>
     </nav><!-- /.navbar -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4"><!-- Main Sidebar Container -->

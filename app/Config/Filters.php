@@ -24,7 +24,6 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'auth'          => \App\Filters\Auth::class, //NOTE : Custom
-        'admin'         => \App\Filters\Admin::class, //NOTE : Custom (Used in routes)
     ];
 
     /**

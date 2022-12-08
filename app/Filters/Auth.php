@@ -12,7 +12,7 @@ class Auth implements FilterInterface
 	public function before(RequestInterface $request, $arguments = null)
 	{
 		if (session('isLoggedIn') != true) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+            return redirect()->to('auth');
 		}
 	}
 

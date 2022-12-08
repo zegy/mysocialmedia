@@ -62,7 +62,7 @@ $routes->add('user',                'User::index');
 $routes->add('user/list_default',   'User::list_default');
 $routes->add('user/list_search',    'User::list_search');
 $routes->add('user/detail/(:num)',  'User::detail/$1');
-$routes->add('user/create',         'User::create', ['filter' => 'admin']);
+$routes->add('user/create',         'User::create');
 $routes->add('user/update',         'User::update');
 $routes->add('user/delete',         'User::delete');
 $routes->add('user/sum_modal',      'User::sum_modal');

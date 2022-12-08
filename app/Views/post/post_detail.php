@@ -77,14 +77,14 @@
 <!-- [MODALS] -->
 <!-- [MODALS] : Update post -->
 <form id="post_modal_update_form">
-  <div class="modal fade" id="post_modal_update" tabindex="-1" role="dialog" aria-labelledby="post_modal_update_label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade" id="post_modal_update">
+    <div class="modal-dialog">
       <div class="modal-content">
-        <div style="display: none" class="overlay">
-          <i class="fas fa-2x fa-sync fa-spin"></i>
-        </div>
         <div class="modal-header">
-          <h5 class="modal-title">Add new Item</h5>
+          <h4 class="modal-title">Default Modal</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -102,19 +102,23 @@
             <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
             <div class="invalid-feedback"></div>
           </div>
+            <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="cb_update_image" id="cb_update_image">
+            <label class="form-check-label" for="cb_update_image">Hapus / Ganti Foto</label>
+          </div>
         </div>
-        <div style="margin-left: 20px" class="form-check">
-          <input type="checkbox" class="form-check-input" name="cb_update_image" id="cb_update_image">
-          <label class="form-check-label" for="cb_update_image">Hapus / Ganti Foto</label>
-        </div>
-        <div class="modal-footer">
+        <div class="modal-footer justify-content-between">
           <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
           <input type="hidden" name="old_images" id="old_images" value="<?= $post->post_img ?>">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-info">Save</button>
         </div>
       </div>
+      <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
   </div>
+  <!-- /.modal -->
 </form>
 
 <!-- [OTHER] -->

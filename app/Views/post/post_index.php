@@ -20,12 +20,12 @@
               <i class="fas fa-2x fa-sync fa-spin"></i>
             </div>
             <div class="card-header">
-              <button class="btn btn-info btn-sm btn-create-post"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-info btn-sm btn-create-post"><i class="fa fa-plus"></i> Buat Diskusi <span class="text-capitalize"><?= $group ?></span></button>
               <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_post_form">
-                  <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
-                    <input type="search" class="form-control float-right" name="input_search_post" id="input_search_post" placeholder="Cari Diskusi">
+                  <div class="input-group input-group-sm" style="width: 160px; margin: 0px">
+                    <input type="search" class="form-control float-right" name="input_search_post" id="input_search_post" placeholder="Cari Diskusi...">
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default btn-search-post">
                         <i class="fas fa-search"></i>

@@ -21,13 +21,13 @@
             </div>
             <div class="card-header">
               <?php if (session('role') == 'admin') { ?>
-              <button class="btn btn-info btn-sm btn-create-user"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-info btn-sm btn-create-user"><i class="fa fa-plus"></i> Tambah Pengguna</button>
               <?php } ?>
               <button class="btn btn-success btn-sm btn-refresh-user"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_user_form">
-                  <div class="input-group input-group-sm" style="width: 140px; margin: 0px">
-                    <input type="search" class="form-control float-right" name="input_search_user" id="input_search_user" placeholder="Cari Diskusi">
+                  <div class="input-group input-group-sm" style="width: 160px; margin: 0px">
+                    <input type="search" class="form-control float-right" name="input_search_user" id="input_search_user" placeholder="Cari Pengguna...">
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default btn-search-user">
                         <i class="fas fa-search"></i>

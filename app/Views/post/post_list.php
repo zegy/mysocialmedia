@@ -7,7 +7,7 @@
         <th>Pembuat</th>
         <th>Judul Diskusi</th>
         <th>Tanggal</th>
-        <th>"Action"</th> <!-- TODO -->
+        <th></th> <!-- TODO -->
       </tr>
     </thead>
     <tbody>

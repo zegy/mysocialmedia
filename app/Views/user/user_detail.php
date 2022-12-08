@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
-          <div class="card card-primary card-outline"><!-- Profile Image -->
+          <div class="card card-info card-outline"><!-- Profile Image -->
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle" src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="User profile picture">

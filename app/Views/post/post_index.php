@@ -20,7 +20,7 @@
               <i class="fas fa-2x fa-sync fa-spin"></i>
             </div>
             <div class="card-header">
-              <button class="btn btn-primary btn-sm btn-create-post"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-info btn-sm btn-create-post"><i class="fa fa-plus"></i></button>
               <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_post_form">
@@ -78,7 +78,7 @@
         </div>
         <div class="modal-footer">
           <input type="hidden" name="group" id="group" value="<?= $group ?>">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-info">Save</button>
         </div>
       </div>
     </div>

@@ -61,7 +61,7 @@
                   <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
                   <input type="hidden" name="uid" id="uid" value="<?= $post->user_pk ?>">
                   <input type="hidden" name="group" id="group" value="<?= $post->post_group ?>">
-                  <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
+                  <button type="submit" class="btn btn-info btn-sm float-right">Kirim</button>
                   <!-- <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button> -->
                 </div>
               </form>
@@ -109,7 +109,7 @@
         <div class="modal-footer">
           <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
           <input type="hidden" name="old_images" id="old_images" value="<?= $post->post_img ?>">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-info">Save</button>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
           <div class="invalid-feedback"></div>
         </div>
         <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment update)-->
-        <button type="submit" class="btn btn-primary btn-sm float-right">Kirim</button>
+        <button type="submit" class="btn btn-info btn-sm float-right">Kirim</button>
         <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
       </div>
     </div>

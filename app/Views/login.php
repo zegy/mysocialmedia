@@ -16,7 +16,7 @@
 
 <body class="hold-transition login-page">
   <div class="login-box">
-    <div class="card card-outline card-primary">
+    <div class="card card-outline card-info">
       <div class="card-header text-center pb-0">
         <h1 class="mb-0"><b>DIPSI</b></h1>
         <p class="login-box-msg">Diskusi Prodi Sistem Informasi</p>
@@ -50,7 +50,7 @@
               </p> -->
             </div><!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+              <button type="submit" class="btn btn-info btn-block">Sign In</button>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </form>

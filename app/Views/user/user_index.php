@@ -21,7 +21,7 @@
             </div>
             <div class="card-header">
               <?php if (session('role') == 'admin') { ?>
-              <button class="btn btn-primary btn-sm btn-create-user"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-info btn-sm btn-create-user"><i class="fa fa-plus"></i></button>
               <?php } ?>
               <button class="btn btn-success btn-sm btn-refresh-user"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
@@ -121,7 +121,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-info">Save</button>
         </div>
       </div>
     </div>

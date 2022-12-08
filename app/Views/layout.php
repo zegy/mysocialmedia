@@ -23,7 +23,7 @@
 </head>
 
 <!-- <body class="hold-transition sidebar-mini"> --><!-- options: sidebar-collapse / sidebar-mini -->
-<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed"><!-- options: sidebar-collapse / sidebar-mini -->
+<body class="hold-transition sidebar-mini sidebar-collapse layout-fixed layout-navbar-fixed"><!-- options: sidebar-collapse / sidebar-mini -->
   <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light"><!-- Navbar -->
       <ul class="navbar-nav"><!-- Left navbar links -->
@@ -79,8 +79,8 @@
         </li>
       </ul>
     </nav><!-- /.navbar -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4"><!-- Main Sidebar Container -->
-      <a href="<?= base_url() ?>" class="brand-link"><!-- Brand Logo -->
+    <aside class="main-sidebar sidebar-light-info elevation-4"><!-- Main Sidebar Container -->
+      <a href="<?= base_url() ?>" class="brand-link navbar-info text-light"><!-- Brand Logo -->
         <img src="<?= base_url('assets/custom/img/DIPSILogo.png') ?>" alt="DIPSI Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-bold">DIPSI</span>
       </a>
@@ -137,7 +137,7 @@
       <!-- Control sidebar content goes here -->
     </aside><!-- /.control-sidebar -->
     <aside id="layout-modal"></aside><!-- NOTE : Custom element for common modal called via AJAX -->
-    <footer class="main-footer"><!-- Main Footer -->
+    <footer class="main-footer text-sm"><!-- Main Footer -->
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">

@@ -50,14 +50,14 @@
 <!-- [MODALS] -->
 <!-- [MODALS] : Create post -->
 <form id="post_modal_create_form">
-  <div class="modal fade" id="post_modal_create" tabindex="-1" role="dialog" aria-labelledby="post_modal_create_label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade" id="post_modal_create">
+    <div class="modal-dialog">
       <div class="modal-content">
-        <div style="display: none" class="overlay">
-          <i class="fas fa-2x fa-sync fa-spin"></i>
-        </div>
         <div class="modal-header">
-          <h5 class="modal-title">Add new Item</h5>
+          <h4 class="modal-title">Default Modal</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -76,13 +76,17 @@
             <div class="invalid-feedback"></div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer justify-content-between">
           <input type="hidden" name="group" id="group" value="<?= $group ?>">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-info">Save</button>
         </div>
       </div>
+      <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
   </div>
+  <!-- /.modal -->
 </form>
 <?= $this->endSection() ?>
 

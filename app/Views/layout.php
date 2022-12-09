@@ -21,7 +21,11 @@
       .circle-role-mahasiswa{border:2px solid #5de8df;margin:0 auto;padding:3px;width:100px}
 
       /* user_detail's active tab link*/
-      .nav-pills .nav-link.active{color: #fff; background-color: #17a2b8}
+      .nav-item .nav-link.active{color: #fff; background-color: #17a2b8}
+
+      /* pagination's active page*/
+      .pagination .page-item.active a{color: #fff; background-color: #17a2b8}
+
   </style>  
 </head>
 

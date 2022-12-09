@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1><b>DAFTAR PENGGUNA</b></h1>
+          <h1><b>DAFTAR </b>PENGGUNA</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->

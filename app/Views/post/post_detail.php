@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1><b>FORUM DISKUSI : </b><span class="text-uppercase"><?= $post->post_group ?></span></h1>
+          <h1><b>DETAIL </b>DISKUSI <span class="text-uppercase"><?= $post->post_group ?></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->

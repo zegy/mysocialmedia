@@ -24,7 +24,6 @@
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div style="background-color: #f8f9fa" class="card-body"><!-- Custom style to match the comments card (background-color) -->
-              <p><b>Judul : </b><span id="post_judul"><?= $post->post_title ?></span></p>
               <div class="row" id="post_images">
               <?php if (!empty($post->post_img)){ $imgs = explode(",", $post->post_img); foreach ($imgs as $img) {?>
                 <div class="col-2">
@@ -34,6 +33,7 @@
                 </div>
               <?php } } ?>
               </div>
+              <p><b>Judul : </b><span id="post_judul"><?= $post->post_title ?></span></p>
               <p><b>Detail : </b><span id="post_deskripsi"><?= $post->post_text ?></span></p>
               <?php if (session('id') == $post->user_pk || session('role') == 'admin') { ?>
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->post_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>

@@ -95,7 +95,10 @@ class Comment extends BaseController
                         "icon"         => 'icon', // TODO
                         "click_action" => base_url('group' . '/' . $group . '/detail' . '/' . $this->request->getPost('pid'))
                     ],
-                    "to" => "$post_owner->user_token"
+                    // "to" => "$post_owner->user_token" // Single target
+                    "registration_ids" => [ // Multi target
+                        $post_owner->user_token
+                    ]
                 ];
         
                 $headers = [ // Danger! Notice it's not an associative array!

@@ -38,8 +38,8 @@
               <?php if (session('id') == $post->user_pk || session('role') == 'admin') { ?>
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->post_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>
-              <span class="float-right text-muted" id="count_comments"></span>
               <?php } ?>
+              <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
         </div><!-- /.col -->

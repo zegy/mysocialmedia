@@ -28,8 +28,8 @@
               <div class="row" id="post_images">
               <?php if (!empty($post->post_img)){ $imgs = explode(",", $post->post_img); foreach ($imgs as $img) {?>
                 <div class="col-2">
-                  <a href="<?= base_url('resource/posts/' . $img) ?>" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
-                    <img src="<?= base_url('resource/posts/thumb' . $img) ?>" class="img-fluid mb-2" alt="white sample"/>
+                  <a href="<?= base_url('resource/posts/' . $img) ?>" data-toggle="lightbox" data-title="<?= $img ?>" data-gallery="gallery">
+                    <img src="<?= base_url('resource/posts/thumb' . $img) ?>" class="img-fluid mb-2" alt="<?= $img ?>"/>
                   </a>
                 </div>
               <?php } } ?>

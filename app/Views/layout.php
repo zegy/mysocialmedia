@@ -20,11 +20,16 @@
       .circle-role-dosen{border:2px solid #ffc107;margin:0 auto;padding:3px;width:100px}
       .circle-role-mahasiswa{border:2px solid #17a2b8;margin:0 auto;padding:3px;width:100px}
 
-      /* user_detail's active tab link*/
+      /* user_detail's active tab link */
       .nav-item .nav-link.active{color: #fff; background-color: #17a2b8}
 
-      /* pagination's active page*/
+      /* pagination's active page */
       .pagination .page-item.active a{color: #fff; background-color: #17a2b8}
+
+      /* notif's role text colors */
+      .notif-role-admin{color: #dc3545}
+      .notif-role-dosen{color: #ffc107}
+      .notif-role-mahasiswa{color: #17a2b8}
   </style>  
 </head>
 

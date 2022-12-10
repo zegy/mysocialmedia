@@ -26,9 +26,9 @@
           </button>
         </div>
         <?php if ($comment->user_pk == session('id') || session('role') == 'admin') { ?>
-        <div style="margin-top: 5px; margin-left: 40px" class="float-left">
-          <button type="button" class="btn btn-danger btn-xs btn-delete-comment" data-cid="<?= $comment->comment_pk ?>"><i class="far fa-trash-alt"></i></button>
-          <button type="button" class="btn btn-secondary btn-xs btn-update-comment" data-cid="<?= $comment->comment_pk ?>"><i class="far fa-edit"></i></button>
+        <div style="margin-top: 5px; margin-right: 3px" class="float-right">
+          <button type="button" class="btn btn-danger btn-xs btn-delete-comment" data-cid="<?= $comment->comment_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
+          <button type="button" class="btn btn-secondary btn-xs btn-update-comment" data-cid="<?= $comment->comment_pk ?>"><i class="far fa-edit"></i> Ubah</button>
         </div>
         <?php } ?>
       </div><!-- /.col -->

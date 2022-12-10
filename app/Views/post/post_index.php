@@ -20,8 +20,8 @@
               <i class="fas fa-2x fa-sync fa-spin"></i>
             </div>
             <div class="card-header">
-              <button class="btn btn-info btn-sm btn-create-post"><i class="fa fa-plus"></i> Buat Diskusi <span class="text-capitalize"><?= $group ?></span></button>
-              <button class="btn btn-success btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
+              <button class="btn btn-success btn-sm btn-create-post"><i class="fa fa-plus"></i> Buat Diskusi</button>
+              <button class="btn btn-outline-secondary btn-sm btn-refresh-post"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_post_form">
                   <div class="input-group input-group-sm" style="width: 160px; margin: 0px">

@@ -21,9 +21,9 @@
             </div>
             <div class="card-header">
               <?php if (session('role') == 'admin') { ?>
-              <button class="btn btn-info btn-sm btn-create-user"><i class="fa fa-plus"></i> Tambah Pengguna</button>
+              <button class="btn btn-success btn-sm btn-create-user"><i class="fa fa-plus"></i> Tambah Pengguna</button>
               <?php } ?>
-              <button class="btn btn-success btn-sm btn-refresh-user"><i class="fas fa-sync-alt"></i></button>
+              <button class="btn btn-outline-secondary btn-sm btn-refresh-user"><i class="fas fa-sync-alt"></i></button>
               <div class="card-tools">
                 <form id="search_user_form">
                   <div class="input-group input-group-sm" style="width: 160px; margin: 0px">

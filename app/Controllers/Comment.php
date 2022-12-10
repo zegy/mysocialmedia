@@ -7,6 +7,7 @@ use App\Models\CommentModel;
 use App\Models\LikeModel;
 use App\Models\NotifModel;
 use App\Models\UserModel;
+use App\Models\PostSubModel;
 
 class Comment extends BaseController
 {
@@ -16,6 +17,7 @@ class Comment extends BaseController
         $this->likeModel = new LikeModel();
         $this->notifModel = new NotifModel();
         $this->userModel = new UserModel();
+        $this->postSubModel = new PostSubModel();
     }
 
     public function list() // AJAX
@@ -88,7 +90,7 @@ class Comment extends BaseController
                 $group = $this->request->getPost('group');
 
                 $fields = [
-                    // "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
+                    "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
                     "notification" => [
                         "body"         => session('full_name') . ' mengomentari postingan anda!',
                         "title"        => 'DIPSI',
@@ -117,6 +119,29 @@ class Comment extends BaseController
                 // FCM END
             }
         }
+
+        // Send notif to post's sub (exclude the comment owner)
+        $post_subs = $this->postSubModel
+            ->where([
+                'post_sub_fk_post' => $this->request->getPost('pid'),
+                'post_sub_fk_user !=' => session('id')
+            ])
+            ->findAll();
+
+        if (!empty($post_subs[0])) {
+            foreach ($post_subs as $post_sub) {
+                $data_notif = [
+                    'notif_to_fk_user'   => $post_sub->post_sub_fk_user,
+                    'notif_from_fk_user' => session('id'),
+                    'notif_type'         => 'comment_followed_post',
+                    'notif_fk_post'      => $post_sub->post_sub_fk_post
+                ];
+        
+                $this->notifModel->save($data_notif);
+            }
+        }
+
+
         echo json_encode($output);
     }
 

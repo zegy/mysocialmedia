@@ -51,6 +51,7 @@ $routes->add('post/list_from_user',             'Post::list_from_user');
 $routes->add('post/delete',     'Post::delete');
 $routes->add('post/create',     'Post::create');
 $routes->add('post/update',     'Post::update');
+$routes->add('post/sub',        'Post::sub'); // User sub to post (for notif) 
 
 $routes->add('comment/list',    'Comment::list');
 $routes->add('comment/create',  'Comment::create');

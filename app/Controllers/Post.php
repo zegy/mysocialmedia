@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\PostModel;
+use App\Models\PostSubModel;
 
 class Post extends BaseController
 {
     function __construct()
     {
         $this->postModel = new PostModel();
+        $this->postSubModel = new PostSubModel();
     }
 
     public function index($group)
@@ -266,6 +268,37 @@ class Post extends BaseController
         else {
             return view('post/post_detail', ['post' => $post]);
         }
+    }
+
+    public function sub() // AJAX
+    {
+        if (!$this->request->isAJAX()) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
+        }
+        
+        $pid = $this->request->getPost('pid');
+
+        $sub = $this->postSubModel->where(['post_sub_fk_post' => $pid, 'post_sub_fk_user' => session('id')])->first();
+        
+        if (empty($sub)) {
+            $data = [
+                'post_sub_fk_post' => $this->request->getPost('pid'),
+                'post_sub_fk_user' => session('id')
+            ];
+    
+            $this->postSubModel->save($data);
+            echo json_encode([
+                'status' => true,
+                'subbed' => true
+            ]);
+        }
+        else {
+            $this->postSubModel->delete($sub->post_sub_pk);
+            echo json_encode([
+                'status' => true,
+                'subbed' => false
+            ]);
+        }        
     }
 
     public function save_post_images($images) // Return image names (array)

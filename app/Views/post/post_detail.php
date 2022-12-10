@@ -39,6 +39,9 @@
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->post_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>
               <?php } ?>
+              <?php if (session('id') != $post->user_pk) { ?>
+              <button type="button" class="btn btn-warning btn-xs" id="btn-sub" data-id="<?= $post->post_pk ?>"><i class="fas fa-bell"></i> Terima notifikasi untuk post ini</button>
+              <?php } ?>
               <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
           </div><!-- /.card -->
@@ -245,6 +248,30 @@
       $(this).ekkoLightbox({
         alwaysShowClose: true
       })
+    })
+
+    // Sub to post (FCM)
+    $(document).on("click", "#btn-sub", function() {
+        let pid = $(this).data("id")
+
+        $.ajax({
+          url: "<?= base_url('post/sub') ?>",
+          dataType: "json",
+          type: "post",
+          data: {
+            pid: pid,
+          },
+          success: function(res) {
+            if (res.status) {
+              //TODO : Using sweet alert
+              if (res.subbed) {
+                alert('sub yes') 
+              } else {
+                alert('sub no') 
+              }
+            }
+          }
+        })
     })
 
     // Update post (Form modal with data)

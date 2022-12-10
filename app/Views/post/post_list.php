@@ -12,7 +12,7 @@
     <tbody>
       <?php foreach ($posts as $post) { ?>
       <tr>
-        <td style="width: 150px; min-width: 150px">
+        <td style="width: 150px; min-width: 150px; padding-top: 10px;">
           <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->user_role ?>" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" data-uid="<?= $post->user_pk ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
           <br/>
           <small><?= mb_strimwidth($post->user_full_name, 0, 18, "..") ?></small>

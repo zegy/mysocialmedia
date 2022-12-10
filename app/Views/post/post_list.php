@@ -1,6 +1,6 @@
 <div class="card-body" style="height: auto;">
   <!-- <table class="table table-head-fixed text-nowrap projects"> -->
-  <table style="text-align: center" class="table table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
+  <table style="text-align: center" class="table table-sm table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
     <thead>
       <tr>
         <th>Pembuat</th>

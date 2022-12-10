@@ -40,7 +40,11 @@
               <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>
               <?php } ?>
               <?php if (session('id') != $post->user_pk) { ?>
-              <button type="button" class="btn btn-warning btn-xs" id="btn-sub" data-id="<?= $post->post_pk ?>"><i class="fas fa-bell"></i> Terima notifikasi untuk post ini</button>
+              <?php if ($subbed) { ?>
+              <button type="button" class="btn btn-xs btn-success" id="btn-sub" data-id="<?= $post->post_pk ?>"><i class="fas fa-bell"></i><span> Notifikasi : Aktif</span></button>
+              <?php } else { ?>
+              <button type="button" class="btn btn-xs btn-warning" id="btn-sub" data-id="<?= $post->post_pk ?>"><i class="fas fas fa-bell-slash"></i><span> Notifikasi : Tidak Aktif</span></button>
+              <?php } ?>
               <?php } ?>
               <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
@@ -263,11 +267,14 @@
           },
           success: function(res) {
             if (res.status) {
-              //TODO : Using sweet alert
               if (res.subbed) {
-                alert('sub yes') 
+                $("#btn-sub").removeClass('btn-warning')
+                $("#btn-sub").addClass('btn-success')
+                $("#btn-sub").html('<i class="fas fa-bell"></i><span> Notifikasi : Aktif</span>')
               } else {
-                alert('sub no') 
+                $("#btn-sub").removeClass('btn-success')
+                $("#btn-sub").addClass('btn-warning')
+                $("#btn-sub").html('<i class="fas fas fa-bell-slash"></i><span> Notifikasi : Tidak Aktif</span>')
               }
             }
           }

@@ -266,7 +266,9 @@ class Post extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
         else {
-            return view('post/post_detail', ['post' => $post]);
+            $sub = $this->postSubModel->where(['post_sub_fk_post' => $pid, 'post_sub_fk_user' => session('id')])->first();
+            $subbed = !empty($sub);
+            return view('post/post_detail', ['post' => $post, 'subbed' => $subbed]);
         }
     }
 

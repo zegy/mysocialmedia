@@ -301,13 +301,14 @@
       if (old_images != '') { //NOTE : Current post has image
         if($("#cb_update_image").prop("checked") == true){ //NOTE : User req change image
           Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Hapus / Ganti Foto?',
+            text: "Foto yang lama akan terhapus!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal'
           }).then((result) => {
             if (result.isConfirmed) { //NOTE : User agree to change image
               submit_update_post_form(formData)

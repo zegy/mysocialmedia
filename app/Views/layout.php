@@ -140,10 +140,14 @@
     <?= $this->renderSection('content') ?><!-- Content -->
     <aside id="layout-modal"></aside><!-- NOTE : Custom element for common modal called via AJAX -->
     <footer class="main-footer text-sm"><!-- Main Footer -->
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+      <!-- <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.2.0
+      </div> -->
+      <strong>[Diskusi Prodi Sistem Informasi]</strong>
+      <div class="float-right d-none d-sm-inline-block">
+        <b>DIPSI</b> v1.0
       </div>
     </footer>
   </div><!-- ./wrapper -->

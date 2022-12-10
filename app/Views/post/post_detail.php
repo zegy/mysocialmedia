@@ -38,8 +38,6 @@
               <?php if (session('id') == $post->user_pk || session('role') == 'admin') { ?>
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->post_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>
-              <?php } else { ?>
-              <button type="button" class="btn btn-secondary btn-xs" id="btn-sub"><i class="fas fa-bell"></i> Terima notifikasi untuk post ini</button>
               <?php } ?>
               <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
@@ -146,26 +144,6 @@
 <!-- [SCRIPTS] -->
 <?= $this->section('script') ?>
 <script>
-  //[0] FCM
-  function sub() {
-    // These registration tokens come from the client FCM SDKs.
-    const registrationTokens = [
-      messaging.getToken({vapidKey: 'BHZtAg-u53KvMH6h_Q9p9pg87-ihoOXJZbbvSbQkXZ0uVpmB1_JkIu5H-dDzTE-LIrIFTbA9lj48BTKfuxsUbZg'})
-    ];
-  
-    const topic = 'post1';
-    
-    // Subscribe the devices corresponding to the registration tokens to the topic.
-    messaging.subscribeToTopic(registrationTokens, topic)
-      .then((response) => {
-        // See the MessagingTopicManagementResponse reference documentation for the contents of response.
-        console.log('Successfully subscribed to topic:', response);
-      })
-      .catch((error) => {
-        console.log('Error subscribing to topic:', error);
-      });
-  }
-
   //[A] Callable functions
   function set_errors(errors) {
     $.each(errors, function(key, value) {
@@ -267,11 +245,6 @@
       $(this).ekkoLightbox({
         alwaysShowClose: true
       })
-    })
-
-    // Sub to post (FCM)
-    $(document).on("click", "#btn-sub", function() {
-      sub()
     })
 
     // Update post (Form modal with data)

@@ -20,7 +20,7 @@
               <div class="user-block">
                 <img class="img-circle" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" alt="User Image">
                 <span class="username"><a href="<?= base_url('user/detail/' . $post->user_pk) ?>"><?= mb_strimwidth($post->user_full_name, 0, 56, "..") ?></a></span>
-                <span class="description">Dibuat pada : <?= $post->post_date_time ?></span>
+                <span class="description">Dibuat pada : <?= date("d-m-Y H:i", strtotime($post->post_date_time)) ?></span>
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
             <div style="background-color: #f8f9fa" class="card-body"><!-- Custom style to match the comments card (background-color) -->

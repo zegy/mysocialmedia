@@ -9,7 +9,7 @@
           <a href="<?= base_url('user/detail/' . $comment->user_pk) ?>">
             <?= mb_strimwidth($comment->user_full_name, 0, 43, "..") ?>
           </a>
-          <span class="text-muted float-right"><?= $comment->comment_date_time ?></span>
+          <span class="text-muted float-right"><?= date("d-m-Y H:i", strtotime($comment->comment_date_time)) ?></span>
         </span><!-- /.username -->
         <div id="comment_text"><?= $comment->comment_text ?></div>
         </div><!-- /.comment-text -->

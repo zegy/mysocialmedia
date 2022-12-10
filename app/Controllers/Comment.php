@@ -139,6 +139,49 @@ class Comment extends BaseController
         
                 $this->notifModel->save($data_notif);
             }
+
+            // Get subs that has token
+            $users_with_token = $this->postSubModel->getAllWithToken($this->request->getPost('pid'));
+            
+            // Send notif (FCM) to subs with token.
+            if (!empty($users_with_token[0])) {
+                // Experimental : Get the token only (The data from model has the key "user_token")
+                $count = 0;
+                foreach ($users_with_token as $user_with_token) {
+                    $tokens[$count] = $user_with_token->user_token;
+                    $count++;
+                }
+                
+                // FCM START
+                // Using PHP's "cURL Functions". Failed to use CI's "CURLRequest" Class. Ref : part-1-experimental AND https://shareurcodes.com/blog/send%20push%20notification%20to%20users%20using%20firebase%20messaging%20service%20in%20php
+                $group = $this->request->getPost('group');
+
+                $fields = [
+                    // "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
+                    "notification" => [
+                        "body"         => session('full_name') . ' mengomentari postingan yang anda ikuti!',
+                        "title"        => 'DIPSI',
+                        "icon"         => 'icon', // TODO
+                        "click_action" => base_url('group' . '/' . $group . '/detail' . '/' . $this->request->getPost('pid'))
+                    ],
+                    "registration_ids" => $tokens
+                ];
+        
+                $headers = [ // Danger! Notice it's not an associative array!
+                    'Authorization: key=AAAArTff7d4:APA91bFQArT9HUGgZtPk7EDV3pFKX3DozsU4_qy8mSLZ1VYzgufVrTJN_h627bVzhm4Izq4Bu8PLpllmg8CCW-EjU8XKzoW_LvoypqFi7I_jUyUGk3gwnh_CwPapF-_oa_FKRZQ9Mlxn',
+                    'Content-Type: application/json'
+                ];
+        
+                $ch = curl_init();
+                curl_setopt($ch,CURLOPT_URL,'https://fcm.googleapis.com/fcm/send');
+                curl_setopt($ch,CURLOPT_POST,true);
+                curl_setopt($ch,CURLOPT_HTTPHEADER,$headers);
+                curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+                curl_setopt($ch,CURLOPT_POSTFIELDS,json_encode($fields));
+                curl_exec($ch);
+                curl_close($ch);
+                // FCM END
+            }
         }
 
 

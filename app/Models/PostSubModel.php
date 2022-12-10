@@ -15,6 +15,24 @@ class PostSubModel extends Model
         'post_sub_fk_user'
     ];
     protected $useTimestamps = false;
+
+    //NOTE Custom var with "standard query" string (instead of CI's Model and Query Builder)
+    protected $selected = '
+        user_token
+    ';
+
+    public function getAllWithToken($pid)
+    {
+        return $this->select($this->selected)
+                    ->join('t_user', 'post_sub_fk_user = user_pk')
+                    ->join('t_post', 'post_sub_fk_post = post_pk')
+                    ->where([
+                        'post_sub_fk_post' => $pid,
+                        'user_token !=' => '' //EXPERIMENTAL!. "null" is not working
+                    ])
+                    ->get()
+                    ->getResult();
+    }
 }
 
 /*NOTE

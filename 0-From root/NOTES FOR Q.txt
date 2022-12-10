@@ -1,0 +1,9 @@
+"Send messages to multiple devices" dapat dilakukan via "Topic messaging" dan "Device group messaging"
+https://firebase.google.com/docs/cloud-messaging/js/send-multiple
+Why not : 
+	Topic messaging => perlu "Admin FCM API" dari "Firebase Admin SDK" (Berisi seluruh fitur firebase). Termasuk manajemen topik
+	Device group messaging => max 20
+
+
+Send messages to topics on Web/JavaScript : Perlu "Admin FCM API" dari "Firebase Admin SDK" menggunakan "Node.js" (JS berjalan di sisi server). Saat ini hanya menggunakan "client JavaScript SDK"
+https://firebase.google.com/docs/cloud-messaging/js/topic-messaging#subscribe_the_client_app_to_a_topic

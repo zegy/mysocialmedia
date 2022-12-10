@@ -28,7 +28,8 @@ class NotifModel extends Model
         (SELECT post_group FROM t_post WHERE notif_fk_post = post_pk) AS post_group,
         (SELECT post_pk FROM t_post WHERE notif_fk_post = post_pk) AS post_pk,
         (SELECT user_full_name FROM t_user WHERE notif_from_fk_user = user_pk) AS from_user_full_name,
-        (SELECT user_profile_picture FROM t_user WHERE notif_from_fk_user = user_pk) AS from_user_profile_picture
+        (SELECT user_profile_picture FROM t_user WHERE notif_from_fk_user = user_pk) AS from_user_profile_picture,
+        (SELECT user_role FROM t_user WHERE notif_from_fk_user = user_pk) AS from_user_role
     ';
 
     public function getAllByCurrentUser($user)

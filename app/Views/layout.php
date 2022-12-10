@@ -37,7 +37,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-          <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="nav-link">Profil</a>
+          <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="nav-link">Profil Saya</a>
         </li>
       </ul>
       <ul style="margin-right: 15px" class="navbar-nav ml-auto"><!-- Right navbar links -->      
@@ -90,7 +90,7 @@
             <img src="<?= base_url('resource/users/thumb' . session('picture')) ?>" class="img-circle elevation-2 user-profile-picture" alt="User Image">
           </div>
           <div class="info">
-            <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="d-block text-capitalize user-full-name"><?= session('full_name') ?></a>
+            <a href="<?php echo base_url('user/detail/' . session('id')) ?>" class="d-block text-capitalize user-full-name"><?= mb_strimwidth(session('full_name'), 0, 21, "..") ?></a>
           </div>
         </div>
         <nav class="mt-2"><!-- Sidebar Menu -->

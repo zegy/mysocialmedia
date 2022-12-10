@@ -3,7 +3,6 @@
   <table style="text-align: center" class="table table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
     <thead>
       <tr>
-        <th>No.</th>
         <th>Pembuat</th>
         <th>Judul Diskusi</th>
         <th>Tanggal</th>
@@ -13,11 +12,10 @@
     <tbody>
       <?php foreach ($posts as $post) { ?>
       <tr>
-        <td style="width: 50px; min-width: 50px"><?= $post->post_pk ?></td>
         <td style="width: 150px; min-width: 150px">
           <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->user_role ?>" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" data-uid="<?= $post->user_pk ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
           <br/>
-          <small><?= $post->user_id_mix ?></small>
+          <small><?= mb_strimwidth($post->user_full_name, 0, 18, "..") ?></small>
         </td>
         <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/' . $post->post_group . '/' . 'detail/' . $post->post_pk) ?>"><?= $post->post_title ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
         <td style="width: 50px; min-width: 50px"><?= $post->post_date_time ?></td> <!-- TODO : Fix the format later! -->

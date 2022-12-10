@@ -9,7 +9,7 @@
         <div class="card-body pt-0">
           <div class="row">
             <div class="col-7">
-              <h2 class="lead"><b><?= $user->user_full_name ?></b></h2>
+              <h2 style="min-height: 65px" class="lead"><b><?= mb_strimwidth($user->user_full_name, 0, 48, "..") ?></b></h2>
               <p class="text-muted text-sm"><b>user_bio: </b> <?= $user->user_bio ?> </p>
               <ul class="ml-4 mb-0 fa-ul text-muted">
                 <li class="small"><span class="fa-li"><i class="fas fa-lg fa-id-badge"></i></span><div class="user-id-mix"><?php if ($user->user_role == 'mahasiswa') { echo('NIM :');} else if ($user->user_role == 'dosen') {echo('NIP : ');} else {echo('ID_Admin : ');}?> <?= $user->user_id_mix ?></div></li>

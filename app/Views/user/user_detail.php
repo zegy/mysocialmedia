@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1><b>PROFIL </b><span id="header-username"><?= $user->user_full_name ?></span></h1>
+          <h1><b>PROFIL </b><?php if ($user->user_pk == session('id')) {echo('SAYA');} else {echo('PENGGUNA');} ?></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -386,7 +386,7 @@
             $(".overlay").hide()
             
             // Update other related elements (The form is set-as-is, no need to update)
-            $("#header-username").text(formData.get('user_full_name'))
+            // $("#header-username").text(formData.get('user_full_name')) // REMOVED!
             
             // Update "layout" elements if updated user = current user/session
             $(".user-panel .user-full-name").text(formData.get('user_full_name'))

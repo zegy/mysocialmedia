@@ -49,14 +49,14 @@
                     </div>
                     <?php if (session('id') == $user->user_pk || session('role') == 'admin') { ?>
                     <div class="form-group row">
-                      <label for="user_password" class="col-sm-2 col-form-label">user_password</label>
+                      <label for="user_password" class="col-sm-2 col-form-label">Password</label>
                       <div class="col-sm-10">
                         <input type="password" class="form-control" name="user_password" id="user_password"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="conf_user_password" class="col-sm-2 col-form-label">conf_user_password</label>
+                      <label for="conf_user_password" class="col-sm-2 col-form-label">Konfirmasi Password</label>
                       <div class="col-sm-10">
                         <input type="password" class="form-control" name="conf_user_password" id="conf_user_password"> <!-- NOTE : PHP's password_hash() is one-way hashing algorithm. Hence can't decrypt it -->
                         <div class="invalid-feedback"></div>
@@ -64,28 +64,28 @@
                     </div>
                     <?php } ?>
                     <div class="form-group row">
-                      <label for="user_full_name" class="col-sm-2 col-form-label">user_full_name</label>
+                      <label for="user_full_name" class="col-sm-2 col-form-label">Nama Lengkap</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="user_full_name" id="user_full_name" value="<?= $user->user_full_name ?>">
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="user_email" class="col-sm-2 col-form-label">user_email</label>
+                      <label for="user_email" class="col-sm-2 col-form-label">Email</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" name="user_email" id="user_email" value="<?= $user->user_email ?>" <?php if (session('role') != 'admin') { ?> readonly <?php } ?>>
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="user_tel" class="col-sm-2 col-form-label">user_tel</label>
+                      <label for="user_tel" class="col-sm-2 col-form-label">No. HP</label>
                       <div class="col-sm-10">
                         <input type="tel" class="form-control" name="user_tel" id="user_tel" value="<?= $user->user_tel ?>"><!-- TODO : "type=tel"... Use pattern? -->
                         <div class="invalid-feedback"></div> 
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="user_sex" class="col-sm-2 col-form-label">user_sex</label>
+                      <label for="user_sex" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                       <div class="col-sm-10">
                         <select class="form-control" name="user_sex" id="user_sex">
                           <option value="m">Laki-laki</option>
@@ -95,14 +95,14 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="user_bio" class="col-sm-2 col-form-label">user_bio</label>
+                      <label for="user_bio" class="col-sm-2 col-form-label">Bio</label>
                       <div class="col-sm-10">
                         <textarea class="form-control" name="user_bio" id="user_bio"><?= $user->user_bio ?></textarea>
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
                     <div style="display: none" class="form-group row" id="image_input"><!-- NOTE : Experimental! because using "Horizontal form". Need to find the file input format -->
-                      <label for="user_profile_picture" class="col-sm-2 col-form-label">user_profile_picture</label>
+                      <label for="user_profile_picture" class="col-sm-2 col-form-label">Foto Profil</label>
                       <div class="col-sm-10">
                         <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
                         <div class="invalid-feedback"></div>
@@ -121,7 +121,7 @@
                     <?php } ?>
                     <?php if (session('role') == 'admin') { ?>
                     <div class="form-group row">
-                      <label for="user_role" class="col-sm-2 col-form-label">user_role</label>
+                      <label for="user_role" class="col-sm-2 col-form-label">Peran</label>
                       <div class="col-sm-10">
                         <select class="form-control" name="user_role" id="user_role"> <!-- TODO : There is dedicated class for "select". Check later! -->
                           <option value="admin">Admin</option>
@@ -150,15 +150,15 @@
                       <div class="offset-sm-2 col-sm-10">
                         <input type="hidden" name="uid" id="uid" value="<?= $user->user_pk ?>">
                         <?php if (session('role') == 'admin' && session('id') != $user->user_pk) { ?>
-                        <button type="button" class="btn btn-danger btn-delete-user" data-uid="<?= $user->user_pk ?>">Delete</button>
+                        <button type="button" class="btn btn-danger btn-delete-user" data-uid="<?= $user->user_pk ?>">Hapus</button>
                         <?php } ?>
-                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="submit" class="btn btn-success">Ubah</button>
                       </div>
                     </div>
                     <?php } ?>
                   </form>
                   <?php if (session('id') == $user->user_pk) { ?>
-                  <button style="margin-top: 25px" type="button" class="btn btn-danger float-right btn-sign-out">Sign Out</button>
+                  <button style="margin-top: 25px" type="button" class="btn btn-danger float-right btn-sign-out">Logout</button>
                   <?php } ?>
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="diskusi">

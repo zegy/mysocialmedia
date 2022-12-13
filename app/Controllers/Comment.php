@@ -90,7 +90,7 @@ class Comment extends BaseController
                 $group = $this->request->getPost('group');
 
                 $fields = [
-                    "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
+                    // "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
                     "notification" => [
                         "body"         => session('full_name') . ' mengomentari postingan anda!',
                         "title"        => 'DIPSI',
@@ -157,7 +157,7 @@ class Comment extends BaseController
                 $group = $this->request->getPost('group');
 
                 $fields = [
-                    "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
+                    // "dry_run" => true, // DANGER TEMPORARY! test a request without actually sending a message!
                     "notification" => [
                         "body"         => session('full_name') . ' mengomentari postingan yang anda ikuti!',
                         "title"        => 'DIPSI',

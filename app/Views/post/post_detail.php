@@ -196,6 +196,7 @@
       dataType: "json",
       success: function(res) {
         if (res.status) {
+          alert('sukses!') // TODO ASAP  : Sweet alert!
           $("#post_modal_update").modal("toggle")
 
           //NOTE : Update post's elements with new value (From prev "formData". Image names is from res)

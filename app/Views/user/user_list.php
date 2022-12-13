@@ -24,7 +24,7 @@
         <div class="card-footer">
           <div class="text-right">
             <a href="<?= base_url('user/detail/' . $user->user_pk) ?>" class="btn btn-sm btn-info">
-              <i class="fas fa-user"></i> View Profile
+              <i class="fas fa-user"></i> Detail Pengguna
             </a>
           </div>
         </div>

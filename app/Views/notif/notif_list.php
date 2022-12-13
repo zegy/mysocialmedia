@@ -4,7 +4,7 @@
     <img src="<?= base_url('resource/users/thumb' . $notif->from_user_profile_picture) ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
     <div class="media-body">
       <h3 class="dropdown-item-title">
-        <?= mb_strimwidth($notif->from_user_full_name, 0, 16, "..") ?>
+        <?= mb_strimwidth($notif->from_user_full_name, 0, 13, "..") ?>
         <!-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> NOTE Original!-->
         <span class="float-right text-sm text-capitalize notif-role-<?= $notif->from_user_role ?>"><?= $notif->from_user_role ?></span> <!-- NOTE The custom -->
       </h3>

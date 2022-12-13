@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1><b>PROFIL </b><?php if ($user->user_pk == session('id')) {echo('SAYA');} else {echo('PENGGUNA');} ?></h1>
+          <?php if ($user->user_pk == session('id')) {echo('<h1><b>PROFIL </b>SAYA');} else {echo('<h1><b>DETAIL </b>PENGGUNA');} ?></h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->

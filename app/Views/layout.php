@@ -51,7 +51,7 @@
             <i class="far fa-bell"></i>
             <span class="badge badge-danger navbar-badge notif-button"><!-- "notif_count" --></span>
           </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <div style="height: auto; max-height: 400px; overflow-x: hidden;" class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <!-- Custom style for "scrollable menu". https://www.codeply.com/go/Uh8qadr3q2/bootstrap-scrollable-dropdown-menu -->
             <div id="notif_list_data">
               <!-- NOTE : Get data using AJAX (Replace anything inside this "notif_list_data" after request) -->
             </div>

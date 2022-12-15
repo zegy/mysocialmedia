@@ -180,7 +180,7 @@
 <?= $this->section('script') ?>
 <script>
   //[0] FCM
-  function resetUI() {
+  function set() {
     // Get registration token. Initially this makes a network call, once retrieved
     // subsequent calls to getToken will return from cache.
     messaging.getToken({vapidKey: 'BHZtAg-u53KvMH6h_Q9p9pg87-ihoOXJZbbvSbQkXZ0uVpmB1_JkIu5H-dDzTE-LIrIFTbA9lj48BTKfuxsUbZg'}).then((currentToken) => {
@@ -366,10 +366,8 @@
     
       // FCM
       if ($("#cb_fcm_status").prop("checked") == true) {
-        // console.log("Checkbox is checked.")
-        resetUI()
+        set()
       } else if($("#cb_fcm_status").prop("checked") == false){
-        // console.log("Checkbox is unchecked.")
         deleteToken()
       }
 

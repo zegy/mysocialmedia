@@ -5,7 +5,7 @@
       <tr>
         <th>Judul Diskusi</th>
         <th>Jenis</th>
-        <th></th>
+        <th>Waktu</th>
       </tr>
     </thead>
     <tbody>
@@ -13,9 +13,7 @@
       <tr>
         <td style="width: 100%; min-width: 330px; text-align: justify" class="post_td_text" data-link="<?= base_url('group/' . $post->post_group . '/' . 'detail/' . $post->post_pk) ?>"><?= $post->post_title ?></td> <!-- NOTE Experimental : The weird "style" is so table's column can have "static" width -->
         <td style="width: 50px; min-width: 50px" class="text-capitalize"><?= $post->post_group ?></td>
-        <td class="project-actions text-right">
-          <a class="btn btn-info" href="<?= base_url('group/' . $post->post_group . '/' . 'detail/' . $post->post_pk) ?>"><i class="far fa-comments"></i></a>
-        </td>
+        <td style="width: 50px; min-width: 135px"><?= date("d-m-Y H:i", strtotime($post->post_date_time)) ?></td> <!-- TODO : Fix the format later! -->
       </tr>
       <?php } ?>
     </tbody>

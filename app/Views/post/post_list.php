@@ -13,7 +13,7 @@
       <?php foreach ($posts as $post) { ?>
       <tr>
         <td style="width: 150px; min-width: 150px; padding-top: 10px;" class="post_td_user" data-uid="<?= $post->user_pk ?>">
-          <img alt="Avatar" class="table-avatar <?='circle-role-' . $post->user_role ?>" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
+          <img alt="Avatar" class="table-avatar elevation-2 <?='circle-role-' . $post->user_role ?>" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>"><!-- NOTE Original : Only had "table-avatar" (overrided in layout) -->
           <br/>
           <small><?= mb_strimwidth($post->user_full_name, 0, 18, "..") ?></small>
         </td>

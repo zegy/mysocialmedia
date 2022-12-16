@@ -24,7 +24,7 @@
                 </ul>
               </div>
               <div class="col-5 text-center">
-                <img src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="user-avatar" class="img-circle img-fluid">
+                <img src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="user-avatar" class="img-circle img-fluid elevation-2">
               </div>
             </div>
           </div>

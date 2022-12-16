@@ -1,7 +1,7 @@
 <?php foreach ($notifs as $notif) { ?>
 <a href="#" class="dropdown-item notif-item" data-nid="<?= $notif->notif_pk ?>" data-group="<?= $notif->post_group ?>" data-pid="<?= $notif->post_pk ?>">
   <div class="media"><!-- Message Start -->
-    <img src="<?= base_url('resource/users/thumb' . $notif->from_user_profile_picture) ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+    <img src="<?= base_url('resource/users/thumb' . $notif->from_user_profile_picture) ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle elevation-2">
     <div class="media-body">
       <h3 class="dropdown-item-title">
         <?= mb_strimwidth($notif->from_user_full_name, 0, 13, "..") ?>

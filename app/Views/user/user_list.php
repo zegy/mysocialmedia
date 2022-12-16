@@ -18,7 +18,7 @@
             </div>
             <div class="col-5 text-center">            
               <a href="<?= base_url('resource/users/' . $user->user_profile_picture) ?>" data-toggle="lightbox" data-title="<?= $user->user_full_name ?>" data-gallery="gallery">
-                <img src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" class="img-circle img-fluid" alt="<?= $user->user_profile_picture ?>"/>
+                <img src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" class="img-circle img-fluid elevation-2" alt="<?= $user->user_profile_picture ?>"/>
               </a>
             </div>
           </div>

@@ -19,7 +19,7 @@
             <div class="card-body box-profile">
               <div class="text-center">
                 <a href="<?= base_url('resource/users/' . $user->user_profile_picture) ?>" data-toggle="lightbox" data-title="<?= $user->user_full_name ?>" data-gallery="gallery">
-                  <img class="profile-user-img img-fluid img-circle" src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle elevation-2" src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="User profile picture">
                 </a>
               </div>
               <h3 class="text-center text-capitalize profile-username"><?= $user->user_full_name ?></h3>

@@ -18,7 +18,7 @@
           <div class="card card-widget"><!-- Box Comment -->
             <div style="height: 60px" class="card-header">
               <div class="user-block">
-                <img class="img-circle" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" alt="User Image">
+                <img class="img-circle elevation-2" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" alt="User Image">
                 <span class="username"><a href="#" data-uid="<?= $post->user_pk ?>"><?= mb_strimwidth($post->user_full_name, 0, 56, "..") ?></a></span>
                 <span class="description">Dibuat pada : <?= date("d-m-Y H:i", strtotime($post->post_date_time)) ?></span>
               </div><!-- /.user-block -->
@@ -60,7 +60,7 @@
             </div><!-- /.card-footer -->
             <div class="card-footer">
               <form id="comment_create_form">
-                <img class="img-fluid img-circle img-sm" src="<?= base_url('resource/users/thumb' . session('picture')) ?>" alt="Alt Text">
+                <img class="img-fluid img-circle img-sm elevation-2" src="<?= base_url('resource/users/thumb' . session('picture')) ?>" alt="Alt Text">
                 <div class="img-push"><!-- .img-push is used to add margin to elements next to floating images -->
                   <div class="form-group">
                     <textarea class="form-control" name="komentar" id="komentar" rows="3"></textarea>

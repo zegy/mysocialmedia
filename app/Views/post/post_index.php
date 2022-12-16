@@ -234,8 +234,8 @@
       $(".overlay").hide()
     })
 
-    // Show post's user modal.
-    $(document).on("click", ".table-avatar", function(e) {
+    // Show post's user modal (using table's td)
+    $(document).on("click", ".post_td_user", function(e) {
       e.preventDefault()
 
       let uid = $(this).data('uid')
@@ -257,7 +257,7 @@
     })
 
     // Redirect to post_detail after click post_text's area (The table's td)
-    $(document).on("click", ".post_td_text", function(e) {
+    $(document).on("click", ".post_td_title", function(e) {
       e.preventDefault()
       let link = $(this).data('link')
       window.location = link

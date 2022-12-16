@@ -505,16 +505,14 @@
             },
             success: function(res) {
               Swal.fire({
-                title: 'Deleted!',
-                text: "Your file has been deleted.",
+                title: 'Sukses!',
+                text: "Komentar Berhasil Dihapus",
                 icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  get_comment_list()
-                }
+                timer: 2000,
+                showConfirmButton: false
               })
+                
+              get_comment_list()
             }
           })
         }

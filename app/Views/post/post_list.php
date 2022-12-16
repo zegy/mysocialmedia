@@ -1,11 +1,11 @@
 <div class="card-body" style="height: auto;">
   <!-- <table class="table table-head-fixed text-nowrap projects"> -->
   <table style="text-align: center" class="table table-sm table-bordered table-striped table-responsive projects"> <!-- TODO : Clean "projects" later -->
-    <thead style="color: #fff; background-color: #6c757d">
+    <thead>
       <tr>
         <th>Pembuat</th>
         <th>Judul Diskusi</th>
-        <th>Tanggal</th>
+        <th>Waktu</th>
         <th></th> <!-- TODO -->
       </tr>
     </thead>

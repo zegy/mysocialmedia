@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-7">
               <h2 class="lead"><b><?= $user->user_full_name ?></b></h2>
-              <p class="text-muted text-sm user-bio"><b>user_bio: </b><?= $user->user_bio ?></p>
+              <p class="text-muted text-sm user-bio"><b>Bio: </b><?= $user->user_bio ?></p>
               <ul class="ml-4 mb-0 fa-ul text-muted">
                 <li class="small"><span class="fa-li"><i class="fas fa-lg fa-id-badge"></i></span><div class="user-id-mix"><?php if ($user->user_role == 'mahasiswa') { echo('NIM :');} else if ($user->user_role == 'dosen') {echo('NIP : ');} else {echo('ID_Admin : ');}?> <?= $user->user_id_mix ?></div></li>
                 <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> -->

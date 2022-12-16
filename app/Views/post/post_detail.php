@@ -217,6 +217,12 @@
           $("#post_deskripsi").text(formData.get('deskripsi'))
           $("#post_judul").text(formData.get('judul'))
 
+          //NOTE : Update other elements
+          // Sync post and comment card size (experimental!)
+          let post_size = $("#card-body-post").height() + 197
+          $("#comment_list_data").prop("style", "height: auto; max-height: " + post_size + "px; overflow-x: hidden;")
+
+          //NOTE : If there's image update
           if (res.images_change) {
             $("#post_images").empty() //NOTE : Clear prev image from element
 

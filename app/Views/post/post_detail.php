@@ -247,14 +247,6 @@
     // After loaded
     get_comment_list()
 
-    // Ekko Lightbox (For post's images)
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-      event.preventDefault()
-      $(this).ekkoLightbox({
-        alwaysShowClose: true
-      })
-    })
-
     // Sub to post (FCM)
     $(document).on("click", "#btn-sub", function() {
         let pid = $(this).data("id")

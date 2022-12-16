@@ -216,6 +216,14 @@
       // After loaded
       get_notif_list()
 
+      // Ekko Lightbox
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault()
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        })
+      })
+
       // Active sidebar
       let seg = (window.location.href).split('/') //Get current URL separated by "/" as segments. The seg[3] is like CI's "1st" segment
       let ele1 = document.getElementById(seg[3]); // 1st parameter

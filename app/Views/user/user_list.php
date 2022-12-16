@@ -16,8 +16,10 @@
                 <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> -->
               </ul>
             </div>
-            <div class="col-5 text-center">
-              <img src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" alt="user-avatar" class="img-circle img-fluid">
+            <div class="col-5 text-center">            
+              <a href="<?= base_url('resource/users/' . $user->user_profile_picture) ?>" data-toggle="lightbox" data-title="<?= $user->user_full_name ?>" data-gallery="gallery">
+                <img src="<?= base_url('resource/users/thumb' . $user->user_profile_picture) ?>" class="img-circle img-fluid" alt="<?= $user->user_profile_picture ?>"/>
+              </a>
             </div>
           </div>
         </div>

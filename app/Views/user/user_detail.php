@@ -35,7 +35,7 @@
             <div class="card-header p-2">
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#informasi" data-toggle="tab">Informasi</a></li>
-                <li class="nav-item"><a class="nav-link" href="#diskusi" data-toggle="tab">Daftar Diskusi</a></li>
+                <li class="nav-item"><a class="nav-link" href="#diskusi" data-toggle="tab">Daftar Diskusi <?php if ($user->user_pk == session('id')) {echo('Saya');} else {echo('Pengguna');} ?></a></li>
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">

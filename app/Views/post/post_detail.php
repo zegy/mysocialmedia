@@ -19,7 +19,7 @@
             <div style="height: 60px" class="card-header">
               <div class="user-block">
                 <img class="img-circle" src="<?= base_url('resource/users/thumb' . $post->user_profile_picture) ?>" alt="User Image">
-                <span class="username"><a href="<?= base_url('user/detail/' . $post->user_pk) ?>"><?= mb_strimwidth($post->user_full_name, 0, 56, "..") ?></a></span>
+                <span class="username"><a href="#" data-uid="<?= $post->user_pk ?>"><?= mb_strimwidth($post->user_full_name, 0, 56, "..") ?></a></span>
                 <span class="description">Dibuat pada : <?= date("d-m-Y H:i", strtotime($post->post_date_time)) ?></span>
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
@@ -519,6 +519,28 @@
     $(document).on("click", ".btn-dislike-comment", function() {
       let cid = $(this).data("cid")
       submit_likeordis(cid, 'dislike')
+    })
+
+    // Show post's user modal.
+    $(document).on("click", ".username a", function(e) {
+      e.preventDefault()
+
+      let uid = $(this).data('uid')
+      
+      $.ajax({
+        url: "<?= base_url('user/sum_modal') ?>",
+        dataType: "json",
+        type: "post",
+        data: {
+          uid: uid
+        },
+        success: function(res) {
+          if (res.status) {
+            $("#layout-modal").html(res.user_sum_modal)
+            $("#user_sum_modal").modal("toggle")
+          }
+        }
+      })
     })
 
     // Reset input valid status on click

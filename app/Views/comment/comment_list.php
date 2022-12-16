@@ -6,7 +6,7 @@
         <img class="img-circle img-sm" src="<?= base_url('resource/users/thumb' . $comment->user_profile_picture) ?>" alt="User Image"><!-- User image -->
         <div class="comment-text">
         <span class="username">
-          <a href="<?= base_url('user/detail/' . $comment->user_pk) ?>">
+          <a href="#" data-uid="<?= $comment->user_pk ?>">
             <?= mb_strimwidth($comment->user_full_name, 0, 43, "..") ?>
           </a>
           <span class="text-muted float-right"><?= date("d-m-Y H:i", strtotime($comment->comment_date_time)) ?></span>

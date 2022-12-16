@@ -254,7 +254,6 @@
           }
         }
       })
-
     })
 
     // Redirect to post_detail after click post_text's area (The table's td)

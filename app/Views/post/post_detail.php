@@ -48,16 +48,6 @@
               <?php } ?>
               <span class="float-right text-muted" id="count_comments"></span>
             </div><!-- /.card-body -->
-          </div><!-- /.card -->
-        </div><!-- /.col -->
-        <div class="col-md-6">
-          <div class="card card-widget"><!-- Box Comment -->
-            <div style="height: 60px" class="card-header">
-              <h5 class="d-flex justify-content-center"><b>Komentar Diskusi</b></h5>
-            </div><!-- /.card-header -->
-            <div class="card-footer card-comments" id="comment_list_data">
-              <!-- NOTE : Get data using AJAX (Replace anything inside this "comment_list_data" after request) -->
-            </div><!-- /.card-footer -->
             <div class="card-footer">
               <form id="comment_create_form">
                 <img class="img-fluid img-circle img-sm elevation-2" src="<?= base_url('resource/users/thumb' . session('picture')) ?>" alt="Alt Text">
@@ -73,6 +63,16 @@
                   <!-- <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button> -->
                 </div>
               </form>
+            </div><!-- /.card-footer -->
+          </div><!-- /.card -->
+        </div><!-- /.col -->
+        <div class="col-md-6">
+          <div class="card card-widget"><!-- Box Comment -->
+            <div style="height: 60px" class="card-header">
+              <h5 class="d-flex justify-content-center"><b>Komentar Diskusi</b></h5>
+            </div><!-- /.card-header -->
+            <div style="height: auto; max-height: 400px; overflow-x: hidden;" class="card-footer card-comments" id="comment_list_data">
+              <!-- NOTE : Get data using AJAX (Replace anything inside this "comment_list_data" after request) -->
             </div><!-- /.card-footer -->
           </div><!-- /.card -->
         </div><!-- /.col -->

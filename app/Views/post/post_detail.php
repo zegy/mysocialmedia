@@ -23,7 +23,7 @@
                 <span class="description">Dibuat pada : <?= date("d-m-Y H:i", strtotime($post->post_date_time)) ?></span>
               </div><!-- /.user-block -->
             </div><!-- /.card-header -->
-            <div style="background-color: #f8f9fa" class="card-body"><!-- Custom style to match the comments card (background-color) -->
+            <div style="background-color: #f8f9fa" class="card-body" id="card-body-post"><!-- Custom style to match the comments card (background-color) -->
               <div class="row" id="post_images">
               <?php if (!empty($post->post_img)){ $imgs = explode(",", $post->post_img); foreach ($imgs as $img) {?>
                 <div class="col-2">
@@ -184,6 +184,10 @@
               $("#comment_list_data").animate({scrollTop:$("#comment_list_data").prop("scrollHeight")}, 1000)
             }
           }
+
+          // Sync post and comment card size (experimental!)
+          let post_size = $("#card-body-post").height() + 197
+          $("#comment_list_data").prop("style", "height: auto; max-height: " + post_size + "px; overflow-x: hidden;")
           
         } else {
           $("#comment_list_data").html('<div style="height: 29px; padding-top: 4px; padding-bottom: 4px; margin-bottom: 0px; font-size:95%;" class="alert-secondary text-center"><i class="icon fas fa-info-circle"></i><span> Belum ada komentar!</span></div>')

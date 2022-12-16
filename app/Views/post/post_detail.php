@@ -59,7 +59,7 @@
                   <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
                   <input type="hidden" name="uid" id="uid" value="<?= $post->user_pk ?>">
                   <input type="hidden" name="group" id="group" value="<?= $post->post_group ?>">
-                  <button type="submit" class="btn btn-info btn-sm float-right">Kirim</button>
+                  <button type="submit" class="btn btn-success btn-sm float-right">Buat Komentar</button>
                   <!-- <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button> -->
                 </div>
               </form>
@@ -117,8 +117,8 @@
         <div class="modal-footer justify-content-between">
           <input type="hidden" name="pid" id="pid" value="<?= $post->post_pk ?>">
           <input type="hidden" name="old_images" id="old_images" value="<?= $post->post_img ?>">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-info">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-success">Ubah</button>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -140,8 +140,8 @@
           <div class="invalid-feedback"></div>
         </div>
         <input type="hidden" name="cid" id="cid"> <!-- NOTE : Set using script (on comment update)-->
-        <button type="submit" class="btn btn-info btn-sm float-right">Kirim</button>
-        <button type="button" style="margin-right: 5px; display: none" class="btn btn-danger btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
+        <button type="submit" class="btn btn-success btn-sm float-right">Ubah</button>
+        <button type="button" style="margin-right: 5px; display: none" class="btn btn-secondary btn-sm float-right" id="btn-cancel-update-comment">Batal</button>
       </div>
     </div>
   </form>
@@ -161,6 +161,10 @@
         $('[id="' + key + '"]').addClass('is-valid')
       }
     })
+  }
+
+  function redirect_to_post_list() {
+    window.location = "<?= base_url('group/' . $post->post_group) ?>"
   }
 
   function get_comment_list(type) {
@@ -355,13 +359,14 @@
       let pid = $(this).data("id")
 
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Hapus diskusi?',
+        text: "Diskusi akan terhapus secara permanen",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
@@ -374,15 +379,12 @@
             success: function(res) {
               if (res.status) {
                 Swal.fire({
-                  title: 'Deleted!',
-                  text: "Your file has been deleted.",
+                  title: 'Sukses!',
+                  text: "Diskusi berhasil dihapus",
                   icon: 'success',
-                  confirmButtonColor: '#3085d6',
-                  confirmButtonText: 'OK'
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    window.location = "<?= base_url('group/' . $post->post_group) ?>"
-                  }
+                  timer: 2000,
+                  showConfirmButton: false,
+                  didClose: redirect_to_post_list // It's a function! syntax for redirect it not working here(?). Currently use this ref : https://stackoverflow.com/questions/46639492/how-to-listen-for-when-sweet-alert-closes
                 })
               } else {
                 // FATAL ERROR
@@ -487,13 +489,14 @@
       let cid = $(this).data("cid")
 
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Hapus komentar?',
+        text: "Komentar akan terhapus secara permanen",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
@@ -506,7 +509,7 @@
             success: function(res) {
               Swal.fire({
                 title: 'Sukses!',
-                text: "Komentar Berhasil Dihapus",
+                text: "Komentar berhasil dihapus",
                 icon: 'success',
                 timer: 2000,
                 showConfirmButton: false

@@ -163,7 +163,7 @@
     })
   }
 
-  function get_comment_list() {
+  function get_comment_list(type) {
     $.ajax({
       url: "<?= base_url('comment/list') ?>",
       dataType: "json",
@@ -176,8 +176,15 @@
           $("#comment_list_data").html(res.comments)
           $("#count_comments").text(res.comments_count + ' ' + 'Komentar')
 
-          // Scroll to the bottom of the scroll
-          $("#comment_list_data").animate({scrollTop:$("#comment_list_data").prop("scrollHeight")}, "slow")
+          // Auto scroll options
+          if (type) {
+            if (type == "firstLoad") {
+              $("#comment_list_data").scrollTop($("#comment_list_data").prop("scrollHeight"))
+            } else { // type == "onNewComment"
+              $("#comment_list_data").animate({scrollTop:$("#comment_list_data").prop("scrollHeight")}, 1000)
+            }
+          }
+          
         } else {
           $("#comment_list_data").html('<div style="height: 29px; padding-top: 4px; padding-bottom: 4px; margin-bottom: 0px; font-size:95%;" class="alert-secondary text-center"><i class="icon fas fa-info-circle"></i><span> Belum ada komentar!</span></div>')
           $("#count_comments").text('0 Komentar')
@@ -248,7 +255,7 @@
   //[B] Main scripts
   $(document).ready(function() {
     // After loaded
-    get_comment_list()
+    get_comment_list("firstLoad")
 
     // Sub to post (FCM)
     $(document).on("click", "#btn-sub", function() {
@@ -430,7 +437,7 @@
             $("#comment_create_form #komentar").val('')
 
             $("#btn-cancel-update-comment").hide()
-            get_comment_list() //NOTE (Pending) : Better get the new values and set them to spesific element
+            get_comment_list("onNewComment")
             $("#comment_create_form button[type='submit']").prop('disabled', false)
 
           } else {

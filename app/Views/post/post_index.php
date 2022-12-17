@@ -71,15 +71,15 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="images">File</label>
-            <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
+            <label for="images">Foto <small style="padding-left: 1px">(Bisa lebih dari satu)</small></label>
+            <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple> <!-- NOTE (Pending) : max file count -->
             <div class="invalid-feedback"></div>
           </div>
         </div>
         <div class="modal-footer justify-content-between">
           <input type="hidden" name="group" id="group" value="<?= $group ?>">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-info">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-success">Buat Diskusi</button>
         </div>
       </div>
       <!-- /.modal-content -->

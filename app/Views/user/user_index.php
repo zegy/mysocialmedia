@@ -63,37 +63,37 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="user_id_mix">user_id_mix <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_id_mix">NIM / NIP <i class="fas fa-exclamation-circle text-danger"></i></label>
             <input type="text" class="form-control" name="user_id_mix" id="user_id_mix">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_password">user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_password">Password <i class="fas fa-exclamation-circle text-danger"></i></label>
             <input type="password" class="form-control" name="user_password" id="user_password" autocomplete="new-password"> <!-- Disable chrome's autofill -->
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="conf_user_password">conf_user_password <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="conf_user_password">Konfirmasi Password <i class="fas fa-exclamation-circle text-danger"></i></label>
             <input type="password" class="form-control" name="conf_user_password" id="conf_user_password">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_full_name">user_full_name <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_full_name">Nama Lengkap <i class="fas fa-exclamation-circle text-danger"></i></label>
             <input type="text" class="form-control" name="user_full_name" id="user_full_name">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_email">user_email <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_email">Email <i class="fas fa-exclamation-circle text-danger"></i></label>
             <input type="email" class="form-control" name="user_email" id="user_email">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_tel">user_tel <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_tel">No. HP</label>
             <input type="tel" class="form-control" name="user_tel" id="user_tel"><!-- TODO : "type=tel"... Use pattern? -->
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_sex">user_sex <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_sex">Jenis Kelamin <i class="fas fa-exclamation-circle text-danger"></i></label>
             <select class="form-control" name="user_sex" id="user_sex">
               <option value="m">Laki-laki</option>
               <option value="f">Perempuan</option>
@@ -101,17 +101,17 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_bio">user_bio <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_bio">Bio</label>
             <textarea class="form-control" name="user_bio" id="user_bio"></textarea>
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_profile_picture">user_profile_picture <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_profile_picture">Foto Profil</label>
             <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_role">user_role <i class="fas fa-exclamation-circle text-danger"></i></label>
+            <label for="user_role">Peran <i class="fas fa-exclamation-circle text-danger"></i></label>
             <select class="form-control" name="user_role" id="user_role">
               <option value="admin">Admin</option>
               <option value="dosen">Dosen</option>
@@ -121,8 +121,8 @@
           </div>
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-info">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-success">Tambah Pengguna</button>
         </div>
       </div>
       <!-- /.modal-content -->

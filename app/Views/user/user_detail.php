@@ -404,6 +404,14 @@
             $("#user_update_form textarea").removeClass('is-invalid is-valid')
             $("#user_update_form input").removeClass('is-invalid is-valid')
             $("#user_update_form select").removeClass('is-invalid is-valid')
+
+            Swal.fire({
+              title: 'Sukses!',
+              text: "Data berhasil diubah",
+              icon: 'success',
+              timer: 2000,
+              showConfirmButton: false
+            })
           } else {
             $(".overlay").hide()
 

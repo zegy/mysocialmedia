@@ -214,7 +214,6 @@
       dataType: "json",
       success: function(res) {
         if (res.status) {
-          alert('sukses!') // TODO ASAP  : Sweet alert!
           $("#post_modal_update").modal("toggle")
 
           //NOTE : Update post's elements with new value (From prev "formData". Image names is from res)
@@ -241,6 +240,14 @@
               })
             }
           }
+
+          Swal.fire({
+            title: 'Sukses!',
+            text: "Diskusi berhasil diubah",
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          })
         } else {
           set_errors(res.errors)
           $("#post_modal_update .overlay").hide()
@@ -326,11 +333,11 @@
         if($("#cb_update_image").prop("checked") == true){ //NOTE : User req change image
           Swal.fire({
             title: 'Hapus / Ganti Foto?',
-            text: "Foto yang lama akan terhapus!",
+            text: "Foto lama akan terhapus secara permanen",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
             confirmButtonText: 'Ya',
             cancelButtonText: 'Batal'
           }).then((result) => {

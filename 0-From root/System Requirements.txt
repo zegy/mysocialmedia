@@ -1,0 +1,1 @@
+PHP ext : intl, gd

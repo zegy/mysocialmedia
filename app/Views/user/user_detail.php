@@ -396,6 +396,7 @@
             $(".profile-role").text(formData.get('user_role'))
             if (res.image_change_in_profile) {
               $(".profile-user-img").attr('src', "<?= base_url('resource')  . '/users' . '/thumb' ?>" + res.image)
+              $(".profile-user-img").parent().attr('href', "<?= base_url('resource')  . '/users' . '/' ?>" + res.image)
             }
 
             if (res.image_change_in_layout) {

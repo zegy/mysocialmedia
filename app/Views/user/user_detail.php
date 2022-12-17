@@ -367,9 +367,11 @@
       let formData = new FormData(this)
     
       // FCM
-      if ($("#cb_fcm_status").prop("checked") == true) {
+      let cb_fcm = $("#cb_fcm_status").prop("checked")
+
+      if (cb_fcm == true) {
         set()
-      } else if($("#cb_fcm_status").prop("checked") == false){
+      } else if (cb_fcm == false){
         deleteToken()
       }
 

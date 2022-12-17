@@ -58,7 +58,7 @@
             <!-- <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer">See All Messages</a> -->
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer btn-delete-all-notif">Tandai semua telah terbaca</a>
+            <a href="#" class="dropdown-item dropdown-footer btn-delete-all-notif">Hapus semua notifikasi</a>
           </div>
         </li>
         <!-- Navbar Search -->
@@ -265,13 +265,14 @@
         e.preventDefault() //NOTE : Needed because it's a link (a)!
         
         Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
+          title: 'Hapus semua notifikasi?',
+          text: "Semua notifikasi akan terhapus secara permanen",
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+          confirmButtonColor: '#dc3545',
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: 'Hapus',
+          cancelButtonText: 'Batal'
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
@@ -280,16 +281,14 @@
               type: "post",
               success: function(res) {
                 Swal.fire({
-                  title: 'Deleted!',
-                  text: "Your file has been deleted.",
+                  title: 'Sukses!',
+                  text: "Semua notifikasi berhasil dihapus",
                   icon: 'success',
-                  confirmButtonColor: '#3085d6',
-                  confirmButtonText: 'OK'
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    get_notif_list()
-                  }
+                  timer: 2000,
+                  showConfirmButton: false,
                 })
+
+                get_notif_list()
               }
             })
           }

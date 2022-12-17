@@ -84,7 +84,7 @@
           dataType: "json",
           success: function(res) {
             if (res.status) {
-              window.location = "<?= base_url() ?>"
+              window.location = "<?= base_url('group/umum') ?>"
             } else {
               //TODO : Error "animation"
               $('[name="email"]').addClass('is-invalid')

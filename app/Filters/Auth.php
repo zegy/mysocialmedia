@@ -12,7 +12,7 @@ class Auth implements FilterInterface
 	public function before(RequestInterface $request, $arguments = null)
 	{
 		if (session('isLoggedIn') != true) {
-            return redirect()->to('auth');
+            return redirect()->to(base_url('auth'));
 		}
 	}
 

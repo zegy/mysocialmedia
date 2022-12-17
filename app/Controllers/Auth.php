@@ -15,7 +15,7 @@ class Auth extends BaseController
     public function index()
     {
         if (session('isLoggedIn') == true) {
-            return redirect()->to('group/umum');
+            return redirect()->to(base_url('group/umum'));
         }
         else {
             return view('login');
@@ -55,6 +55,6 @@ class Auth extends BaseController
         $this->userModel->save($data);
 
         session()->destroy();
-        return redirect()->to('auth');
+        return redirect()->to(base_url('auth'));
     }
 }

@@ -42,10 +42,6 @@ Options All -Indexes
     RewriteCond %{HTTP:X-Requested-With}    !^XMLHttpRequest$
     RewriteCond %{THE_REQUEST}              ^[^/]*/index\.php [NC]
     RewriteRule ^index\.php(.*)$            $1 [R=301,NS,L]
-
-    # Fix HTTPS issue at rumahweb (hosting). https://www.rumahweb.com/journal/cara-setting-https-pada-codeigniter/
-	RewriteCond %{HTTPS} off
-	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     # NOTE : CUSTOM END
 </IfModule>
 

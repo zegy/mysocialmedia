@@ -33,14 +33,20 @@ Options All -Indexes
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
 
+	# Ensure Authorization header is passed along
+	RewriteCond %{HTTP:Authorization} .
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # NOTE : CUSTOM START
     # Remove index.php from URL //NOTE : Experimental. https://forum.codeigniter.com/showthread.php?tid=78161&pid=383002#pid383002
     RewriteCond %{HTTP:X-Requested-With}    !^XMLHttpRequest$
     RewriteCond %{THE_REQUEST}              ^[^/]*/index\.php [NC]
     RewriteRule ^index\.php(.*)$            $1 [R=301,NS,L]
 
-	# Ensure Authorization header is passed along
-	RewriteCond %{HTTP:Authorization} .
-	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    # Fix HTTPS issue at rumahweb (hosting). https://www.rumahweb.com/journal/cara-setting-https-pada-codeigniter/
+	RewriteCond %{HTTPS} off
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # NOTE : CUSTOM END
 </IfModule>
 
 <IfModule !mod_rewrite.c>

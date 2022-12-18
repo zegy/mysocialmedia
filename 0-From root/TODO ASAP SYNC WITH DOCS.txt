@@ -1,2 +1,0 @@
-ubah signin ke login
-ubah signout ke logout

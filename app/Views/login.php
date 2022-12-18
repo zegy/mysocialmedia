@@ -50,7 +50,7 @@
               </p> -->
             </div><!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-info btn-block">Sign In</button>
+              <button type="submit" class="btn btn-info btn-block">Login</button>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </form>
@@ -75,7 +75,7 @@
         let formData = new FormData(this)
 
         $.ajax({
-          url: "<?= base_url('auth/signin') ?>",
+          url: "<?= base_url('auth/login') ?>",
           type: "post",
           data: formData,
           contentType: false,

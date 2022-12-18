@@ -39,8 +39,8 @@ $routes->set404Override();
 
 $routes->add('/',               'Auth::index');
 $routes->add('auth',            'Auth::index');
-$routes->add('auth/signin',     'Auth::signIn');
-$routes->add('auth/signout',    'Auth::signOut');
+$routes->add('auth/login',     'Auth::login');
+$routes->add('auth/logout',    'Auth::logout');
 
 $routes->add('group/(:segment)',                'Post::index/$1');
 $routes->add('group/(:segment)/detail/(:num)',  'Post::detail/$1/$2'); // TODO : The "$1" / "$group" is not used anywhere. Only needed for 'active menu'. 

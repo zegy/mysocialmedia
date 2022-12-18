@@ -22,7 +22,7 @@ class Auth extends BaseController
         }
     }
 
-    public function signIn() // AJAX
+    public function login() // AJAX
     {
         $user = $this->userModel->where('user_email', $this->request->getPost('email'))->first();
 
@@ -44,7 +44,7 @@ class Auth extends BaseController
         echo json_encode($output);
     }
 
-    public function signOut()
+    public function logout()
     {
         // Remove user's token (FCM)
         $data = [

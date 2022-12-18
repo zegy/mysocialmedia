@@ -349,13 +349,13 @@
       window.location = link
     })
 
-    // Sign out
+    // Logout
     $(document).on("click", ".btn-sign-out", function(e) {
       e.preventDefault()
 
       deleteToken() //FCM
       
-      window.location = "<?php echo base_url('auth/signout') ?>"
+      window.location = "<?php echo base_url('auth/logout') ?>"
     })
 
     // Update user (form submit)

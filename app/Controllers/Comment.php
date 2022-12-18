@@ -47,7 +47,7 @@ class Comment extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
-        $rules = ['komentar' => ['required']];
+        $rules = ['komentar' => ['required', 'max_length[250]']];
 
         if (!$this->validate($rules))
         {
@@ -194,7 +194,7 @@ class Comment extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
-        $rules = ['update_komentar' => ['required']];
+        $rules = ['update_komentar' => ['required', 'max_length[250]']];
 
         if (!$this->validate($rules))
         {

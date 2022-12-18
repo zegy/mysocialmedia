@@ -83,13 +83,13 @@ class User extends BaseController
         }
 
         $rules = [
-            'user_id_mix'    => ['required'],
-            'user_password'  => ['required'],
-            'user_full_name' => ['required'],
-            'user_email'     => ['required'],
-            'user_tel'       => ['required'],
+            'user_id_mix'    => ['required', 'max_length[250]'],
+            'user_password'  => ['required', 'max_length[250]'],
+            'user_full_name' => ['required', 'max_length[250]'],
+            'user_email'     => ['required', 'valid_email', 'is_unique[t_user.user_email]'],
+            'user_tel'       => ['required', 'numeric'],
             'user_sex'       => ['required'],
-            'user_bio'       => ['required'],
+            'user_bio'       => ['required', 'max_length[250]'],
             'user_role'      => ['required'], // NOTE DANGER : Only use if register via admin!
             'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
                 'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
@@ -146,11 +146,11 @@ class User extends BaseController
         }
 
         $rules = [
-            'user_id_mix'    => ['required'],
-            'user_full_name' => ['required'],
-            'user_tel'       => ['required'],
+            'user_id_mix'    => ['required', 'max_length[250]'],
+            'user_full_name' => ['required', 'max_length[250]'],
+            'user_tel'       => ['required', 'numeric'],
             'user_sex'       => ['required'],
-            'user_bio'       => ['required'],
+            'user_bio'       => ['required', 'max_length[250]'],
             'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
                 'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
                 'max_size[user_profile_picture,4096]'
@@ -160,12 +160,12 @@ class User extends BaseController
         // Optional updateable data
         $new_password = $this->request->getPost('user_password');
         if (!empty($new_password)) {
-            $rules['user_password'] = 'required';
+            $rules['user_password'] = 'required'; //TODO
         }
 
         // Admin-only updateable data
         if (session('role') == 'admin') {
-            $rules['user_email'] = 'required';
+            $rules['user_email'] = 'required'; //TODO
             $rules['user_role']  = 'required';
         }
 

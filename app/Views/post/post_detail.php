@@ -236,7 +236,7 @@
               $("#post_modal_update_form #old_images").val(res_images_string)
 
               $.each(res.images, function(index, value) {
-                $("#post_images").append('<div class="col-2"><a href="<?= base_url('resource/posts')  . '/' ?>'+ value +'" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery"><img src="<?= base_url('resource/posts/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
+                $("#post_images").append('<div class="col-2"><a href="<?= base_url('resource/posts')  . '/' ?>'+ value +'" data-toggle="lightbox" data-gallery="gallery"><img src="<?= base_url('resource/posts/thumb') ?>'+ value +'" class="img-fluid mb-2" alt="white sample"/></a></div>')
               })
             }
           }
@@ -572,9 +572,11 @@
       $(this).removeClass('is-invalid is-valid')
     })
 
-    // Reset / hide any modal overlay after modal close
+    // Reset / hide any modal overlay + reset valid status (form) after modal close
     $('.modal').on('hidden.bs.modal', function () {
       $(".overlay").hide()
+      $("textarea").removeClass('is-invalid is-valid')
+      $("input").removeClass('is-invalid is-valid')
     })
   })
 </script>

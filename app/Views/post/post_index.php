@@ -229,9 +229,11 @@
       $(this).removeClass('is-invalid is-valid')
     })
 
-    // Reset / hide any modal overlay after modal close
+    // Reset / hide any modal overlay + reset valid status (form) after modal close
     $('.modal').on('hidden.bs.modal', function () {
       $(".overlay").hide()
+      $("textarea").removeClass('is-invalid is-valid')
+      $("input").removeClass('is-invalid is-valid')
     })
 
     // Show post's user modal (using table's td)

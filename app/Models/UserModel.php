@@ -12,9 +12,9 @@ class UserModel extends Model
     protected $allowedFields =
     [
         'user_id_mix',
-        'user_password',
+        // 'user_password',
         'user_full_name',
-        'user_email',
+        // 'user_email',
         'user_tel',
         'user_profile_picture',
         'user_sex',

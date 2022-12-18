@@ -1,5 +1,2 @@
 ubah signin ke login
 ubah signout ke logout
-controller res extend to base controller! not controller
-
-DANGER BUG (overflow daftar notifikasi)

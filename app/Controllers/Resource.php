@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 
-class Resource extends Controller
+class Resource extends BaseController
 {
     public function index($file_group, $file_name) // Experimental! my simple version
     {

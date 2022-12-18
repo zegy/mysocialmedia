@@ -55,6 +55,9 @@
   <div class="modal fade" id="user_modal_create">
     <div class="modal-dialog">
       <div class="modal-content">
+        <div style="display: none" class="overlay">
+          <i class="fas fa-2x fa-sync fa-spin"></i>
+        </div>
         <div class="modal-header">
           <h4 class="modal-title">Tambah Pengguna</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">

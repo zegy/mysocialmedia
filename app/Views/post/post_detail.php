@@ -87,6 +87,9 @@
   <div class="modal fade" id="post_modal_update">
     <div class="modal-dialog">
       <div class="modal-content">
+        <div style="display: none" class="overlay">
+          <i class="fas fa-2x fa-sync fa-spin"></i>
+        </div>
         <div class="modal-header">
           <h4 class="modal-title">Ubah Diskusi</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">

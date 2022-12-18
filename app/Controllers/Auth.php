@@ -54,7 +54,12 @@ class Auth extends BaseController
 
         $this->userModel->save($data);
 
-        session()->destroy();
+        // TODO (Danger) : Problem removing session! local is okay with this code but not at hosting (also with code below)
+        // session()->destroy();
+        // session_destroy();
+        // $this->session->stop();
+        $this->session->destroy();
+        
         return redirect()->to(base_url('auth'));
     }
 }

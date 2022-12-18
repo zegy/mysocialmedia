@@ -305,6 +305,10 @@
     })
   }
 
+  function redirect_to_user_list() {
+    window.location = "<?= base_url('user') ?>"
+  }
+
   function get_post_list_from_user() {
     $.ajax({
       url: "<?= base_url('post/list_from_user') ?>",
@@ -438,13 +442,14 @@
       let uid = $(this).data("uid")
 
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Hapus pengguna?',
+        text: "Pengguna akan terhapus secara permanen",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
@@ -457,15 +462,12 @@
             success: function(res) {
                 if (res.status) {
                   Swal.fire({
-                    title: 'Deleted!',
-                    text: "Your file has been deleted.",
+                    title: 'Sukses!',
+                    text: "Pengguna berhasil dihapus",
                     icon: 'success',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'OK'
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                    window.location = "<?= base_url('user') ?>"
-                    }
+                    timer: 2000,
+                    showConfirmButton: false,
+                    didClose: redirect_to_user_list // It's a function! syntax for redirect it not working here(?). Currently use this ref : https://stackoverflow.com/questions/46639492/how-to-listen-for-when-sweet-alert-closes
                   })
                 } else {
                   alert('error') // FATAL ERROR

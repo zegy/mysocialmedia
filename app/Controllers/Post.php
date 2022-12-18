@@ -120,8 +120,8 @@ class Post extends BaseController
         }
 
         $rules = [
-            'judul'     => ['required'],
-            'deskripsi' => ['required'],
+            'judul'     => ['required', 'max_length[250]'],
+            'deskripsi' => ['required', 'max_length[250]'],
             'images'    => [ //TODO : set max 5! Problem with image names in SQL
                 'mime_in[images,image/jpg,image/jpeg,image/gif,image/png]',
                 'max_size[images,4096]'
@@ -171,8 +171,8 @@ class Post extends BaseController
         }
 
         $rules = [
-            'judul'     => ['required'],
-            'deskripsi' => ['required'],
+            'judul'     => ['required', 'max_length[250]'],
+            'deskripsi' => ['required', 'max_length[250]'],
             'images'    => [ //TODO : set max 5! Problem with image names in SQL
                 'mime_in[images,image/jpg,image/jpeg,image/gif,image/png]',
                 'max_size[images,4096]'

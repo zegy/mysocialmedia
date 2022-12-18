@@ -425,7 +425,14 @@
 
             set_errors(res.errors)
             if (typeof res.custom_error !== 'undefined') {
-                alert(res.custom_error)
+                // alert(res.custom_error)
+                Swal.fire({
+                title: 'Gagal!',
+                text: res.custom_error,
+                icon: 'error',
+                timer: 5000,
+                showConfirmButton: false
+              })
             }
           }
         }

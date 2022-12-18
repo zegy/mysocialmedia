@@ -141,7 +141,8 @@
                       <div class="offset-sm-2 col-sm-10">
                         <div class="checkbox">
                           <label>
-                            <input type="checkbox" name="cb_fcm_status" id="cb_fcm_status"> Terima <a href="#">Push Notification</a>
+                            <!-- <input type="checkbox" name="cb_fcm_status" id="cb_fcm_status"> Terima <a href="#">Push Notification</a> -->
+                            <input type="checkbox" name="cb_fcm_status" id="cb_fcm_status"> Terima Push Notification
                           </label>                          
                         </div>
                       </div>

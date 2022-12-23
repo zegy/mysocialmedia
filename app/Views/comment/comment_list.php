@@ -25,7 +25,7 @@
             <i class="fas fa-thumbs-down"></i> <?= $comment->nodislike ?>
           </button>
         </div>
-        <?php if ($comment->user_pk == session('id') || session('role') == 'admin') { ?>
+        <?php if ($comment->user_pk == session('id')) { ?>
         <div style="margin-top: 5px; margin-right: 3px" class="float-right">
           <button type="button" class="btn btn-danger btn-xs btn-delete-comment" data-cid="<?= $comment->comment_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
           <button type="button" class="btn btn-secondary btn-xs btn-update-comment" data-cid="<?= $comment->comment_pk ?>"><i class="far fa-edit"></i> Ubah</button>

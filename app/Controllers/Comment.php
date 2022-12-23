@@ -209,7 +209,7 @@ class Comment extends BaseController
             $cid = $this->request->getPost('cid');
             $comment = $this->commentModel->find($cid);
 
-            if ($comment->comment_fk_user != session('id') && session('role') != 'admin') {
+            if ($comment->comment_fk_user != session('id')) {
                 $output['status'] = false;
             }
             else {
@@ -235,7 +235,7 @@ class Comment extends BaseController
         $cid = $this->request->getPost('cid');
         $comment = $this->commentModel->find($cid);
 
-        if ($comment->comment_fk_user != session('id') && session('role') != 'admin') {
+        if ($comment->comment_fk_user != session('id')) {
             echo json_encode(['status' => false]);
         }
         else {

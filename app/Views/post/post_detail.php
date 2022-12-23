@@ -183,6 +183,10 @@
           $("#comment_list_data").html(res.comments)
           $("#count_comments").text(res.comments_count + ' ' + 'Komentar')
 
+          // Sync post and comment card size (experimental!)
+          let post_size = $("#card-body-post").height() + 197
+          $("#comment_list_data").prop("style", "height: auto; max-height: " + post_size + "px; overflow-x: hidden;")
+
           // Auto scroll options
           if (type) {
             if (type == "firstLoad") {
@@ -191,10 +195,6 @@
               $("#comment_list_data").animate({scrollTop:$("#comment_list_data").prop("scrollHeight")}, 1000)
             }
           }
-
-          // Sync post and comment card size (experimental!)
-          let post_size = $("#card-body-post").height() + 197
-          $("#comment_list_data").prop("style", "height: auto; max-height: " + post_size + "px; overflow-x: hidden;")
           
         } else {
           $("#comment_list_data").html('<div style="height: 29px; padding-top: 4px; padding-bottom: 4px; margin-bottom: 0px; font-size:95%;" class="alert-secondary text-center"><i class="icon fas fa-info-circle"></i><span> Belum ada komentar!</span></div>')

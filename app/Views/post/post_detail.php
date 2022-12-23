@@ -35,7 +35,7 @@
               </div>
               <p><b>Judul : </b><span id="post_judul"><?= $post->post_title ?></span></p>
               <p><b>Detail : </b><span id="post_deskripsi"><?= $post->post_text ?></span></p>
-              <?php if (session('id') == $post->user_pk || session('role') == 'admin') { ?>
+              <?php if (session('id') == $post->user_pk) { ?>
               <button type="button" class="btn btn-danger btn-xs" id="btn-delete-post" data-id="<?= $post->post_pk ?>"><i class="far fa-trash-alt"></i> Hapus</button>
               <button type="button" class="btn btn-secondary btn-xs" id="btn-update-post"><i class="far fa-edit"></i> Ubah</button>
               <?php } ?>

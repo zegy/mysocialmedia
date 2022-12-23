@@ -193,7 +193,7 @@ class Post extends BaseController
             $pid = $this->request->getPost('pid');
             $post = $this->postModel->find($pid);
 
-            if ($post->post_fk_user != session('id') && session('role') != 'admin') {
+            if ($post->post_fk_user != session('id')) {
                 $output = ['status' => false];
             }
             else {
@@ -245,7 +245,7 @@ class Post extends BaseController
         $pid  = $this->request->getPost('pid');
         $post = $this->postModel->find($pid);
 
-        if ($post->post_fk_user != session('id') && session('role') != 'admin') {
+        if ($post->post_fk_user != session('id')) {
             echo json_encode(['status' => false]);
         }
         else {

@@ -30,6 +30,12 @@
       .notif-role-admin{color: #dc3545}
       .notif-role-dosen{color: #ffc107}
       .notif-role-mahasiswa{color: #17a2b8}
+      
+      /* change post table's element ("post_td_title" in post_list and post_list_from_user) on mouse hover */
+      .post_td_title:hover {color: #fff; background-color: #17a2b8}
+
+      /* change post table's element ("post_td_user" in post_list) on mouse hover */
+      .post_td_user:hover {color: #fff; background-color: #17a2b8}
   </style>  
 </head>
 

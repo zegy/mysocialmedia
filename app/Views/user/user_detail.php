@@ -348,7 +348,7 @@
     <?php } ?>
 
     // Redirect to post_detail after click post_text's area (The table's td)
-    $(document).on("click", ".post_td_text", function(e) {
+    $(document).on("click", ".post_td_title", function(e) {
       e.preventDefault()
       let link = $(this).data('link')
       window.location = link

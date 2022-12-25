@@ -108,7 +108,7 @@
             <div class="invalid-feedback"></div>
           </div>
           <div style="display: none" class="form-group" id="images_input">
-            <label for="images">Foto </label>
+            <label for="images">Foto <small style="padding-left: 1px">(Bisa lebih dari satu. Format : jpg/jpeg/gif/png. Max : 4mb)</small></label>
             <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple>
             <div class="invalid-feedback"></div>
           </div>

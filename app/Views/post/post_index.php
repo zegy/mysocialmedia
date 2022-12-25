@@ -74,7 +74,7 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="images">Foto <small style="padding-left: 1px">(Bisa lebih dari satu)</small></label>
+            <label for="images">Foto <small style="padding-left: 1px">(Bisa lebih dari satu. Format : jpg/jpeg/gif/png. Max : 4mb)</small></label>
             <input style="height: 45px" type="file" class="form-control" name="images[]" id="images" multiple> <!-- NOTE (Pending) : max file count -->
             <div class="invalid-feedback"></div>
           </div>

@@ -88,14 +88,8 @@ class User extends BaseController
             'conf_user_password' => ['required', 'matches[user_password]'],
             'user_full_name' => ['required', 'max_length[250]'],
             'user_email'     => ['required', 'valid_email', 'is_unique[t_user.user_email]'],
-            'user_tel'       => ['required', 'numeric'],
             'user_sex'       => ['required'],
-            'user_bio'       => ['required', 'max_length[250]'],
-            'user_role'      => ['required'], // NOTE DANGER : Only use if register via admin!
-            'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
-                'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
-                'max_size[user_profile_picture,4096]'
-            ]
+            'user_role'      => ['required'] // NOTE DANGER : Only use if register via admin!
         ];
 
         if (!$this->validate($rules)) {

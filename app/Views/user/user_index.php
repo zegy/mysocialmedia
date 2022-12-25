@@ -91,26 +91,11 @@
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">
-            <label for="user_tel">No. HP</label>
-            <input type="tel" class="form-control" name="user_tel" id="user_tel"><!-- TODO : "type=tel"... Use pattern? -->
-            <div class="invalid-feedback"></div>
-          </div>
-          <div class="form-group">
             <label for="user_sex">Jenis Kelamin <i class="fas fa-exclamation-circle text-danger"></i></label>
             <select class="form-control" name="user_sex" id="user_sex">
               <option value="m">Laki-laki</option>
               <option value="f">Perempuan</option>
             </select>
-            <div class="invalid-feedback"></div>
-          </div>
-          <div class="form-group">
-            <label for="user_bio">Bio</label>
-            <textarea class="form-control" name="user_bio" id="user_bio"></textarea>
-            <div class="invalid-feedback"></div>
-          </div>
-          <div class="form-group">
-            <label for="user_profile_picture">Foto Profil</label>
-            <input style="height: 45px" type="file" class="form-control" name="user_profile_picture" id="user_profile_picture">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group">

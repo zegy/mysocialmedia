@@ -75,7 +75,7 @@
                     <div class="form-group row">
                       <label for="user_email" class="col-sm-2 col-form-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" name="user_email" id="user_email" value="<?= $user->user_email ?>" <?php if (session('role') != 'admin') { ?> readonly <?php } ?>>
+                        <input type="email" class="form-control" name="user_email" id="user_email" value="<?= $user->user_email ?>">
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
@@ -110,7 +110,7 @@
                         <div class="invalid-feedback"></div>
                       </div>
                     </div>
-                    <?php if (session('id') == $user->user_pk || session('role') == 'admin') { ?>
+                    <?php if (session('id') == $user->user_pk) { ?>
                     <div class="form-group row">
                       <div class="offset-sm-2 col-sm-10">
                         <div class="checkbox">
@@ -340,11 +340,16 @@
       $("#cb_fcm_status").attr('checked','checked') // TODO : better method! because rn is selected="selected". What about prop?
     }
 
-    // Disable user_update_form "inputs" if not owner or admin
-    <?php if ($user->user_pk != session('id') && session('role') != 'admin') { ?>
+    // Disable user_update_form "inputs" based on session and role (Experimental!)
+    <?php if ($user->user_pk != session('id')) { ?>
       $("input").prop("readonly", true)
       $("textarea").prop("readonly", true)
       $("select").prop("disabled", true)
+    <?php } ?>
+
+    <?php if (session('role') == 'admin') { ?>
+      $("#user_password").prop("readonly", false)
+      $("#conf_user_password").prop("readonly", false)
     <?php } ?>
 
     // Redirect to post_detail after click post_text's area (The table's td)

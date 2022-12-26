@@ -143,6 +143,7 @@ class User extends BaseController
         $rules = [
             'user_id_mix'    => ['required', 'max_length[250]'],
             'user_full_name' => ['required', 'max_length[250]'],
+            'user_email'     => ['required', 'valid_email'], //TODO : is_unique[t_user.user_email]. Set condition / rule if email is exactly same as current "update" user
             'user_tel'       => ['required', 'numeric'],
             'user_sex'       => ['required'],
             'user_bio'       => ['required', 'max_length[250]'],
@@ -164,10 +165,6 @@ class User extends BaseController
 
         // Admin-only updateable data
         if (session('role') == 'admin') {
-            $rules['user_email'][0] = 'required';
-            $rules['user_email'][1] = 'valid_email';
-            // $rules['user_email'][2] = 'is_unique[t_user.user_email]'; //TODO (DANGER) : Set condition / rule if email is exactly same as current "update" user
-
             $rules['user_role']  = 'required';
         }
 
@@ -204,6 +201,7 @@ class User extends BaseController
                     'user_pk'        => $uid,
                     'user_id_mix'    => $this->request->getPost('user_id_mix'),
                     'user_full_name' => $this->request->getPost('user_full_name'),
+                    'user_email'     => $this->request->getPost('user_email'),
                     'user_tel'       => $this->request->getPost('user_tel'),
                     'user_sex'       => $this->request->getPost('user_sex'),
                     'user_bio'       => $this->request->getPost('user_bio')
@@ -216,7 +214,6 @@ class User extends BaseController
 
                 // Admin-only updateable data
                 if (session('role') == 'admin') {
-                    $data['user_email'] = $this->request->getPost('user_email');
                     $data['user_role']  = $this->request->getPost('user_role');
                 }
 

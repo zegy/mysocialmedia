@@ -140,63 +140,46 @@ class User extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound(); // This halts the current flow. https://codeigniter.com/user_guide/general/errors.html#using-exceptions
         }
 
-        $rules = [
-            'user_id_mix'    => ['required', 'max_length[250]'],
-            'user_full_name' => ['required', 'max_length[250]'],
-            'user_email'     => ['required', 'valid_email'], //TODO : is_unique[t_user.user_email]. Set condition / rule if email is exactly same as current "update" user
-            'user_tel'       => ['required', 'numeric'],
-            'user_sex'       => ['required'],
-            'user_bio'       => ['required', 'max_length[250]'],
-            'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
-                'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
-                'max_size[user_profile_picture,4096]'
-            ]
-        ];
+        $uid = $this->request->getPost('uid');
 
-        // Optional updateable data
-        $new_password = $this->request->getPost('user_password');
-        if (!empty($new_password)) {
-            $rules['user_password'] = 'max_length[250]';
-
-            $rules['conf_user_password'][0] = 'required';
-            $rules['conf_user_password'][1] = 'max_length[250]';
-            $rules['conf_user_password'][2] = 'matches[user_password]';
-        }
-
-        // Admin-only updateable data
-        if (session('role') == 'admin') {
-            $rules['user_role']  = 'required';
-        }
-
-        if (!$this->validate($rules)) {
-            foreach ($rules as $key => $value) {
-                $errors[$key] = $this->validation->getError($key);
-            }
-
-            $output = [
-                'status' => false,
-                'errors' => $errors
+        // Set rules based on role (owner vs admin)
+        if (session('id') == $uid) {
+            $rules = [
+                'user_id_mix'    => ['required', 'max_length[250]'],
+                'user_full_name' => ['required', 'max_length[250]'],
+                'user_email'     => ['required', 'valid_email'], //TODO : is_unique[t_user.user_email]. Set condition / rule if email is exactly same as current "update" user
+                'user_tel'       => ['required', 'numeric'],
+                'user_sex'       => ['required'],
+                'user_bio'       => ['required', 'max_length[250]'],
+                'user_profile_picture' => [ //TODO : set max 5! Problem with image names in SQL. Also don't forget the 'uploaded'!)
+                    'mime_in[user_profile_picture,image/jpg,image/jpeg,image/gif,image/png]',
+                    'max_size[user_profile_picture,4096]'
+                ]
             ];
-        }
-        else {
-            $uid  = $this->request->getPost('uid');
-            $user = $this->userModel->find($uid);
 
-            $updatable = true; // Default value (Changeable with below code)
-            if ($user->user_role == 'admin' && $this->request->getPost('user_role') != 'admin') { // Prevent the last admin to change role
-                $isLastAdmin = $this->userModel->where('user_role', 'admin')->countAllResults() == 1;
-                if ($isLastAdmin) {
+            // Optional updateable data
+            $new_password = $this->request->getPost('user_password');
+            if (!empty($new_password)) {
+                $rules['user_password'] = 'max_length[250]';
 
-                    $output['custom_error'] = 'Sistem harus memiliki setidaknya satu admin!';
-                    
-                    $updatable = false;
-                } 
+                $rules['conf_user_password'][0] = 'required';
+                $rules['conf_user_password'][1] = 'max_length[250]';
+                $rules['conf_user_password'][2] = 'matches[user_password]';
             }
-            else if ($user->user_pk != session('id') && session('role') != 'admin') {
-                $updatable = false;
+
+            if (!$this->validate($rules)) {
+                foreach ($rules as $key => $value) {
+                    $errors[$key] = $this->validation->getError($key);
+                }
+
+                $output = [
+                    'status' => false,
+                    'errors' => $errors
+                ];
             }
-        
-            if ($updatable) {
+            else {
+                $user = $this->userModel->find($uid);
+
                 $data = [
                     'user_pk'        => $uid,
                     'user_id_mix'    => $this->request->getPost('user_id_mix'),
@@ -212,16 +195,11 @@ class User extends BaseController
                     $data['user_password'] = password_hash($new_password, PASSWORD_DEFAULT); //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
                 }
 
-                // Admin-only updateable data
-                if (session('role') == 'admin') {
-                    $data['user_role']  = $this->request->getPost('user_role');
-                }
-
                 $isUpdateImg = $this->request->getPost('cb_update_image');
 
                 if ($isUpdateImg == true) {
                     $old_image = $user->user_profile_picture;
-    
+
                     if (!empty($old_image)) {
                         $this->delete_user_image($old_image); // Remove image
                     }
@@ -258,10 +236,38 @@ class User extends BaseController
                 
                 $output['status'] = true;
             }
+        }
+        else if (session('role') == 'admin') {
+            $rules = [
+                'user_password'      => ['required', 'max_length[250]'],
+                'conf_user_password' => ['required', 'max_length[250]', 'matches[user_password]']
+            ];
+
+            if (!$this->validate($rules)) {
+                foreach ($rules as $key => $value) {
+                    $errors[$key] = $this->validation->getError($key);
+                }
+
+                $output = [
+                    'status' => false,
+                    'errors' => $errors
+                ];
+            }
             else {
-                $output['status'] = false;
+                $user = $this->userModel->find($uid);
+
+                $new_password = $this->request->getPost('user_password');
+                $data = [
+                    'user_pk'        => $uid,
+                    'user_password'  => password_hash($new_password, PASSWORD_DEFAULT) //NOTE Using PHP’s Password Hashing extension. https://codeigniter.com/user_guide/libraries/encryption.html#encryption-service (Just to see the 'Important' note!). https://www.php.net/manual/en/function.password-hash.php
+                ];
+
+                $this->userModel->save($data);
+                
+                $output['status'] = true;
             }
         }
+   
         echo json_encode($output);
     }
 
